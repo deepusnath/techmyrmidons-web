@@ -1,0 +1,23 @@
+# Techmyrmidons
+
+> Domain tool radars maintained by the Purple Movement's Evolve chapters: what practitioners actually use (Adopt/Trial/Assess/Hold), how each landscape moved 2022-2026, and a proof-of-work skill ladder per domain. Load a radar as context and ask: "given this radar and my ladder level, plan my next month."
+
+## Radars (AI context packs)
+
+- [Artificial Intelligence](radars/artificial-intelligence.md)
+- [Web & Frontend](radars/web-and-frontend.md)
+- [Platform & Cloud](radars/platform-and-cloud.md)
+- [Cybersecurity](radars/cybersecurity.md)
+- [Spacetech](radars/spacetech.md)
+- [Game Development](radars/game-development.md)
+- [HR-Tech & Future of Work](radars/hr-tech.md)
+
+## System
+
+- [How curation works: AI proposes, practitioners dispose](radars/README.md)
+- [Vision](VISION.md)
+- [Roadmap](ROADMAP.md)
+
+## Provenance note
+
+Entries are labeled [validated], [ai-seeded], or [contested]. The July 2026 baseline is AI-seeded (knowledge through January 2026) pending validation by the owning Evolve chapters. Treat [ai-seeded] entries as a well-informed draft, not settled truth.
