@@ -1,0 +1,21 @@
+{
+  "slug": "alcatraz",
+  "domain": "ios",
+  "name": "Alcatraz",
+  "category": null,
+  "homepage": "https://github.com/alcatraz/Alcatraz",
+  "one_liner": null,
+  "what_it_is": "If you’re looking to add on to Xcode, try Alcatraz. It’s a package manager for Xcode that allows you to install additional plug-ins inside your IDE. Alcatraz is only available for OSX 10.9+ and Xcode 5+.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2019.json"
+}

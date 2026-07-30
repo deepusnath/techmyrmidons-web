@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "augmented-blog",
+    "domain": "arvr",
+    "title": "Augmented Blog",
+    "url": "http://www.augmented.org/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/blog.json"
+  },
+  {
+    "slug": "gigantico",
+    "domain": "arvr",
+    "title": "Gigantico",
+    "url": "http://gigantico.squarespace.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/blog.json"
+  },
+  {
+    "slug": "upload-vr",
+    "domain": "arvr",
+    "title": "Upload VR",
+    "url": "https://uploadvr.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/blog.json"
+  },
+  {
+    "slug": "road-tovr",
+    "domain": "arvr",
+    "title": "Road Tovr",
+    "url": "https://www.roadtovr.com",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/blog.json"
+  }
+]

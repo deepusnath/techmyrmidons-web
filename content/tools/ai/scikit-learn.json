@@ -1,0 +1,23 @@
+{
+  "slug": "scikit-learn",
+  "domain": "ai",
+  "name": "scikit-learn",
+  "category": null,
+  "homepage": "https://github.com/scikit-learn/scikit-learn",
+  "one_liner": null,
+  "what_it_is": "scikit-learn is a Python module for machine learning built on top of SciPy and distributed under the 3-Clause BSD license.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json"
+}

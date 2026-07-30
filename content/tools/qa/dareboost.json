@@ -1,0 +1,21 @@
+{
+  "slug": "dareboost",
+  "domain": "qa",
+  "name": "Dareboost",
+  "category": null,
+  "homepage": "https://www.dareboost.com/en/home",
+  "one_liner": null,
+  "what_it_is": "Dareboost is designed for triggering insightful audit of the website on quality and performance . DareBoost detects the root causes of slowdowns and provides tailor-made suggestions to fix them. It provides a comprehensive report of the website performance and quality, with real browser metrics and top of the range tips to drive optimization in a few seconds. Dareboost also carry out website monitoring and speed comparison for competitive advantage.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json"
+}

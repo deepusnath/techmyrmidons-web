@@ -1,0 +1,23 @@
+{
+  "slug": "git",
+  "domain": "ios",
+  "name": "GIT",
+  "category": null,
+  "homepage": "http://git-scm.com/downloads",
+  "one_liner": null,
+  "what_it_is": "Git is a free distributed version control system. Android Studio comes with Git client. All we need to do is just enable and start using it. As a prerequisite, you need to have Git installed in the local system. Dive deeper into Git at https://source.android.com/source/developing.html",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "bun",
+  "name": "Bun",
+  "category": "runtime and tooling",
+  "homepage": "https://bun.sh/",
+  "lifecycle": "emerging",
+  "first_seen_year": 2022,
+  "one_liner": "JavaScript runtime, package manager, bundler and test runner in one binary.",
+  "what_it_is": "A JavaScript runtime built on JavaScriptCore rather than V8, bundling a package manager, bundler, test runner and TypeScript support into a single fast executable, with substantial Node.js API compatibility.",
+  "why_it_matters": "Bun is the consolidation argument applied to the whole toolchain rather than one layer. Many teams adopt it only as a package manager, which is a low-risk way to get most of the benefit. Treat the runtime as emerging: Node compatibility is good and improving but not total, and that gap is exactly where production surprises live.",
+  "suitable_for": [
+    "Fast package installs, as a drop-in npm replacement",
+    "Scripts and tooling where startup time matters",
+    "Greenfield projects willing to track a fast-moving runtime"
+  ],
+  "not_suitable_for": [
+    "Production services depending on native Node addons or less-common Node APIs",
+    "Teams needing the operational maturity and long-term support Node provides"
+  ],
+  "alternatives": [
+    "Node.js",
+    "Deno",
+    "pnpm"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

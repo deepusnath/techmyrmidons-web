@@ -1,0 +1,30 @@
+{
+  "slug": "testing-library",
+  "name": "Testing Library",
+  "category": "testing",
+  "homepage": "https://testing-library.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "Query components the way users find them, not by implementation detail.",
+  "what_it_is": "A family of libraries for querying rendered components by accessible role, label and visible text rather than by class names or component internals, with bindings for React, Vue, Svelte and others.",
+  "why_it_matters": "Its lasting contribution is a principle rather than an API: tests coupled to implementation break on every refactor and therefore get deleted. Querying by accessible role has the useful side effect of surfacing accessibility problems, because a component you cannot query by role is usually one a screen reader cannot navigate either.",
+  "suitable_for": [
+    "Component tests intended to survive refactoring",
+    "Teams wanting tests that incidentally check accessibility",
+    "Any of the frameworks it provides bindings for"
+  ],
+  "not_suitable_for": [
+    "Testing genuinely internal logic, which belongs in plain unit tests",
+    "Full user-journey coverage, which needs an E2E tool"
+  ],
+  "alternatives": [
+    "Enzyme (unmaintained)",
+    "Playwright component testing",
+    "Cypress component testing"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

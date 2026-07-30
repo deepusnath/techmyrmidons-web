@@ -1,0 +1,23 @@
+{
+  "slug": "h2o-ai",
+  "domain": "ai",
+  "name": "H2O Ai",
+  "category": null,
+  "homepage": "https://www.h2o.ai/",
+  "one_liner": null,
+  "what_it_is": "H2O.ai makes machine learning accessible and allows business users to extract insights from data, without needing expertise in deploying or tuning machine learning models.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json"
+}

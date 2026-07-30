@@ -1,0 +1,21 @@
+{
+  "slug": "ghostlab",
+  "domain": "qa",
+  "name": "Ghostlab",
+  "category": null,
+  "homepage": "https://www.vanamco.com/ghostlab/",
+  "one_liner": null,
+  "what_it_is": "Ghostlab is a Responsive Design Testing tool that allows to test responsive design of a website across a variety of devices and browsers. With so many mobile devices in the market, responsiveness of any UI is mandatory, especially for any new applications being built. The test is handled by few open source online tools at different screen sizes.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json"
+}

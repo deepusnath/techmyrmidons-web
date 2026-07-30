@@ -1,0 +1,21 @@
+{
+  "slug": "corda",
+  "domain": "blockchain",
+  "name": "Corda",
+  "category": null,
+  "homepage": "https://www.corda.net",
+  "one_liner": null,
+  "what_it_is": "Corda allows you to build interoperable blockchain networks that transact in strict privacy. Corda’s smart contract technology allows businesses to transact directly, with value.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/blockchain/2019.json"
+}

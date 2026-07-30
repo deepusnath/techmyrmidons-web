@@ -1,0 +1,32 @@
+{
+  "slug": "cursor",
+  "name": "Cursor",
+  "category": "AI assistance",
+  "homepage": "https://cursor.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "Editor built around AI assistance rather than adding it as an extension.",
+  "what_it_is": "A VS Code-derived editor where AI is the primary interaction model — codebase-aware chat, multi-file edits applied as reviewable diffs, and inline completion — rather than a plugin bolted onto an existing workflow.",
+  "why_it_matters": "Cursor's bet was that assistance built into the editor beats assistance added to it, mainly because it can reason over the whole codebase rather than the open file. Whether the editor or the terminal is the right home for this is genuinely unsettled, and that is worth saying plainly rather than declaring a winner.",
+  "suitable_for": [
+    "Multi-file changes that need whole-codebase context",
+    "Developers already comfortable in VS Code",
+    "Exploring unfamiliar codebases"
+  ],
+  "not_suitable_for": [
+    "Teams committed to JetBrains, Neovim or another editor",
+    "Organisations that cannot send source code to a third-party service",
+    "Developers who find AI suggestions disrupt rather than assist their flow"
+  ],
+  "alternatives": [
+    "GitHub Copilot",
+    "Claude Code",
+    "Windsurf",
+    "Zed"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

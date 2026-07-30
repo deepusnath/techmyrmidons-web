@@ -1,0 +1,31 @@
+{
+  "slug": "playwright",
+  "name": "Playwright",
+  "category": "testing",
+  "homepage": "https://playwright.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2020,
+  "one_liner": "Cross-browser end-to-end testing with auto-waiting and strong debugging tools.",
+  "what_it_is": "A browser automation and end-to-end testing framework driving Chromium, Firefox and WebKit through one API, with automatic waiting for elements, parallel execution, and a trace viewer that records a replayable timeline of failed runs.",
+  "why_it_matters": "Playwright made end-to-end tests substantially less flaky by making waiting implicit rather than something you hand-code with sleeps. The trace viewer in particular changed the economics of CI failures — you can see what happened rather than guess. It has become the default for new E2E work.",
+  "suitable_for": [
+    "End-to-end testing across multiple browser engines",
+    "Teams that have abandoned E2E testing before because of flakiness",
+    "Debugging CI-only failures via traces"
+  ],
+  "not_suitable_for": [
+    "Unit testing, which it is far too heavy for",
+    "Environments that cannot run browser binaries in CI",
+    "Teams without capacity to maintain an E2E suite — the failure mode is a suite everyone ignores"
+  ],
+  "alternatives": [
+    "Cypress",
+    "Selenium",
+    "WebdriverIO"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

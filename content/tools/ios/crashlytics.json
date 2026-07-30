@@ -1,0 +1,23 @@
+{
+  "slug": "crashlytics",
+  "domain": "ios",
+  "name": "Crashlytics",
+  "category": null,
+  "homepage": "http://try.crashlytics.com/sdk/",
+  "one_liner": null,
+  "what_it_is": "Crashlytics is the most secure, powerful and lightweight solution available for mobile crash. Crashlytics holds proven history of their performance benchmarks in hundreds of applications like Yammer, Flydelta and many more. Crashlytics for iOS and tvOS delivers interactive, detailed crash reports in real time. Each and every thread is analysed and prioritized.This helps to list the important ones so you can spend less time finding and more time fixing issues.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

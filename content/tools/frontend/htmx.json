@@ -1,0 +1,32 @@
+{
+  "slug": "htmx",
+  "name": "htmx",
+  "category": "UI framework",
+  "homepage": "https://htmx.org/",
+  "lifecycle": "emerging",
+  "first_seen_year": 2020,
+  "one_liner": "Hypermedia-driven interactivity via HTML attributes, with no client framework.",
+  "what_it_is": "A small library that lets HTML elements issue requests and swap response fragments into the page using attributes, so interactivity is expressed in markup and the server keeps returning HTML rather than JSON.",
+  "why_it_matters": "htmx is the clearest articulation of a counter-argument worth taking seriously: that a large share of applications adopted a client-side framework and an API layer to solve problems they did not actually have. For CRUD-shaped software with a server already rendering pages, it can remove an entire tier of complexity. Listed as emerging because its ecosystem and its applicability ceiling are both still being mapped.",
+  "suitable_for": [
+    "Server-rendered applications adding interactivity incrementally",
+    "Teams whose strength is backend, not frontend",
+    "CRUD software where a SPA was never justified"
+  ],
+  "not_suitable_for": [
+    "Highly interactive client state — editors, canvases, real-time collaboration",
+    "Offline-first applications",
+    "Teams needing a large component ecosystem"
+  ],
+  "alternatives": [
+    "Alpine.js",
+    "Turbo",
+    "Vue",
+    "plain server rendering"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "turbopack",
+  "name": "Turbopack",
+  "category": "build and bundling",
+  "homepage": "https://turbo.build/pack",
+  "lifecycle": "emerging",
+  "first_seen_year": 2022,
+  "one_liner": "Rust-based incremental bundler, primarily a Next.js concern for now.",
+  "what_it_is": "An incremental bundler written in Rust, designed around caching work at function-call granularity so that rebuilds do the minimum possible. It is developed alongside and mainly consumed through Next.js.",
+  "why_it_matters": "Worth tracking rather than adopting independently. Its relevance today is almost entirely determined by whether you use Next.js; outside that, Vite remains the sensible default. Listed as emerging because its story outside its parent framework is not yet established.",
+  "suitable_for": [
+    "Next.js projects on versions where it is the supported default",
+    "Very large codebases where incremental rebuild cost dominates"
+  ],
+  "not_suitable_for": [
+    "Projects outside the Next.js ecosystem today",
+    "Teams that need a stable, broadly documented plugin surface"
+  ],
+  "alternatives": [
+    "Vite",
+    "webpack",
+    "Rspack"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

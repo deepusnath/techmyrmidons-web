@@ -1,0 +1,35 @@
+{
+  "slug": "bootstrap",
+  "domain": "frontend",
+  "name": "Bootstrap",
+  "category": "styling",
+  "homepage": "https://getbootstrap.com/",
+  "one_liner": "Component-and-grid CSS framework that made responsive layout routine.",
+  "what_it_is": "A CSS framework shipping pre-built components — navbars, modals, forms, cards — with a responsive grid and utility classes. Recent versions dropped the jQuery dependency and moved the grid onto flexbox and CSS grid.",
+  "why_it_matters": "Bootstrap solved responsive layout when doing it by hand was genuinely hard, and it is still a sensible choice when you need a working interface faster than you need a distinctive one. Two things changed around it: native flexbox and grid removed the layout problem most teams actually bought it for, and its component styling is recognisable enough that products using it un-customised tend to look like one another. That is a real trade to weigh, not a reason to dismiss it.",
+  "lifecycle": "established",
+  "first_seen_year": 2011,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [
+    "Internal tools and admin interfaces where speed beats distinctiveness",
+    "Prototypes needing a complete component set immediately",
+    "Teams with no design resource who need sane defaults"
+  ],
+  "not_suitable_for": [
+    "Products with a distinct visual identity, where overriding it can cost more than starting from scratch",
+    "Projects that only wanted a grid — native CSS grid covers that now",
+    "Bundle-size-sensitive work, unless you are disciplined about importing only what you use"
+  ],
+  "alternatives": [
+    "Tailwind CSS",
+    "native CSS grid and flexbox",
+    "Pico CSS",
+    "Open Props"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

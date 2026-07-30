@@ -1,0 +1,21 @@
+{
+  "slug": "codeigniter",
+  "domain": "web",
+  "name": "Codeigniter 3.1.2",
+  "category": null,
+  "homepage": "https://www.codeigniter.com/",
+  "one_liner": null,
+  "what_it_is": "CodeIgniter is an Application Development Framework - a toolkit - for people who build full-featured web applications using PHP. CodeIgniter project developments are set much faster and minimizes the amount of code needed for a given task. It provides a large number of classes that are included for working with different objects: calendar, database, email, image editing, FTP, language, tables, sessions, ZIP compression, etc.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}

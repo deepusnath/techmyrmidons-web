@@ -1,0 +1,32 @@
+{
+  "slug": "astro",
+  "name": "Astro",
+  "category": "site framework",
+  "homepage": "https://astro.build/",
+  "lifecycle": "established",
+  "first_seen_year": 2021,
+  "one_liner": "Content-first framework that ships zero JavaScript by default.",
+  "what_it_is": "A framework for content-driven sites that renders to static HTML by default and hydrates only components you explicitly mark as interactive. It can host components from React, Vue, Svelte and others in the same project.",
+  "why_it_matters": "Astro inverted the default. Where SPA frameworks ship a runtime and let you opt out, Astro ships nothing and makes you opt in per component. For documentation, marketing and editorial sites — a large share of real frontend work — this is straightforwardly the better trade, and it is the tool most likely to be missing from the stack of someone who learned frontend inside a SPA framework.",
+  "suitable_for": [
+    "Documentation, marketing, blogs and editorial sites",
+    "Projects wanting to reuse existing React or Vue components without the runtime cost",
+    "Teams prioritising load performance"
+  ],
+  "not_suitable_for": [
+    "Application-shaped products with pervasive client state",
+    "Dashboards and highly stateful interfaces",
+    "Anything where most of the page is interactive"
+  ],
+  "alternatives": [
+    "Next.js",
+    "Eleventy",
+    "Nuxt",
+    "SvelteKit"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

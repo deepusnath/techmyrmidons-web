@@ -1,0 +1,21 @@
+{
+  "slug": "postman",
+  "domain": "web",
+  "name": "Postman",
+  "category": null,
+  "homepage": "https://www.getpostman.com/docs/",
+  "one_liner": null,
+  "what_it_is": "Postman is the swiss army knife of API tools. This allows you to design, build, test, document and monitor your services, all in one place. Postman is available as a Chrome browser plugin, but now it is a stand alone application which requires download. It is also a free tool that helps you be more efficient while working with APIs.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}

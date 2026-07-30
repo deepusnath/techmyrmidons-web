@@ -1,0 +1,23 @@
+{
+  "slug": "oryx",
+  "domain": "ai",
+  "name": "Oryx 2",
+  "category": null,
+  "homepage": "http://oryx.io/",
+  "one_liner": null,
+  "what_it_is": "Oryx 2 is a realisation of Lambda architecture built on Apache Spark and Apache Kafka for real-time large scale machine learning. It is designed for building applications and includes packaged, end-to-end applications for collaborative filtering, classification, regression and clustering.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json"
+}

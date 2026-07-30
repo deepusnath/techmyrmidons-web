@@ -1,0 +1,62 @@
+[
+  {
+    "id": "biotech:ethereum:archive:2017",
+    "tool_slug": "ethereum",
+    "domain": "biotech",
+    "tier": "editorial",
+    "source_url": null,
+    "source_label": "Original TechMyrmidons curation, 2017",
+    "observed_at": "2017-01-01",
+    "actor_type": "editor",
+    "actor_id": null,
+    "note": null,
+    "confidence": "medium",
+    "is_seed": true,
+    "seed_source": "src/data/biotech/2017.json"
+  },
+  {
+    "id": "biotech:hyperledger-indy:archive:2017",
+    "tool_slug": "hyperledger-indy",
+    "domain": "biotech",
+    "tier": "editorial",
+    "source_url": null,
+    "source_label": "Original TechMyrmidons curation, 2017",
+    "observed_at": "2017-01-01",
+    "actor_type": "editor",
+    "actor_id": null,
+    "note": null,
+    "confidence": "medium",
+    "is_seed": true,
+    "seed_source": "src/data/biotech/2017.json"
+  },
+  {
+    "id": "biotech:hyperledger-iroha:archive:2017",
+    "tool_slug": "hyperledger-iroha",
+    "domain": "biotech",
+    "tier": "editorial",
+    "source_url": null,
+    "source_label": "Original TechMyrmidons curation, 2017",
+    "observed_at": "2017-01-01",
+    "actor_type": "editor",
+    "actor_id": null,
+    "note": null,
+    "confidence": "medium",
+    "is_seed": true,
+    "seed_source": "src/data/biotech/2017.json"
+  },
+  {
+    "id": "biotech:sawtooth:archive:2017",
+    "tool_slug": "sawtooth",
+    "domain": "biotech",
+    "tier": "editorial",
+    "source_url": null,
+    "source_label": "Original TechMyrmidons curation, 2017",
+    "observed_at": "2017-01-01",
+    "actor_type": "editor",
+    "actor_id": null,
+    "note": null,
+    "confidence": "medium",
+    "is_seed": true,
+    "seed_source": "src/data/biotech/2017.json"
+  }
+]

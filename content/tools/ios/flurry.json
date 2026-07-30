@@ -1,0 +1,23 @@
+{
+  "slug": "flurry",
+  "domain": "ios",
+  "name": "FLURRY",
+  "category": null,
+  "homepage": "https://developer.yahoo.com/flurry/docs/analytics/gettingstarted/ios/",
+  "one_liner": null,
+  "what_it_is": "It is pretty difficult to match an app’s built purpose with customer usage. A proper analytics bridges this gap. Getting started with Flurry SDKs is easy and fast. Flurry helps to measure and analyze activity across your app portfolio to optimize your app experience. By using Flurry Analytics, you can witness an improved in-app purchase rates. It supports your action to serve the customer with confidence.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

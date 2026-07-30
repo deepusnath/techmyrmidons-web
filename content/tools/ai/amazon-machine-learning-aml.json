@@ -1,0 +1,23 @@
+{
+  "slug": "amazon-machine-learning-aml",
+  "domain": "ai",
+  "name": "Amazon Machine Learning (AML)",
+  "category": null,
+  "homepage": "https://romannurik.github.io/AndroidAssetStudio/",
+  "one_liner": null,
+  "what_it_is": "Amazon Machine Learning (AML) is a machine learning service for developers. It has many visualisation tools and wizards for creating high-end sophisticated and intelligent machine learning models without any need to learn complex ML algorithms and technologies. Via AML, predictions for applications can be obtained using simple APIs without using custom prediction generation code or complex infrastructure. AML is based on simple, scalable, dynamic and flexible ML technology used by Amazons Internal Scientists community professionals to create Amazon Cloud Services. AML connects to data stored in Amazon S3, Redshift or RDS, and can run binary classification, multi-class categorisation or regression on this data to create models.The key contents used in Amazon ML are listed below.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json"
+}

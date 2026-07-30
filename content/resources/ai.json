@@ -1,0 +1,146 @@
+[
+  {
+    "slug": "aitrends",
+    "domain": "ai",
+    "title": "AiTrends",
+    "url": "https://aitrends.com/.",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "machine-learning-mastery",
+    "domain": "ai",
+    "title": "Machine Learning Mastery",
+    "url": "http://machinelearningmastery.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "algorithmia",
+    "domain": "ai",
+    "title": "Algorithmia",
+    "url": "http://blog.algorithmia.com/.",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "ai-topics",
+    "domain": "ai",
+    "title": "Ai Topics",
+    "url": "https://aitopics.org/search.",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "chatbot-magazine",
+    "domain": "ai",
+    "title": "Chatbot Magazine",
+    "url": "https://chatbotsmagazine.com/.",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "open-ai",
+    "domain": "ai",
+    "title": "Open AI",
+    "url": "https://openai.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "newcircle",
+    "domain": "ai",
+    "title": "Newcircle",
+    "url": "https://intelligence.org/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "lynda-com",
+    "domain": "ai",
+    "title": "Lynda.com",
+    "url": "https://www.lynda.com/Mobile-training-tutorials/55-0.html?utm_medium=ldc-partner&utm_source=SSPRC&utm_content=10848&utm_campaign=CD15021&bid=10848&aid=CD15021",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "bongizmo",
+    "domain": "ai",
+    "title": "bongizmo",
+    "url": "http://www.bongizmo.com/blog/android-resources-each-developer-should-know/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "cloudrail",
+    "domain": "ai",
+    "title": "CloudRAIL",
+    "url": "http://cloudrail.com/best-resources-to-learn-android-programming/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "the-rock-n-coder",
+    "domain": "ai",
+    "title": "The Rock n Coder",
+    "url": "http://therockncoder.blogspot.in/2015/04/getting-started-with-android.html",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "developers",
+    "domain": "ai",
+    "title": "Developers",
+    "url": "https://developer.android.com/topic/libraries/support-library/index.html",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "programmer-guru",
+    "domain": "ai",
+    "title": "Programmer Guru",
+    "url": "http://programmerguru.com/android-tutorial/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "talk-android",
+    "domain": "ai",
+    "title": "Talk Android",
+    "url": "http://www.talkandroid.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "phandroid",
+    "domain": "ai",
+    "title": "Phandroid",
+    "url": "http://phandroid.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  },
+  {
+    "slug": "developer-blog",
+    "domain": "ai",
+    "title": "Developer Blog",
+    "url": "http://android-developers.blogspot.in/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/blog.json"
+  }
+]

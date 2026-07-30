@@ -1,0 +1,21 @@
+{
+  "slug": "symfony",
+  "domain": "web",
+  "name": "Symfony 3.0",
+  "category": null,
+  "homepage": "http://symfony.com/what-is-symfony",
+  "one_liner": null,
+  "what_it_is": "Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony. Symfony 3.0 is a more standard version than Symfony 2.x. They fixes architectural mistakes and are more decoupled and usable.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}

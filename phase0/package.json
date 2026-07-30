@@ -1,0 +1,9 @@
+{
+  "name": "techmyrmidons-phase0",
+  "private": true,
+  "type": "module",
+  "description": "Falsification harness for the cohort-tracking model. No dependencies by design.",
+  "scripts": {
+    "backfill": "node backfill.ts"
+  }
+}

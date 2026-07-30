@@ -1,0 +1,30 @@
+{
+  "slug": "angular",
+  "name": "Angular",
+  "category": "UI framework",
+  "homepage": "https://angular.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2016,
+  "one_liner": "Opinionated full framework — and a completely different product from AngularJS.",
+  "what_it_is": "A comprehensive TypeScript-first application framework with dependency injection, routing, forms and HTTP built in. Recent versions added standalone components and signals-based reactivity, removing much of the ceremony it was once criticised for.",
+  "why_it_matters": "The most common mistake here is conflating Angular with AngularJS, which is a separate and long-dead framework that still appears in this archive from 2017. Modern Angular is a serious choice for large organisations precisely because it decides things for you: structure, DI and conventions are prescribed, which reduces variance across big teams.",
+  "suitable_for": [
+    "Large organisations that value enforced structure over per-team freedom",
+    "Long-lived enterprise applications",
+    "Teams that want routing, forms and HTTP without assembling them"
+  ],
+  "not_suitable_for": [
+    "Small projects, where the framework overhead dominates",
+    "Teams that want to opt out of its conventions",
+    "Anyone expecting AngularJS knowledge to transfer — it does not"
+  ],
+  "alternatives": [
+    "React",
+    "Vue"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

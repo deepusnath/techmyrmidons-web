@@ -1,0 +1,21 @@
+{
+  "slug": "multichain",
+  "domain": "blockchain",
+  "name": "MultiChain",
+  "category": null,
+  "homepage": "https://www.multichain.com/",
+  "one_liner": null,
+  "what_it_is": "MultiChain helps organizations to build and deploy blockchain applications with speed.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/blockchain/2019.json"
+}

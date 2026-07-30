@@ -1,0 +1,283 @@
+#!/usr/bin/env node
+/**
+ * Content integrity gate.
+ *
+ * These are not style checks. Each one enforces a product rule that would
+ * otherwise depend on a reviewer remembering it:
+ *
+ *   - seeded content is always attributable          (visible-seed rule)
+ *   - every signal declares a provenance tier        (no blurred evidence)
+ *   - published tools state where they do NOT fit    (no popularity-as-quality)
+ *   - archived domains explain themselves            (honest archival)
+ *
+ * Usage:  node scripts/validate-content.ts
+ * Exits non-zero on any error, so it can gate CI.
+ */
+
+import { readdir, readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
+import {
+  EVIDENCE_TIERS,
+  LIFECYCLES,
+  isPublishable,
+  type Domain,
+  type EditorialNote,
+  type Practitioner,
+  type Resource,
+  type Signal,
+  type TimelineEntry,
+  type Tool,
+} from '../content/schema.ts';
+
+const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const CONTENT = path.join(ROOT, 'content');
+
+const errors: string[] = [];
+const notes: string[] = [];
+const fail = (msg: string) => errors.push(msg);
+const note = (msg: string) => notes.push(msg);
+
+const load = async <T>(rel: string): Promise<T> =>
+  JSON.parse(await readFile(path.join(CONTENT, rel), 'utf8')) as T;
+
+async function main() {
+  const domains = await load<Domain[]>('domains.json');
+  const practitioners = await load<Practitioner[]>('practitioners.json');
+
+  const domainSlugs = new Set(domains.map((d) => d.slug));
+  let checks = 0;
+
+  // --- domains --------------------------------------------------------------
+  for (const d of domains) {
+    checks++;
+    if (d.status === 'archived' && !d.archived_reason?.trim()) {
+      fail(`domain "${d.slug}" is archived with no archived_reason — users would see a blank explanation`);
+    }
+    if (d.is_seed && !d.seed_source) fail(`domain "${d.slug}" is seeded but has no seed_source`);
+  }
+  const active = domains.filter((d) => d.status === 'active');
+  if (active.length !== 1) {
+    fail(`expected exactly 1 active domain for the pilot, found ${active.length}`);
+  }
+
+  // --- practitioners --------------------------------------------------------
+  const seenPractitioner = new Set<string>();
+  for (const p of practitioners) {
+    checks++;
+    if (seenPractitioner.has(p.slug)) fail(`duplicate practitioner slug "${p.slug}"`);
+    seenPractitioner.add(p.slug);
+    if (p.is_seed && !p.seed_source) fail(`practitioner "${p.slug}" is seeded but has no seed_source`);
+    for (const dom of p.domains) {
+      if (!domainSlugs.has(dom)) fail(`practitioner "${p.slug}" references unknown domain "${dom}"`);
+    }
+    if (p.avatar) {
+      const legacy = path.join(
+        ROOT, 'src', 'data',
+        domains.find((d) => d.slug === p.domains[0])?.legacy_folder ?? p.domains[0],
+        'images', path.basename(p.avatar),
+      );
+      if (!existsSync(legacy)) note(`avatar source missing for "${p.slug}" (${path.basename(p.avatar)})`);
+    }
+  }
+
+  // --- tools ----------------------------------------------------------------
+  const toolIndex = new Map<string, Tool>();
+  const toolDirs = existsSync(path.join(CONTENT, 'tools'))
+    ? await readdir(path.join(CONTENT, 'tools'))
+    : [];
+
+  for (const domain of toolDirs) {
+    if (!domainSlugs.has(domain)) fail(`content/tools/${domain}/ has no matching domain record`);
+    for (const file of await readdir(path.join(CONTENT, 'tools', domain))) {
+      const tool = await load<Tool>(path.join('tools', domain, file));
+      checks++;
+      const ref = `${domain}/${tool.slug}`;
+
+      if (file !== `${tool.slug}.json`) fail(`${ref}: filename does not match slug (${file})`);
+      if (toolIndex.has(ref)) fail(`${ref}: duplicate tool slug`);
+      toolIndex.set(ref, tool);
+
+      if (tool.domain !== domain) fail(`${ref}: tool.domain is "${tool.domain}" but lives under ${domain}/`);
+      if (tool.is_seed && !tool.seed_source) fail(`${ref}: seeded but has no seed_source`);
+      if (tool.lifecycle && !LIFECYCLES.includes(tool.lifecycle)) {
+        fail(`${ref}: unknown lifecycle "${tool.lifecycle}"`);
+      }
+
+      // The anti-popularity guard. A tool may only be presented as a current
+      // recommendation once someone has written down where it does not fit.
+      if (tool.published && !isPublishable(tool)) {
+        const missing = [
+          !tool.what_it_is?.trim() && 'what_it_is',
+          !tool.why_it_matters?.trim() && 'why_it_matters',
+          !tool.lifecycle && 'lifecycle',
+          !tool.suitable_for.length && 'suitable_for',
+          !tool.not_suitable_for.length && 'not_suitable_for',
+        ].filter(Boolean);
+        fail(`${ref}: published=true but missing required judgement fields: ${missing.join(', ')}`);
+      }
+    }
+  }
+
+  // --- signals --------------------------------------------------------------
+  // Archive-derived signals live in signals/, backfill-derived ones in
+  // observed/. Both are held to identical provenance rules.
+  let signalCount = 0;
+  const seenSignalId = new Set<string>();
+  const byTier = new Map<string, number>();
+
+  const signalSources: Array<[string, string]> = [];
+  for (const dir of ['signals', 'observed']) {
+    const full = path.join(CONTENT, dir);
+    if (!existsSync(full)) continue;
+    for (const file of await readdir(full)) signalSources.push([dir, file]);
+  }
+
+  for (const [dir, file] of signalSources) {
+    const domain = file.replace(/\.json$/, '');
+    for (const s of await load<Signal[]>(path.join(dir, file))) {
+      checks++;
+      signalCount++;
+      byTier.set(s.tier, (byTier.get(s.tier) ?? 0) + 1);
+      const ref = `${dir}/${domain}:${s.id}`;
+
+      if (s.domain !== domain) {
+        fail(`${ref}: signal.domain is "${s.domain}" but the file is ${dir}/${file}`);
+      }
+
+      // The spine of the trust model: no untiered evidence, ever.
+      if (!s.tier || !EVIDENCE_TIERS.includes(s.tier)) {
+        fail(`${ref}: invalid or missing evidence tier "${s.tier}"`);
+      }
+      if (seenSignalId.has(s.id)) fail(`${ref}: duplicate signal id`);
+      seenSignalId.add(s.id);
+
+      if (!toolIndex.has(`${domain}/${s.tool_slug}`)) {
+        fail(`${ref}: references tool "${s.tool_slug}" that does not exist in ${domain}`);
+      }
+      if (s.is_seed && !s.seed_source) fail(`${ref}: seeded but has no seed_source`);
+      if (!s.source_label?.trim()) fail(`${ref}: has no source_label — would render as unattributed`);
+      if (s.tier === 'observed' && !s.source_url) {
+        fail(`${ref}: tier is "observed" but has no source_url; observed evidence must be checkable`);
+      }
+      if (!/^\d{4}-\d{2}-\d{2}/.test(s.observed_at)) fail(`${ref}: observed_at is not a date`);
+    }
+  }
+
+  // --- editorial notes ------------------------------------------------------
+  const editorialDir = path.join(CONTENT, 'editorial');
+  let noteCount = 0;
+  let draftCount = 0;
+  const seenNoteId = new Set<string>();
+
+  for (const file of existsSync(editorialDir) ? await readdir(editorialDir) : []) {
+    const domain = file.replace(/\.json$/, '');
+    for (const n of await load<EditorialNote[]>(path.join('editorial', file))) {
+      checks++;
+      noteCount++;
+      const ref = `editorial/${domain}:${n.id}`;
+
+      if (seenNoteId.has(n.id)) fail(`${ref}: duplicate editorial note id`);
+      seenNoteId.add(n.id);
+      if (!domainSlugs.has(n.domain)) fail(`${ref}: unknown domain "${n.domain}"`);
+      if (n.tool_slug && !toolIndex.has(`${n.domain}/${n.tool_slug}`)) {
+        fail(`${ref}: references tool "${n.tool_slug}" that does not exist in ${n.domain}`);
+      }
+      if (!n.body?.trim()) fail(`${ref}: empty body`);
+      if (!/^\d{4}-\d{2}-\d{2}/.test(n.published_at)) fail(`${ref}: published_at is not a date`);
+
+      // The editorial tier is the one whose provenance is a person. A note with
+      // no byline is an unattributable recommendation.
+      if (!n.author?.trim()) fail(`${ref}: has no author byline`);
+
+      // A recommendation that does not say where it might be wrong is not a
+      // recommendation, it is marketing.
+      if (!n.tradeoffs?.trim()) fail(`${ref}: has no stated tradeoffs`);
+
+      if (n.draft) draftCount++;
+    }
+  }
+  if (draftCount) {
+    note(
+      `${draftCount} editorial note(s) are draft: text is written but the named author has not signed off. ` +
+        `These must not render publicly until draft is set to false.`,
+    );
+  }
+
+  // --- timeline -------------------------------------------------------------
+  const timelineDir = path.join(CONTENT, 'timeline');
+  let timelineCount = 0;
+  let timelineDrafts = 0;
+
+  for (const file of existsSync(timelineDir) ? await readdir(timelineDir) : []) {
+    const seenYear = new Set<number>();
+    for (const e of await load<TimelineEntry[]>(path.join('timeline', file))) {
+      checks++;
+      timelineCount++;
+      const ref = `timeline/${e.domain}:${e.year}`;
+
+      if (seenYear.has(e.year)) fail(`${ref}: duplicate timeline year`);
+      seenYear.add(e.year);
+      if (!domainSlugs.has(e.domain)) fail(`${ref}: unknown domain "${e.domain}"`);
+      if (!e.headline?.trim()) fail(`${ref}: empty headline`);
+      if (!e.author?.trim()) fail(`${ref}: has no author byline`);
+      if (e.is_seed && !e.seed_source) fail(`${ref}: seeded but has no seed_source`);
+
+      // Every tool named in a timeline year must exist, or the Historical view
+      // renders a dead reference.
+      for (const [field, slugs] of [['arrived', e.arrived], ['faded', e.faded]] as const) {
+        for (const slug of slugs) {
+          if (!toolIndex.has(`${e.domain}/${slug}`)) {
+            fail(`${ref}: ${field} references tool "${slug}" that does not exist in ${e.domain}`);
+          }
+        }
+      }
+      if (e.draft) timelineDrafts++;
+    }
+  }
+  if (timelineDrafts) {
+    note(`${timelineDrafts} timeline entr(ies) are draft and must not render until signed off.`);
+  }
+
+  // --- resources ------------------------------------------------------------
+  const resourceDir = path.join(CONTENT, 'resources');
+  let resourceCount = 0;
+  for (const file of existsSync(resourceDir) ? await readdir(resourceDir) : []) {
+    for (const r of await load<Resource[]>(path.join('resources', file))) {
+      checks++;
+      resourceCount++;
+      if (!/^https?:\/\//.test(r.url)) fail(`resource "${r.slug}": url is not absolute (${r.url})`);
+      if (r.is_seed && !r.seed_source) fail(`resource "${r.slug}": seeded but has no seed_source`);
+    }
+  }
+
+  // --- report ---------------------------------------------------------------
+  const published = [...toolIndex.values()].filter((t) => t.published).length;
+  console.log(
+    `${checks} checks over ${domains.length} domains, ${toolIndex.size} tools ` +
+      `(${published} published), ${signalCount} signals, ${noteCount} editorial notes ` +
+      `(${draftCount} draft), ${timelineCount} timeline years (${timelineDrafts} draft), ` +
+      `${practitioners.length} practitioners, ${resourceCount} resources`,
+  );
+  console.log(
+    `evidence tiers: ${EVIDENCE_TIERS.map((t) => `${t}=${byTier.get(t) ?? 0}`).join('  ')}`,
+  );
+
+  if (notes.length) {
+    console.log(`\n${notes.length} notes (non-blocking):`);
+    for (const n of notes.slice(0, 10)) console.log(`  - ${n}`);
+    if (notes.length > 10) console.log(`  ... +${notes.length - 10} more`);
+  }
+
+  if (errors.length) {
+    console.error(`\n${errors.length} ERRORS:`);
+    for (const e of errors) console.error(`  x ${e}`);
+    process.exit(1);
+  }
+  console.log('\ncontent valid');
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

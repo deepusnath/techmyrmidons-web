@@ -1,0 +1,22 @@
+{
+  "slug": "yeoman",
+  "domain": "frontend",
+  "name": "Yeoman",
+  "category": null,
+  "homepage": "http://yeoman.io/",
+  "one_liner": null,
+  "what_it_is": "Yeoman helps you to kickstart new projects, prescribing best practices and tools to help you stay productive. To do so, we provide a generator ecosystem. A generator is basically a plugin that can be run with the `yo` command to scaffold complete projects or useful parts. Get started.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2017.json"
+}

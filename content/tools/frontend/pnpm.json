@@ -1,0 +1,30 @@
+{
+  "slug": "pnpm",
+  "name": "pnpm",
+  "category": "package management",
+  "homepage": "https://pnpm.io/",
+  "lifecycle": "established",
+  "first_seen_year": 2017,
+  "one_liner": "Content-addressed package manager that hard-links a global store instead of copying.",
+  "what_it_is": "A package manager storing every package version once in a global content-addressed store and hard-linking it into each project, with a strict node_modules layout that prevents access to undeclared dependencies.",
+  "why_it_matters": "The disk and speed win is the headline, but the strictness matters more: pnpm will not let you import a package you did not declare, which catches a class of bug that npm silently permits and that only surfaces later when a transitive dependency changes. Its workspace support is the usual reason monorepos adopt it.",
+  "suitable_for": [
+    "Monorepos and multi-package repositories",
+    "Machines running many JavaScript projects",
+    "Teams wanting undeclared-dependency errors caught at install time"
+  ],
+  "not_suitable_for": [
+    "Projects depending on packages that rely on a flat, permissive node_modules layout",
+    "Environments where the hard-link store causes trouble, such as some Docker layer setups"
+  ],
+  "alternatives": [
+    "npm",
+    "Yarn",
+    "Bun"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

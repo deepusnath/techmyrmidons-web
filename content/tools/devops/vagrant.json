@@ -1,0 +1,21 @@
+{
+  "slug": "vagrant",
+  "domain": "devops",
+  "name": "Vagrant",
+  "category": null,
+  "homepage": "https://git-scm.com/downloads",
+  "one_liner": null,
+  "what_it_is": "Vagrant is an open-source software product for building and maintaining portable virtual development environments. Large projects need to cross the hurdles of multiple technical stacks. This is the core idea behind its creation. Vagrant manages all the necessary configurations for the developers in order to avoid the unnecessary maintenance and setup time, and increases development productivity.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/devops/2017.json"
+}

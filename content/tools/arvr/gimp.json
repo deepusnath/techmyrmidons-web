@@ -1,0 +1,21 @@
+{
+  "slug": "gimp",
+  "domain": "arvr",
+  "name": "Gimp",
+  "category": null,
+  "homepage": "https://www.gimp.org/",
+  "one_liner": null,
+  "what_it_is": "Gimp, or GNU Image Manipulation Program is a very powerful tool for image manipulation. Users jumping directly from photoshop may get frustrated with workflow and interface differences, but make no mistake, this package can get the job done. If you are doing backgrounds, UI elements, textures, or anything else, GIMP can handle it. It is cross platform too, which is nice.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json"
+}

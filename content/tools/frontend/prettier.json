@@ -1,0 +1,30 @@
+{
+  "slug": "prettier",
+  "name": "Prettier",
+  "category": "linting and formatting",
+  "homepage": "https://prettier.io/",
+  "lifecycle": "established",
+  "first_seen_year": 2017,
+  "one_liner": "Opinionated formatter that ended formatting arguments by removing the options.",
+  "what_it_is": "A code formatter that reprints source from its AST according to fixed rules, deliberately exposing very few configuration options.",
+  "why_it_matters": "Prettier's contribution was social rather than technical: by refusing to be configurable it removed formatting from code review entirely. That norm is now so established that the debate has moved on to whether it needs to be a separate dependency at all, which is the consolidation case Biome makes.",
+  "suitable_for": [
+    "Any team that has ever argued about formatting in review",
+    "Mixed-experience teams needing consistent output",
+    "Projects where ESLint handles correctness and formatting is delegated"
+  ],
+  "not_suitable_for": [
+    "Codebases with strong formatting requirements it cannot express",
+    "Teams looking to reduce total dependency count — a combined toolchain may suit better"
+  ],
+  "alternatives": [
+    "Biome",
+    "dprint",
+    "ESLint stylistic rules"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

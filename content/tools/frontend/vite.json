@@ -1,0 +1,32 @@
+{
+  "slug": "vite",
+  "name": "Vite",
+  "category": "build and bundling",
+  "homepage": "https://vite.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2020,
+  "one_liner": "Native-ESM dev server with near-instant startup; the current default build tool.",
+  "what_it_is": "A build tool serving source over native ES modules in development — so startup does not scale with project size — and bundling with Rollup for production. Framework-agnostic, with official plugins for the major frameworks.",
+  "why_it_matters": "Vite is the single most consequential build change since webpack, and the most likely gap in the stack of a developer who stopped re-evaluating tooling around 2019. The difference is not incremental: dev server startup goes from tens of seconds to roughly constant regardless of codebase size, which changes working rhythm rather than just saving time.",
+  "suitable_for": [
+    "Essentially all new frontend projects",
+    "Migrating away from slow webpack development builds",
+    "Library builds, via its library mode"
+  ],
+  "not_suitable_for": [
+    "Projects depending on webpack-specific loaders or plugins with no Vite equivalent",
+    "Builds needing module federation, where webpack remains stronger",
+    "Codebases that must support environments without native ESM in development"
+  ],
+  "alternatives": [
+    "webpack",
+    "Parcel",
+    "Rspack",
+    "esbuild"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

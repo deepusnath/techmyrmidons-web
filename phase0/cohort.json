@@ -1,0 +1,17 @@
+{
+  "stream": "frontend",
+  "ecosystem": "npm",
+  "manifest": "package.json",
+  "members": [
+    { "name": "Addy Osmani",       "github": "addyosmani" },
+    { "name": "Paul Irish",        "github": "paulirish" },
+    { "name": "Lea Verou",         "github": "LeaVerou" },
+    { "name": "Christian Heilmann","github": "codepo8" },
+    { "name": "Steve Souders",     "github": "stevesouders" },
+    { "name": "Kyle Simpson",      "github": "getify" },
+    { "name": "John Resig",        "github": "jeresig" },
+    { "name": "Ilya Grigorik",     "github": "igrigorik" },
+    { "name": "Nicholas C. Zakas", "github": "nzakas" },
+    { "name": "Nicole Sullivan",   "github": "stubbornella" }
+  ]
+}

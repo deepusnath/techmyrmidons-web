@@ -1,0 +1,23 @@
+{
+  "slug": "apache-spark-mllib",
+  "domain": "ai",
+  "name": "Apache Spark MLlib",
+  "category": null,
+  "homepage": "http://www.shogun-toolbox.org/",
+  "one_liner": null,
+  "what_it_is": "Apache Spark MLlib is a machine learning library, the primary objective of which is to make practical machine learning scalable and easy. It comprises common learning algorithms and utilities, including classification, regression, clustering, collaborative filtering, dimensionality reduction as well as lower-level optimisation primitives and higher-level pipeline APIs.Spark MLlib is regarded as a distributed machine learning framework on top of the Spark Core which, mainly due to the distributed memory-based Spark architecture, is almost nine times as fast as the disk-based implementation used by Apache Mahout.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "flurry",
+  "domain": "quantum-computing",
+  "name": "Flurry",
+  "category": null,
+  "homepage": "https://developer.yahoo.com/flurry/docs/analytics/gettingstarted/android/",
+  "one_liner": null,
+  "what_it_is": "Flurry optimizes the mobile experience through better apps and more personal ads. It provides the tools and resources needed to gain a deep level of understanding about the users’ behavior in the apps. The user’s habits and performance can be tracked better by setting up advanced analysis of complex events, with metrics, segments and funnels.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/quantum computing/2017.json"
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "meteor",
+  "domain": "frontend",
+  "name": "Meteor",
+  "category": null,
+  "homepage": "https://www.meteor.com/",
+  "one_liner": null,
+  "what_it_is": "Meteor is a new full-stack JavaScript, powered by Node.js. It's guaranteed to revolutionize the way that you approach writing highly responsive and dynamic web applications. Get started with Meteor.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2017.json"
+}

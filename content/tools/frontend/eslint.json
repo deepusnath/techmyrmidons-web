@@ -1,0 +1,29 @@
+{
+  "slug": "eslint",
+  "name": "ESLint",
+  "category": "linting and formatting",
+  "homepage": "https://eslint.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2013,
+  "one_liner": "The standard JavaScript linter, with unmatched ecosystem breadth.",
+  "what_it_is": "A pluggable static analysis tool for JavaScript and TypeScript, where effectively every rule is a plugin, configured through a flat config file in current versions.",
+  "why_it_matters": "ESLint remains the default because its plugin ecosystem is genuinely unmatched — framework-specific rules, accessibility checks and import hygiene all live there. Its weakness is that same configurability: the config, plugin versions and shared presets are a recurring maintenance cost, which is precisely the opening Biome is attacking.",
+  "suitable_for": [
+    "Projects needing framework-specific or accessibility lint rules",
+    "Teams with custom rules encoding their own conventions",
+    "Anywhere ecosystem breadth outweighs configuration cost"
+  ],
+  "not_suitable_for": [
+    "Teams that want linting to be zero-maintenance",
+    "Very large codebases where lint runtime is a CI bottleneck"
+  ],
+  "alternatives": [
+    "Biome",
+    "oxlint"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

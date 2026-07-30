@@ -1,0 +1,22 @@
+{
+  "slug": "foundation",
+  "domain": "frontend",
+  "name": "Foundation",
+  "category": null,
+  "homepage": "https://foundation.zurb.com//",
+  "one_liner": null,
+  "what_it_is": "A Framework for any device, medium, and accessibility. Foundation is a family of responsive front-end frameworks that make it easy to design beautiful responsive websites, apps and emails that look amazing on any device. Foundation is semantic, readable, flexible, and completely customizable. We’re constantly adding new resources and code snippets, including these handy HTML templates to help get you started! Get started with Foundation.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2017.json"
+}

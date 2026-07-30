@@ -1,0 +1,21 @@
+{
+  "slug": "owasp-zed",
+  "domain": "qa",
+  "name": "OWASP Zed",
+  "category": null,
+  "homepage": "https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project",
+  "one_liner": null,
+  "what_it_is": "The OWASP Zed Attack Proxy (ZAP), one of the free security testing software, can automatically find security vulnerabilities in web applications while they are in developing and testing phases. It is also a great tool for experienced pentesters e for manual security testing.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json"
+}

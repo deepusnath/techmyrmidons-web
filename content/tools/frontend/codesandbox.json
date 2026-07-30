@@ -1,0 +1,21 @@
+{
+  "slug": "codesandbox",
+  "domain": "frontend",
+  "name": "CodeSandbox",
+  "category": null,
+  "homepage": "https://codesandbox.io/",
+  "one_liner": null,
+  "what_it_is": "CodeSandbox is an online editor that helps you create web applications, from prototype to deployment.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2019.json"
+}

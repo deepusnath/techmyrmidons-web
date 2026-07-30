@@ -1,0 +1,35 @@
+{
+  "slug": "sass",
+  "domain": "frontend",
+  "name": "Sass",
+  "category": "styling",
+  "homepage": "https://sass-lang.com/",
+  "one_liner": "CSS preprocessor whose best ideas the platform has since absorbed.",
+  "what_it_is": "A CSS preprocessor adding variables, nesting, mixins, functions, partials and imports, compiled to plain CSS. The SCSS syntax is a superset of CSS, so any valid stylesheet is already valid SCSS.",
+  "why_it_matters": "Sass is still in wide production use and remains a perfectly reasonable choice — but the ground shifted underneath it. Native custom properties, native nesting and modern layout removed the reasons most people originally reached for it, and its own @import was deprecated in favour of @use. What still has no native equivalent is mixins and compile-time logic. If Sass is where your styling knowledge stopped, the useful question is not whether to abandon it, but which of its features you are still running a build step for when the browser now does them natively.",
+  "lifecycle": "established",
+  "first_seen_year": 2006,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [
+    "Existing codebases with substantial Sass already written",
+    "Design systems that genuinely need mixins and compile-time logic",
+    "Teams wanting partials and file organisation without a bundler-driven approach"
+  ],
+  "not_suitable_for": [
+    "New projects wanting only variables and nesting, which CSS now provides natively",
+    "Projects trying to remove build steps from their styling pipeline",
+    "Teams who would be better served by a shared token scale than by a preprocessor"
+  ],
+  "alternatives": [
+    "Native CSS with custom properties",
+    "PostCSS",
+    "Tailwind CSS",
+    "CSS Modules"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

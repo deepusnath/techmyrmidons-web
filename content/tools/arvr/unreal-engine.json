@@ -1,0 +1,21 @@
+{
+  "slug": "unreal-engine",
+  "domain": "arvr",
+  "name": "Unreal Engine",
+  "category": null,
+  "homepage": "https://www.unrealengine.com",
+  "one_liner": null,
+  "what_it_is": "The Unreal Engine is very well known in the games industry. This package is incredibly versatile, allowing for creation of games from 2d hand drawn looking platformers up to cinematic almost movie like experiences. They have charged into virtual reality head-on and support the latest technologies natively. There is a built in marketplace where you can find and purchase assets to include in your projects and a very large community sharing tutorials and inspiration. Most impressively, the Unreal Engine is absolutely free. You can download it now and get started creating virtual reality experiences with zero cost.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json"
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "jest",
+  "name": "Jest",
+  "category": "testing",
+  "homepage": "https://jestjs.io/",
+  "lifecycle": "declining",
+  "first_seen_year": 2014,
+  "one_liner": "The dominant JavaScript test runner of the 2016–2022 era, now ceding ground to Vitest.",
+  "what_it_is": "A batteries-included test runner with assertions, mocking, snapshot testing and coverage built in, using its own transform pipeline and module registry.",
+  "why_it_matters": "Jest defined what a JavaScript test runner should include, and its API is the one Vitest deliberately copied. It is declining because that separate transform pipeline means maintaining a second build configuration, which stopped being acceptable once a Vite-native option existed. Still entirely reasonable in projects not built with Vite.",
+  "suitable_for": [
+    "Existing suites where migration is not worth the effort",
+    "React Native, where support is strongest",
+    "Projects not using Vite"
+  ],
+  "not_suitable_for": [
+    "New Vite-based projects, where Vitest removes duplicate configuration",
+    "Large suites where watch-mode speed is a daily cost"
+  ],
+  "alternatives": [
+    "Vitest",
+    "node:test"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

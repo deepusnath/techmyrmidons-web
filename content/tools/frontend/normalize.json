@@ -1,0 +1,22 @@
+{
+  "slug": "normalize",
+  "domain": "frontend",
+  "name": "Normalize",
+  "category": null,
+  "homepage": "http://necolas.github.io/normalize.css/",
+  "one_liner": null,
+  "what_it_is": "Normalize makes all browsers render elements in as consistent a fashion as possible. Have you ever experienced the annoyance of debugging a three pixel input height inconsistency, from browser to browser? With Normalize, you'll never deal with that again! Dive deeper into Normalize.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2017.json"
+}

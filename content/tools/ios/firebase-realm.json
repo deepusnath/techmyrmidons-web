@@ -1,0 +1,23 @@
+{
+  "slug": "firebase-realm",
+  "domain": "ios",
+  "name": "FIREBASE REALM",
+  "category": null,
+  "homepage": "https://realm.io/news/360andev-adrian-catalan-firebase-android-realtime-sync/",
+  "one_liner": null,
+  "what_it_is": "Firebase provides a real-time database and handles authentication among many other interesting features. Developers can now rely on building amazing apps and not worry about their backend. This enables the clients to share one real-time Database instance and automatically receive updates with the newest data.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

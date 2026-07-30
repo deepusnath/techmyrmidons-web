@@ -1,0 +1,30 @@
+{
+  "slug": "vue",
+  "name": "Vue",
+  "category": "UI framework",
+  "homepage": "https://vuejs.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2014,
+  "one_liner": "Component framework with a gentler learning curve and a more complete default stack.",
+  "what_it_is": "A UI framework using single-file components that colocate template, script and style. Vue 3 introduced a composition API similar in spirit to React hooks, alongside an official router and state library.",
+  "why_it_matters": "Vue occupies a deliberate middle ground: more batteries-included than React, less prescriptive than Angular. Its official ecosystem means fewer architecture decisions per project, which is worth real money on small teams. It is a first-class choice, not a consolation one.",
+  "suitable_for": [
+    "Teams that want official routing and state rather than choosing from competing libraries",
+    "Developers coming from a template-oriented background",
+    "Progressive enhancement of existing server-rendered pages"
+  ],
+  "not_suitable_for": [
+    "Organisations whose hiring is built around React experience",
+    "Codebases needing niche libraries that only ever ship React bindings"
+  ],
+  "alternatives": [
+    "React",
+    "Svelte",
+    "Alpine.js"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

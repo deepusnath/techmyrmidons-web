@@ -1,0 +1,21 @@
+{
+  "slug": "cryengine",
+  "domain": "arvr",
+  "name": "Cryengine",
+  "category": null,
+  "homepage": "https://www.cryengine.com/get-cryengine",
+  "one_liner": null,
+  "what_it_is": "The Cryengine has long been known for its rich visual abilities, the flagship games from this engine often being used as benchmarks to determine a computer’s strength. Up till very recently, there were costs associated with this engine that kept it from the hands of many small developers. Now, it is a pay-what-you-want model which means you could download it for free just to try it out and see if you like it",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json"
+}

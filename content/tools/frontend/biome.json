@@ -1,0 +1,31 @@
+{
+  "slug": "biome",
+  "domain": "frontend",
+  "name": "Biome",
+  "category": "linting and formatting",
+  "homepage": "https://biomejs.dev/",
+  "one_liner": "Single Rust-based toolchain aiming to replace ESLint and Prettier together.",
+  "what_it_is": "A formatter and linter for JavaScript, TypeScript, JSX, JSON and CSS, written in Rust and shipped as one binary. It continues the Rome toolchain project, and targets near-drop-in replacement of Prettier's formatting output plus a substantial subset of ESLint's rules, configured in a single file.",
+  "why_it_matters": "The interesting claim is consolidation, not speed. A typical project carries ESLint, Prettier, a handful of plugins, a shared config package, and editor integrations for each — a stack that is slow to run and, more importantly, a recurring maintenance and version-conflict cost that nobody is assigned to own. Biome collapses that into one dependency. It is listed as emerging rather than established deliberately: the trade is a smaller plugin ecosystem and thinner coverage of framework-specific rules, and that trade is not settled yet.",
+  "lifecycle": "emerging",
+  "first_seen_year": 2023,
+  "archive_years": [],
+  "suitable_for": [
+    "New projects that want formatting and linting without assembling a toolchain",
+    "Large repositories where lint and format time is a measurable CI cost",
+    "Teams that have repeatedly lost time to ESLint config and plugin churn"
+  ],
+  "not_suitable_for": [
+    "Projects that depend on framework-specific ESLint plugins with no Biome equivalent",
+    "Teams with heavily customised existing ESLint rule sets, where porting is the whole cost",
+    "Anyone who needs a long tail of community lint rules today rather than eventually"
+  ],
+  "alternatives": [
+    "ESLint + Prettier",
+    "oxlint",
+    "dprint"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

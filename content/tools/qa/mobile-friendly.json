@@ -1,0 +1,21 @@
+{
+  "slug": "mobile-friendly",
+  "domain": "qa",
+  "name": "MOBILE FRIENDLY",
+  "category": null,
+  "homepage": "https://search.google.com/test/mobile-friendly?utm_source=mft&utm_medium=redirect&utm_campaign=mft-redirect",
+  "one_liner": null,
+  "what_it_is": "This is Google’s online Mobile friendly testing tool that helps to test a website is mobile friendly or not.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json"
+}

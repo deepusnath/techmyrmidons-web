@@ -1,0 +1,21 @@
+{
+  "slug": "docker",
+  "domain": "web",
+  "name": "Docker",
+  "category": null,
+  "homepage": "https://www.docker.com/",
+  "one_liner": null,
+  "what_it_is": "Docker is an open platform for developers and system admins to build, ship, and run distributed applications, whether on laptops, data center, VMs, or cloud. Docker containers are based on open standards. The software is wrapped in a complete filesystem that contains anything that can be installed on a server. Docker for Windows is a native Windows application with a native user interface and auto-update capability deeply integrated with Windows native virtualization, Hyper-V, networking and file system, making it faster and more reliable than previous ways of getting Docker on a Windows PC.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}

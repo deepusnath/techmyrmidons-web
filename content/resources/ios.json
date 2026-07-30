@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "swift",
+    "domain": "ios",
+    "title": "Swift",
+    "url": "https://developer.apple.com/swift/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "appcoda",
+    "domain": "ios",
+    "title": "APPCODA+",
+    "url": "http://www.appcoda.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "envatotuts",
+    "domain": "ios",
+    "title": "envatotuts+",
+    "url": "https://code.tutsplus.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "big-nerd-ranch",
+    "domain": "ios",
+    "title": "Big Nerd Ranch",
+    "url": "https://www.bignerdranch.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "cocoa-with-love",
+    "domain": "ios",
+    "title": "Cocoa with Love",
+    "url": "http://www.cocoawithlove.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "nsscreencast",
+    "domain": "ios",
+    "title": "NSScreencast",
+    "url": "http://nsscreencast.com/episodes",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "raywenderlich",
+    "domain": "ios",
+    "title": "raywenderlich",
+    "url": "https://www.raywenderlich.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "stackoverflow",
+    "domain": "ios",
+    "title": "stackoverflow",
+    "url": "http://stackoverflow.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  },
+  {
+    "slug": "ios-dev-weekly",
+    "domain": "ios",
+    "title": "iOS Dev Weekly",
+    "url": "https://iosdevweekly.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/blog.json"
+  }
+]

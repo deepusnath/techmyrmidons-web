@@ -1,0 +1,6 @@
+{
+  "name": "techmyrmidons-content",
+  "private": true,
+  "type": "module",
+  "description": "Editorial content, reviewed by PR. schema.ts is the source of truth for shape."
+}

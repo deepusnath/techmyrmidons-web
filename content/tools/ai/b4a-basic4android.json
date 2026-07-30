@@ -1,0 +1,21 @@
+{
+  "slug": "b4a-basic4android",
+  "domain": "ai",
+  "name": "B4A (Basic4Android)",
+  "category": null,
+  "homepage": "https://www.b4x.com/b4a.html",
+  "one_liner": null,
+  "what_it_is": "B4A (Basic4Android) is a popular Android app development environment. That doesn’t support the development of applications for other platforms except for Android. It offers wireless debugging. It provides a handy interpreter for creating apps on a simple language. So, though it is a simple IDE, it is worth trying.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2021,
+  "archive_years": [
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2021.json"
+}

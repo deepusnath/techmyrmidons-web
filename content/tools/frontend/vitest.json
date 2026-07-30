@@ -1,0 +1,30 @@
+{
+  "slug": "vitest",
+  "name": "Vitest",
+  "category": "testing",
+  "homepage": "https://vitest.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2021,
+  "one_liner": "Vite-native test runner with a Jest-compatible API.",
+  "what_it_is": "A unit test runner that reuses your Vite configuration and transform pipeline, with an API close enough to Jest that most test files need no changes, plus genuinely fast watch mode.",
+  "why_it_matters": "Vitest removed the long-standing annoyance of maintaining a second, divergent build configuration purely for tests. If your project already uses Vite, there is very little argument for running Jest alongside it. The migration is usually far smaller than teams expect.",
+  "suitable_for": [
+    "Any project already building with Vite",
+    "Teams wanting fast watch-mode feedback",
+    "Migrating from Jest with minimal test rewrites"
+  ],
+  "not_suitable_for": [
+    "React Native projects, where Jest remains better supported",
+    "Codebases depending on Jest-specific plugins with no equivalent"
+  ],
+  "alternatives": [
+    "Jest",
+    "node:test",
+    "Playwright component testing"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "metal",
+  "domain": "ios",
+  "name": "Metal",
+  "category": null,
+  "homepage": "http://www.trustedreviews.com/opinions/ios-8-metal-explained-how-does-it-affect-your-iphone-or-ipad",
+  "one_liner": null,
+  "what_it_is": "Metal is a new fantasy for game developers. It is aimed to push the performance of iOS 8, both on the older A7 processor and the new A8 CPU within the iPhone 6 and iPhone 6 Plus. Inspite of the existence of the new SceneKit for casual game makers, Metal has become popular faster for it’s new features. Metal offers up to 10 times faster draw call rates, which are used to render all objects in a 3D game. It improves the responsiveness of your GPU and the capabilities of your photography, videos and audio amongst other things.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

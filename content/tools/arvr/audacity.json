@@ -1,0 +1,21 @@
+{
+  "slug": "audacity",
+  "domain": "arvr",
+  "name": "Audacity",
+  "category": null,
+  "homepage": "http://www.audacityteam.org/",
+  "one_liner": null,
+  "what_it_is": "There are a ton of ways that you can use Audacity. The most common uses for a beginner would be to record a sound, and bring it into Audacity to clean it up and tweak the speed and pitch. From there, you can expand into the many, many features of the software.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json"
+}

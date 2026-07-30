@@ -1,0 +1,28 @@
+{
+  "slug": "npm",
+  "name": "npm",
+  "category": "package management",
+  "homepage": "https://www.npmjs.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2010,
+  "one_liner": "The default JavaScript package manager and registry.",
+  "what_it_is": "The package manager bundled with Node.js, plus the registry that essentially all JavaScript packages publish to. Modern versions support workspaces for monorepos and lockfile-based reproducible installs.",
+  "why_it_matters": "npm is the substrate — even alternative package managers publish to and install from its registry. It is worth knowing what it does badly, which is disk usage and install speed on large monorepos, because that is the entire reason pnpm and Bun exist.",
+  "suitable_for": [
+    "Most projects, as the zero-configuration default",
+    "Anything where matching the widest set of tutorials and CI examples matters"
+  ],
+  "not_suitable_for": [
+    "Large monorepos where install time and disk duplication become a real cost"
+  ],
+  "alternatives": [
+    "pnpm",
+    "Yarn",
+    "Bun"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

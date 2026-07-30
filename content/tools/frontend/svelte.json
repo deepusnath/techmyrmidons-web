@@ -1,0 +1,31 @@
+{
+  "slug": "svelte",
+  "name": "Svelte",
+  "category": "UI framework",
+  "homepage": "https://svelte.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2016,
+  "one_liner": "Compiler-first framework that shifts work from runtime to build time.",
+  "what_it_is": "A framework that compiles components into imperative DOM-updating JavaScript at build time, so there is no virtual DOM and no framework runtime shipped to the browser. SvelteKit is its application framework.",
+  "why_it_matters": "Svelte demonstrated that a large part of what frameworks did at runtime could be moved into the compiler, and the resulting code is both smaller and simpler to read. It changed what people expect from framework overhead, and that influence shows up in newer entrants regardless of whether you adopt Svelte itself.",
+  "suitable_for": [
+    "Bundle-size-sensitive work — embedded widgets, low-bandwidth markets",
+    "Teams that value readable component code over ecosystem breadth",
+    "Greenfield projects with no framework lock-in"
+  ],
+  "not_suitable_for": [
+    "Projects needing a deep third-party component ecosystem",
+    "Teams hiring from a predominantly React market",
+    "Codebases that cannot absorb a major-version migration"
+  ],
+  "alternatives": [
+    "Vue",
+    "Solid",
+    "React"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

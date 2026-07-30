@@ -1,0 +1,21 @@
+{
+  "slug": "sublime-text-3-beta",
+  "domain": "web",
+  "name": "Sublime text 3 (beta)",
+  "category": null,
+  "homepage": "https://www.sublimetext.com/3",
+  "one_liner": null,
+  "what_it_is": "Sublime Text is a sophisticated text editor for code, markup and prose. The slick user interface, extraordinary features and amazing performance are the most loved among the users. The first beta of Sublime Text 3 is now available to download for registered users.The most popular added features include Symbol Indexing, Pane management,Speed, API.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}

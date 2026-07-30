@@ -1,0 +1,22 @@
+{
+  "slug": "torch",
+  "domain": "ai",
+  "name": "Torch",
+  "category": null,
+  "homepage": "http://torch.ch/",
+  "one_liner": null,
+  "what_it_is": "Torch is a scientific computing framework with wide support for machine learning algorithms that puts GPUs first. It is easy to use and efficient, thanks to an easy and fast scripting language, LuaJIT, and an underlying C/CUDA implementation.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2019.json"
+}

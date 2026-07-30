@@ -1,0 +1,21 @@
+{
+  "slug": "sculptris",
+  "domain": "arvr",
+  "name": "Sculptris",
+  "category": null,
+  "homepage": "http://pixologic.com/sculptris/",
+  "one_liner": null,
+  "what_it_is": "This free software is very limited in functionality, but does its singular task quite well. If you find yourself encumbered by the interface of a typical modeling software, give this a try. The interface mimics sculpting a piece of clay, and it feels very natural.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json"
+}

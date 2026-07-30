@@ -1,0 +1,62 @@
+[
+  {
+    "id": "frontend:what-matters-now:2026-07",
+    "domain": "frontend",
+    "tool_slug": null,
+    "author": "Deepu S Nath",
+    "published_at": "2026-07-31",
+    "body": "The last decade of frontend argument was about how to assemble a build. That argument is largely over, and it was won by tools that do more with less configuration. If you formed your working habits between roughly 2014 and 2019 — Gulp or Grunt, Sass and BEM, a bundler you configured once and never touched again — the specific things worth re-examining are styling (Tailwind), the build (Vite over webpack), and the toolchain (a single binary instead of five dev dependencies). None of these are things you have to adopt. They are things you should be able to hold an informed opinion about, and that is a different bar.",
+    "tradeoffs": "This note reflects one editor's read of a large field and is deliberately opinionated. It is weighted toward JavaScript-heavy application work; if you build content sites, server-rendered apps, or design systems consumed by other teams, several of these calls flip. Treat it as a starting argument, not a verdict.",
+    "draft": true,
+    "is_seed": false,
+    "seed_source": null
+  },
+  {
+    "id": "frontend:tailwind:2026-07",
+    "domain": "frontend",
+    "tool_slug": "tailwind",
+    "author": "Deepu S Nath",
+    "published_at": "2026-07-31",
+    "body": "Tailwind is the tool most often named when an experienced CSS developer discovers they have drifted. It is worth being precise about why: the objection to it is aesthetic, and the case for it is operational. Utility classes in markup do look like a regression to anyone who spent years learning to separate concerns. What they buy is a fixed token scale that resists entropy, and the elimination of class naming as a design activity. You can reject that trade — plenty of good teams do — but you should reject it having understood it.",
+    "tradeoffs": "Migration cost on an existing mature stylesheet is routinely underestimated and often exceeds the benefit. Tailwind also couples your markup to your build; if anyone edits templates without running the toolchain, this is the wrong choice.",
+    "draft": true,
+    "is_seed": false,
+    "seed_source": null
+  },
+  {
+    "id": "frontend:webpack:2026-07",
+    "domain": "frontend",
+    "tool_slug": "webpack",
+    "author": "Deepu S Nath",
+    "published_at": "2026-07-31",
+    "body": "Marking webpack as declining is a statement about defaults, not quality. It is still the most capable bundler available and it still builds an enormous amount of working software. What shifted is that the cost it imposes — seconds to tens of seconds, many times a day — became the most visible cost in frontend work once alternatives proved it was avoidable.",
+    "tradeoffs": "Declining status should not push anyone into a migration they do not need. A working webpack configuration is an asset. The signal here is for new decisions, not existing ones.",
+    "draft": true,
+    "is_seed": false,
+    "seed_source": null
+  },
+  {
+    "id": "frontend:bower:2026-07",
+    "domain": "frontend",
+    "tool_slug": "bower",
+    "author": "Deepu S Nath",
+    "published_at": "2026-07-31",
+    "body": "Bower is kept here deliberately, because a landscape that only shows current tools cannot teach you to recognise a stale one. A worked example, at our own expense: the codebase behind this very site still carried a bower.json in 2026, listing Foundation 6.2 and a build that no longer installs on a current Node. That is not an embarrassing footnote, it is the exact failure this product exists to make visible — drift is easy, invisible, and happens to people who know better.",
+    "tradeoffs": "Nothing here is a recommendation to use Bower. Its only current value is diagnostic: recognising it dates the code or tutorial you are reading.",
+    "draft": true,
+    "is_seed": false,
+    "seed_source": null
+  },
+  {
+    "id": "frontend:biome:2026-07",
+    "domain": "frontend",
+    "tool_slug": "biome",
+    "author": "Deepu S Nath",
+    "published_at": "2026-07-31",
+    "body": "Biome is listed as emerging on purpose. The consolidation argument is genuinely strong — one binary and one config in place of ESLint, Prettier, their plugins and their shared configs — and the maintenance saving is real for teams that have felt that churn. But emerging means the outcome is not settled, and ecosystem breadth is exactly where an incumbent's advantage is hardest to displace.",
+    "tradeoffs": "If your project leans on framework-specific lint rules, check for equivalents before committing. Adopting an emerging tool means accepting that you may migrate again.",
+    "draft": true,
+    "is_seed": false,
+    "seed_source": null
+  }
+]

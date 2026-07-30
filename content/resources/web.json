@@ -1,0 +1,137 @@
+[
+  {
+    "slug": "blog-phpdev",
+    "domain": "web",
+    "title": "BLOG.PHPDEV",
+    "url": "https://blog.phpdeveloper.org/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "phil-sturgeon",
+    "domain": "web",
+    "title": "Phil Sturgeon",
+    "url": "https://philsturgeon.uk/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "taylor-otwell",
+    "domain": "web",
+    "title": "Taylor Otwell",
+    "url": "http://taylorotwell.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "alan-storm",
+    "domain": "web",
+    "title": "Alan Storm",
+    "url": "http://alanstorm.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "alex-bilbie",
+    "domain": "web",
+    "title": "Alex Bilbie",
+    "url": "https://alexbilbie.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "fabien-potencier",
+    "domain": "web",
+    "title": "Fabien Potencier",
+    "url": "http://fabien.potencier.org/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "laravel-news",
+    "domain": "web",
+    "title": "Laravel News",
+    "url": "https://laravel-news.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "colin-o-dell",
+    "domain": "web",
+    "title": "Colin O'Dell",
+    "url": "https://www.colinodell.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "github",
+    "domain": "web",
+    "title": "github",
+    "url": "https://github.com/php",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "graham-campbell",
+    "domain": "web",
+    "title": "Graham Campbell",
+    "url": "https://gjcampbell.co.uk/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "matt-stauffer",
+    "domain": "web",
+    "title": "Matt Stauffer",
+    "url": "https://mattstauffer.co/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "david-walsh-blog",
+    "domain": "web",
+    "title": "David Walsh Blog",
+    "url": "https://davidwalsh.name/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "stuart-on-php",
+    "domain": "web",
+    "title": "Stuart on PHP",
+    "url": "http://blog.stuartherbert.com/php/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "web-development-blog",
+    "domain": "web",
+    "title": "Web Development Blog",
+    "url": "http://www.web-development-blog.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  },
+  {
+    "slug": "jake-day-williams",
+    "domain": "web",
+    "title": "Jake Day Williams",
+    "url": "https://www.youtube.com/user/JakeDayWilliams",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/blog.json"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "slug": "imacros",
+  "domain": "qa",
+  "name": "iMacros",
+  "category": null,
+  "homepage": "https://imacros.net/",
+  "one_liner": null,
+  "what_it_is": "iMacros can automate whatever you do with a web browser from web automation/web scripting, to data extraction, to web testing, and much more. It is the only web automation software that works with every website.They record and handles repetitive works easily. In short they handle functional, performance, and regression testing of web applications.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json"
+}

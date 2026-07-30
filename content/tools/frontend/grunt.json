@@ -1,0 +1,28 @@
+{
+  "slug": "grunt",
+  "name": "Grunt",
+  "category": "task runner",
+  "homepage": "https://gruntjs.com/",
+  "lifecycle": "legacy",
+  "first_seen_year": 2012,
+  "one_liner": "Configuration-driven task runner from the era before bundlers absorbed the build.",
+  "what_it_is": "A task runner configured through a large declarative object, orchestrating plugins for concatenation, minification, linting and file watching by writing intermediate files to disk between steps.",
+  "why_it_matters": "Grunt and Gulp defined a whole era of frontend work that has since been absorbed: bundlers took over the build graph, and framework tooling took over the rest. It is here because recognising a Gruntfile immediately dates a codebase, and because it is a concrete reminder that today's default build tool is also temporary.",
+  "suitable_for": [
+    "Reading and maintaining pre-2017 codebases"
+  ],
+  "not_suitable_for": [
+    "Any new project",
+    "Teams without existing Grunt expertise to maintain it"
+  ],
+  "alternatives": [
+    "Vite",
+    "npm scripts",
+    "esbuild"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null
+}

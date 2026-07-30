@@ -1,0 +1,21 @@
+{
+  "slug": "hhvm",
+  "domain": "web",
+  "name": "HHVM",
+  "category": null,
+  "homepage": "http://hhvm.com/",
+  "one_liner": null,
+  "what_it_is": "HHVM is a PHP interpreter tool designed for executing programs written in Hack and PHP. HHVM uses a just-in-time (JIT) compilation approach to achieve superior performance while maintaining the development flexibility that PHP provides. It supports Hack, PHP 5 and the major features of PHP 7. It also reduces loading time for any page you view while logged in, and for saving pages that you've edited whether you are logged in or not.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}

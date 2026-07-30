@@ -1,0 +1,23 @@
+{
+  "slug": "core-data",
+  "domain": "ios",
+  "name": "Core Data",
+  "category": null,
+  "homepage": null,
+  "one_liner": null,
+  "what_it_is": "Core Data is a framework that lets developers store (or retrieve) data in database in an object-oriented manner. With Core Data, you can easily map the objects in your apps to the table in the database. It is the best one to use for non-trivial data storage. It can reduce the memory overhead of your app, increase responsiveness, and save you from writing a lot of boilerplate code.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "testflight",
+  "domain": "ios",
+  "name": "Testflight",
+  "category": null,
+  "homepage": "https://developer.apple.com/testflight/",
+  "one_liner": null,
+  "what_it_is": "TestFlight Beta Testing is an Apple product that makes it easy to invite users to test iOS, watchOS and tvOS apps before it is released into the App Store. It is exclusively offered to developers within the iOS Developer Program. The Developers who subscribe for the service can distribute their apps to internal or external beta testers. These testers can in turn send feedback on the apps to the developers, thereby improving the testing time and reaction time. Besides Tester Feedback, the TestFlight SDK also allows the developers to receive remote logs and crash reports of the apps.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json"
+}

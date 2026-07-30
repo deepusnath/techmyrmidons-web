@@ -1,0 +1,21 @@
+{
+  "slug": "pdt",
+  "domain": "web",
+  "name": "PDT 3.7",
+  "category": null,
+  "homepage": "https://eclipse.org/pdt/#download",
+  "one_liner": null,
+  "what_it_is": "PHP Development Tools (PDT) encompasses the development components necessary to develop PHP-based Web Applications and facilitates extensibility. It leverages the existing Web Tools Project in providing developers with PHP capabilities. PDT 3.7.0 will improve PHP 7 support. It provides improvements in performance, usability and consistency. The PDT source code is contained in the org.eclipse.pdt.git repo and for this release is tagged R3_7_0.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json"
+}
