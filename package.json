@@ -9,7 +9,11 @@
     "start": "next start",
     "validate": "node scripts/validate-content.ts",
     "migrate": "node scripts/migrate-archive.ts",
-    "test": "playwright test"
+    "import:observed": "node scripts/import-observed.ts",
+    "serve": "node scripts/serve-static.ts",
+    "test": "playwright test",
+    "test:deployed": "BASE_URL=https://deepusnath.github.io BASE_PREFIX=/techmyrmidons-web playwright test",
+    "deploy": "./scripts/deploy-pages.sh"
   },
   "dependencies": {
     "next": "^16.2.12",

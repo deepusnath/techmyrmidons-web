@@ -8,10 +8,19 @@ import { expect, test, type Page } from '@playwright/test';
  * local-first storage actually survives a refresh.
  */
 
-async function freshVisit(page: Page, url: string) {
-  await page.goto(url);
+/**
+ * Deployments under a subpath (GitHub Pages project sites) need every route
+ * prefixed. Without this a leading-slash path resolves against the origin and
+ * silently drops the subpath.
+ *   BASE_URL=https://user.github.io BASE_PREFIX=/repo npx playwright test
+ */
+const PREFIX = process.env.BASE_PREFIX ?? '';
+const p = (route: string) => `${PREFIX}${route}`;
+
+async function freshVisit(page: Page, route: string) {
+  await page.goto(p(route));
   await page.evaluate(() => window.localStorage.clear());
-  await page.goto(url);
+  await page.goto(p(route));
 }
 
 /** Fails the test if the page logged a console error. */
@@ -132,14 +141,14 @@ test('snapshot: marked tools appear in Where I stand with explainable suggestion
   await expect(page.getByText(/You have not marked any tools yet/i)).toBeVisible();
 
   // Mark a declining tool so a suggestion can be derived from it.
-  await page.goto('/frontend/tools/webpack/');
+  await page.goto(p('/frontend/tools/webpack/'));
   await page.getByTestId('state-using').click();
   await expect(page.getByTestId('state-using')).toHaveAttribute('data-active', 'true');
 
-  await page.goto('/frontend/tools/tailwind/');
+  await page.goto(p('/frontend/tools/tailwind/'));
   await page.getByTestId('state-shipped').click();
 
-  await page.goto('/me/');
+  await page.goto(p('/me/'));
   await expect(page.getByTestId('marked-total')).toHaveText('2');
   await expect(page.getByTestId('snapshot-item-webpack')).toBeVisible();
   await expect(page.getByTestId('snapshot-item-tailwind')).toBeVisible();
@@ -221,11 +230,11 @@ test('historical: shows decline, which the original archive could not express', 
 });
 
 test('no horizontal overflow at mobile or desktop width', async ({ page }) => {
-  for (const url of ['/', '/frontend/', '/frontend/current/', '/frontend/historical/', '/me/', '/submit/']) {
-    await page.goto(url);
+  for (const route of ['/', '/frontend/', '/frontend/current/', '/frontend/historical/', '/me/', '/submit/']) {
+    await page.goto(p(route));
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     );
-    expect(overflow, `horizontal overflow at ${url}`).toBe(false);
+    expect(overflow, `horizontal overflow at ${route}`).toBe(false);
   }
 });
