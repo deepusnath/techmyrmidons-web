@@ -1,0 +1,42 @@
+[
+  {
+    "id": "demo-1",
+    "display_name": "Alex (demo)",
+    "tool_slug": "tailwind",
+    "state": "shipped",
+    "at": "2026-07-24T09:12:00Z",
+    "is_demo": true
+  },
+  {
+    "id": "demo-2",
+    "display_name": "Riya (demo)",
+    "tool_slug": "vite",
+    "state": "using",
+    "at": "2026-07-22T14:40:00Z",
+    "is_demo": true
+  },
+  {
+    "id": "demo-3",
+    "display_name": "Sam (demo)",
+    "tool_slug": "htmx",
+    "state": "exploring",
+    "at": "2026-07-20T08:05:00Z",
+    "is_demo": true
+  },
+  {
+    "id": "demo-4",
+    "display_name": "Riya (demo)",
+    "tool_slug": "biome",
+    "state": "exploring",
+    "at": "2026-07-18T11:30:00Z",
+    "is_demo": true
+  },
+  {
+    "id": "demo-5",
+    "display_name": "Alex (demo)",
+    "tool_slug": "playwright",
+    "state": "using",
+    "at": "2026-07-15T16:55:00Z",
+    "is_demo": true
+  }
+]
