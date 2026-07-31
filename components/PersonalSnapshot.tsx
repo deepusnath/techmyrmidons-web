@@ -21,10 +21,13 @@ export function PersonalSnapshot({
   tools,
   domain,
   heuristics,
+  heuristicsWithheld,
 }: {
   tools: ToolView[];
   domain: string;
-  heuristics: Heuristics;
+  /** Null when the rules are unreviewed and this build withholds them. */
+  heuristics: Heuristics | null;
+  heuristicsWithheld: boolean;
 }) {
   const { state, reset, clearAssessment } = useLocalState();
   const hydrated = useHydrated();
@@ -45,8 +48,10 @@ export function PersonalSnapshot({
       }
     : { work: null, goal: null, baseline: null, completed_at: null };
 
+  // No rules shipped means no diagnosis is computed at all — there is nothing
+  // to run it against, which is the point.
   const diagnosis = useMemo(
-    () => diagnose({ answers, marked, heuristics, toolNames }),
+    () => (heuristics ? diagnose({ answers, marked, heuristics, toolNames }) : null),
     [answers, marked, heuristics, toolNames],
   );
 
@@ -66,12 +71,14 @@ export function PersonalSnapshot({
 
   // The assessment stays open until the user explicitly leaves it, so that
   // answering question 2 does not snatch away question 3.
-  const inAssessment = editing || !state.assessment.completed_at || diagnosis.status === 'needs_context';
+  const inAssessment =
+    !heuristicsWithheld &&
+    (editing || !state.assessment.completed_at || diagnosis?.status === 'needs_context');
 
   if (inAssessment) {
     return (
       <div className="space-y-6">
-        {diagnosis.status === 'needs_context' && !editing ? (
+        {diagnosis?.status === 'needs_context' && !editing ? (
           <div
             className="rounded-sm border border-dashed p-4"
             data-testid="needs-context"
@@ -81,7 +88,7 @@ export function PersonalSnapshot({
             <p className="text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
               Recommendations only mean something in context. Rather than offer a generic list, this
               needs to know what kind of work you do and what you are trying to achieve.
-              {diagnosis.missing.length ? (
+              {diagnosis.missing?.length ? (
                 <>
                   {' '}Still needed:{' '}
                   <strong>{diagnosis.missing.map((m) => (m === 'work' ? 'your kind of work' : 'your goal')).join(' and ')}</strong>.
@@ -107,19 +114,79 @@ export function PersonalSnapshot({
     );
   }
 
-  // Every judgement section shares one source of truth: the heuristics file.
-  // If that is unreviewed and this build hides drafts, none of them may render.
-  const heuristicsWithheld = !SHOW_DRAFTS && diagnosis.rulesAreDraft;
-
-  const workLabel = WORK_OPTIONS.find((w) => w.value === answers.work)?.label;
-  const goalLabel = GOAL_OPTIONS.find((g) => g.value === answers.goal)?.label;
-  const total = Object.keys(marked).length;
-
   const sections: Array<{ key: ProgressState; title: string; blurb: string }> = [
     { key: 'using', title: 'Tools I use', blurb: 'Marked as part of your regular working stack.' },
     { key: 'exploring', title: 'Tools I am exploring', blurb: 'Reading about or trying out.' },
     { key: 'shipped', title: 'Tools I have shipped with', blurb: 'You have put something real into production with these.' },
   ];
+
+  if (heuristicsWithheld) {
+    const markedCount = Object.keys(marked).length;
+    return (
+      <div className="space-y-8">
+        <div
+          data-testid="diagnosis-withheld"
+          role="note"
+          className="max-w-[68ch] rounded-sm border border-dashed p-4 text-sm leading-relaxed"
+          style={{ borderColor: '#c8913a', color: '#c8913a' }}
+        >
+          <strong>Contextual diagnosis is awaiting editorial review.</strong> What remains
+          appropriate, what may deserve reconsideration, and what is worth exploring next all come
+          from context-fit rules that no human editor has checked. Rather than present unreviewed
+          judgements as guidance — or ask you questions whose answers nothing can act on — this
+          build withholds them entirely. Your own marked tools are unaffected.
+        </div>
+
+        {markedCount === 0 ? (
+          <EmptyState title="You have not marked any tools yet.">
+            <p className="mb-3">
+              You can still record what you use. Marking is your own data and is never withheld.
+            </p>
+            <Link
+              href={routes.landscape(domain, 'current')}
+              className="inline-block rounded-sm px-3 py-1.5 text-xs font-semibold"
+              style={{ background: 'var(--color-ember)', color: '#fff' }}
+            >
+              Browse the landscape →
+            </Link>
+          </EmptyState>
+        ) : (
+          sections.map((sec) => (
+            <section key={sec.key} data-testid={`snapshot-${sec.key}`}>
+              <h2 className="mb-1 text-xl">{sec.title}</h2>
+              <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>{sec.blurb}</p>
+              {groups[sec.key].length === 0 ? (
+                <p className="text-sm" style={{ color: 'var(--fg-faint)' }}>
+                  Nothing marked as {PROGRESS_META[sec.key].label.toLowerCase()} yet.
+                </p>
+              ) : (
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {groups[sec.key].map((t) => (
+                    <li
+                      key={t.slug}
+                      data-testid={`snapshot-item-${t.slug}`}
+                      className="flex flex-wrap items-center justify-between gap-2 rounded-sm border px-3 py-2"
+                      style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
+                    >
+                      <Link href={routes.tool(domain, t.slug)} className="text-sm font-medium hover:underline">
+                        {t.name}
+                      </Link>
+                      <LifecycleBadge lifecycle={t.lifecycle} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))
+        )}
+      </div>
+    );
+  }
+
+  const workLabel = WORK_OPTIONS.find((w) => w.value === answers.work)?.label;
+  const goalLabel = GOAL_OPTIONS.find((g) => g.value === answers.goal)?.label;
+  const total = Object.keys(marked).length;
+
 
   return (
     <div className="space-y-10">
@@ -153,7 +220,7 @@ export function PersonalSnapshot({
         </button>
       </div>
 
-      {heuristicsWithheld ? (
+      {heuristicsWithheld || !diagnosis ? (
         /* Production: the rules behind all three judgement sections are
            unreviewed, so none of them runs. The user's own marked tools are
            still shown — those are their data, not our editorial. */
@@ -201,7 +268,7 @@ export function PersonalSnapshot({
           <ul className="space-y-2">
             {diagnosis.appropriate.map((j) => (
               <li key={j.slug} data-testid={`appropriate-${j.slug}`} className="rounded-sm border p-3" style={{ borderColor: 'var(--color-tier-community)' }}>
-                <Link href={`/${domain}/tools/${j.slug}/`} className="text-sm font-semibold hover:underline">{j.name}</Link>
+                <Link href={routes.tool(domain, j.slug)} className="text-sm font-semibold hover:underline">{j.name}</Link>
                 <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{j.reason}</p>
               </li>
             ))}
@@ -222,7 +289,7 @@ export function PersonalSnapshot({
           <ul className="space-y-2">
             {diagnosis.reconsider.map((j) => (
               <li key={j.slug} data-testid={`reconsider-${j.slug}`} className="rounded-sm border p-3" style={{ borderColor: '#c8913a' }}>
-                <Link href={`/${domain}/tools/${j.slug}/`} className="text-sm font-semibold hover:underline">{j.name}</Link>
+                <Link href={routes.tool(domain, j.slug)} className="text-sm font-semibold hover:underline">{j.name}</Link>
                 <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{j.reason}</p>
               </li>
             ))}
@@ -258,7 +325,7 @@ export function PersonalSnapshot({
                 style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
               >
                 <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <Link href={`/${domain}/tools/${s.slug}/`} className="text-base font-semibold hover:underline">
+                  <Link href={routes.tool(domain, s.slug)} className="text-base font-semibold hover:underline">
                     {s.name}
                   </Link>
                   <LifecycleBadge lifecycle={tools.find((t) => t.slug === s.slug)?.lifecycle ?? null} />
@@ -296,7 +363,7 @@ export function PersonalSnapshot({
                   className="flex flex-wrap items-center justify-between gap-2 rounded-sm border px-3 py-2"
                   style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
                 >
-                  <Link href={`/${domain}/tools/${t.slug}/`} className="text-sm font-medium hover:underline">
+                  <Link href={routes.tool(domain, t.slug)} className="text-sm font-medium hover:underline">
                     {t.name}
                   </Link>
                   <LifecycleBadge lifecycle={t.lifecycle} />

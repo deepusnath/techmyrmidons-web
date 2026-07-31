@@ -129,6 +129,7 @@ test('repository signals never imply personal usage', async ({ page }) => {
 // ---------------------------------------------------------------------------
 
 test('recommendations require context rather than guessing', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'production withholds the rules entirely; covered by the gating test');
   await freshVisit(page, '/me/');
   await expect(page.getByTestId('needs-context')).toBeVisible();
   await expect(page.getByTestId('assessment')).toBeVisible();
@@ -263,8 +264,9 @@ test('no contact address is exposed when none is configured', async ({ page }) =
 test('production withholds the ENTIRE diagnosis, not just recommendations', async ({ page }) => {
   test.skip(!PRODUCTION_MODE, 'production-mode assertion');
   await freshVisit(page, '/me/');
-  await completeAssessment(page, 'legacy', 'modernize', [['gulp', 'using']]);
 
+  // No context questions are asked, because nothing could act on the answers.
+  await expect(page.getByTestId('assessment')).toHaveCount(0);
   await expect(page.getByTestId('diagnosis-withheld')).toBeVisible();
   await expect(page.getByTestId('diagnosis-withheld')).toContainText(/awaiting editorial review/i);
 
@@ -281,7 +283,17 @@ test('production withholds the ENTIRE diagnosis, not just recommendations', asyn
   await expect(body).not.toContainText(/A working stylesheet is an asset/i);
 
   // The user's own marked tools are their data and must survive.
+  await page.goto(p('/frontend/tools/gulp/'));
+  await page.getByTestId('state-using').click();
+  await page.goto(p('/me/'));
   await expect(page.getByTestId('snapshot-item-gulp')).toBeVisible();
+
+  // The rules must be withheld at the server boundary, not merely hidden:
+  // anything passed to a client component ships in the page source.
+  const source = await page.content();
+  expect(source).not.toContain('still_appropriate');
+  expect(source).not.toContain('bundler now owns the dependency graph');
+  expect(source).not.toContain('A working stylesheet is an asset');
 });
 
 test('preview labels the whole diagnosis, not only the recommendations', async ({ page }) => {
