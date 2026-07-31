@@ -80,13 +80,28 @@ test('every internal link resolves and stays within the deployment base path', a
     }
   }
 
-  // Verify every discovered internal target actually resolves.
+  // Verify every discovered internal target actually resolves — and that any
+  // redirect lands somewhere valid and still inside the base path. A 301 to a
+  // 404, or to the domain root, is just as broken as a direct 404.
+  const redirected: Array<{ from: string; to: string; status: number }> = [];
   for (const [target, ref] of allInternal) {
     if (PREFIX && !target.startsWith(PREFIX)) continue; // already reported
     const res = await page.request.get(`${origin}${target}`);
     if (res.status() >= 400) {
       broken.push({ href: target, from: ref.from, status: res.status() });
+      continue;
     }
+    const finalPath = new URL(res.url()).pathname;
+    if (finalPath !== target) {
+      redirected.push({ from: target, to: finalPath, status: res.status() });
+      if (PREFIX && !finalPath.startsWith(PREFIX)) {
+        escaped.push({ href: `${target} → ${finalPath}`, from: ref.from, text: 'redirect' });
+      }
+    }
+  }
+  if (redirected.length) {
+    console.log(`redirects followed (${redirected.length}):`);
+    for (const r of redirected.slice(0, 10)) console.log(`  ${r.from} → ${r.to} [${r.status}]`);
   }
 
   console.log(
@@ -125,4 +140,45 @@ test('timeline event links specifically resolve under the base path', async ({ p
     const res = await page.request.get(`${origin}${href}`);
     expect(res.status(), `${href} should resolve`).toBeLessThan(400);
   }
+});
+
+test('no critical browser console errors on any page', async ({ page, baseURL }) => {
+  test.setTimeout(120_000);
+  const origin = new URL(baseURL ?? 'http://localhost:3100').origin;
+
+  const problems: Array<{ route: string; message: string }> = [];
+  page.on('console', (m) => {
+    if (m.type() === 'error') problems.push({ route: page.url(), message: m.text() });
+  });
+  page.on('pageerror', (e) => problems.push({ route: page.url(), message: String(e) }));
+
+  const routes = [
+    '/', '/frontend/', '/frontend/current/', '/frontend/emerging/', '/frontend/declining/',
+    '/frontend/historical/', '/frontend/activity/', '/frontend/tools/tailwind/',
+    '/frontend/tools/angularjs/', '/frontend/tools/claude-code/', '/me/', '/submit/', '/review/',
+  ];
+
+  for (const route of routes) {
+    await page.goto(`${origin}${PREFIX}${route}`, { waitUntil: 'networkidle' });
+  }
+
+  // Exercise the interactive paths too — hydration errors only surface on use.
+  await page.goto(`${origin}${PREFIX}/me/`, { waitUntil: 'networkidle' });
+  const work = page.getByTestId('work-apps');
+  if (await work.count()) {
+    await work.click();
+    await page.getByTestId('goal-stay_current').click();
+    await page.getByTestId('assessment-done').click();
+  }
+  await page.goto(`${origin}${PREFIX}/frontend/`, { waitUntil: 'networkidle' });
+  await page.getByTestId('follow-button').click();
+  await page.getByTestId('feedback-open').click();
+
+  if (problems.length) {
+    console.log(`console problems (${problems.length}):`);
+    for (const p of problems.slice(0, 10)) console.log(`  ${p.route}: ${p.message.slice(0, 120)}`);
+  } else {
+    console.log(`console clean across ${routes.length} routes plus interactive paths`);
+  }
+  expect(problems).toEqual([]);
 });
