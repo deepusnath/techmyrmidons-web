@@ -21,7 +21,7 @@ const DOMAIN = 'frontend';
  * rather than inferred from labels scattered across the site. Nothing here is
  * attributed to a named editor, because none of it has been reviewed by one.
  */
-export default function ReviewPage() {
+export function ReviewInventory() {
   // Single source of truth — see getReviewCounts in lib/content.ts.
   const counts = getReviewCounts(DOMAIN);
   const tools = getTools(DOMAIN).filter((t) => t.published);

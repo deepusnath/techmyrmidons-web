@@ -64,7 +64,9 @@ test('tool detail marks its editorial claims as unreviewed', async ({ page }) =>
 });
 
 test('no false named-editor wording appears anywhere', async ({ page }) => {
-  for (const route of ['/frontend/', '/frontend/current/', '/frontend/historical/', '/frontend/tools/tailwind/', '/review/']) {
+  const routes = ['/frontend/', '/frontend/current/', '/frontend/historical/', '/frontend/tools/tailwind/'];
+  if (!PRODUCTION_MODE) routes.push('/review/');
+  for (const route of routes) {
     await page.goto(p(route));
     const body = page.locator('body');
     await expect(body, route).not.toContainText('By Deepu S Nath');
@@ -86,6 +88,7 @@ test('footer does not overclaim source coverage', async ({ page }) => {
 });
 
 test('review inventory lists unreviewed claims without attributing them', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await page.goto(p('/review/'));
   await expect(page.getByRole('heading', { name: /Editorial review inventory/i })).toBeVisible();
   await expect(page.getByTestId('unreviewed-tools').locator('li').first()).toBeVisible();
@@ -397,6 +400,7 @@ test('AngularJS end-of-life cites a primary source, not an AI reading', async ({
 // ---------------------------------------------------------------------------
 
 test('review queue distinguishes unreviewed, reviewed-blocked and publishable', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
   await expect(page.getByTestId('rules-reviewed')).toHaveText('6');
@@ -465,6 +469,7 @@ test('deferred lifecycle stays withheld on the TypeScript tool page', async ({ p
 });
 
 test('priority review queue shows evidence and records nothing as reviewed', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
   await expect(page.getByRole('heading', { name: /Priority editorial review/i })).toBeVisible();
@@ -488,6 +493,7 @@ test('priority review queue shows evidence and records nothing as reviewed', asy
 });
 
 test('a reviewer decision stays local and changes no published claim', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
   // An approval cannot be recorded anonymously.
@@ -508,6 +514,7 @@ test('a reviewer decision stays local and changes no published claim', async ({ 
 });
 
 test('readiness reports blockers without a score or meter', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
   await expect(page.getByTestId('readiness-legacy')).toContainText(/fully blocked/i);
@@ -520,6 +527,7 @@ test('readiness reports blockers without a score or meter', async ({ page }) => 
 });
 
 test('journey dependency map exposes rule-level review status', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
   const journey = page.getByTestId('journey-legacy');
   await journey.locator('summary').click();

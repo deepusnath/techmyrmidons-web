@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import Link from 'next/link';
-import { routes } from '../../../lib/routes.ts';
-import { getJourneyMaps, getPrioritySet, getReadiness } from '../../../lib/review.ts';
-import { PriorityReview, type DossierView } from '../../../components/PriorityReview.tsx';
+import { routes } from '../../lib/routes.ts';
+import { getJourneyMaps, getPrioritySet, getReadiness } from '../../lib/review.ts';
+import { PriorityReview, type DossierView } from '../PriorityReview.tsx';
 
 const DOMAIN = 'frontend';
 
@@ -22,7 +22,7 @@ function loadDossiers(): DossierView[] {
   return order.map((s) => byslug.get(s)).filter(Boolean) as DossierView[];
 }
 
-export default function PriorityReviewPage() {
+export function PriorityReviewQueue() {
   const dossiers = loadDossiers();
   const priority = getPrioritySet(DOMAIN);
   const readiness = getReadiness(DOMAIN);

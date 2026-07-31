@@ -155,8 +155,11 @@ test('no critical browser console errors on any page', async ({ page, baseURL })
   const routes = [
     '/', '/frontend/', '/frontend/current/', '/frontend/emerging/', '/frontend/declining/',
     '/frontend/historical/', '/frontend/activity/', '/frontend/tools/tailwind/',
-    '/frontend/tools/angularjs/', '/frontend/tools/claude-code/', '/me/', '/submit/', '/review/',
+    '/frontend/tools/angularjs/', '/frontend/tools/claude-code/', '/me/', '/submit/',
   ];
+  // Review routes exist only in preview builds; requesting them in production
+  // would be requesting a route that is deliberately absent.
+  if (process.env.DRAFTS_HIDDEN !== '1') routes.push('/review/');
 
   for (const route of routes) {
     await page.goto(`${origin}${PREFIX}${route}`, { waitUntil: 'networkidle' });

@@ -250,8 +250,11 @@ export function PersonalSnapshot({
         >
           <strong>{DRAFT_LABEL_SHORT}.</strong> All three sections below — what remains appropriate,
           what may deserve reconsideration, and what is worth exploring next — are generated from
-          AI-drafted context-fit rules that no human editor has reviewed. They carry no byline. See
-          the <Link href={routes.review()} className="underline">review inventory</Link>.
+          AI-drafted context-fit rules that no human editor has reviewed. They carry no byline.
+          {/* No link to the review tooling from here: this is a client component,
+              so both branches of a conditional would be compiled into the
+              production bundle and the URL would ship even though it never
+              renders. The footer link is server-rendered and gated there. */}
         </div>
       ) : null}
 

@@ -17,6 +17,9 @@ import { expect, test, type Page } from '@playwright/test';
 const PREFIX = process.env.BASE_PREFIX ?? '';
 const p = (route: string) => `${PREFIX}${route}`;
 
+/** Set when running against a build made with NEXT_PUBLIC_SHOW_DRAFTS=false. */
+const PRODUCTION_MODE = process.env.DRAFTS_HIDDEN === '1';
+
 async function freshVisit(page: Page, route: string) {
   await page.goto(p(route));
   await page.evaluate(() => window.localStorage.clear());
@@ -54,6 +57,7 @@ test('onboarding: land, see active and archived domains, enter Frontend', async 
 });
 
 test('draft editorial is labelled and never carries a byline', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'production withholds draft editorial rather than labelling it');
   await freshVisit(page, '/frontend/');
 
   const banner = page.getByText(/AI-assisted draft, awaiting domain-editor review/i).first();
@@ -65,6 +69,10 @@ test('draft editorial is labelled and never carries a byline', async ({ page }) 
 });
 
 test('landscape: search and category filter narrow the results', async ({ page }) => {
+  // Production withholds every lifecycle classification, so the Current view is
+  // legitimately empty and there is nothing to filter. Preview-only until
+  // lifecycles are reviewed.
+  test.skip(PRODUCTION_MODE, 'no lifecycle is reviewed, so production has no populated landscape');
   const errors = trackConsoleErrors(page);
   await freshVisit(page, '/frontend/current/');
 
@@ -134,6 +142,7 @@ test('progress: mark a tool, toggle it off, and confirm it persists', async ({ p
 });
 
 test('snapshot: context assessment drives an explainable diagnosis', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered in trust.spec');
   const errors = trackConsoleErrors(page);
   await freshVisit(page, '/me/');
 

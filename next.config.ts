@@ -10,8 +10,19 @@ import type { NextConfig } from 'next';
  */
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
+/**
+ * Preview builds additionally treat `page.preview.tsx` as a route. Production
+ * builds do not, so review tooling under app/review/ is never discovered, never
+ * rendered and never emitted — no HTML, no RSC payload, no manifest entry.
+ *
+ * Route discovery is the gate. A runtime check would still generate the files.
+ */
+const showDrafts = process.env.NEXT_PUBLIC_SHOW_DRAFTS !== 'false';
+const pageExtensions = showDrafts ? ['tsx', 'ts', 'preview.tsx'] : ['tsx', 'ts'];
+
 const nextConfig: NextConfig = {
   output: 'export',
+  pageExtensions,
   basePath,
   trailingSlash: true,
   images: { unoptimized: true },

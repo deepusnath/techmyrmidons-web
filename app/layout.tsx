@@ -71,12 +71,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <p className="mb-2">
               TechMyrmidons is a trust layer for staying current: what changed, where you stand, and
               what to learn next. <strong>Sources and provenance are shown where available.</strong>{' '}
-              Much of the current editorial is AI-drafted and unreviewed, and is labelled as such —
-              see the{' '}
-              <Link href={routes.review()} className="underline" style={{ color: 'var(--color-ember)' }}>
-                editorial review inventory
-              </Link>{' '}
-              for exactly what has and has not been checked.
+              Much of the current editorial is AI-drafted and unreviewed, and is labelled as such.
+              {SHOW_DRAFTS ? (
+                <>
+                  {' '}See the{' '}
+                  <Link href={routes.review()} className="underline" style={{ color: 'var(--color-ember)' }}>
+                    editorial review inventory
+                  </Link>{' '}
+                  for exactly what has and has not been checked.
+                </>
+              ) : null}
             </p>
             <p>
               Frontend is the active pilot domain. Eleven other domains are archived with their
