@@ -5,7 +5,7 @@
  */
 import type { EvidenceTier } from '../content/schema.ts';
 import { getEditorialFor, getPublishedTools, getSignalsFor, getTools, type Tool } from './content.ts';
-import { isVisible } from './provenance.ts';
+import { canShowEditorialClaim, isVisible } from './provenance.ts';
 
 export interface EvidenceSummary {
   tier: EvidenceTier;
@@ -15,7 +15,14 @@ export interface EvidenceSummary {
 
 export interface ToolView {
   slug: string;
+  /** Factual: the tool's own name. Not an editorial claim. */
   name: string;
+  editorial_status: 'ai_draft' | 'reviewed';
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  reviewed_fields: string[];
+  /** False when the build withholds unreviewed editorial claims. */
+  showEditorial: boolean;
   category: string | null;
   homepage: string | null;
   one_liner: string | null;
@@ -54,8 +61,20 @@ function summarise(domain: string, slug: string): EvidenceSummary[] {
 
 function toView(domain: string, tool: Tool): ToolView {
   const notes = getEditorialFor(domain, tool.slug);
+  const showEditorial = canShowEditorialClaim(tool);
   return {
     ...tool,
+    // In a production build an unreviewed classification is withheld rather
+    // than shown as a fact. Blanking the fields here means no component can
+    // leak one by forgetting to check.
+    one_liner: showEditorial ? tool.one_liner : null,
+    what_it_is: showEditorial ? tool.what_it_is : null,
+    why_it_matters: showEditorial ? tool.why_it_matters : null,
+    lifecycle: showEditorial ? tool.lifecycle : null,
+    suitable_for: showEditorial ? tool.suitable_for : [],
+    not_suitable_for: showEditorial ? tool.not_suitable_for : [],
+    alternatives: showEditorial ? tool.alternatives : [],
+    showEditorial,
     evidence: summarise(domain, tool.slug),
     hasDraftNote: notes.some((n) => n.draft && isVisible(n)),
     hasSignedNote: notes.some((n) => !n.draft),
@@ -64,6 +83,17 @@ function toView(domain: string, tool: Tool): ToolView {
 
 export function getToolViews(domain: string): ToolView[] {
   return getPublishedTools(domain).map((t) => toView(domain, t));
+}
+
+/**
+ * Tools whose editorial claims this build withholds because they are
+ * unreviewed. Surfaced as an explicit list so a production build says
+ * "withheld pending review" rather than silently having fewer tools.
+ */
+export function getWithheldTools(domain: string): Array<{ slug: string; name: string; homepage: string | null }> {
+  return getPublishedTools(domain)
+    .filter((t) => !canShowEditorialClaim(t))
+    .map((t) => ({ slug: t.slug, name: t.name, homepage: t.homepage }));
 }
 
 /** Includes unpublished archive records — used only by the Historical view. */

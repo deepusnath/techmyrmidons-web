@@ -53,6 +53,45 @@ export interface Seeded {
 }
 
 // ---------------------------------------------------------------------------
+// editorial review status
+// ---------------------------------------------------------------------------
+
+/**
+ * Whether an editorial claim has been reviewed by a human.
+ *
+ * `ai_draft` is the default and applies to EVERY AI-authored claim: summaries,
+ * descriptions, why-it-matters, lifecycle classifications, suitable-for and
+ * not-suitable-for guidance, alternatives, and historical interpretations.
+ *
+ * Nothing may be described as authored or judged by a named editor unless
+ * `reviewed_by` and `reviewed_at` are both set — enforced in
+ * validate-content.ts, not left to wording discipline.
+ */
+export type EditorialStatus = 'ai_draft' | 'reviewed';
+
+export interface EditorialReview {
+  editorial_status: EditorialStatus;
+  /** Required when editorial_status is 'reviewed'. Never set speculatively. */
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  /** Fields a reviewer has signed off individually, if not the whole record. */
+  reviewed_fields: string[];
+}
+
+/** The tool fields that constitute editorial claims requiring review. */
+export const EDITORIAL_TOOL_FIELDS = [
+  'one_liner',
+  'what_it_is',
+  'why_it_matters',
+  'lifecycle',
+  'suitable_for',
+  'not_suitable_for',
+  'alternatives',
+] as const;
+
+export type EditorialToolField = (typeof EDITORIAL_TOOL_FIELDS)[number];
+
+// ---------------------------------------------------------------------------
 // entities
 // ---------------------------------------------------------------------------
 
@@ -82,7 +121,7 @@ export interface Practitioner extends Seeded {
   bio: string | null;
 }
 
-export interface Tool extends Seeded {
+export interface Tool extends Seeded, EditorialReview {
   slug: string;
   domain: string;
   name: string;
@@ -106,6 +145,22 @@ export interface Tool extends Seeded {
   published: boolean;
 }
 
+/**
+ * How much is known about what a repository actually is. A dependency change in
+ * someone's dotfiles means something very different from one in a production
+ * application, and we usually cannot tell which from the API alone.
+ *
+ * Never infer this. `unknown` is the honest default and the only value the
+ * importer is allowed to assign automatically.
+ */
+export type RepoContext =
+  | 'unknown'
+  | 'production_unknown'
+  | 'personal_config'
+  | 'library'
+  | 'demo'
+  | 'legacy';
+
 export interface Signal extends Seeded {
   id: string;
   tool_slug: string;
@@ -113,20 +168,40 @@ export interface Signal extends Seeded {
   /** Non-nullable by design. Nothing renders without a declared provenance. */
   tier: EvidenceTier;
   source_url: string | null;
+  /**
+   * A literal description of the artifact change. It must state what happened
+   * to a file in a repository — never that a person uses, prefers, adopted or
+   * abandoned anything. A dependency edit is not a statement about a human.
+   */
   source_label: string;
   observed_at: string;
   actor_type: 'practitioner' | 'member' | 'org' | 'editor';
   actor_id: string | null;
   note: string | null;
   confidence: 'high' | 'medium' | 'low';
+
+  /* --- repository-signal specifics (null for editorial/archive signals) --- */
+  repo: string | null;
+  manifest_path: string | null;
+  action: 'added' | 'removed' | null;
+  context_status: RepoContext;
+  /**
+   * Repository signals are evidence that a file changed, nothing more. They may
+   * not feed lifecycle classification or recommendations until a human has
+   * reviewed the repository's context and set this true.
+   */
+  eligible_for_trends: boolean;
 }
 
 export interface EditorialNote extends Seeded {
   id: string;
   domain: string;
   tool_slug: string | null;
-  /** Named human byline. The character is the brand; the byline is the source. */
-  author: string;
+  /**
+   * Named human byline. Null while unreviewed — an unreviewed claim must not be
+   * attributed to a real person anywhere, including in stored data.
+   */
+  author: string | null;
   published_at: string;
   body: string;
   /** Required. A recommendation without stated trade-offs does not publish. */
@@ -141,11 +216,45 @@ export interface EditorialNote extends Seeded {
 }
 
 /**
+ * What kind of event a timeline entry records.
+ *
+ * The previous "arrived"/"faded" labels were ambiguous: they blurred a release
+ * date, an adoption trend and an editorial opinion into one word. Each type
+ * below means exactly one thing, and every event must state its basis.
+ */
+export type TimelineEventType =
+  | 'first_released'
+  | 'first_observed_in_repos'
+  | 'first_included_in_techmyrmidons'
+  | 'editorial_turning_point'
+  | 'removed_from_observed_repo'
+  | 'reached_end_of_life';
+
+/**
+ * Where an event's claim comes from.
+ * - `archive_record`  the tool appears in a dated file in the original archive
+ * - `observed_commit` a real commit changed a manifest; links to the commit
+ * - `ai_interpretation` an AI-authored reading of what mattered; ALWAYS a draft
+ */
+export type TimelineBasis = 'archive_record' | 'observed_commit' | 'ai_interpretation';
+
+export interface TimelineEvent {
+  type: TimelineEventType;
+  tool_slug: string;
+  basis: TimelineBasis;
+  /** Human-readable justification, shown alongside the event. Required. */
+  basis_detail: string;
+  source_url: string | null;
+  /** 'sourced' only for archive_record / observed_commit. */
+  claim_status: 'sourced' | 'ai_draft';
+}
+
+/**
  * One year in a domain's Historical view.
  *
- * The archive only ever recorded what was *added*, which is why the old site
- * could never show a tool losing ground. `faded` exists so that decline is a
- * first-class part of the record rather than an omission.
+ * The archive only ever recorded what was added, which is why the old site
+ * could never show a tool losing ground. Typed events make both directions —
+ * and the difference between a release and an opinion — explicit.
  */
 export interface TimelineEntry extends Seeded {
   id: string;
@@ -153,11 +262,9 @@ export interface TimelineEntry extends Seeded {
   year: number;
   headline: string;
   body: string;
-  /** Tool slugs that became notable this year. */
-  arrived: string[];
-  /** Tool slugs that lost default status this year. */
-  faded: string[];
-  author: string;
+  events: TimelineEvent[];
+  /** Null while unreviewed. See EditorialNote.author. */
+  author: string | null;
   /** Same rule as EditorialNote: unsigned text must not render publicly. */
   draft: boolean;
 }

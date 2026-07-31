@@ -9,8 +9,9 @@ import {
   TIER_META,
   formatDate,
   isVisible,
+  describeRepoSignal,
 } from '../../../../lib/provenance.ts';
-import { Byline, DraftBanner, EmptyState, LifecycleBadge, ProvenanceChip } from '../../../../components/Provenance.tsx';
+import { Byline, DraftBanner, EmptyState, LifecycleBadge, ProvenanceChip, RepoSignalRow, ReviewChip } from '../../../../components/Provenance.tsx';
 import { ToolStateButtons } from '../../../../components/ToolStateButtons.tsx';
 
 export function generateStaticParams() {
@@ -56,6 +57,7 @@ export default async function ToolDetail({
         <div className="mb-2 flex flex-wrap items-center gap-3">
           <h1 className="text-3xl">{tool.name}</h1>
           <LifecycleBadge lifecycle={tool.lifecycle} />
+          <ReviewChip review={tool} />
           {!tool.published ? (
             <span
               className="rounded-sm border border-dashed px-2 py-0.5 text-[11px] font-semibold"
@@ -104,6 +106,19 @@ export default async function ToolDetail({
         </p>
       </div>
 
+      {!tool.showEditorial ? (
+        <div
+          data-testid="editorial-withheld"
+          className="mb-8 rounded-sm border border-dashed p-4 text-sm leading-relaxed"
+          style={{ borderColor: '#c8913a', color: '#c8913a' }}
+        >
+          <strong>Editorial withheld pending review.</strong> The description, lifecycle
+          classification and suitability guidance for this tool are AI-authored and have not been
+          checked by a human editor, so this build does not display them as facts. The name, link and
+          any sourced repository signals below are unaffected.
+        </div>
+      ) : null}
+
       {tool.what_it_is ? (
         <Section title="What it is">
           <p className="text-[15px] leading-relaxed">{tool.what_it_is}</p>
@@ -119,10 +134,11 @@ export default async function ToolDetail({
       {tool.why_it_matters ? (
         <Section title="Why it matters">
           <p className="text-[15px] leading-relaxed">{tool.why_it_matters}</p>
-          <p className="mt-2 flex items-center gap-2">
+          <p className="mt-2 flex flex-wrap items-center gap-2">
             <ProvenanceChip kind="editorial" />
+            <ReviewChip review={tool} />
             <span className="text-xs" style={{ color: 'var(--fg-faint)' }}>
-              An authored judgement, not a measurement.
+              A written argument, not a measurement. Repository signals did not produce it.
             </span>
           </p>
         </Section>
@@ -216,27 +232,38 @@ export default async function ToolDetail({
               Each signal states what kind of evidence it is. {TIER_META.observed.description}
             </p>
             <ul className="space-y-2">
-              {signals.slice(0, 24).map((s) => (
-                <li
-                  key={s.id}
-                  className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b pb-2 text-sm"
-                  style={{ borderColor: 'var(--rule)' }}
-                >
-                  <ProvenanceChip kind={s.is_seed ? 'archive' : s.tier} />
-                  <span className="flex-1 min-w-[12rem]" style={{ color: 'var(--fg-dim)' }}>
-                    {s.source_url ? (
-                      <a href={s.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                        {s.source_label} ↗
-                      </a>
-                    ) : (
-                      s.source_label
-                    )}
-                  </span>
-                  <span className="text-xs whitespace-nowrap" style={{ color: 'var(--fg-faint)' }}>
-                    {formatDate(s.observed_at)}
-                  </span>
-                </li>
-              ))}
+              {signals.slice(0, 24).map((s) =>
+                s.tier === 'observed' ? (
+                  <RepoSignalRow
+                    key={s.id}
+                    statement={describeRepoSignal({
+                      tool_slug: tool.name,
+                      repo: s.repo,
+                      manifest_path: s.manifest_path,
+                      action: s.action,
+                      source_url: s.source_url,
+                      observed_at: s.observed_at,
+                    })}
+                    contextStatus={s.context_status ?? 'unknown'}
+                    sourceUrl={s.source_url}
+                    eligible={s.eligible_for_trends ?? false}
+                  />
+                ) : (
+                  <li
+                    key={s.id}
+                    className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b pb-2 text-sm"
+                    style={{ borderColor: 'var(--rule)' }}
+                  >
+                    <ProvenanceChip kind={s.is_seed ? 'archive' : s.tier} />
+                    <span className="flex-1 min-w-[12rem]" style={{ color: 'var(--fg-dim)' }}>
+                      {s.source_label}
+                    </span>
+                    <span className="text-xs whitespace-nowrap" style={{ color: 'var(--fg-faint)' }}>
+                      {formatDate(s.observed_at)}
+                    </span>
+                  </li>
+                ),
+              )}
             </ul>
             {signals.length > 24 ? (
               <p className="mt-2 text-xs" style={{ color: 'var(--fg-faint)' }}>

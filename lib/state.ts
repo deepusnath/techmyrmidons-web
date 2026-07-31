@@ -45,16 +45,31 @@ export interface FeedbackRecord {
   created_at: string;
 }
 
+export interface AssessmentState {
+  work: string | null;
+  goal: string | null;
+  completed_at: string | null;
+}
+
 export interface LocalState {
   follows: string[];
   tools: Record<string, ToolStateRecord>;
   submissions: Submission[];
   feedback: FeedbackRecord[];
+  assessment: AssessmentState;
 }
 
 const KEY = 'techmyrmidons.v1';
 
-const EMPTY: LocalState = { follows: [], tools: {}, submissions: [], feedback: [] };
+const EMPTY_ASSESSMENT: AssessmentState = { work: null, goal: null, completed_at: null };
+
+const EMPTY: LocalState = {
+  follows: [],
+  tools: {},
+  submissions: [],
+  feedback: [],
+  assessment: EMPTY_ASSESSMENT,
+};
 
 let cache: LocalState = EMPTY;
 let cacheRaw: string | null = null;
@@ -81,6 +96,10 @@ function read(): LocalState {
       tools: parsed.tools && typeof parsed.tools === 'object' ? parsed.tools : {},
       submissions: Array.isArray(parsed.submissions) ? parsed.submissions : [],
       feedback: Array.isArray(parsed.feedback) ? parsed.feedback : [],
+      assessment:
+        parsed.assessment && typeof parsed.assessment === 'object'
+          ? { ...EMPTY_ASSESSMENT, ...parsed.assessment }
+          : EMPTY_ASSESSMENT,
     };
   } catch {
     cache = EMPTY; // corrupt payload should not brick the app
@@ -155,6 +174,30 @@ export function useLocalState() {
     return entry;
   }, []);
 
+  const setAssessment = useCallback((patch: Partial<AssessmentState>) => {
+    const cur = read();
+    write({ ...cur, assessment: { ...cur.assessment, ...patch } });
+  }, []);
+
+  /**
+   * Marks the guided flow finished. Deliberately separate from answering:
+   * picking a work context and a goal must not yank the tool-selection step
+   * away mid-flow, so leaving the assessment is always the user's decision.
+   */
+  const completeAssessment = useCallback(() => {
+    const cur = read();
+    if (!cur.assessment.work || !cur.assessment.goal) return;
+    write({
+      ...cur,
+      assessment: { ...cur.assessment, completed_at: new Date().toISOString() },
+    });
+  }, []);
+
+  const clearAssessment = useCallback(() => {
+    const cur = read();
+    write({ ...cur, assessment: EMPTY_ASSESSMENT });
+  }, []);
+
   const reset = useCallback(() => write(EMPTY), []);
 
   return {
@@ -165,6 +208,9 @@ export function useLocalState() {
     setToolState,
     addSubmission,
     addFeedback,
+    setAssessment,
+    completeAssessment,
+    clearAssessment,
     reset,
   };
 }

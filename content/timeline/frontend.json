@@ -5,12 +5,116 @@
     "year": 2017,
     "headline": "The original curation: task runners, preprocessors and the pre-bundler build.",
     "body": "The first TechMyrmidons frontend list. Gulp for the build, Sass for styling, Bower for browser packages, Bootstrap or Foundation for layout, AngularJS and Ember for applications. This is a genuine snapshot of what a well-informed frontend developer used in 2017, and it is preserved unedited.",
-    "arrived": ["gulp", "sass", "bower", "bootstrap", "foundation", "angularjs", "ember-js", "meteor", "yeoman", "html5-boilerplate", "normalize", "git", "firebase"],
-    "faded": [],
     "author": "original curation",
     "draft": false,
     "is_seed": true,
-    "seed_source": "original curation, src/data/frontend/2017.json"
+    "seed_source": "original curation, src/data/frontend/2017.json",
+    "events": [
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "gulp",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "sass",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "bower",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "bootstrap",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "foundation",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "angularjs",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "ember-js",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "meteor",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "yeoman",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "html5-boilerplate",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "normalize",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "git",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "firebase",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2017 (original curation, src/data/frontend/2017.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2019",
@@ -18,12 +122,36 @@
     "year": 2019,
     "headline": "Bundlers arrive in the list; nothing is removed.",
     "body": "webpack, Parcel and CodeSandbox were added to the 2017 set. Nothing was taken away — AngularJS and Bower remained listed as current picks despite Bower having been deprecated by its own maintainers two years earlier. This is the last year the archive received genuinely new curation; the 2020 and 2021 files are byte-identical copies of this one.",
-    "arrived": ["webpack", "parceljs", "codesandbox"],
-    "faded": [],
     "author": "original curation",
     "draft": false,
     "is_seed": true,
-    "seed_source": "original curation, src/data/frontend/2019.json"
+    "seed_source": "original curation, src/data/frontend/2019.json",
+    "events": [
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "webpack",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2019 (original curation, src/data/frontend/2019.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "parceljs",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2019 (original curation, src/data/frontend/2019.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      },
+      {
+        "type": "first_included_in_techmyrmidons",
+        "tool_slug": "codesandbox",
+        "basis": "archive_record",
+        "basis_detail": "Listed in the original TechMyrmidons curation for 2019 (original curation, src/data/frontend/2019.json).",
+        "source_url": null,
+        "claim_status": "sourced"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2020",
@@ -31,12 +159,36 @@
     "year": 2020,
     "headline": "Native ES modules make the dev server rethinkable.",
     "body": "Vite and esbuild established that build tooling did not have to be slow — Vite by serving source over native ES modules in development instead of bundling it, esbuild by writing the bundler in a compiled language. TypeScript passed the point of being a default rather than a choice for new work. This is the year the archive stops, and the year the gap this record documents begins.",
-    "arrived": ["vite", "esbuild", "typescript"],
-    "faded": [],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": [
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "vite",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "esbuild",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "typescript",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2021",
@@ -44,12 +196,52 @@
     "year": 2021,
     "headline": "Utility-first styling goes mainstream; AI assistance appears.",
     "body": "Tailwind moved from contested to widely adopted. Astro introduced a content-first framework that shipped no JavaScript by default, inverting the SPA assumption. GitHub Copilot arrived and began a shift that leaves no trace in any dependency manifest. AngularJS reached end of life this year — while still listed as a current recommendation on this very site.",
-    "arrived": ["tailwind", "astro", "github-copilot"],
-    "faded": ["angularjs", "bower"],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": [
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "tailwind",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "astro",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "github-copilot",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "reached_end_of_life",
+        "tool_slug": "angularjs",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this lost default status. Not measured adoption and not a support-end announcement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "bower",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this lost default status. Not measured adoption and not a support-end announcement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2022",
@@ -57,12 +249,52 @@
     "year": 2022,
     "headline": "Rendering moves back toward the server; test tooling consolidates.",
     "body": "React server components moved from proposal toward something teams actually shipped, mostly through Next.js, and a large body of client-side patterns started to look dated. Vitest gave Vite projects a test runner sharing their build configuration, ending the long annoyance of maintaining a second one for Jest. Playwright became the default choice for new end-to-end work.",
-    "arrived": ["vitest", "playwright", "nextjs"],
-    "faded": ["jest", "cypress"],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": [
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "vitest",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "playwright",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "nextjs",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "jest",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this lost default status. Not measured adoption and not a support-end announcement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "cypress",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this lost default status. Not measured adoption and not a support-end announcement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2023",
@@ -70,12 +302,44 @@
     "year": 2023,
     "headline": "Toolchain consolidation, and the editor becomes an AI surface.",
     "body": "The argument shifted from picking the best tool per layer to reducing how many tools there are. Biome continued the Rome project's attempt to replace ESLint and Prettier with one binary; Bun packaged runtime, package manager, bundler and test runner together. Cursor made AI assistance the editor's primary interaction model rather than an extension. Runtime CSS-in-JS came under real pressure from server rendering.",
-    "arrived": ["biome", "bun", "cursor"],
-    "faded": ["styled-components"],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": [
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "biome",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "bun",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "cursor",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "styled-components",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this lost default status. Not measured adoption and not a support-end announcement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2024",
@@ -83,12 +347,36 @@
     "year": 2024,
     "headline": "A counter-argument gets a hearing: maybe the SPA was oversold.",
     "body": "htmx gained real attention by making an uncomfortable case — that many teams adopted a client framework and a JSON API to solve problems they did not have. Vite settled into the position webpack held for years, as the assumed substrate other tools build on. Signals-based reactivity spread across frameworks. webpack's decline became a statement about defaults rather than about capability.",
-    "arrived": ["htmx", "pnpm"],
-    "faded": ["webpack"],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": [
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "htmx",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "pnpm",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      },
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "webpack",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this lost default status. Not measured adoption and not a support-end announcement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2025",
@@ -96,12 +384,20 @@
     "year": 2025,
     "headline": "Assistance becomes delegation.",
     "body": "The AI question stopped being about completing the next line and became about handing over a task. Agentic tools that read files, run commands and iterate on test results — Claude Code among them — established a different working relationship with different failure modes. Whether the editor or the terminal is the right home for this is genuinely unsettled, and pretending otherwise would be a mistake.",
-    "arrived": ["claude-code"],
-    "faded": [],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": [
+      {
+        "type": "editorial_turning_point",
+        "tool_slug": "claude-code",
+        "basis": "ai_interpretation",
+        "basis_detail": "AI-authored reading of when this became significant for frontend work. Not a release date and not an adoption measurement.",
+        "source_url": null,
+        "claim_status": "ai_draft"
+      }
+    ]
   },
   {
     "id": "frontend:timeline:2026",
@@ -109,11 +405,10 @@
     "year": 2026,
     "headline": "Partial year — the record catches up to the present.",
     "body": "This entry is deliberately thin and is marked as such. A year still in progress cannot be summarised with the confidence the earlier entries claim, and writing it as though it can is exactly the habit that let this archive rot. The consolidation trend — fewer, faster, multi-purpose tools — and the unsettled question of where AI assistance belongs are both still running. This entry should be rewritten at the end of the year.",
-    "arrived": [],
-    "faded": [],
-    "author": "Deepu S Nath",
+    "author": null,
     "draft": true,
     "is_seed": false,
-    "seed_source": null
+    "seed_source": null,
+    "events": []
   }
 ]

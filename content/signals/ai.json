@@ -12,7 +12,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:apache-spark-mllib:archive:2018",
@@ -27,7 +32,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:tensorflow:archive:2018",
@@ -42,7 +52,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:oryx:archive:2018",
@@ -57,7 +72,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:h2o-ai:archive:2018",
@@ -72,7 +92,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:scikit-learn:archive:2018",
@@ -87,7 +112,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:amazon-machine-learning-aml:archive:2018",
@@ -102,7 +132,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:accord-net:archive:2018",
@@ -117,7 +152,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2018.json"
+    "seed_source": "src/data/ai/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:apache-singa:archive:2019",
@@ -132,7 +172,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:apache-spark-mllib:archive:2019",
@@ -147,7 +192,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:tensorflow:archive:2019",
@@ -162,7 +212,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:oryx:archive:2019",
@@ -177,7 +232,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:h2o-ai:archive:2019",
@@ -192,7 +252,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:scikit-learn:archive:2019",
@@ -207,7 +272,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:amazon-machine-learning-aml:archive:2019",
@@ -222,7 +292,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:accord-net:archive:2019",
@@ -237,7 +312,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:torch:archive:2019",
@@ -252,7 +332,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2019.json"
+    "seed_source": "src/data/ai/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:apache-singa:archive:2021",
@@ -267,7 +352,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:apache-spark-mllib:archive:2021",
@@ -282,7 +372,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:b4a-basic4android:archive:2021",
@@ -297,7 +392,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:tensorflow:archive:2021",
@@ -312,7 +412,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:oryx:archive:2021",
@@ -327,7 +432,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:h2o-ai:archive:2021",
@@ -342,7 +452,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:scikit-learn:archive:2021",
@@ -357,7 +472,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:amazon-machine-learning-aml:archive:2021",
@@ -372,7 +492,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:accord-net:archive:2021",
@@ -387,7 +512,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ai:torch:archive:2021",
@@ -402,6 +532,11 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ai/2021.json"
+    "seed_source": "src/data/ai/2021.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   }
 ]

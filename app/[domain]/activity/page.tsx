@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getDemoActivity, getDomain, getDomains, getSignals, getTools } from '../../../lib/content.ts';
-import { ActivityFeed, type SourcedActivity } from '../../../components/ActivityFeed.tsx';
+import { describeRepoSignal } from '../../../lib/provenance.ts';
+import { ActivityFeed, type RepoSignalView } from '../../../components/ActivityFeed.tsx';
 
 export function generateStaticParams() {
   return getDomains().filter((d) => d.status === 'active').map((d) => ({ domain: d.slug }));
@@ -15,22 +16,27 @@ export default async function ActivityPage({ params }: { params: Promise<{ domai
   const tools = getTools(slug);
   const toolNames = Object.fromEntries(tools.map((t) => [t.slug, t.name]));
 
-  // Only observed-tier signals with a real source may be attributed to a named
-  // practitioner. Editorial/archive signals are not personal activity.
-  const sourced: SourcedActivity[] = getSignals(slug)
-    .filter((s) => s.tier === 'observed' && s.actor_type === 'practitioner' && s.source_url)
-    .map((s) => {
-      const person = s.source_label.split(' ')[0] + ' ' + (s.source_label.split(' ')[1] ?? '');
-      return {
-        id: s.id,
-        person: person.trim(),
-        tool_slug: s.tool_slug,
-        tool_name: toolNames[s.tool_slug] ?? s.tool_slug,
-        label: s.note ? 'removed' : 'added',
+  // Only observed-tier signals with a resolvable source render here, and they
+  // render as statements about files — never about people.
+  const signals: RepoSignalView[] = getSignals(slug)
+    .filter((s) => s.tier === 'observed' && s.source_url)
+    .map((s) => ({
+      id: s.id,
+      statement: describeRepoSignal({
+        tool_slug: toolNames[s.tool_slug] ?? s.tool_slug,
+        repo: s.repo,
+        manifest_path: s.manifest_path,
+        action: s.action,
         source_url: s.source_url,
-        at: s.observed_at,
-      };
-    })
+        observed_at: s.observed_at,
+      }),
+      tool_slug: s.tool_slug,
+      tool_name: toolNames[s.tool_slug] ?? s.tool_slug,
+      context_status: s.context_status ?? 'unknown',
+      eligible_for_trends: s.eligible_for_trends ?? false,
+      source_url: s.source_url,
+      at: s.observed_at,
+    }))
     .sort((a, b) => b.at.localeCompare(a.at));
 
   return (
@@ -41,16 +47,16 @@ export default async function ActivityPage({ params }: { params: Promise<{ domai
         </Link>
       </nav>
 
-      <header className="mb-8 max-w-3xl">
-        <h1 className="mb-2 text-3xl">Activity</h1>
+      <header className="mb-8 max-w-[68ch]">
+        <h1 className="mb-2 text-3xl">Signals and activity</h1>
         <p className="text-sm leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
-          Who is exploring, using and shipping with what. Each group states plainly what kind of
-          evidence it is — sourced practitioner activity, your own declarations, or clearly labelled
-          demonstration data.
+          Three separate things, kept separate: recorded changes to files in public repositories,
+          your own declarations, and clearly labelled demonstration data. Each says what kind of
+          evidence it is, because they support very different conclusions.
         </p>
       </header>
 
-      <ActivityFeed sourced={sourced} demo={getDemoActivity(slug)} toolNames={toolNames} domain={slug} />
+      <ActivityFeed signals={signals} demo={getDemoActivity(slug)} toolNames={toolNames} domain={slug} />
     </div>
   );
 }

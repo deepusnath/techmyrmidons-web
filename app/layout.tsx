@@ -66,8 +66,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="mt-16 border-t" style={{ borderColor: 'var(--rule)' }}>
           <div className="mx-auto max-w-6xl px-4 py-8 text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
             <p className="mb-2">
-              TechMyrmidons is a trust layer for staying current: what changed, who credibly says so,
-              where you stand, and what to learn next. Every claim carries its source and date.
+              TechMyrmidons is a trust layer for staying current: what changed, where you stand, and
+              what to learn next. <strong>Sources and provenance are shown where available.</strong>{' '}
+              Much of the current editorial is AI-drafted and unreviewed, and is labelled as such —
+              see the{' '}
+              <Link href="/review/" className="underline" style={{ color: 'var(--color-ember)' }}>
+                editorial review inventory
+              </Link>{' '}
+              for exactly what has and has not been checked.
             </p>
             <p>
               Frontend is the active pilot domain. Eleven other domains are archived with their

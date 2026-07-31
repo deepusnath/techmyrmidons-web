@@ -12,7 +12,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:git:archive:2017",
@@ -27,7 +32,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:fastlane:archive:2017",
@@ -42,7 +52,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:testflight:archive:2017",
@@ -57,7 +72,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:testfairy:archive:2017",
@@ -72,7 +92,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:cocoapods:archive:2017",
@@ -87,7 +112,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:jenkins:archive:2017",
@@ -102,7 +132,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:crashlytics:archive:2017",
@@ -117,7 +152,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:baas:archive:2017",
@@ -132,7 +172,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:core-data:archive:2017",
@@ -147,7 +192,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:flurry:archive:2017",
@@ -162,7 +212,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:metal:archive:2017",
@@ -177,7 +232,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:spritekit:archive:2017",
@@ -192,7 +252,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:firebase-realm:archive:2017",
@@ -207,7 +272,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2017.json"
+    "seed_source": "src/data/ios/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:swift:archive:2018",
@@ -222,7 +292,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:git:archive:2018",
@@ -237,7 +312,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:fastlane:archive:2018",
@@ -252,7 +332,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:testflight:archive:2018",
@@ -267,7 +352,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:testfairy:archive:2018",
@@ -282,7 +372,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:cocoapods:archive:2018",
@@ -297,7 +392,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:jenkins:archive:2018",
@@ -312,7 +412,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:crashlytics:archive:2018",
@@ -327,7 +432,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:baas:archive:2018",
@@ -342,7 +452,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:core-data:archive:2018",
@@ -357,7 +472,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:flurry:archive:2018",
@@ -372,7 +492,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:metal:archive:2018",
@@ -387,7 +512,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:spritekit:archive:2018",
@@ -402,7 +532,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:firebase-realm:archive:2018",
@@ -417,7 +552,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2018.json"
+    "seed_source": "src/data/ios/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:swift:archive:2019",
@@ -432,7 +572,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:git:archive:2019",
@@ -447,7 +592,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:fastlane:archive:2019",
@@ -462,7 +612,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:testflight:archive:2019",
@@ -477,7 +632,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:testfairy:archive:2019",
@@ -492,7 +652,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:cocoapods:archive:2019",
@@ -507,7 +672,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:jenkins:archive:2019",
@@ -522,7 +692,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:crashlytics:archive:2019",
@@ -537,7 +712,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:baas:archive:2019",
@@ -552,7 +732,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:core-data:archive:2019",
@@ -567,7 +752,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:flurry:archive:2019",
@@ -582,7 +772,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:metal:archive:2019",
@@ -597,7 +792,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:spritekit:archive:2019",
@@ -612,7 +812,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:firebase-realm:archive:2019",
@@ -627,7 +832,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "ios:alcatraz:archive:2019",
@@ -642,6 +852,11 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/ios/2019.json"
+    "seed_source": "src/data/ios/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   }
 ]

@@ -15,7 +15,11 @@ const nextConfig: NextConfig = {
   basePath,
   trailingSlash: true,
   images: { unoptimized: true },
-  env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+    // Unset by default — no contact address ships unless one is configured.
+    NEXT_PUBLIC_FEEDBACK_EMAIL: process.env.NEXT_PUBLIC_FEEDBACK_EMAIL ?? '',
+  },
   // TypeScript 7 dropped the legacy compiler API Next's inline type checker used;
   // the CLI path is the supported route on TS 7.
   experimental: { useTypeScriptCli: true },

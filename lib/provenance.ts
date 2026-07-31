@@ -1,37 +1,92 @@
 /**
- * Provenance display rules.
+ * Provenance and review-status display rules.
  *
- * Two product constraints are enforced here rather than left to each component:
+ * Product constraints enforced here rather than left to each component:
  *
- *  1. Draft material never carries a human byline. An AI-assisted draft awaiting
- *     review must not appear to be signed by the named editor, so `bylineFor`
- *     returns null while `draft` is true and callers render the draft label
- *     instead.
- *
- *  2. A production build can hide unreviewed drafts entirely by setting
- *     NEXT_PUBLIC_SHOW_DRAFTS=false. The preview shows them, prominently
- *     labelled, so they can be reviewed.
+ *  1. No claim is described as authored or judged by a named editor unless it
+ *     actually carries `reviewed_by` and `reviewed_at`. Every AI-authored
+ *     editorial field defaults to `ai_draft`.
+ *  2. Draft material never carries a human byline: `bylineFor` returns null
+ *     while unreviewed, and callers render the draft label instead.
+ *  3. With NEXT_PUBLIC_SHOW_DRAFTS=false, unreviewed editorial claims and
+ *     classifications are withheld rather than shown as published facts.
+ *  4. Repository signals describe file changes, never a person's preferences.
  */
-import type { EvidenceTier } from '../content/schema.ts';
+import type { EditorialReview, EditorialStatus, EvidenceTier, RepoContext } from '../content/schema.ts';
 
+/** Preview shows drafts (labelled). A production build withholds them. */
 export const SHOW_DRAFTS = process.env.NEXT_PUBLIC_SHOW_DRAFTS !== 'false';
 
+/**
+ * Optional destination for feedback and submissions.
+ *
+ * Deliberately unset by default. No address is hard-coded and none is invented:
+ * publishing a real person's address in a static public build is not something
+ * to do implicitly. When unset, the UI keeps Save locally and Copy, and says so.
+ *
+ * Configure with NEXT_PUBLIC_FEEDBACK_EMAIL at build time.
+ */
+export const FEEDBACK_EMAIL = process.env.NEXT_PUBLIC_FEEDBACK_EMAIL?.trim() || null;
+
 export const DRAFT_LABEL = 'AI-assisted draft, awaiting domain-editor review';
+export const DRAFT_LABEL_SHORT = 'AI draft · unreviewed';
 
 export interface Drafted {
-  author: string;
+  author: string | null;
   draft: boolean;
 }
 
-/** The byline to display, or null when the item is an unreviewed draft. */
+/** The byline to display, or null when the item is unreviewed. */
 export function bylineFor(item: Drafted): string | null {
   return item.draft ? null : item.author;
 }
 
-/** Whether an item may render at all in the current build. */
+/** Whether a draft-flagged item may render at all in the current build. */
 export function isVisible(item: { draft: boolean }): boolean {
   return SHOW_DRAFTS || !item.draft;
 }
+
+// ---------------------------------------------------------------------------
+// editorial review
+// ---------------------------------------------------------------------------
+
+export function isReviewed(r: Pick<EditorialReview, 'editorial_status'>): boolean {
+  return r.editorial_status === 'reviewed';
+}
+
+/**
+ * May an AI-authored editorial claim — a description, a why-it-matters, a
+ * lifecycle classification, suitability guidance — be rendered at all?
+ *
+ * Preview: yes, with a visible draft marker.
+ * Production: no. An unreviewed classification shown without qualification is
+ * indistinguishable from a verified fact, which is the failure being fixed.
+ */
+export function canShowEditorialClaim(r: Pick<EditorialReview, 'editorial_status'>): boolean {
+  return SHOW_DRAFTS || isReviewed(r);
+}
+
+/** Attribution line for a reviewed record. Never invents a reviewer. */
+export function reviewAttribution(r: EditorialReview): string | null {
+  if (!isReviewed(r) || !r.reviewed_by || !r.reviewed_at) return null;
+  return `Reviewed by ${r.reviewed_by} on ${formatDate(r.reviewed_at)}`;
+}
+
+export const EDITORIAL_STATUS_META: Record<EditorialStatus, { label: string; description: string }> = {
+  ai_draft: {
+    label: DRAFT_LABEL_SHORT,
+    description:
+      'Written with AI assistance and not reviewed by a human editor. It carries no byline and should be read as a proposal, not as an established fact.',
+  },
+  reviewed: {
+    label: 'Reviewed',
+    description: 'Checked and signed off by a named human editor, with the review date recorded.',
+  },
+};
+
+// ---------------------------------------------------------------------------
+// evidence tiers
+// ---------------------------------------------------------------------------
 
 export interface TierMeta {
   label: string;
@@ -42,10 +97,10 @@ export interface TierMeta {
 
 export const TIER_META: Record<EvidenceTier, TierMeta> = {
   observed: {
-    label: 'Observed evidence',
-    short: 'Observed',
+    label: 'Repository signal',
+    short: 'Repo signal',
     description:
-      'Derived from a public artifact — a commit, release or published talk. Every observed signal links to its source and carries the date it happened.',
+      'A recorded change to a file in a public repository, linked to the commit that made it. It shows that a dependency was added or removed — not that any person uses, prefers, adopted or abandoned the tool.',
     color: 'var(--color-tier-observed)',
   },
   declared: {
@@ -59,14 +114,14 @@ export const TIER_META: Record<EvidenceTier, TierMeta> = {
     label: 'Community-verified',
     short: 'Community',
     description:
-      'Corroborated across several members who independently declared the same thing.',
+      'Corroborated across several members who independently declared the same thing. Not yet implemented.',
     color: 'var(--color-tier-community)',
   },
   editorial: {
-    label: 'Editorial judgement',
+    label: 'Editorial claim',
     short: 'Editorial',
     description:
-      'An authored opinion by a named editor, dated and accompanied by its trade-offs. Not a measurement.',
+      'A written judgement about the tool. Unless it shows a reviewer and review date, it is AI-drafted and unreviewed — an argument to weigh, not a measurement and not a verified fact.',
     color: 'var(--color-tier-editorial)',
   },
 };
@@ -75,7 +130,7 @@ export const ARCHIVE_META: TierMeta = {
   label: 'Legacy archive record',
   short: 'Archive',
   description:
-    'Imported from the original hand-curated TechMyrmidons lists (2017–2019). Preserved as a historical record of what was recommended then, not as a current recommendation.',
+    'Imported from the original hand-curated TechMyrmidons lists (2017–2019). A dated record of what was listed then, not a current recommendation.',
   color: 'var(--color-tier-archive)',
 };
 
@@ -87,10 +142,43 @@ export const DEMO_META: TierMeta = {
   color: 'var(--color-tier-demo)',
 };
 
-export const LIFECYCLE_META: Record<
-  string,
-  { label: string; blurb: string; color: string }
-> = {
+// ---------------------------------------------------------------------------
+// repository context
+// ---------------------------------------------------------------------------
+
+export const REPO_CONTEXT_META: Record<RepoContext, { label: string; description: string }> = {
+  unknown: {
+    label: 'context unknown',
+    description:
+      'Nothing is known about what this repository is for. It has not been reviewed, and its role cannot be read off the API, so no conclusion should be drawn from the change.',
+  },
+  production_unknown: {
+    label: 'production use unknown',
+    description: 'A real project, but whether it is production software has not been established.',
+  },
+  personal_config: {
+    label: 'personal configuration',
+    description: 'Dotfiles or personal setup. Says nothing about professional or team practice.',
+  },
+  library: {
+    label: 'library or package',
+    description: 'A published library. Its dependencies are authoring tooling, not application stack choices.',
+  },
+  demo: {
+    label: 'demo or example',
+    description: 'A demonstration or teaching repository, often deliberately minimal or deliberately elaborate.',
+  },
+  legacy: {
+    label: 'legacy or archived',
+    description: 'No longer actively developed.',
+  },
+};
+
+// ---------------------------------------------------------------------------
+// lifecycle
+// ---------------------------------------------------------------------------
+
+export const LIFECYCLE_META: Record<string, { label: string; blurb: string; color: string }> = {
   emerging: {
     label: 'Emerging',
     blurb: 'Gaining real use, but the outcome is not settled. Adopting means accepting you may migrate again.',
@@ -114,12 +202,52 @@ export const LIFECYCLE_META: Record<
 };
 
 /**
- * Shown wherever lifecycle appears. Lifecycle describes trajectory, and saying
- * so explicitly is the point — the product must never let "widely used" be read
- * as "good for you".
+ * Lifecycle is an AI-drafted editorial classification until reviewed. It is not
+ * measured adoption, and repository signals do not feed it.
  */
 export const LIFECYCLE_CAVEAT =
-  'Lifecycle describes how widely a tool is being adopted or dropped over time. It is not a quality rating and not a recommendation for your situation — read “where it may not fit” before deciding.';
+  'Lifecycle is an editorial classification, not a measurement — it is not computed from repository signals and it is not a quality rating. Read “where it may not fit” before deciding.';
+
+// ---------------------------------------------------------------------------
+// timeline events
+// ---------------------------------------------------------------------------
+
+export const EVENT_TYPE_META: Record<string, { label: string; meaning: string }> = {
+  first_released: {
+    label: 'First released',
+    meaning: 'The date the tool was first publicly released.',
+  },
+  first_observed_in_repos: {
+    label: 'First observed in tracked repositories',
+    meaning: 'The earliest commit in a tracked repository that added this dependency.',
+  },
+  first_included_in_techmyrmidons: {
+    label: 'First included in TechMyrmidons',
+    meaning: 'The year this tool first appeared in the hand-curated TechMyrmidons list.',
+  },
+  editorial_turning_point: {
+    label: 'Editorial turning point',
+    meaning: 'A written opinion that this is when the tool became — or stopped being — significant. Not a release date and not measured adoption.',
+  },
+  removed_from_observed_repo: {
+    label: 'Removed from a tracked repository',
+    meaning: 'A commit removed this dependency from a tracked repository.',
+  },
+  reached_end_of_life: {
+    label: 'Reached end of life',
+    meaning: 'Support formally ended.',
+  },
+};
+
+export const BASIS_META: Record<string, { label: string; color: string }> = {
+  archive_record: { label: 'archive record', color: 'var(--color-tier-archive)' },
+  observed_commit: { label: 'commit', color: 'var(--color-tier-observed)' },
+  ai_interpretation: { label: 'AI interpretation, unreviewed', color: '#c8913a' },
+};
+
+// ---------------------------------------------------------------------------
+// formatting
+// ---------------------------------------------------------------------------
 
 export function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -131,4 +259,24 @@ export function formatYearMonth(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' });
+}
+
+/**
+ * Renders a repository signal as a literal statement about a file change.
+ * Deliberately has no way to express "X uses Y".
+ */
+export function describeRepoSignal(s: {
+  tool_slug: string;
+  repo: string | null;
+  manifest_path: string | null;
+  action: 'added' | 'removed' | null;
+  source_url: string | null;
+  observed_at: string;
+}): string {
+  const verb = s.action === 'removed' ? 'was removed from' : 'was added to';
+  const where = s.manifest_path ? `${s.manifest_path} in ` : '';
+  const repo = s.repo ?? 'a tracked repository';
+  const sha = s.source_url?.split('/commit/')[1]?.slice(0, 7);
+  const commit = sha ? ` in commit ${sha}` : '';
+  return `${s.tool_slug} ${verb} ${where}${repo}${commit} on ${formatDate(s.observed_at)}.`;
 }

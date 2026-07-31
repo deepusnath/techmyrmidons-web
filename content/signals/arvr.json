@@ -12,7 +12,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:unity-3d:archive:2018",
@@ -27,7 +32,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:cryengine:archive:2018",
@@ -42,7 +52,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:lumberyard:archive:2018",
@@ -57,7 +72,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:blender:archive:2018",
@@ -72,7 +92,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:sculptris:archive:2018",
@@ -87,7 +112,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:gimp:archive:2018",
@@ -102,7 +132,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "arvr:audacity:archive:2018",
@@ -117,6 +152,11 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/arvr/2018.json"
+    "seed_source": "src/data/arvr/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   }
 ]

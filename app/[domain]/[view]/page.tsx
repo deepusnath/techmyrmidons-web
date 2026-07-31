@@ -4,7 +4,7 @@ import { CATEGORIES, getDomain, getDomains, getTimeline } from '../../../lib/con
 import { getAllToolViews, getToolViews, LANDSCAPE_VIEWS, type LandscapeSlug } from '../../../lib/views.ts';
 import { isVisible } from '../../../lib/provenance.ts';
 import { LandscapeBrowser } from '../../../components/LandscapeBrowser.tsx';
-import { DraftBanner, EmptyState, ProvenanceChip } from '../../../components/Provenance.tsx';
+import { DraftBanner, EmptyState, ProvenanceChip, TimelineEventRow } from '../../../components/Provenance.tsx';
 
 export function generateStaticParams() {
   const domains = getDomains().filter((d) => d.status === 'active');
@@ -84,30 +84,23 @@ export default async function LandscapeView({
                   <p className="mb-2 text-base leading-snug font-medium">{e.headline}</p>
                   <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{e.body}</p>
 
-                  <div className="flex flex-col gap-2 text-xs sm:flex-row sm:gap-6">
-                    {e.arrived.length ? (
-                      <p style={{ color: 'var(--fg-dim)' }}>
-                        <span className="font-semibold" style={{ color: 'var(--color-tier-community)' }}>Arrived: </span>
-                        {e.arrived.map((s, i) => (
-                          <span key={s}>
-                            {i > 0 ? ', ' : ''}
-                            <Link href={`/${slug}/tools/${s}/`} className="hover:underline">{toolName(s)}</Link>
-                          </span>
-                        ))}
+                  {e.events.length ? (
+                    <>
+                      <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide" style={{ color: 'var(--fg-faint)' }}>
+                        Events — each shows what kind of claim it is
                       </p>
-                    ) : null}
-                    {e.faded.length ? (
-                      <p style={{ color: 'var(--fg-dim)' }}>
-                        <span className="font-semibold" style={{ color: '#c8913a' }}>Faded: </span>
-                        {e.faded.map((s, i) => (
-                          <span key={s}>
-                            {i > 0 ? ', ' : ''}
-                            <Link href={`/${slug}/tools/${s}/`} className="hover:underline">{toolName(s)}</Link>
-                          </span>
+                      <ul className="space-y-1.5">
+                        {e.events.map((ev) => (
+                          <TimelineEventRow
+                            key={`${ev.type}-${ev.tool_slug}`}
+                            event={ev}
+                            toolName={toolName(ev.tool_slug)}
+                            href={`/${slug}/tools/${ev.tool_slug}/`}
+                          />
                         ))}
-                      </p>
-                    ) : null}
-                  </div>
+                      </ul>
+                    </>
+                  ) : null}
 
                   {/* Draft years carry no byline — see lib/provenance.ts */}
                   <p className="mt-3 text-[11px]" style={{ color: 'var(--fg-faint)' }}>

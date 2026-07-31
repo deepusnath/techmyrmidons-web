@@ -31,5 +31,9 @@
   ],
   "published": true,
   "is_seed": false,
-  "seed_source": null
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
 }

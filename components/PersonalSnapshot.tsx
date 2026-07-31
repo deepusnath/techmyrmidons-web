@@ -1,78 +1,52 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import type { ToolView } from '../lib/views.ts';
 import { PROGRESS_META, useHydrated, useLocalState, type ProgressState } from '../lib/state.ts';
-import { LIFECYCLE_META } from '../lib/provenance.ts';
+import {
+  diagnose,
+  GOAL_OPTIONS,
+  WORK_OPTIONS,
+  type AssessmentAnswers,
+  type Heuristics,
+} from '../lib/assessment.ts';
+import { DRAFT_LABEL_SHORT } from '../lib/provenance.ts';
 import { EmptyState, LifecycleBadge } from './Provenance.tsx';
 import { ToolStateButtons } from './ToolStateButtons.tsx';
+import { Assessment } from './Assessment.tsx';
 
-interface Suggestion {
-  tool: ToolView;
-  reason: string;
-}
-
-/**
- * Suggestions are derived from the user's own marks and from editorial
- * relationships between tools — never from how many people use something.
- * Every suggestion carries the reason it appeared, because an unexplainable
- * recommendation is indistinguishable from a popularity ranking.
- *
- * Deterministic: no randomness, so the same state always yields the same list.
- */
-function suggest(tools: ToolView[], marked: Record<string, ProgressState>): Suggestion[] {
-  const byName = new Map<string, ToolView>();
-  for (const t of tools) byName.set(t.name.toLowerCase(), t);
-  const has = (slug: string) => slug in marked;
-  const out: Suggestion[] = [];
-  const seen = new Set<string>();
-
-  const push = (tool: ToolView | undefined, reason: string) => {
-    if (!tool || has(tool.slug) || seen.has(tool.slug)) return;
-    seen.add(tool.slug);
-    out.push({ tool, reason });
-  };
-
-  const markedSlugs = Object.keys(marked).sort();
-
-  // 1. Anything marked that is declining or legacy — offer its stated alternatives.
-  for (const slug of markedSlugs) {
-    const tool = tools.find((t) => t.slug === slug);
-    if (!tool || (tool.lifecycle !== 'declining' && tool.lifecycle !== 'legacy')) continue;
-    for (const altName of tool.alternatives) {
-      push(
-        byName.get(altName.toLowerCase()),
-        `You marked ${tool.name} as ${PROGRESS_META[marked[slug]].label.toLowerCase()}, and it is ${tool.lifecycle}. ${altName} is one of the alternatives listed on its card.`,
-      );
-      if (out.length >= 4) return out.slice(0, 4);
-    }
-  }
-
-  // 2. Categories the user has nothing in at all.
-  const markedCategories = new Set(
-    markedSlugs.map((s) => tools.find((t) => t.slug === s)?.category).filter(Boolean),
-  );
-  const categories = [...new Set(tools.map((t) => t.category).filter(Boolean))].sort() as string[];
-  for (const cat of categories) {
-    if (markedCategories.has(cat)) continue;
-    const candidate = tools
-      .filter((t) => t.category === cat && t.lifecycle === 'established')
-      .sort((a, b) => a.name.localeCompare(b.name))[0];
-    push(candidate, `You have not marked anything under “${cat}”. ${candidate?.name ?? ''} is an established option there.`);
-    if (out.length >= 4) return out.slice(0, 4);
-  }
-
-  return out.slice(0, 4);
-}
-
-export function PersonalSnapshot({ tools, domain }: { tools: ToolView[]; domain: string }) {
-  const { state, reset } = useLocalState();
+export function PersonalSnapshot({
+  tools,
+  domain,
+  heuristics,
+}: {
+  tools: ToolView[];
+  domain: string;
+  heuristics: Heuristics;
+}) {
+  const { state, reset, clearAssessment } = useLocalState();
   const hydrated = useHydrated();
+  const [editing, setEditing] = useState(false);
 
   const marked = hydrated
     ? (Object.fromEntries(Object.entries(state.tools).map(([k, v]) => [k, v.state])) as Record<string, ProgressState>)
     : {};
+
+  const toolNames = useMemo(() => Object.fromEntries(tools.map((t) => [t.slug, t.name])), [tools]);
+
+  const answers: AssessmentAnswers = hydrated
+    ? {
+        work: (state.assessment.work as AssessmentAnswers['work']) ?? null,
+        goal: (state.assessment.goal as AssessmentAnswers['goal']) ?? null,
+        completed_at: state.assessment.completed_at,
+      }
+    : { work: null, goal: null, completed_at: null };
+
+  const diagnosis = useMemo(
+    () => diagnose({ answers, marked, heuristics, toolNames }),
+    [answers, marked, heuristics, toolNames],
+  );
 
   const groups = useMemo(() => {
     const g: Record<ProgressState, ToolView[]> = { using: [], exploring: [], shipped: [] };
@@ -84,32 +58,56 @@ export function PersonalSnapshot({ tools, domain }: { tools: ToolView[]; domain:
     return g;
   }, [marked, tools]);
 
-  const suggestions = useMemo(() => suggest(tools, marked), [tools, marked]);
-  const total = Object.keys(marked).length;
-
   if (!hydrated) {
     return <p className="text-sm" style={{ color: 'var(--fg-faint)' }}>Loading your snapshot…</p>;
   }
 
-  if (total === 0) {
+  // The assessment stays open until the user explicitly leaves it, so that
+  // answering question 2 does not snatch away question 3.
+  const inAssessment = editing || !state.assessment.completed_at || diagnosis.status === 'needs_context';
+
+  if (inAssessment) {
     return (
       <div className="space-y-6">
-        <EmptyState title="You have not marked any tools yet.">
-          <p className="mb-3">
-            This page becomes useful once it knows what you already use. Nothing here is guessed —
-            an empty snapshot is shown honestly rather than filled with defaults.
-          </p>
-          <Link
-            href={`/${domain}/current/`}
-            className="inline-block rounded-sm px-3 py-1.5 text-xs font-semibold"
-            style={{ background: 'var(--color-ember)', color: '#fff' }}
+        {diagnosis.status === 'needs_context' && !editing ? (
+          <div
+            className="rounded-sm border border-dashed p-4"
+            data-testid="needs-context"
+            style={{ borderColor: 'var(--color-ember)' }}
           >
-            Start with the Current landscape →
-          </Link>
-        </EmptyState>
+            <p className="mb-1 text-sm font-semibold">A few questions first.</p>
+            <p className="text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
+              Recommendations only mean something in context. Rather than offer a generic list, this
+              needs to know what kind of work you do and what you are trying to achieve.
+              {diagnosis.missing.length ? (
+                <>
+                  {' '}Still needed:{' '}
+                  <strong>{diagnosis.missing.map((m) => (m === 'work' ? 'your kind of work' : 'your goal')).join(' and ')}</strong>.
+                </>
+              ) : null}
+            </p>
+          </div>
+        ) : null}
+
+        <Assessment tools={tools} onDone={() => setEditing(false)} />
+
+        {editing ? (
+          <button
+            type="button"
+            onClick={() => setEditing(false)}
+            className="text-xs underline"
+            style={{ color: 'var(--fg-faint)' }}
+          >
+            Back to my snapshot
+          </button>
+        ) : null}
       </div>
     );
   }
+
+  const workLabel = WORK_OPTIONS.find((w) => w.value === answers.work)?.label;
+  const goalLabel = GOAL_OPTIONS.find((g) => g.value === answers.goal)?.label;
+  const total = Object.keys(marked).length;
 
   const sections: Array<{ key: ProgressState; title: string; blurb: string }> = [
     { key: 'using', title: 'Tools I use', blurb: 'Marked as part of your regular working stack.' },
@@ -119,15 +117,29 @@ export function PersonalSnapshot({ tools, domain }: { tools: ToolView[]; domain:
 
   return (
     <div className="space-y-10">
-      <div className="flex flex-wrap items-center gap-3">
+      <div
+        className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-sm border p-4"
+        data-testid="context-summary"
+        style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
+      >
         <p className="text-sm" style={{ color: 'var(--fg-dim)' }}>
-          <span data-testid="marked-total" className="font-semibold" style={{ color: 'var(--fg)' }}>{total}</span>{' '}
-          {total === 1 ? 'tool' : 'tools'} marked.
+          Diagnosing for <strong style={{ color: 'var(--fg)' }}>{workLabel}</strong>, goal{' '}
+          <strong style={{ color: 'var(--fg)' }}>{goalLabel}</strong> ·{' '}
+          <span data-testid="marked-total">{total}</span> {total === 1 ? 'tool' : 'tools'} marked.
         </p>
         <button
           type="button"
-          onClick={reset}
+          data-testid="edit-assessment"
+          onClick={() => setEditing(true)}
+          className="rounded-sm border px-2 py-1 text-[11px]"
+          style={{ borderColor: 'var(--rule)', color: 'var(--fg-dim)' }}
+        >
+          Change answers
+        </button>
+        <button
+          type="button"
           data-testid="reset-state"
+          onClick={() => { reset(); clearAssessment(); }}
           className="rounded-sm border px-2 py-1 text-[11px]"
           style={{ borderColor: 'var(--rule)', color: 'var(--fg-faint)' }}
         >
@@ -135,12 +147,107 @@ export function PersonalSnapshot({ tools, domain }: { tools: ToolView[]; domain:
         </button>
       </div>
 
+      <section data-testid="still-appropriate">
+        <h2 className="mb-1 text-xl">What remains appropriate for your context</h2>
+        <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>
+          Marked tools that still serve {workLabel?.toLowerCase()}. Being older is not a reason to change.
+        </p>
+        {diagnosis.appropriate.length === 0 ? (
+          <p className="text-sm" style={{ color: 'var(--fg-faint)' }}>
+            Nothing you have marked falls into this group yet.
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {diagnosis.appropriate.map((j) => (
+              <li key={j.slug} data-testid={`appropriate-${j.slug}`} className="rounded-sm border p-3" style={{ borderColor: 'var(--color-tier-community)' }}>
+                <Link href={`/${domain}/tools/${j.slug}/`} className="text-sm font-semibold hover:underline">{j.name}</Link>
+                <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{j.reason}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section data-testid="reconsider">
+        <h2 className="mb-1 text-xl">What may deserve reconsideration</h2>
+        <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>
+          Not instructions. Each states the specific reason it is raised for your kind of work.
+        </p>
+        {diagnosis.reconsider.length === 0 ? (
+          <p className="text-sm" style={{ color: 'var(--fg-faint)' }}>
+            Nothing you have marked is flagged for your context.
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {diagnosis.reconsider.map((j) => (
+              <li key={j.slug} data-testid={`reconsider-${j.slug}`} className="rounded-sm border p-3" style={{ borderColor: '#c8913a' }}>
+                <Link href={`/${domain}/tools/${j.slug}/`} className="text-sm font-semibold hover:underline">{j.name}</Link>
+                <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{j.reason}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section data-testid="suggestions">
+        <div className="mb-1 flex flex-wrap items-center gap-2">
+          <h2 className="text-xl">Worth exploring next</h2>
+          {diagnosis.rulesAreDraft ? (
+            <span
+              className="rounded-sm border border-dashed px-2 py-0.5 text-[10px] font-semibold"
+              style={{ borderColor: '#c8913a', color: '#c8913a' }}
+              data-testid="rules-draft-badge"
+            >
+              {DRAFT_LABEL_SHORT}
+            </span>
+          ) : null}
+        </div>
+        <p className="mb-4 max-w-[68ch] text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
+          At most three, chosen from your work context, your goal and what you have marked — never
+          because a category was empty, and never from how many people use something. There is no
+          score or completeness meter here by design.
+        </p>
+
+        {diagnosis.suggestions.length === 0 ? (
+          <EmptyState title="Nothing further to suggest for this context and goal.">
+            <p>That is a real answer, not an empty list — changing your goal will change it.</p>
+          </EmptyState>
+        ) : (
+          <ul className="space-y-3">
+            {diagnosis.suggestions.map((s) => (
+              <li
+                key={s.slug}
+                data-testid={`suggestion-${s.slug}`}
+                className="rounded-sm border p-4"
+                style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
+              >
+                <div className="mb-1 flex flex-wrap items-center gap-2">
+                  <Link href={`/${domain}/tools/${s.slug}/`} className="text-base font-semibold hover:underline">
+                    {s.name}
+                  </Link>
+                  <LifecycleBadge lifecycle={tools.find((t) => t.slug === s.slug)?.lifecycle ?? null} />
+                </div>
+                <p className="mb-2 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
+                  <span className="font-semibold">Why this applies to you: </span>{s.why}
+                </p>
+                <p className="mb-3 text-xs leading-relaxed" style={{ color: '#c8913a' }}>
+                  <span className="font-semibold">Not for you if: </span>{s.unsuitable_if}
+                </p>
+                <ToolStateButtons slug={s.slug} size="sm" />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
       {sections.map((s) => (
         <section key={s.key} data-testid={`snapshot-${s.key}`}>
           <h2 className="mb-1 text-xl">{s.title}</h2>
           <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>{s.blurb}</p>
           {groups[s.key].length === 0 ? (
-            <p className="text-sm" style={{ color: 'var(--fg-faint)' }}>Nothing marked as {PROGRESS_META[s.key].label.toLowerCase()} yet.</p>
+            <p className="text-sm" style={{ color: 'var(--fg-faint)' }}>
+              Nothing marked as {PROGRESS_META[s.key].label.toLowerCase()} yet.
+            </p>
           ) : (
             <ul className="grid gap-2 sm:grid-cols-2">
               {groups[s.key].map((t) => (
@@ -160,48 +267,6 @@ export function PersonalSnapshot({ tools, domain }: { tools: ToolView[]; domain:
           )}
         </section>
       ))}
-
-      <section data-testid="suggestions">
-        <h2 className="mb-1 text-xl">Suggested next</h2>
-        <p className="mb-4 max-w-3xl text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
-          Derived from what you marked and from the alternatives and categories on the tool cards —
-          never from how many people use something. Each suggestion says why it appeared, so you can
-          disagree with the reasoning rather than just the result.
-        </p>
-
-        {suggestions.length === 0 ? (
-          <EmptyState title="No suggestions right now.">
-            <p>You have marked something in every category the catalogue covers.</p>
-          </EmptyState>
-        ) : (
-          <ul className="space-y-3">
-            {suggestions.map(({ tool, reason }) => (
-              <li
-                key={tool.slug}
-                data-testid={`suggestion-${tool.slug}`}
-                className="rounded-sm border p-4"
-                style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
-              >
-                <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <Link href={`/${domain}/tools/${tool.slug}/`} className="text-base font-semibold hover:underline">
-                    {tool.name}
-                  </Link>
-                  <LifecycleBadge lifecycle={tool.lifecycle} />
-                </div>
-                <p className="mb-2 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
-                  <span className="font-semibold">Why this: </span>{reason}
-                </p>
-                {tool.not_suitable_for.length ? (
-                  <p className="mb-3 text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
-                    <span className="font-semibold">May not suit: </span>{tool.not_suitable_for[0]}
-                  </p>
-                ) : null}
-                <ToolStateButtons slug={tool.slug} size="sm" />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
     </div>
   );
 }

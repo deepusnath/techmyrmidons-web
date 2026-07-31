@@ -12,7 +12,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/devops/2017.json"
+    "seed_source": "src/data/devops/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "devops:jenkins:archive:2017",
@@ -27,7 +32,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/devops/2017.json"
+    "seed_source": "src/data/devops/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "devops:docker:archive:2017",
@@ -42,7 +52,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/devops/2017.json"
+    "seed_source": "src/data/devops/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "devops:puppet:archive:2017",
@@ -57,7 +72,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/devops/2017.json"
+    "seed_source": "src/data/devops/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "devops:chef:archive:2017",
@@ -72,7 +92,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/devops/2017.json"
+    "seed_source": "src/data/devops/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "devops:vagrant:archive:2017",
@@ -87,6 +112,11 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/devops/2017.json"
+    "seed_source": "src/data/devops/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   }
 ]

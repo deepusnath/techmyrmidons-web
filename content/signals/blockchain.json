@@ -12,7 +12,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2017.json"
+    "seed_source": "src/data/blockchain/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:hyperledger-indy:archive:2017",
@@ -27,7 +32,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2017.json"
+    "seed_source": "src/data/blockchain/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:hyperledger-iroha:archive:2017",
@@ -42,7 +52,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2017.json"
+    "seed_source": "src/data/blockchain/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:sawtooth:archive:2017",
@@ -57,7 +72,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2017.json"
+    "seed_source": "src/data/blockchain/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:ethereum:archive:2019",
@@ -72,7 +92,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:hyperledger-indy:archive:2019",
@@ -87,7 +112,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:hyperledger-iroha:archive:2019",
@@ -102,7 +132,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:sawtooth:archive:2019",
@@ -117,7 +152,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:solidity:archive:2019",
@@ -132,7 +172,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:multichain:archive:2019",
@@ -147,7 +192,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "blockchain:corda:archive:2019",
@@ -162,6 +212,11 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/blockchain/2019.json"
+    "seed_source": "src/data/blockchain/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   }
 ]

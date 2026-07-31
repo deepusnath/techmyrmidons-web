@@ -110,18 +110,30 @@ async function main() {
     }
 
     const actor = loginToSlug.get((o.github ?? '').toLowerCase()) ?? null;
+    const verb = o.action === 'removed' ? 'was removed from' : 'was added to';
     signals.push({
       id: `${DOMAIN}:${slug}:observed:${o.sha.slice(0, 10)}:${o.action}`,
       tool_slug: slug,
       domain: DOMAIN,
       tier: 'observed',
       source_url: `https://github.com/${o.repo}/commit/${o.sha}`,
-      source_label: `${o.person} ${o.action === 'added' ? 'added' : 'removed'} ${o.tool} in ${o.repo}`,
+      // A literal statement about a file. It must not read as a claim that a
+      // person uses, prefers, adopted or abandoned anything — a dependency edit
+      // in a public repo supports no such conclusion.
+      source_label: `${o.tool} ${verb} ${o.manifest_path || 'a manifest'} in ${o.repo}`,
       observed_at: o.observed_at,
       actor_type: 'practitioner',
       actor_id: actor,
-      note: o.action === 'removed' ? 'Dependency removed from the manifest' : null,
+      note: null,
       confidence: 'high',
+      repo: o.repo,
+      manifest_path: o.manifest_path || null,
+      action: o.action === 'removed' ? 'removed' : 'added',
+      // Never inferred. A repository's role cannot be established from the API,
+      // and guessing it is how a dotfiles commit becomes a "trend".
+      context_status: 'unknown',
+      // Repository signals are inert until a human reviews the repo context.
+      eligible_for_trends: false,
       is_seed: false,
       seed_source: null,
     });

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import type { ToolView } from '../lib/views.ts';
 import { formatYearMonth } from '../lib/provenance.ts';
-import { DraftBanner, LifecycleBadge, ProvenanceChip } from './Provenance.tsx';
+import { LifecycleBadge, ProvenanceChip, ReviewChip } from './Provenance.tsx';
 import { ToolStateButtons } from './ToolStateButtons.tsx';
 
 export function ToolCard({ tool, domain }: { tool: ToolView; domain: string }) {
@@ -29,13 +29,19 @@ export function ToolCard({ tool, domain }: { tool: ToolView; domain: string }) {
         <LifecycleBadge lifecycle={tool.lifecycle} />
       </div>
 
+      {/* Every editorial field on this card is a claim; the chip says whether
+          a human has checked it. Compact by design — it appears on all 41. */}
+      <ReviewChip review={tool} className="self-start" />
+
       {tool.one_liner ? (
         <p className="text-sm leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
           {tool.one_liner}
         </p>
-      ) : null}
-
-      {tool.hasDraftNote && !tool.hasSignedNote ? <DraftBanner compact /> : null}
+      ) : (
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
+          Description withheld pending editorial review.
+        </p>
+      )}
 
       {/* Where it may NOT fit is shown on the card itself, not buried in detail. */}
       {tool.not_suitable_for.length ? (

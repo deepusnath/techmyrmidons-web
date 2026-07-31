@@ -12,7 +12,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:git:archive:2017",
@@ -27,7 +32,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:fastlane:archive:2017",
@@ -42,7 +52,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:testfairy:archive:2017",
@@ -57,7 +72,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:gradle:archive:2017",
@@ -72,7 +92,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:crashlytics:archive:2017",
@@ -87,7 +112,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:flurry:archive:2017",
@@ -102,7 +132,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-asset-studio:archive:2017",
@@ -117,7 +152,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-arsenal:archive:2017",
@@ -132,7 +172,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2017.json"
+    "seed_source": "src/data/quantum computing/2017.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-studio:archive:2018",
@@ -147,7 +192,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:git:archive:2018",
@@ -162,7 +212,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:fastlane:archive:2018",
@@ -177,7 +232,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:testfairy:archive:2018",
@@ -192,7 +252,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:gradle:archive:2018",
@@ -207,7 +272,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:crashlytics:archive:2018",
@@ -222,7 +292,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:flurry:archive:2018",
@@ -237,7 +312,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-asset-studio:archive:2018",
@@ -252,7 +332,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-arsenal:archive:2018",
@@ -267,7 +352,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2018.json"
+    "seed_source": "src/data/quantum computing/2018.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-studio:archive:2019",
@@ -282,7 +372,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:git:archive:2019",
@@ -297,7 +392,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:fastlane:archive:2019",
@@ -312,7 +412,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:testfairy:archive:2019",
@@ -327,7 +432,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:gradle:archive:2019",
@@ -342,7 +452,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:crashlytics:archive:2019",
@@ -357,7 +472,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:flurry:archive:2019",
@@ -372,7 +492,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-asset-studio:archive:2019",
@@ -387,7 +512,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:android-arsenal:archive:2019",
@@ -402,7 +532,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:stetho:archive:2019",
@@ -417,7 +552,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:avd-manager:archive:2019",
@@ -432,7 +572,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:aide:archive:2019",
@@ -447,7 +592,12 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   },
   {
     "id": "quantum-computing:b4x:archive:2019",
@@ -462,6 +612,11 @@
     "note": null,
     "confidence": "medium",
     "is_seed": true,
-    "seed_source": "src/data/quantum computing/2019.json"
+    "seed_source": "src/data/quantum computing/2019.json",
+    "repo": null,
+    "manifest_path": null,
+    "action": null,
+    "context_status": "unknown",
+    "eligible_for_trends": false
   }
 ]

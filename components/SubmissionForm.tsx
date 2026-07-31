@@ -2,10 +2,8 @@
 
 import { useState } from 'react';
 import { useHydrated, useLocalState } from '../lib/state.ts';
-import { formatDate } from '../lib/provenance.ts';
+import { FEEDBACK_EMAIL, formatDate } from '../lib/provenance.ts';
 import { EmptyState } from './Provenance.tsx';
-
-const SUBMIT_EMAIL = 'deepu@fayausa.com';
 
 export function SubmissionForm() {
   const { state, addSubmission } = useLocalState();
@@ -102,20 +100,22 @@ export function SubmissionForm() {
           >
             Queue submission
           </button>
-          <a
-            href={`mailto:${SUBMIT_EMAIL}?subject=${encodeURIComponent('TechMyrmidons submission')}&body=${encodeURIComponent(`Type: ${type}\nName: ${name}\nURL: ${url}\n\nWhy: ${why}`)}`}
-            className="text-xs font-semibold hover:underline"
-            style={{ color: 'var(--fg-dim)' }}
-          >
-            or email it directly
-          </a>
+          {FEEDBACK_EMAIL ? (
+            <a
+              href={`mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent('TechMyrmidons submission')}&body=${encodeURIComponent(`Type: ${type}\nName: ${name}\nURL: ${url}\n\nWhy: ${why}`)}`}
+              className="text-xs font-semibold hover:underline"
+              style={{ color: 'var(--fg-dim)' }}
+            >
+              or email it directly
+            </a>
+          ) : null}
         </div>
 
         {done ? (
           <p data-testid="sub-success" className="mt-3 rounded-sm border p-3 text-xs leading-relaxed"
              style={{ borderColor: 'var(--color-tier-community)', color: 'var(--color-tier-community)' }}>
             Queued in this browser. There is no backend in this pilot, so it has not been sent
-            anywhere yet — use “email it directly” to get it to an editor.
+            anywhere yet.
           </p>
         ) : null}
       </form>

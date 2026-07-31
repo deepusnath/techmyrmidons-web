@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLocalState } from '../lib/state.ts';
+import { FEEDBACK_EMAIL } from '../lib/provenance.ts';
 
 const SENTIMENTS = [
   { key: 'works', label: 'This worked' },
@@ -10,8 +11,6 @@ const SENTIMENTS = [
   { key: 'broken', label: 'Something broke' },
   { key: 'idea', label: 'Idea' },
 ] as const;
-
-const FEEDBACK_EMAIL = 'deepu@fayausa.com';
 
 /**
  * There is no backend in this pilot, so feedback is saved locally and the user
@@ -70,8 +69,10 @@ export function FeedbackWidget() {
         >
           <p className="mb-2 text-sm font-semibold">Pilot feedback</p>
           <p className="mb-3 text-[11px] leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
-            No backend is configured for this pilot. Feedback is saved in your browser only — use
-            “Email” or “Copy” below to actually send it.
+            No backend is configured for this pilot. Feedback is saved in your browser only.
+            {FEEDBACK_EMAIL
+              ? ' Use “Email” or “Copy” below to actually send it.'
+              : ' No contact address is configured for this build, so use “Copy” and send it however you normally would.'}
           </p>
 
           <div className="mb-2 flex flex-wrap gap-1.5">
@@ -115,13 +116,15 @@ export function FeedbackWidget() {
             >
               Save locally
             </button>
-            <a
-              href={`mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent('TechMyrmidons pilot feedback')}&body=${encodeURIComponent(compose())}`}
-              className="rounded-sm border px-3 py-1.5 text-xs font-semibold"
-              style={{ borderColor: 'var(--rule)', color: 'var(--fg-dim)' }}
-            >
-              Email
-            </a>
+            {FEEDBACK_EMAIL ? (
+              <a
+                href={`mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent('TechMyrmidons pilot feedback')}&body=${encodeURIComponent(compose())}`}
+                className="rounded-sm border px-3 py-1.5 text-xs font-semibold"
+                style={{ borderColor: 'var(--rule)', color: 'var(--fg-dim)' }}
+              >
+                Email
+              </a>
+            ) : null}
             <button
               type="button"
               onClick={copy}
@@ -134,7 +137,7 @@ export function FeedbackWidget() {
 
           {saved ? (
             <p data-testid="feedback-saved" className="mt-2 text-[11px]" style={{ color: 'var(--color-tier-community)' }}>
-              Saved in this browser. It has not been sent anywhere — use Email or Copy to send it.
+              Saved in this browser. It has not been sent anywhere.
             </p>
           ) : null}
         </div>

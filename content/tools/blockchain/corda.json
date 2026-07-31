@@ -17,5 +17,9 @@
   "alternatives": [],
   "published": false,
   "is_seed": true,
-  "seed_source": "original curation, src/data/blockchain/2019.json"
+  "seed_source": "original curation, src/data/blockchain/2019.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
 }

@@ -220,6 +220,8 @@ type Observation = {
   person: string;
   github: string;
   repo: string;
+  /** Which file actually changed — stated, never assumed downstream. */
+  manifest_path: string;
   tool: string;
   action: 'added' | 'removed';
   at: string;
@@ -293,6 +295,7 @@ async function scanRepo(member: Member, repo: Repo, file: string): Promise<Obser
       if (!prev.has(tool)) {
         observations.push({
           person: member.name, github: member.github, repo: repo.full_name,
+          manifest_path: file,
           tool, action: 'added', at: c.date, sha: c.sha,
         });
       }
@@ -301,6 +304,7 @@ async function scanRepo(member: Member, repo: Repo, file: string): Promise<Obser
       if (!cur.has(tool)) {
         observations.push({
           person: member.name, github: member.github, repo: repo.full_name,
+          manifest_path: file,
           tool, action: 'removed', at: c.date, sha: c.sha,
         });
       }
@@ -504,9 +508,13 @@ async function main() {
   const timeline = buildTimeline(intervals);
 
   // observations.csv — the raw event log; this is the `observation` table.
-  const obsCsv = [csvRow(['person', 'github', 'repo', 'tool', 'action', 'observed_at', 'sha'])];
+  // manifest_path is carried through so downstream consumers can state exactly
+  // which file changed, rather than assuming it was package.json.
+  const obsCsv = [
+    csvRow(['person', 'github', 'repo', 'manifest_path', 'tool', 'action', 'observed_at', 'sha']),
+  ];
   for (const o of observations) {
-    obsCsv.push(csvRow([o.person, o.github, o.repo, o.tool, o.action, o.at, o.sha]));
+    obsCsv.push(csvRow([o.person, o.github, o.repo, o.manifest_path, o.tool, o.action, o.at, o.sha]));
   }
   await writeFile(path.join(ARGS.out, 'observations.csv'), obsCsv.join('\n'));
 

@@ -111,5 +111,9 @@ export function getDemoActivity(domain: string): DemoActivity[] {
   return readJson<DemoActivity[]>('demo', `${domain}.json`) ?? [];
 }
 
+export function getHeuristics(domain: string) {
+  return readJson<import('../lib/assessment.ts').Heuristics>('heuristics', `${domain}.json`);
+}
+
 export const CATEGORIES = (domain: string): string[] =>
   [...new Set(getPublishedTools(domain).map((t) => t.category).filter(Boolean))].sort() as string[];

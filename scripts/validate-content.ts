@@ -20,6 +20,7 @@ import path from 'node:path';
 import {
   EVIDENCE_TIERS,
   LIFECYCLES,
+  EDITORIAL_TOOL_FIELDS,
   isPublishable,
   type Domain,
   type EditorialNote,
@@ -104,6 +105,23 @@ async function main() {
         fail(`${ref}: unknown lifecycle "${tool.lifecycle}"`);
       }
 
+      // Review metadata must be present and internally consistent. A record may
+      // never claim a reviewer without also recording who and when.
+      if (tool.editorial_status !== 'ai_draft' && tool.editorial_status !== 'reviewed') {
+        fail(`${ref}: editorial_status must be 'ai_draft' or 'reviewed', got "${tool.editorial_status}"`);
+      }
+      if (tool.editorial_status === 'reviewed' && (!tool.reviewed_by || !tool.reviewed_at)) {
+        fail(`${ref}: marked reviewed but has no reviewed_by/reviewed_at — nothing may claim a named editor without one`);
+      }
+      if (tool.editorial_status !== 'reviewed' && (tool.reviewed_by || tool.reviewed_at)) {
+        fail(`${ref}: carries reviewer details but is not marked reviewed`);
+      }
+      for (const f of tool.reviewed_fields ?? []) {
+        if (!(EDITORIAL_TOOL_FIELDS as readonly string[]).includes(f)) {
+          fail(`${ref}: reviewed_fields contains unknown editorial field "${f}"`);
+        }
+      }
+
       // The anti-popularity guard. A tool may only be presented as a current
       // recommendation once someone has written down where it does not fit.
       if (tool.published && !isPublishable(tool)) {
@@ -161,6 +179,22 @@ async function main() {
         fail(`${ref}: tier is "observed" but has no source_url; observed evidence must be checkable`);
       }
       if (!/^\d{4}-\d{2}-\d{2}/.test(s.observed_at)) fail(`${ref}: observed_at is not a date`);
+
+      // Repository signals describe a file change. Language implying that a
+      // person uses, prefers, adopted or abandoned something is not supportable
+      // from a dependency diff.
+      if (s.tier === 'observed') {
+        const banned = /\b(uses|prefers|adopted|abandoned|switched to|migrated to|likes|recommends)\b/i;
+        if (banned.test(s.source_label)) {
+          fail(`${ref}: source_label implies personal usage ("${s.source_label}") — a dependency change does not support that`);
+        }
+        if (!s.repo) fail(`${ref}: observed signal has no repo`);
+        if (!s.action) fail(`${ref}: observed signal has no added/removed action`);
+        if (!s.context_status) fail(`${ref}: observed signal has no context_status (use "unknown" when not established)`);
+        if (s.eligible_for_trends && s.context_status === 'unknown') {
+          fail(`${ref}: eligible_for_trends is true but the repository context is unknown — a signal cannot inform a trend before its context is reviewed`);
+        }
+      }
     }
   }
 
@@ -186,9 +220,11 @@ async function main() {
       if (!n.body?.trim()) fail(`${ref}: empty body`);
       if (!/^\d{4}-\d{2}-\d{2}/.test(n.published_at)) fail(`${ref}: published_at is not a date`);
 
-      // The editorial tier is the one whose provenance is a person. A note with
-      // no byline is an unattributable recommendation.
-      if (!n.author?.trim()) fail(`${ref}: has no author byline`);
+      // A reviewed note needs a byline; an unreviewed one must not have any.
+      if (!n.draft && !n.author?.trim()) fail(`${ref}: published note has no author byline`);
+      if (n.draft && n.author) {
+        fail(`${ref}: unreviewed note carries an author byline — drafts must not be attributed to a person`);
+      }
 
       // A recommendation that does not say where it might be wrong is not a
       // recommendation, it is marketing.
@@ -220,17 +256,28 @@ async function main() {
       seenYear.add(e.year);
       if (!domainSlugs.has(e.domain)) fail(`${ref}: unknown domain "${e.domain}"`);
       if (!e.headline?.trim()) fail(`${ref}: empty headline`);
-      if (!e.author?.trim()) fail(`${ref}: has no author byline`);
+      // Reviewed years need a byline; unreviewed ones must not carry one.
+      if (!e.draft && !e.author?.trim()) fail(`${ref}: published year has no author byline`);
       if (e.is_seed && !e.seed_source) fail(`${ref}: seeded but has no seed_source`);
 
-      // Every tool named in a timeline year must exist, or the Historical view
-      // renders a dead reference.
-      for (const [field, slugs] of [['arrived', e.arrived], ['faded', e.faded]] as const) {
-        for (const slug of slugs) {
-          if (!toolIndex.has(`${e.domain}/${slug}`)) {
-            fail(`${ref}: ${field} references tool "${slug}" that does not exist in ${e.domain}`);
-          }
+      // Every event must name a real tool, declare its basis, and never present
+      // an AI interpretation as a sourced fact.
+      for (const ev of e.events ?? []) {
+        if (!toolIndex.has(`${e.domain}/${ev.tool_slug}`)) {
+          fail(`${ref}: event references tool "${ev.tool_slug}" that does not exist in ${e.domain}`);
         }
+        if (!ev.basis_detail?.trim()) {
+          fail(`${ref}: event for "${ev.tool_slug}" has no basis_detail — every event must show what it rests on`);
+        }
+        if (ev.basis === 'ai_interpretation' && ev.claim_status !== 'ai_draft') {
+          fail(`${ref}: event for "${ev.tool_slug}" is an AI interpretation but is not marked ai_draft`);
+        }
+        if (ev.basis === 'observed_commit' && !ev.source_url) {
+          fail(`${ref}: event for "${ev.tool_slug}" claims a commit basis but links to no commit`);
+        }
+      }
+      if (e.draft && e.author) {
+        fail(`${ref}: unreviewed timeline year carries an author byline`);
       }
       if (e.draft) timelineDrafts++;
     }

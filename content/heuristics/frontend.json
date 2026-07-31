@@ -1,0 +1,225 @@
+{
+  "domain": "frontend",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "note": "Context-fit rules used by the guided assessment. These are AI-authored editorial judgements about which tools serve which kind of work, and they are unreviewed. They deliberately live in content rather than code so a reviewer can audit them. Repository signals do not contribute to any rule here.",
+  "contexts": {
+    "legacy": {
+      "label": "Legacy maintenance",
+      "still_appropriate": {
+        "sass": "Still fine where it already exists. A working stylesheet is an asset; migrating it wholesale rarely pays for itself.",
+        "bootstrap": "Reasonable to keep on an existing internal or admin interface. Replacing it is a redesign, not an upgrade.",
+        "npm": "No reason to change package manager purely for its own sake on a codebase you are maintaining.",
+        "git": "Unchanged and uncontroversial."
+      },
+      "reconsider": {
+        "gulp": "The bundler now owns the dependency graph that Gulp used to orchestrate. Keeping it means maintaining a plugin chain that newer tooling makes unnecessary.",
+        "grunt": "Superseded by Gulp and then by bundlers. A Gruntfile is usually the oldest thing in a repository.",
+        "jquery": "Most of what it was used for is now native: querySelectorAll, classList, fetch. It is often the easiest dependency to remove outright.",
+        "bower": "Deprecated by its own maintainers and the registry is effectively frozen — no security advisories will reach you.",
+        "angularjs": "End of life since 2022 and receives no security patches. On anything handling user data this is a risk, not a preference.",
+        "webpack": "Still capable, but if the dev-server wait is part of your daily cost, that cost is now avoidable."
+      },
+      "candidates": [
+        {
+          "slug": "vite",
+          "why": "You are maintaining a build that predates bundlers owning the dependency graph. Vite is the smallest step that removes the plugin chain and the dev-server wait at the same time.",
+          "unsuitable_if": "Your build depends on webpack-specific loaders or module federation with no Vite equivalent — check before committing to a migration.",
+          "goals": ["modernize", "stay_current", "skill_gaps"]
+        },
+        {
+          "slug": "htmx",
+          "why": "You marked jQuery. htmx lets you keep server-rendered pages and drop the jQuery dependency without adopting a client-side framework — the smaller of the two available moves.",
+          "unsuitable_if": "The application has genuinely rich client state — an editor, a canvas, real-time collaboration — in which case a framework is the right answer, not htmx.",
+          "requires_any": ["jquery"],
+          "goals": ["modernize"]
+        },
+        {
+          "slug": "typescript",
+          "why": "Refactoring a codebase you did not write is exactly where types earn their cost — accurate rename and reference-finding across unfamiliar code.",
+          "unsuitable_if": "The codebase is small enough to hold in your head, or the team will not invest in learning the type system and will reach for `any`.",
+          "goals": ["modernize", "skill_gaps"]
+        },
+        {
+          "slug": "pnpm",
+          "why": "On an older repository with a large dependency tree, the strict layout surfaces undeclared dependencies that npm silently tolerates — a common source of surprise during a migration.",
+          "unsuitable_if": "Packages in your tree rely on a flat, permissive node_modules layout.",
+          "goals": ["modernize"]
+        },
+        {
+          "slug": "claude-code",
+          "why": "Legacy maintenance is mostly reading unfamiliar code and making mechanical changes across many files, which is the shape of work agentic tools handle best.",
+          "unsuitable_if": "Your organisation cannot send source code to a third-party service.",
+          "goals": ["ai_productivity"]
+        }
+      ]
+    },
+
+    "content": {
+      "label": "Content or marketing sites",
+      "still_appropriate": {
+        "sass": "Fine for content sites, though check how much of what you use is now native CSS.",
+        "bootstrap": "Defensible when you need a working layout faster than a distinctive one.",
+        "tailwind": "Works well here — content sites usually have few enough templates that utility classes stay manageable."
+      },
+      "reconsider": {
+        "nextjs": "For a content site this is often more rendering machinery than the job needs.",
+        "react": "A content site rarely needs a client-side framework runtime shipped to every visitor.",
+        "webpack": "Heavier than a content build requires."
+      },
+      "candidates": [
+        {
+          "slug": "astro",
+          "why": "You build content sites. Astro ships zero JavaScript by default and lets you opt into interactivity per component — the inverse of the framework assumption, and the right default for content.",
+          "unsuitable_if": "The site is really an application in disguise, with pervasive client state across most of the page.",
+          "goals": ["new_stack", "modernize", "stay_current", "skill_gaps"]
+        },
+        {
+          "slug": "tailwind",
+          "why": "Content sites have a small number of templates, so a fixed token scale gives you consistency without building a design system first.",
+          "unsuitable_if": "Non-developers edit the templates without running the build, or the markup must stay framework-neutral for third parties.",
+          "goals": ["new_stack", "modernize", "stay_current"]
+        },
+        {
+          "slug": "vite",
+          "why": "For a simple new stack this is the least you can adopt and still get a fast modern build.",
+          "unsuitable_if": "You are using a framework that brings its own build and adding Vite separately would duplicate it.",
+          "goals": ["new_stack", "modernize"]
+        },
+        {
+          "slug": "cursor",
+          "why": "Content work involves a lot of repetitive template and copy editing, which is where editor-integrated assistance pays off most directly.",
+          "unsuitable_if": "You are committed to an editor other than VS Code, or cannot send source to a third party.",
+          "goals": ["ai_productivity"]
+        }
+      ]
+    },
+
+    "apps": {
+      "label": "Web applications or SaaS",
+      "still_appropriate": {
+        "react": "A reasonable default for application work, and the largest hiring pool.",
+        "vite": "The current default build for application work.",
+        "typescript": "Effectively expected on any application a team maintains.",
+        "tailwind": "Works well in component-based application code."
+      },
+      "reconsider": {
+        "jquery": "In an application codebase this usually indicates a layer nobody has revisited.",
+        "webpack": "Capable, but the dev-server cost is now avoidable.",
+        "styled-components": "Runtime CSS-in-JS fits server rendering poorly and costs render performance.",
+        "jest": "If you already build with Vite, a second build configuration for tests is avoidable."
+      },
+      "candidates": [
+        {
+          "slug": "typescript",
+          "why": "You build applications a team maintains. Types pay for themselves on refactoring and editor tooling long before they pay off on bug-catching.",
+          "unsuitable_if": "The project is a prototype you expect to throw away.",
+          "goals": ["stay_current", "modernize", "new_stack", "skill_gaps"]
+        },
+        {
+          "slug": "vitest",
+          "why": "You already build with Vite, so tests can share that configuration instead of maintaining a second one.",
+          "unsuitable_if": "You are on React Native, where Jest remains better supported.",
+          "requires_any": ["vite"],
+          "goals": ["stay_current", "modernize", "skill_gaps"]
+        },
+        {
+          "slug": "tanstack-query",
+          "why": "Most application state turns out to be a cache of server data. Naming that distinction removes a lot of hand-written loading and refetch logic.",
+          "unsuitable_if": "Your state is genuinely client-side — editor buffers, form drafts — or your framework already provides a data layer.",
+          "goals": ["stay_current", "skill_gaps", "new_stack"]
+        },
+        {
+          "slug": "playwright",
+          "why": "Application work is where end-to-end coverage matters most, and auto-waiting removes the flakiness that usually kills these suites.",
+          "unsuitable_if": "You have no capacity to maintain an E2E suite — an ignored suite is worse than none.",
+          "goals": ["stay_current", "skill_gaps"]
+        },
+        {
+          "slug": "claude-code",
+          "why": "Application changes usually span several files and need tests run between steps, which is the shape of task an agentic tool handles.",
+          "unsuitable_if": "You cannot send source code to a third-party service.",
+          "goals": ["ai_productivity"]
+        }
+      ]
+    },
+
+    "design_systems": {
+      "label": "Design systems or component libraries",
+      "still_appropriate": {
+        "storybook": "The right tool for this work — it is where a design system crosses a team boundary.",
+        "sass": "Mixins and compile-time logic are one of the few remaining cases with no native equivalent, and design systems are that case.",
+        "typescript": "Consumers of your components expect type definitions.",
+        "figma": "Where the tokens you are implementing usually originate."
+      },
+      "reconsider": {
+        "tailwind": "Components consumed by other teams generally need to emit semantic, restyleable markup. Utility classes in a shared library push your styling decisions into their markup.",
+        "bootstrap": "A design system usually exists precisely because an off-the-shelf component set was not distinctive enough.",
+        "styled-components": "Runtime styling in a shared library imposes its cost on every consumer."
+      },
+      "candidates": [
+        {
+          "slug": "css-modules",
+          "why": "You build components other people consume. CSS Modules give you scoping while emitting ordinary, restyleable CSS — which matters when the consumer needs to override you.",
+          "unsuitable_if": "You need a shared token scale supplied for you rather than authored, in which case a framework is the better fit.",
+          "goals": ["stay_current", "modernize", "new_stack", "skill_gaps"]
+        },
+        {
+          "slug": "testing-library",
+          "why": "Querying by accessible role is doubly useful in a component library: the tests survive refactors, and a component you cannot query by role is usually one a screen reader cannot navigate.",
+          "unsuitable_if": "You are testing genuinely internal logic, which belongs in plain unit tests.",
+          "goals": ["stay_current", "skill_gaps", "modernize"]
+        },
+        {
+          "slug": "typescript",
+          "why": "Consumers of a component library expect type definitions; shipping without them pushes the cost onto every team that uses you.",
+          "unsuitable_if": "You already ship types via JSDoc and the build cost is not worth changing.",
+          "goals": ["stay_current", "new_stack", "skill_gaps", "modernize"]
+        },
+        {
+          "slug": "playwright",
+          "why": "Component libraries benefit from visual and interaction coverage across engines, since you cannot control which browser a consumer targets.",
+          "unsuitable_if": "Your CI cannot run browser binaries.",
+          "goals": ["stay_current"]
+        }
+      ]
+    },
+
+    "learning": {
+      "label": "Learning or exploring",
+      "still_appropriate": {},
+      "reconsider": {
+        "angularjs": "End of life. Learning it now teaches you a framework you will only ever encounter in maintenance.",
+        "bower": "Deprecated. Any tutorial teaching it is at least eight years old, and so is everything else in it.",
+        "grunt": "Superseded twice over. Useful to recognise, not to learn."
+      },
+      "candidates": [
+        {
+          "slug": "typescript",
+          "why": "You are building your foundation. Types are assumed by most current tutorials, libraries and job descriptions, so learning JavaScript and TypeScript together avoids relearning later.",
+          "unsuitable_if": "You are still getting comfortable with JavaScript itself — in that case types are a second thing to learn at the same time.",
+          "goals": ["stay_current", "skill_gaps", "new_stack", "modernize"]
+        },
+        {
+          "slug": "vite",
+          "why": "It is the current default build tool and requires almost no configuration, so you can learn it without learning build engineering first.",
+          "unsuitable_if": "You are following a course built around a different toolchain — fighting the course is not worth it.",
+          "goals": ["stay_current", "skill_gaps", "new_stack", "modernize"]
+        },
+        {
+          "slug": "react",
+          "why": "Not because it is the best, but because it is the assumption most tutorials, libraries and job listings are written against — which makes everything else easier to read.",
+          "unsuitable_if": "You are drawn to a simpler model; Vue or Svelte are easier starting points and the concepts transfer.",
+          "goals": ["stay_current", "skill_gaps", "new_stack"]
+        },
+        {
+          "slug": "claude-code",
+          "why": "Worth learning deliberately rather than by osmosis — including where it misleads you, which matters more while you are still building judgement.",
+          "unsuitable_if": "You are learning fundamentals and would accept generated code you cannot yet evaluate. That is the main trap.",
+          "goals": ["ai_productivity"]
+        }
+      ]
+    }
+  }
+}

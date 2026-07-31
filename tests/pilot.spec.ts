@@ -133,40 +133,38 @@ test('progress: mark a tool, toggle it off, and confirm it persists', async ({ p
   await expect(page.getByText(/Proven · locked/i)).toBeVisible();
 });
 
-test('snapshot: marked tools appear in Where I stand with explainable suggestions', async ({ page }) => {
+test('snapshot: context assessment drives an explainable diagnosis', async ({ page }) => {
   const errors = trackConsoleErrors(page);
   await freshVisit(page, '/me/');
 
-  // Honest empty state before anything is marked.
-  await expect(page.getByText(/You have not marked any tools yet/i)).toBeVisible();
+  // Context is required before anything is recommended.
+  await expect(page.getByTestId('needs-context')).toBeVisible();
 
-  // Mark a declining tool so a suggestion can be derived from it.
-  await page.goto(p('/frontend/tools/webpack/'));
-  await page.getByTestId('state-using').click();
-  await expect(page.getByTestId('state-using')).toHaveAttribute('data-active', 'true');
+  await page.getByTestId('work-legacy').click();
+  await page.getByTestId('goal-modernize').click();
+  await page.getByTestId('assessment-search').fill('webpack');
+  await page.getByTestId('pick-webpack-using').click();
+  await page.getByTestId('assessment-search').fill('tailwind');
+  await page.getByTestId('pick-tailwind-shipped').click();
+  await page.getByTestId('assessment-done').click();
 
-  await page.goto(p('/frontend/tools/tailwind/'));
-  await page.getByTestId('state-shipped').click();
-
-  await page.goto(p('/me/'));
   await expect(page.getByTestId('marked-total')).toHaveText('2');
   await expect(page.getByTestId('snapshot-item-webpack')).toBeVisible();
   await expect(page.getByTestId('snapshot-item-tailwind')).toBeVisible();
 
-  // Suggestions must state WHY, and must derive from the user's own marks.
+  // Suggestions state why they apply and when they would not.
   const suggestions = page.getByTestId('suggestions');
-  await expect(suggestions).toContainText(/Why this:/);
-  await expect(suggestions).toContainText(/webpack/i);
+  await expect(suggestions).toContainText(/Why this applies to you:/);
+  await expect(suggestions).toContainText(/Not for you if:/);
 
-  // No composite score or ranking language anywhere on the page.
   await expect(page.locator('body')).not.toContainText(/overall score/i);
   expect(errors).toEqual([]);
 });
 
-test('activity: real, own and demonstration data are separated and labelled', async ({ page }) => {
+test('activity: repository signals, own activity and demo data stay separated', async ({ page }) => {
   await freshVisit(page, '/frontend/activity/');
 
-  await expect(page.getByRole('heading', { name: 'Practitioner activity' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Repository signals' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Your activity' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Demonstration members' })).toBeVisible();
 
@@ -174,11 +172,13 @@ test('activity: real, own and demonstration data are separated and labelled', as
   await expect(page.getByText(/These people do not exist/i)).toBeVisible();
   await expect(page.getByTestId('demo-activity')).toContainText('(demo)');
 
-  // Sourced practitioner rows must link to a real commit.
-  const sourced = page.getByTestId('sourced-activity');
-  if (await sourced.isVisible()) {
-    const link = sourced.getByRole('link', { name: /source/i }).first();
-    await expect(link).toHaveAttribute('href', /github\.com\/.+\/commit\/[0-9a-f]{7,}/);
+  // Repository rows link to a real commit and make no claim about a person.
+  const rows = page.getByTestId('repo-signal');
+  if ((await rows.count()) > 0) {
+    await expect(rows.first().getByRole('link', { name: /commit/i })).toHaveAttribute(
+      'href',
+      /github\.com\/.+\/commit\/[0-9a-f]{7,}/,
+    );
   }
 });
 
@@ -219,14 +219,16 @@ test('feedback: states the no-backend limitation and saves locally', async ({ pa
   await expect(page.getByTestId('feedback-saved')).toContainText(/has not been sent/i);
 });
 
-test('historical: shows decline, which the original archive could not express', async ({ page }) => {
+test('historical: records decline as a typed event with a stated basis', async ({ page }) => {
   await freshVisit(page, '/frontend/historical/');
 
   await expect(page.getByTestId('year-2017')).toContainText(/original curation/i);
-  await expect(page.getByTestId('year-2021')).toContainText(/Faded/);
 
-  // The specific structural fix: AngularJS is recorded as fading.
-  await expect(page.getByTestId('year-2021')).toContainText(/AngularJS/);
+  // The structural fix: AngularJS reaching end of life is recorded, and the
+  // event says what kind of claim it is rather than just "faded".
+  const eol = page.getByTestId('year-2021').getByTestId('event-angularjs');
+  await expect(eol).toContainText(/Reached end of life/i);
+  await expect(eol).toHaveAttribute('data-claim-status', 'ai_draft');
 });
 
 test('no horizontal overflow at mobile or desktop width', async ({ page }) => {
