@@ -1,0 +1,291 @@
+/**
+ * Review status, redaction, priority selection and readiness.
+ *
+ * Two rules govern everything here:
+ *
+ *  1. Publishing is decided per rule, never per file. Approving one
+ *     recommendation must not release an unrelated one, so redaction strips
+ *     individual rules rather than gating the whole heuristics document.
+ *
+ *  2. Redaction happens on the server, before content reaches a client
+ *     component. Anything passed to the client is serialised into the page,
+ *     so "hidden in the UI" is not the same as withheld.
+ */
+import type { Candidate, ContextRules, Heuristics, RuleValue, WorkContext } from './assessment.ts';
+import { ruleId, ruleReviewed, ruleText } from './assessment.ts';
+import { getHeuristics, getPublishedTools, getTools } from './content.ts';
+
+// ---------------------------------------------------------------------------
+// rule inventory
+// ---------------------------------------------------------------------------
+
+export type RuleKind = 'retain' | 'reconsider' | 'recommend';
+
+export interface RuleRef {
+  rule_id: string;
+  context: WorkContext;
+  kind: RuleKind;
+  tool_slug: string;
+  text: string;
+  reviewed: boolean;
+}
+
+export function listRules(h: Heuristics): RuleRef[] {
+  const out: RuleRef[] = [];
+  for (const [context, rules] of Object.entries(h.contexts) as Array<[WorkContext, ContextRules]>) {
+    for (const [slug, v] of Object.entries(rules.still_appropriate ?? {})) {
+      out.push({
+        rule_id: ruleId(v as RuleValue, `${context}.retain.${slug}`),
+        context, kind: 'retain', tool_slug: slug,
+        text: ruleText(v as RuleValue), reviewed: ruleReviewed(v as RuleValue),
+      });
+    }
+    for (const [slug, v] of Object.entries(rules.reconsider ?? {})) {
+      out.push({
+        rule_id: ruleId(v as RuleValue, `${context}.reconsider.${slug}`),
+        context, kind: 'reconsider', tool_slug: slug,
+        text: ruleText(v as RuleValue), reviewed: ruleReviewed(v as RuleValue),
+      });
+    }
+    for (const c of rules.candidates ?? []) {
+      out.push({
+        rule_id: c.rule_id ?? `${context}.recommend.${c.slug}`,
+        context, kind: 'recommend', tool_slug: c.slug,
+        text: c.why, reviewed: ruleReviewed(c),
+      });
+    }
+  }
+  return out.sort((a, b) => a.rule_id.localeCompare(b.rule_id));
+}
+
+// ---------------------------------------------------------------------------
+// redaction
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns a heuristics document containing only reviewed rules.
+ *
+ * Unreviewed rule text is removed entirely rather than flagged, so it cannot
+ * appear in a production page's source. Returns null when nothing survives —
+ * the caller then ships no rules at all.
+ */
+export function redactToReviewed(h: Heuristics): Heuristics | null {
+  const contexts = {} as Record<WorkContext, ContextRules>;
+  let kept = 0;
+
+  for (const [context, rules] of Object.entries(h.contexts) as Array<[WorkContext, ContextRules]>) {
+    const retain: Record<string, RuleValue> = {};
+    const reconsider: Record<string, RuleValue> = {};
+    const candidates: Candidate[] = [];
+
+    for (const [slug, v] of Object.entries(rules.still_appropriate ?? {})) {
+      if (ruleReviewed(v as RuleValue)) { retain[slug] = v as RuleValue; kept++; }
+    }
+    for (const [slug, v] of Object.entries(rules.reconsider ?? {})) {
+      if (ruleReviewed(v as RuleValue)) { reconsider[slug] = v as RuleValue; kept++; }
+    }
+    for (const c of rules.candidates ?? []) {
+      if (ruleReviewed(c)) { candidates.push(c); kept++; }
+    }
+
+    contexts[context] = { label: rules.label, still_appropriate: retain, reconsider, candidates };
+  }
+
+  if (kept === 0) return null;
+  return { ...h, contexts };
+}
+
+// ---------------------------------------------------------------------------
+// priority set
+// ---------------------------------------------------------------------------
+
+export interface PriorityEntry {
+  slug: string;
+  name: string;
+  /** Every rule that depends on this tool, with the journey it serves. */
+  dependencies: Array<{ rule_id: string; context: WorkContext; kind: RuleKind }>;
+  contexts: WorkContext[];
+  ruleCount: number;
+  lifecycle: string | null;
+  toolReviewed: boolean;
+  reviewedRules: number;
+}
+
+/**
+ * Derived from the active rules, not from a hand-kept list. A tool is in the
+ * priority set exactly when a live rule retains, reconsiders, recommends or
+ * requires it — so the set cannot drift from what the diagnosis actually uses.
+ */
+export function getPrioritySet(domain: string): PriorityEntry[] {
+  const h = getHeuristics(domain);
+  if (!h) return [];
+  const tools = new Map(getTools(domain).map((t) => [t.slug, t]));
+  const rules = listRules(h);
+
+  const byTool = new Map<string, PriorityEntry>();
+  const ensure = (slug: string): PriorityEntry => {
+    let e = byTool.get(slug);
+    if (!e) {
+      const tool = tools.get(slug);
+      e = {
+        slug,
+        name: tool?.name ?? slug,
+        dependencies: [],
+        contexts: [],
+        ruleCount: 0,
+        lifecycle: tool?.lifecycle ?? null,
+        toolReviewed: tool?.editorial_status === 'reviewed',
+        reviewedRules: 0,
+      };
+      byTool.set(slug, e);
+    }
+    return e;
+  };
+
+  for (const r of rules) {
+    const e = ensure(r.tool_slug);
+    e.dependencies.push({ rule_id: r.rule_id, context: r.context, kind: r.kind });
+    e.ruleCount++;
+    if (r.reviewed) e.reviewedRules++;
+    if (!e.contexts.includes(r.context)) e.contexts.push(r.context);
+  }
+
+  // Prerequisites pull their tool in too — a rule that fires only when the user
+  // marked jQuery depends on jQuery being described accurately.
+  for (const [context, ctxRules] of Object.entries(h.contexts) as Array<[WorkContext, ContextRules]>) {
+    for (const c of ctxRules.candidates ?? []) {
+      for (const pre of c.requires_any ?? []) {
+        const e = ensure(pre);
+        const id = c.rule_id ?? `${context}.recommend.${c.slug}`;
+        if (!e.dependencies.some((d) => d.rule_id === id && d.kind === 'recommend')) {
+          e.dependencies.push({ rule_id: id, context, kind: 'recommend' });
+          e.ruleCount++;
+        }
+        if (!e.contexts.includes(context)) e.contexts.push(context);
+      }
+    }
+  }
+
+  return [...byTool.values()].sort(
+    (a, b) => b.ruleCount - a.ruleCount || a.slug.localeCompare(b.slug),
+  );
+}
+
+// ---------------------------------------------------------------------------
+// journey dependency maps + readiness
+// ---------------------------------------------------------------------------
+
+export interface JourneyMap {
+  context: WorkContext;
+  label: string;
+  retain: RuleRef[];
+  reconsider: RuleRef[];
+  recommend: RuleRef[];
+  /** Tool records whose editorial claims the conclusions depend on. */
+  toolsInvolved: Array<{ slug: string; name: string; reviewed: boolean }>;
+  blockedBy: string[];
+  fullyBlocked: boolean;
+}
+
+export function getJourneyMaps(domain: string): JourneyMap[] {
+  const h = getHeuristics(domain);
+  if (!h) return [];
+  const tools = new Map(getTools(domain).map((t) => [t.slug, t]));
+  const rules = listRules(h);
+
+  return (Object.entries(h.contexts) as Array<[WorkContext, ContextRules]>).map(([context, r]) => {
+    const mine = rules.filter((x) => x.context === context);
+    const retain = mine.filter((x) => x.kind === 'retain');
+    const reconsider = mine.filter((x) => x.kind === 'reconsider');
+    const recommend = mine.filter((x) => x.kind === 'recommend');
+
+    const slugs = [...new Set(mine.map((x) => x.tool_slug))].sort();
+    const toolsInvolved = slugs.map((s) => ({
+      slug: s,
+      name: tools.get(s)?.name ?? s,
+      reviewed: tools.get(s)?.editorial_status === 'reviewed',
+    }));
+
+    // A conclusion needs BOTH its rule reviewed and the tool it names reviewed:
+    // an approved recommendation pointing at an unreviewed lifecycle would still
+    // publish an unreviewed claim.
+    const blockedBy = [
+      ...mine.filter((x) => !x.reviewed).map((x) => `rule ${x.rule_id}`),
+      ...toolsInvolved.filter((t) => !t.reviewed).map((t) => `tool ${t.slug}`),
+    ];
+
+    return {
+      context,
+      label: r.label,
+      retain,
+      reconsider,
+      recommend,
+      toolsInvolved,
+      blockedBy,
+      fullyBlocked: mine.every((x) => !x.reviewed),
+    };
+  });
+}
+
+export interface Readiness {
+  journeys: Array<{
+    context: WorkContext;
+    label: string;
+    fullyBlocked: boolean;
+    blockingRules: number;
+    blockingTools: number;
+  }>;
+  priorityToolsTotal: number;
+  priorityToolsReviewed: number;
+  rulesTotal: number;
+  rulesReviewed: number;
+  lifecycleViewsBlocked: string[];
+  /** The single action unlocking the most surface area, with its reasoning. */
+  highestLeverage: { action: string; unlocks: string } | null;
+}
+
+export function getReadiness(domain: string): Readiness {
+  const h = getHeuristics(domain);
+  const rules = h ? listRules(h) : [];
+  const priority = getPrioritySet(domain);
+  const published = getPublishedTools(domain);
+  const maps = getJourneyMaps(domain);
+
+  const unreviewedLifecycles = published.filter((t) => t.editorial_status !== 'reviewed');
+  const lifecycleViewsBlocked = ['current', 'emerging', 'declining', 'historical'].filter((view) => {
+    const wanted =
+      view === 'current' ? 'established' : view === 'historical' ? 'legacy' : view;
+    return published
+      .filter((t) => t.lifecycle === wanted)
+      .every((t) => t.editorial_status !== 'reviewed');
+  });
+
+  // Count how many tools each candidate action would unblock, so the
+  // recommendation is derived rather than asserted.
+  const byTool = new Map<string, number>();
+  for (const r of rules) byTool.set(r.tool_slug, (byTool.get(r.tool_slug) ?? 0) + 1);
+  const topTool = [...byTool.entries()].sort((a, b) => b[1] - a[1])[0];
+
+  return {
+    journeys: maps.map((m) => ({
+      context: m.context,
+      label: m.label,
+      fullyBlocked: m.fullyBlocked,
+      blockingRules: m.blockedBy.filter((b) => b.startsWith('rule ')).length,
+      blockingTools: m.blockedBy.filter((b) => b.startsWith('tool ')).length,
+    })),
+    priorityToolsTotal: priority.length,
+    priorityToolsReviewed: priority.filter((p) => p.toolReviewed).length,
+    rulesTotal: rules.length,
+    rulesReviewed: rules.filter((r) => r.reviewed).length,
+    lifecycleViewsBlocked,
+    highestLeverage: topTool
+      ? {
+          action: `Review the lifecycle classification for "${topTool[0]}"`,
+          unlocks: `${topTool[1]} rules across ${
+            [...new Set(rules.filter((r) => r.tool_slug === topTool[0]).map((r) => r.context))].length
+          } journeys depend on it — more than any other single tool.`,
+        }
+      : null,
+  };
+}

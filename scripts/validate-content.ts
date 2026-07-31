@@ -318,7 +318,11 @@ async function main() {
       editorial_status: string;
       reviewed_by: string | null;
       reviewed_at: string | null;
-      contexts: Record<string, { candidates: Array<{ slug: string; why: string; unsuitable_if: string }> }>;
+      contexts: Record<string, {
+        still_appropriate?: Record<string, unknown>;
+        reconsider?: Record<string, unknown>;
+        candidates: Array<{ slug: string; why: string; unsuitable_if: string }>;
+      }>;
     }>(path.join('heuristics', file));
     checks++;
 
@@ -327,6 +331,23 @@ async function main() {
     }
 
     for (const [ctx, rules] of Object.entries(h.contexts ?? {})) {
+      // Retain and reconsider rules point at tools too. Only candidates were
+      // checked before, which let an unpublished archive record slip through.
+      for (const [kind, map] of [
+        ['still_appropriate', rules.still_appropriate],
+        ['reconsider', rules.reconsider],
+      ] as const) {
+        for (const slug of Object.keys(map ?? {})) {
+          checks++;
+          const tool = toolIndex.get(`${domain}/${slug}`);
+          const ref = `heuristics/${domain}:${ctx}:${kind}:${slug}`;
+          if (!tool) fail(`${ref}: references a tool that does not exist`);
+          else if (!tool.published) {
+            fail(`${ref}: judges "${slug}", which is an unpublished archive record with no authored guidance`);
+          }
+        }
+      }
+
       for (const c of rules.candidates ?? []) {
         checks++;
         heuristicCandidates++;
@@ -338,6 +359,101 @@ async function main() {
         }
         if (!c.why?.trim()) fail(`${ref}: has no "why this applies" text`);
         if (!c.unsuitable_if?.trim()) fail(`${ref}: has no "unsuitable if" condition`);
+      }
+    }
+  }
+
+  // --- dossiers ---------------------------------------------------------------
+  // Review-preparation material is held to the same standard as anything else:
+  // no fake approvals, no attribution, and every factual claim sourced or
+  // explicitly recorded as a gap.
+  const dossierRoot = path.join(CONTENT, 'dossiers');
+  let dossierCount = 0;
+  const FORBIDDEN_ATTRIBUTION = /Deepu\s+S\s+Nath/i;
+
+  for (const domain of existsSync(dossierRoot) ? await readdir(dossierRoot) : []) {
+    for (const file of await readdir(path.join(dossierRoot, domain))) {
+      const raw = await readFile(path.join(dossierRoot, domain, file), 'utf8');
+      if (!raw.trim()) continue;
+      const d = JSON.parse(raw) as Record<string, any>;
+      checks++;
+      dossierCount++;
+      const ref = `dossiers/${domain}/${d.slug}`;
+
+      // Nothing in a review-prep artefact may claim to be reviewed.
+      if (d.editorial_status !== 'ai_draft') {
+        fail(`${ref}: editorial_status must be "ai_draft" — this phase records no approvals`);
+      }
+      if (d.reviewed_by || d.reviewed_at) {
+        fail(`${ref}: carries a reviewer or review date; nothing here has been reviewed`);
+      }
+      if (FORBIDDEN_ATTRIBUTION.test(raw)) {
+        fail(`${ref}: attributes drafted material to a named person`);
+      }
+
+      // Facts need a source; interpretation must not masquerade as fact.
+      if ((d.verifiable_facts ?? []).length > 0 && !d.primary_source) {
+        fail(`${ref}: states verifiable facts but cites no primary source`);
+      }
+      if (d.primary_source && !/^https?:\/\//.test(d.primary_source)) {
+        fail(`${ref}: primary_source is not a resolvable URL`);
+      }
+      if ((d.verifiable_facts ?? []).length === 0 && (d.evidence_gaps ?? []).length === 0) {
+        fail(`${ref}: has neither sourced facts nor a recorded evidence gap`);
+      }
+      if (!d.wrong_if?.trim()) {
+        fail(`${ref}: does not state what would make the proposed classification wrong`);
+      }
+      if (!(d.fields_requiring_approval ?? []).length) {
+        fail(`${ref}: lists no fields requiring approval`);
+      }
+
+      // Repository signals stay inert.
+      for (const sig of d.supporting_signals ?? []) {
+        if (sig.eligible_for_trends) {
+          fail(`${ref}: a supporting signal is marked eligible for trend conclusions`);
+        }
+      }
+
+      // Every referenced rule must exist and must not be pre-approved.
+      for (const r of d.diagnosis_rules ?? []) {
+        if (!r.rule_id) fail(`${ref}: a diagnosis rule reference has no rule_id`);
+      }
+    }
+  }
+
+  // --- rule-level review isolation ---------------------------------------------
+  const heurRoot = path.join(CONTENT, 'heuristics');
+  let ruleCount = 0;
+  const seenRuleIds = new Set<string>();
+
+  for (const file of existsSync(heurRoot) ? await readdir(heurRoot) : []) {
+    const h = await load<any>(path.join('heuristics', file));
+    for (const [ctx, rules] of Object.entries<any>(h.contexts ?? {})) {
+      const entries = [
+        ...Object.entries<any>(rules.still_appropriate ?? {}).map(([slug, v]) => ['retain', slug, v] as const),
+        ...Object.entries<any>(rules.reconsider ?? {}).map(([slug, v]) => ['reconsider', slug, v] as const),
+        ...(rules.candidates ?? []).map((c: any) => ['recommend', c.slug, c] as const),
+      ];
+      for (const [kind, slug, v] of entries) {
+        checks++;
+        ruleCount++;
+        const ref = `heuristics/${file}:${ctx}.${kind}.${slug}`;
+        if (typeof v === 'string') {
+          fail(`${ref}: rule has no rule_id — review must be trackable per rule, not per file`);
+          continue;
+        }
+        if (!v.rule_id) fail(`${ref}: missing rule_id`);
+        if (v.rule_id && seenRuleIds.has(v.rule_id)) {
+          fail(`${ref}: duplicate rule_id "${v.rule_id}" — approving one would publish another`);
+        }
+        if (v.rule_id) seenRuleIds.add(v.rule_id);
+        if (v.editorial_status === 'reviewed' && (!v.reviewed_by || !v.reviewed_at)) {
+          fail(`${ref}: marked reviewed without a reviewer and date`);
+        }
+        if (v.editorial_status !== 'reviewed' && (v.reviewed_by || v.reviewed_at)) {
+          fail(`${ref}: carries reviewer details but is not marked reviewed`);
+        }
       }
     }
   }
@@ -360,6 +476,7 @@ async function main() {
     `${checks} checks over ${domains.length} domains, ${toolIndex.size} tools ` +
       `(${published} published), ${signalCount} signals, ${noteCount} editorial notes ` +
       `(${draftCount} draft), ${timelineCount} timeline years (${timelineDrafts} draft), ` +
+      `${dossierCount} dossiers, ${ruleCount} rules, ` +
       `${practitioners.length} practitioners, ${resourceCount} resources`,
   );
   console.log(

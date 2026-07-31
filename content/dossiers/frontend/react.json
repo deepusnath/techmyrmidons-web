@@ -1,0 +1,100 @@
+{
+  "slug": "react",
+  "domain": "frontend",
+  "name": "React",
+  "canonical_url": "https://react.dev/",
+  "primary_source": "https://react.dev/learn",
+  "proposed_lifecycle": "established",
+  "summary": "Component-based UI library, and the default assumption of most frontend job descriptions.",
+  "what_it_is": "A library for building user interfaces from composable components, with state changes driving re-renders through a virtual DOM diff. Modern React centres on hooks and, increasingly, on server components that render on the server and stream to the client.",
+  "why_it_matters": "React is less a choice than a baseline: it shapes hiring, tutorials and the surrounding tool ecosystem, so understanding it is close to mandatory even if you never pick it. The genuinely current shift is server components, which move a meaningful share of work back to the server and invalidate a lot of client-side patterns people learned between 2018 and 2022.",
+  "suitable_for": [
+    "Applications where you need the largest available hiring pool and ecosystem",
+    "Teams already fluent in it",
+    "Products with complex, highly interactive client state"
+  ],
+  "not_suitable_for": [
+    "Content-heavy sites that ship far more JavaScript than they need",
+    "Small teams wanting a framework that makes decisions for them — React deliberately does not",
+    "Projects that cannot absorb the churn of its evolving server-rendering story"
+  ],
+  "alternatives": [
+    "Vue",
+    "Svelte",
+    "Solid",
+    "Astro",
+    "htmx"
+  ],
+  "verifiable_facts": [
+    "Actively maintained; official documentation covers hooks and server components."
+  ],
+  "editorial_interpretation": [
+    "That it is \"close to mandatory\" to understand.",
+    "That it has the largest hiring pool."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Applications where you need the largest available hiring pool and ecosystem",
+    "Suitable: Teams already fluent in it",
+    "Suitable: Products with complex, highly interactive client state",
+    "Unsuitable: Content-heavy sites that ship far more JavaScript than they need",
+    "Unsuitable: Small teams wanting a framework that makes decisions for them — React deliberately does not",
+    "Unsuitable: Projects that cannot absorb the churn of its evolving server-rendering story"
+  ],
+  "evidence_gaps": [
+    "The hiring-pool claim is an employment-market assertion with no source in this product."
+  ],
+  "wrong_if": "A reviewer requires the hiring claim to be sourced or removed.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.retain.react",
+      "context": "apps",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "content.reconsider.react",
+      "context": "content",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "learning.recommend.react",
+      "context": "learning",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "gating",
+      "detail": "only offered in learning at learner baseline \"built_app\""
+    }
+  ],
+  "journeys_affected": [
+    "apps",
+    "content",
+    "learning"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.retain.react",
+    "rule:content.reconsider.react",
+    "rule:learning.recommend.react"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 3 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

@@ -1,0 +1,76 @@
+{
+  "slug": "storybook",
+  "domain": "frontend",
+  "name": "Storybook",
+  "canonical_url": "https://storybook.js.org/",
+  "primary_source": "https://storybook.js.org/docs",
+  "proposed_lifecycle": "established",
+  "summary": "Develop and document components in isolation, outside the application.",
+  "what_it_is": "A workshop environment that renders components in isolation with controllable props, doubling as living documentation and a base for visual regression and interaction testing.",
+  "why_it_matters": "Storybook is most valuable where a design system crosses a team boundary — it gives designers and other engineers a place to see what actually exists without running the app. It carries a real and frequently underestimated cost: it is a second build to configure and maintain, and an abandoned Storybook is worse than none because it documents the past.",
+  "suitable_for": [
+    "Design systems and shared component libraries",
+    "Teams where designers review components directly",
+    "Components hard to reach through normal app navigation"
+  ],
+  "not_suitable_for": [
+    "Small applications with few reusable components",
+    "Teams without capacity to keep stories current",
+    "Projects where the second build configuration is not worth the benefit"
+  ],
+  "alternatives": [
+    "Histoire",
+    "Ladle",
+    "a plain in-app component gallery route"
+  ],
+  "verifiable_facts": [
+    "Official docs describe isolated component rendering with controllable props, plus testing integrations."
+  ],
+  "editorial_interpretation": [
+    "That an abandoned Storybook is worse than none."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Design systems and shared component libraries",
+    "Suitable: Teams where designers review components directly",
+    "Suitable: Components hard to reach through normal app navigation",
+    "Unsuitable: Small applications with few reusable components",
+    "Unsuitable: Teams without capacity to keep stories current",
+    "Unsuitable: Projects where the second build configuration is not worth the benefit"
+  ],
+  "evidence_gaps": [
+    "No evidence on maintenance burden in practice."
+  ],
+  "wrong_if": "A reviewer judges the \"worse than none\" line too strong to state without evidence.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "design_systems.retain.storybook",
+      "context": "design_systems",
+      "kind": "retain",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "design_systems"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:design_systems.retain.storybook"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

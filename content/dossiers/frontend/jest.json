@@ -1,0 +1,98 @@
+{
+  "slug": "jest",
+  "domain": "frontend",
+  "name": "Jest",
+  "canonical_url": "https://jestjs.io/",
+  "primary_source": "https://jestjs.io/docs/getting-started",
+  "proposed_lifecycle": "declining",
+  "summary": "The dominant JavaScript test runner of the 2016–2022 era, now ceding ground to Vitest.",
+  "what_it_is": "A batteries-included test runner with assertions, mocking, snapshot testing and coverage built in, using its own transform pipeline and module registry.",
+  "why_it_matters": "Jest defined what a JavaScript test runner should include, and its API is the one Vitest deliberately copied. It is declining because that separate transform pipeline means maintaining a second build configuration, which stopped being acceptable once a Vite-native option existed. Still entirely reasonable in projects not built with Vite.",
+  "suitable_for": [
+    "Existing suites where migration is not worth the effort",
+    "React Native, where support is strongest",
+    "Projects not using Vite"
+  ],
+  "not_suitable_for": [
+    "New Vite-based projects, where Vitest removes duplicate configuration",
+    "Large suites where watch-mode speed is a daily cost"
+  ],
+  "alternatives": [
+    "Vitest",
+    "node:test"
+  ],
+  "verifiable_facts": [
+    "Official docs describe a test runner with its own transform pipeline, assertions, mocking and coverage."
+  ],
+  "editorial_interpretation": [
+    "Classification as declining."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Existing suites where migration is not worth the effort",
+    "Suitable: React Native, where support is strongest",
+    "Suitable: Projects not using Vite",
+    "Unsuitable: New Vite-based projects, where Vitest removes duplicate configuration",
+    "Unsuitable: Large suites where watch-mode speed is a daily cost"
+  ],
+  "evidence_gaps": [
+    "No representative evidence for declining use."
+  ],
+  "wrong_if": "A reviewer requires trajectory claims to be evidenced, reverting this to established.",
+  "confidence": "low",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.reconsider.jest",
+      "context": "apps",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "apps"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "jest was removed from package.json in addyosmani/critical",
+      "source_url": "https://github.com/addyosmani/critical/commit/24d99e65ca93bd24192419b04adf1a0ef17d990c",
+      "observed_at": "2026-05-17T09:46:10Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "observed",
+      "label": "jest was added to package.json in addyosmani/basket.js",
+      "source_url": "https://github.com/addyosmani/basket.js/commit/ff4abae7f4b0552f0779df23fe447336ba181816",
+      "observed_at": "2025-03-02T06:13:33Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "observed",
+      "label": "jest was added to package.json in addyosmani/critical",
+      "source_url": "https://github.com/addyosmani/critical/commit/87996f99d1311dcdb955802b16a996ffa19aa054",
+      "observed_at": "2023-10-06T21:57:14Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.reconsider.jest"
+  ],
+  "proposed_decision": "Approve lifecycle \"declining\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

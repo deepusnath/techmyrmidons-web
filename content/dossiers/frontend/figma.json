@@ -1,0 +1,74 @@
+{
+  "slug": "figma",
+  "domain": "frontend",
+  "name": "Figma",
+  "canonical_url": "https://www.figma.com/",
+  "primary_source": "https://help.figma.com/hc/en-us",
+  "proposed_lifecycle": "established",
+  "summary": "Browser-based collaborative design tool, and the usual source of truth for what to build.",
+  "what_it_is": "A collaborative interface design tool running in the browser, with multiplayer editing, components and variants, design tokens, prototyping, and inspection panels that expose measurements and values to developers.",
+  "why_it_matters": "Figma is included deliberately, because it is exactly the kind of tool a repository-based view of the ecosystem cannot see — it appears in no manifest, yet it is where most frontend work originates. Fluency in reading a Figma file, not just receiving screenshots, is a real and unevenly distributed frontend skill.",
+  "suitable_for": [
+    "Any team where design and engineering hand off work",
+    "Extracting spacing, colour and type values accurately",
+    "Keeping design tokens aligned with implemented components"
+  ],
+  "not_suitable_for": [
+    "Teams with no design function, where it adds process without benefit",
+    "Environments where browser-based SaaS is not permitted"
+  ],
+  "alternatives": [
+    "Penpot",
+    "Sketch",
+    "Adobe XD"
+  ],
+  "verifiable_facts": [
+    "Official help centre documents collaborative browser-based design, components and developer inspection."
+  ],
+  "editorial_interpretation": [
+    "That it is \"where most frontend work originates\"."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Any team where design and engineering hand off work",
+    "Suitable: Extracting spacing, colour and type values accurately",
+    "Suitable: Keeping design tokens aligned with implemented components",
+    "Unsuitable: Teams with no design function, where it adds process without benefit",
+    "Unsuitable: Environments where browser-based SaaS is not permitted"
+  ],
+  "evidence_gaps": [
+    "The origination claim is unsupported and arguably overstated."
+  ],
+  "wrong_if": "A reviewer cuts the origination claim as unevidenced.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "design_systems.retain.figma",
+      "context": "design_systems",
+      "kind": "retain",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "design_systems"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:design_systems.retain.figma"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

@@ -1,0 +1,115 @@
+{
+  "slug": "bower",
+  "domain": "frontend",
+  "name": "Bower",
+  "canonical_url": "https://bower.io/",
+  "primary_source": "https://bower.io/",
+  "proposed_lifecycle": "legacy",
+  "summary": "Front-end package manager, deprecated by its own maintainers and kept here as history.",
+  "what_it_is": "A package manager for browser libraries — jQuery, Bootstrap and similar — that installed a flat, unnested dependency tree into a bower_components folder for serving directly to the browser.",
+  "why_it_matters": "Bower matters now as history, and history is the point of this view. It solved a real problem: npm's nested node_modules layout was hostile to assets that had to be served as-is to a browser. Once npm flattened its tree and bundlers made module resolution a build-time concern, Bower's reason to exist evaporated, and its maintainers recommended migrating away in 2017. The practical value in recognising it is diagnostic — if a tutorial tells you to run bower install, that tutorial is at least eight years old, and everything else it teaches you should be read in that light.",
+  "suitable_for": [
+    "Reading and maintaining pre-2018 codebases that still carry a bower.json",
+    "Understanding why JavaScript dependency resolution works the way it does"
+  ],
+  "not_suitable_for": [
+    "Any new project, without exception",
+    "Anything needing current security advisories — the registry is effectively frozen",
+    "Teams with no existing bower.json to migrate away from"
+  ],
+  "alternatives": [
+    "npm",
+    "pnpm",
+    "yarn"
+  ],
+  "verifiable_facts": [
+    "The project's own homepage recommends users migrate to other solutions."
+  ],
+  "editorial_interpretation": [
+    "That the registry is \"effectively frozen\" and no security advisories will reach users."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Reading and maintaining pre-2018 codebases that still carry a bower.json",
+    "Suitable: Understanding why JavaScript dependency resolution works the way it does",
+    "Unsuitable: Any new project, without exception",
+    "Unsuitable: Anything needing current security advisories — the registry is effectively frozen",
+    "Unsuitable: Teams with no existing bower.json to migrate away from"
+  ],
+  "evidence_gaps": [
+    "The security-advisory claim is not directly evidenced by the cited page."
+  ],
+  "wrong_if": "A reviewer requires the advisory claim to be separately sourced or softened.",
+  "confidence": "high",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "learning.reconsider.bower",
+      "context": "learning",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.reconsider.bower",
+      "context": "legacy",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "learning",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "bower was removed from package.json in addyosmani/basket.js",
+      "source_url": "https://github.com/addyosmani/basket.js/commit/ff4abae7f4b0552f0779df23fe447336ba181816",
+      "observed_at": "2025-03-02T06:13:33Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2019",
+      "source_url": null,
+      "observed_at": "2019-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2017",
+      "source_url": null,
+      "observed_at": "2017-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "observed",
+      "label": "bower was added to package.json in addyosmani/basket.js",
+      "source_url": "https://github.com/addyosmani/basket.js/commit/b7328b1c8443e0fc53f5371a7e75750e0098d4a9",
+      "observed_at": "2013-07-19T10:52:57Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:learning.reconsider.bower",
+    "rule:legacy.reconsider.bower"
+  ],
+  "proposed_decision": "Approve lifecycle \"legacy\" and the 2 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

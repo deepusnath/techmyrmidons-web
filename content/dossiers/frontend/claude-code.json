@@ -1,0 +1,103 @@
+{
+  "slug": "claude-code",
+  "domain": "frontend",
+  "name": "Claude Code",
+  "canonical_url": "https://claude.com/claude-code",
+  "primary_source": "https://docs.claude.com/en/docs/claude-code/overview",
+  "proposed_lifecycle": "emerging",
+  "summary": "Agentic coding in the terminal — delegated tasks rather than inline completion.",
+  "what_it_is": "A terminal-based coding agent that reads and edits files, runs commands and tests, and works through multi-step tasks, alongside editor and desktop interfaces.",
+  "why_it_matters": "The distinction worth understanding is delegation versus completion: rather than suggesting the next line, an agent is given a task and works through it, running commands and reading results. That is a different working relationship with different failure modes, and it is genuinely unsettled which shape wins. Listed as emerging for that reason, and disclosed plainly: this entry was drafted with the tool it describes.",
+  "suitable_for": [
+    "Multi-step tasks spanning several files",
+    "Work where running tests and iterating is part of the loop",
+    "Developers comfortable working in a terminal"
+  ],
+  "not_suitable_for": [
+    "Developers who prefer inline suggestions inside the editor",
+    "Organisations that cannot send source to a third-party service",
+    "Tasks where writing the prompt costs more than writing the code"
+  ],
+  "alternatives": [
+    "Cursor",
+    "GitHub Copilot",
+    "Codex CLI",
+    "Aider"
+  ],
+  "verifiable_facts": [
+    "Official documentation describes a terminal-based agentic coding tool that reads and edits files and runs commands."
+  ],
+  "editorial_interpretation": [
+    "Classification as emerging.",
+    "That delegation rather than completion is the meaningful distinction."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Multi-step tasks spanning several files",
+    "Suitable: Work where running tests and iterating is part of the loop",
+    "Suitable: Developers comfortable working in a terminal",
+    "Unsuitable: Developers who prefer inline suggestions inside the editor",
+    "Unsuitable: Organisations that cannot send source to a third-party service",
+    "Unsuitable: Tasks where writing the prompt costs more than writing the code"
+  ],
+  "evidence_gaps": [
+    "No adoption evidence. It appears in no dependency manifest by nature, so repository signals cannot cover it at all."
+  ],
+  "wrong_if": "A reviewer judges that this product should not carry entries for tools it cannot evidence, or objects to the disclosed conflict below.",
+  "confidence": "low",
+  "conflict_of_interest": "This dossier, and the tool card it reviews, were drafted using Claude Code — the tool being assessed. A reviewer should treat every judgement about it as conflicted and verify independently.",
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.recommend.claude-code",
+      "context": "apps",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "learning.recommend.claude-code",
+      "context": "learning",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.recommend.claude-code",
+      "context": "legacy",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "gating",
+      "detail": "only offered in learning at learner baseline \"writes_js\""
+    },
+    {
+      "type": "gating",
+      "detail": "only offered in learning at learner baseline \"built_app\""
+    }
+  ],
+  "journeys_affected": [
+    "apps",
+    "learning",
+    "legacy"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.recommend.claude-code",
+    "rule:learning.recommend.claude-code",
+    "rule:legacy.recommend.claude-code"
+  ],
+  "proposed_decision": "Approve lifecycle \"emerging\" and the 3 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

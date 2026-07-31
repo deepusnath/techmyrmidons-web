@@ -65,6 +65,22 @@ export default function ReviewPage() {
         </p>
       </header>
 
+      <div className="mb-8 rounded-sm border p-4" style={{ borderColor: 'var(--color-ember)' }}>
+        <p className="mb-1 text-sm font-semibold">Start here</p>
+        <p className="mb-3 text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
+          Reviewing alphabetically is the slowest route. The priority queue orders tools by how many
+          diagnosis rules depend on them, so the first few reviews unblock the most.
+        </p>
+        <Link
+          href="/review/priority/"
+          data-testid="priority-link"
+          className="inline-block rounded-sm px-3 py-1.5 text-xs font-semibold"
+          style={{ background: 'var(--color-ember)', color: '#fff' }}
+        >
+          Open the priority review queue →
+        </Link>
+      </div>
+
       <section className="mb-10">
         <h2 className="mb-3 text-xl">Summary</h2>
         <div className="scroll-x">

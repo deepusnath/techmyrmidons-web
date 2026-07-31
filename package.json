@@ -15,7 +15,9 @@
     "test:deployed": "BASE_URL=https://deepusnath.github.io BASE_PREFIX=/techmyrmidons-web playwright test",
     "deploy": "./scripts/deploy-pages.sh",
     "stamp": "node scripts/stamp-editorial-status.ts",
-    "build:production": "NEXT_PUBLIC_SHOW_DRAFTS=false next build"
+    "build:production": "NEXT_PUBLIC_SHOW_DRAFTS=false next build",
+    "dossiers": "node scripts/build-dossiers.ts",
+    "test:rules": "node scripts/tests/rule-isolation.test.ts"
   },
   "dependencies": {
     "next": "^16.2.12",

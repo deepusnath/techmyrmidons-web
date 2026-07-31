@@ -1,0 +1,75 @@
+{
+  "slug": "testing-library",
+  "domain": "frontend",
+  "name": "Testing Library",
+  "canonical_url": "https://testing-library.com/",
+  "primary_source": "https://testing-library.com/docs/",
+  "proposed_lifecycle": "established",
+  "summary": "Query components the way users find them, not by implementation detail.",
+  "what_it_is": "A family of libraries for querying rendered components by accessible role, label and visible text rather than by class names or component internals, with bindings for React, Vue, Svelte and others.",
+  "why_it_matters": "Its lasting contribution is a principle rather than an API: tests coupled to implementation break on every refactor and therefore get deleted. Querying by accessible role has the useful side effect of surfacing accessibility problems, because a component you cannot query by role is usually one a screen reader cannot navigate either.",
+  "suitable_for": [
+    "Component tests intended to survive refactoring",
+    "Teams wanting tests that incidentally check accessibility",
+    "Any of the frameworks it provides bindings for"
+  ],
+  "not_suitable_for": [
+    "Testing genuinely internal logic, which belongs in plain unit tests",
+    "Full user-journey coverage, which needs an E2E tool"
+  ],
+  "alternatives": [
+    "Enzyme (unmaintained)",
+    "Playwright component testing",
+    "Cypress component testing"
+  ],
+  "verifiable_facts": [
+    "Official docs describe querying by accessible role, label and text rather than implementation details."
+  ],
+  "editorial_interpretation": [
+    "That implementation-coupled tests \"get deleted\".",
+    "That role queries surface accessibility problems."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Component tests intended to survive refactoring",
+    "Suitable: Teams wanting tests that incidentally check accessibility",
+    "Suitable: Any of the frameworks it provides bindings for",
+    "Unsuitable: Testing genuinely internal logic, which belongs in plain unit tests",
+    "Unsuitable: Full user-journey coverage, which needs an E2E tool"
+  ],
+  "evidence_gaps": [
+    "The deletion claim is anecdotal."
+  ],
+  "wrong_if": "A reviewer wants the anecdotal claim softened.",
+  "confidence": "high",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "design_systems.recommend.testing-library",
+      "context": "design_systems",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "design_systems"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:design_systems.recommend.testing-library"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

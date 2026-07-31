@@ -1,0 +1,95 @@
+{
+  "slug": "jquery",
+  "domain": "frontend",
+  "name": "jQuery",
+  "canonical_url": "https://jquery.com/",
+  "primary_source": "https://api.jquery.com/",
+  "proposed_lifecycle": "legacy",
+  "summary": "The library that normalised the DOM across browsers, now largely superseded by the platform.",
+  "what_it_is": "A library providing concise DOM selection, traversal, manipulation, events and AJAX with a chainable API, originally papering over deep inconsistencies between browsers.",
+  "why_it_matters": "jQuery won so completely that the platform absorbed it: querySelectorAll, classList, fetch and addEventListener cover most of what people reached for it to do. It still runs on an enormous share of the web, so you will encounter it — but it belongs here as history and as a diagnostic. Code reaching for jQuery in a new project is usually reaching for habits rather than capability.",
+  "suitable_for": [
+    "Maintaining existing codebases that already depend on it",
+    "Legacy environments with genuinely old browser requirements"
+  ],
+  "not_suitable_for": [
+    "New projects of any kind",
+    "Anywhere bundle size matters — modern DOM APIs cover the same ground for free"
+  ],
+  "alternatives": [
+    "Native DOM APIs",
+    "Alpine.js",
+    "htmx"
+  ],
+  "verifiable_facts": [
+    "Still maintained and documented; the API reference is current."
+  ],
+  "editorial_interpretation": [
+    "That most of its uses are now covered by native DOM APIs.",
+    "Classification as legacy."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Maintaining existing codebases that already depend on it",
+    "Suitable: Legacy environments with genuinely old browser requirements",
+    "Unsuitable: New projects of any kind",
+    "Unsuitable: Anywhere bundle size matters — modern DOM APIs cover the same ground for free"
+  ],
+  "evidence_gaps": [
+    "No evidence for how much of the web still depends on it, which the \"legacy\" call implicitly leans on."
+  ],
+  "wrong_if": "A reviewer judges \"legacy\" too strong for a project still actively maintained, and prefers \"declining\".",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.reconsider.jquery",
+      "context": "apps",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.reconsider.jquery",
+      "context": "legacy",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "prerequisite-of",
+      "detail": "marking this unlocks the htmx recommendation in legacy"
+    }
+  ],
+  "journeys_affected": [
+    "apps",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "jquery was added to package.json in addyosmani/backbone-fundamentals",
+      "source_url": "https://github.com/addyosmani/backbone-fundamentals/commit/b62add59bb9723b6c04e0b94b6056165b5d081c0",
+      "observed_at": "2024-11-30T05:20:55Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.reconsider.jquery",
+    "rule:legacy.reconsider.jquery"
+  ],
+  "proposed_decision": "Approve lifecycle \"legacy\" and the 2 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

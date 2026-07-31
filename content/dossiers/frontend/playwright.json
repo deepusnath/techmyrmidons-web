@@ -1,0 +1,93 @@
+{
+  "slug": "playwright",
+  "domain": "frontend",
+  "name": "Playwright",
+  "canonical_url": "https://playwright.dev/",
+  "primary_source": "https://playwright.dev/docs/intro",
+  "proposed_lifecycle": "established",
+  "summary": "Cross-browser end-to-end testing with auto-waiting and strong debugging tools.",
+  "what_it_is": "A browser automation and end-to-end testing framework driving Chromium, Firefox and WebKit through one API, with automatic waiting for elements, parallel execution, and a trace viewer that records a replayable timeline of failed runs.",
+  "why_it_matters": "Playwright made end-to-end tests substantially less flaky by making waiting implicit rather than something you hand-code with sleeps. The trace viewer in particular changed the economics of CI failures — you can see what happened rather than guess. It has become the default for new E2E work.",
+  "suitable_for": [
+    "End-to-end testing across multiple browser engines",
+    "Teams that have abandoned E2E testing before because of flakiness",
+    "Debugging CI-only failures via traces"
+  ],
+  "not_suitable_for": [
+    "Unit testing, which it is far too heavy for",
+    "Environments that cannot run browser binaries in CI",
+    "Teams without capacity to maintain an E2E suite — the failure mode is a suite everyone ignores"
+  ],
+  "alternatives": [
+    "Cypress",
+    "Selenium",
+    "WebdriverIO"
+  ],
+  "verifiable_facts": [
+    "Official docs describe cross-browser automation across Chromium, Firefox and WebKit, with auto-waiting and trace viewing."
+  ],
+  "editorial_interpretation": [
+    "That it \"has become the default for new E2E work\"."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: End-to-end testing across multiple browser engines",
+    "Suitable: Teams that have abandoned E2E testing before because of flakiness",
+    "Suitable: Debugging CI-only failures via traces",
+    "Unsuitable: Unit testing, which it is far too heavy for",
+    "Unsuitable: Environments that cannot run browser binaries in CI",
+    "Unsuitable: Teams without capacity to maintain an E2E suite — the failure mode is a suite everyone ignores"
+  ],
+  "evidence_gaps": [
+    "The default claim is an adoption assertion with no representative evidence."
+  ],
+  "wrong_if": "A reviewer requires adoption language to be dropped, leaving only the sourced capability description.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.recommend.playwright",
+      "context": "apps",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "design_systems.recommend.playwright",
+      "context": "design_systems",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "apps",
+    "design_systems"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "playwright was added to package.json in addyosmani/critical",
+      "source_url": "https://github.com/addyosmani/critical/commit/19bc7e0b2902bf4806ba866e67b28b4149740e3e",
+      "observed_at": "2026-07-11T03:29:30Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.recommend.playwright",
+    "rule:design_systems.recommend.playwright"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 2 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

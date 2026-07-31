@@ -78,6 +78,10 @@ export interface Candidate {
   /** Only offered when the user has marked one of these. */
   requires_any?: string[];
   goals?: Goal[];
+  rule_id?: string;
+  editorial_status?: 'ai_draft' | 'reviewed';
+  reviewed_by?: string | null;
+  reviewed_at?: string | null;
   /** Only offered at these learner baselines (learning context only). */
   baselines?: Baseline[];
   /**
@@ -91,10 +95,37 @@ export interface Candidate {
   role?: string;
 }
 
+/**
+ * A single reviewable rule. Review status lives here rather than on the file so
+ * that approving one judgement can never publish an unrelated one.
+ */
+export interface RuleEntry {
+  text: string;
+  rule_id: string;
+  editorial_status: 'ai_draft' | 'reviewed';
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+}
+
+/** Older content stored these as plain strings; both shapes are accepted. */
+export type RuleValue = string | RuleEntry;
+
+export function ruleText(v: RuleValue): string {
+  return typeof v === 'string' ? v : v.text;
+}
+
+export function ruleId(v: RuleValue, fallback: string): string {
+  return typeof v === 'string' ? fallback : v.rule_id;
+}
+
+export function ruleReviewed(v: RuleValue | Candidate): boolean {
+  return typeof v !== 'string' && v.editorial_status === 'reviewed';
+}
+
 export interface ContextRules {
   label: string;
-  still_appropriate: Record<string, string>;
-  reconsider: Record<string, string>;
+  still_appropriate: Record<string, RuleValue>;
+  reconsider: Record<string, RuleValue>;
   candidates: Candidate[];
 }
 
@@ -115,6 +146,8 @@ export interface Judged {
   slug: string;
   name: string;
   reason: string;
+  rule_id: string;
+  reviewed: boolean;
 }
 
 export interface Suggestion {
@@ -122,6 +155,8 @@ export interface Suggestion {
   name: string;
   why: string;
   unsuitable_if: string;
+  rule_id: string;
+  reviewed: boolean;
 }
 
 export interface Diagnosis {
@@ -143,13 +178,26 @@ export function diagnose({
   marked,
   heuristics,
   toolNames,
+  reviewedOnly = false,
 }: {
   answers: AssessmentAnswers;
   marked: Record<string, ProgressState>;
   heuristics: Heuristics;
   toolNames: Record<string, string>;
+  /**
+   * When true, only rules a human has reviewed may contribute. Set by the
+   * caller from the build mode; gating happens per rule, never per file.
+   */
+  reviewedOnly?: boolean;
 }): Diagnosis {
-  const rulesAreDraft = heuristics.editorial_status !== 'reviewed';
+  // "Draft" now means: at least one contributing rule is unreviewed. File-level
+  // status is advisory only.
+  const allRules = Object.values(heuristics.contexts).flatMap((r) => [
+    ...Object.values(r.still_appropriate ?? {}),
+    ...Object.values(r.reconsider ?? {}),
+    ...(r.candidates ?? []),
+  ]);
+  const rulesAreDraft = allRules.some((r) => !ruleReviewed(r));
   const missing: Array<'work' | 'goal' | 'baseline'> = [];
   if (!answers.work) missing.push('work');
   if (!answers.goal) missing.push('goal');
@@ -190,12 +238,26 @@ export function diagnose({
   // What the user already has that still serves this kind of work.
   const appropriate: Judged[] = markedSlugs
     .filter((s) => rules.still_appropriate[s])
-    .map((s) => ({ slug: s, name: name(s), reason: rules.still_appropriate[s] }));
+    .filter((s) => !reviewedOnly || ruleReviewed(rules.still_appropriate[s]))
+    .map((s) => ({
+      slug: s,
+      name: name(s),
+      reason: ruleText(rules.still_appropriate[s]),
+      rule_id: ruleId(rules.still_appropriate[s], `${answers.work}.retain.${s}`),
+      reviewed: ruleReviewed(rules.still_appropriate[s]),
+    }));
 
   // What they have that specifically does not serve this kind of work.
   const reconsider: Judged[] = markedSlugs
     .filter((s) => rules.reconsider[s])
-    .map((s) => ({ slug: s, name: name(s), reason: rules.reconsider[s] }));
+    .filter((s) => !reviewedOnly || ruleReviewed(rules.reconsider[s]))
+    .map((s) => ({
+      slug: s,
+      name: name(s),
+      reason: ruleText(rules.reconsider[s]),
+      rule_id: ruleId(rules.reconsider[s], `${answers.work}.reconsider.${s}`),
+      reviewed: ruleReviewed(rules.reconsider[s]),
+    }));
 
   // Candidates must match the goal, must not already be marked, any
   // `requires_any` precondition must hold, and — for learners — the candidate
@@ -204,7 +266,8 @@ export function diagnose({
     .filter((c) => !(c.slug in marked))
     .filter((c) => !c.goals || c.goals.includes(answers.goal as Goal))
     .filter((c) => !c.requires_any || c.requires_any.some((r) => r in marked))
-    .filter((c) => !c.baselines || (answers.baseline ? c.baselines.includes(answers.baseline) : false));
+    .filter((c) => !c.baselines || (answers.baseline ? c.baselines.includes(answers.baseline) : false))
+    .filter((c) => !reviewedOnly || ruleReviewed(c));
 
   /**
    * Suppress a candidate whose only role is already covered — by a
@@ -227,7 +290,14 @@ export function diagnose({
     if (c.role && provided.has(c.role)) continue;
     for (const r of c.provides ?? []) provided.add(r);
     if (c.role) provided.add(c.role);
-    suggestions.push({ slug: c.slug, name: name(c.slug), why: c.why, unsuitable_if: c.unsuitable_if });
+    suggestions.push({
+      slug: c.slug,
+      name: name(c.slug),
+      why: c.why,
+      unsuitable_if: c.unsuitable_if,
+      rule_id: c.rule_id ?? `${answers.work}.recommend.${c.slug}`,
+      reviewed: ruleReviewed(c),
+    });
   }
 
   return {

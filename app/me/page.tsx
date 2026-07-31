@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { getHeuristics } from '../../lib/content.ts';
 import { getToolViews } from '../../lib/views.ts';
-import { canShowEditorialClaim } from '../../lib/provenance.ts';
+import { SHOW_DRAFTS } from '../../lib/provenance.ts';
+import { redactToReviewed } from '../../lib/review.ts';
 import { PersonalSnapshot } from '../../components/PersonalSnapshot.tsx';
 
 const DOMAIN = 'frontend';
@@ -20,7 +21,10 @@ export default function MePage() {
    * shipping the ruleset would put every unreviewed judgement one "view source"
    * away from being read as guidance.
    */
-  const withheld = !canShowEditorialClaim(heuristics);
+  // Rule-level, not file-level: production ships exactly the rules a human has
+  // reviewed. With none reviewed this is null and nothing is sent to the client.
+  const publishable = SHOW_DRAFTS ? heuristics : redactToReviewed(heuristics);
+  const withheld = publishable === null;
 
   return (
     <div>
@@ -36,7 +40,7 @@ export default function MePage() {
       <PersonalSnapshot
         tools={tools}
         domain={DOMAIN}
-        heuristics={withheld ? null : heuristics}
+        heuristics={publishable}
         heuristicsWithheld={withheld}
       />
     </div>

@@ -1,0 +1,76 @@
+{
+  "slug": "css-modules",
+  "domain": "frontend",
+  "name": "CSS Modules",
+  "canonical_url": "https://github.com/css-modules/css-modules",
+  "primary_source": "https://github.com/css-modules/css-modules",
+  "proposed_lifecycle": "established",
+  "summary": "Build-time class-name scoping that keeps you writing ordinary CSS.",
+  "what_it_is": "A convention where each CSS file is compiled so its class names become locally scoped and unique, imported into a component as an object. The CSS itself is entirely standard.",
+  "why_it_matters": "CSS Modules solve the single problem that motivated most CSS architecture methodology — global name collisions — without asking you to learn a new way of expressing style. For teams that reject Tailwind on principle but recognise the naming problem is real, this is the most direct answer, and it has aged unusually well.",
+  "suitable_for": [
+    "Teams that want to keep writing standard CSS with scoping handled by the build",
+    "Component-based codebases without a utility-class approach",
+    "Gradual migration away from global stylesheets"
+  ],
+  "not_suitable_for": [
+    "Projects with no build step",
+    "Teams wanting a design-token scale supplied for them, rather than authored"
+  ],
+  "alternatives": [
+    "Tailwind CSS",
+    "vanilla-extract",
+    "Sass",
+    "plain CSS with custom properties"
+  ],
+  "verifiable_facts": [
+    "The official repository documents build-time local scoping of class names."
+  ],
+  "editorial_interpretation": [
+    "That it \"has aged unusually well\".",
+    "Classification as established."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Teams that want to keep writing standard CSS with scoping handled by the build",
+    "Suitable: Component-based codebases without a utility-class approach",
+    "Suitable: Gradual migration away from global stylesheets",
+    "Unsuitable: Projects with no build step",
+    "Unsuitable: Teams wanting a design-token scale supplied for them, rather than authored"
+  ],
+  "evidence_gaps": [
+    "Repository activity was not assessed; the specification is relatively static."
+  ],
+  "wrong_if": "A reviewer finds the project effectively unmaintained, making \"established\" misleading.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "design_systems.recommend.css-modules",
+      "context": "design_systems",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "design_systems"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:design_systems.recommend.css-modules"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

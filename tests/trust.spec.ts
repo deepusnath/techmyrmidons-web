@@ -387,3 +387,82 @@ test('AngularJS end-of-life cites a primary source, not an AI reading', async ({
   await expect(eol).toContainText(/official source/i);
   await expect(eol.getByRole('link', { name: /source/i })).toHaveAttribute('href', /angularjs\.org/);
 });
+
+// ---------------------------------------------------------------------------
+// Phase 2.6 — editorial evidence and review preparation
+// ---------------------------------------------------------------------------
+
+test('priority review queue shows evidence and records nothing as reviewed', async ({ page }) => {
+  await freshVisit(page, '/review/priority/');
+
+  await expect(page.getByRole('heading', { name: /Priority editorial review/i })).toBeVisible();
+  await expect(page.getByText(/Nothing here is applied/i)).toBeVisible();
+
+  const dossier = page.getByTestId('dossier');
+  await expect(dossier).toBeVisible();
+
+  // Facts, interpretation and gaps are shown as three distinct things.
+  await expect(dossier).toContainText(/Verifiable facts/i);
+  await expect(dossier).toContainText(/Editorial interpretation — NOT established by the source/i);
+  await expect(dossier).toContainText(/Evidence gaps/i);
+  await expect(dossier).toContainText(/would be wrong if/i);
+
+  // The queue is ordered by leverage: the most depended-on tool comes first.
+  await expect(dossier).toHaveAttribute('data-slug', 'typescript');
+
+  // Nothing may present itself as reviewed.
+  await expect(page.locator('body')).not.toContainText(/Reviewed by /i);
+  await expect(page.locator('body')).not.toContainText('Deepu S Nath');
+});
+
+test('a reviewer decision stays local and changes no published claim', async ({ page }) => {
+  await freshVisit(page, '/review/priority/');
+
+  // An approval cannot be recorded anonymously.
+  await expect(page.getByTestId('action-approve')).toBeDisabled();
+  await page.getByTestId('reviewer-name').fill('Test Reviewer');
+  await expect(page.getByTestId('action-approve')).toBeEnabled();
+
+  await page.getByTestId('review-note').fill('Verified against the official docs.');
+  await page.getByTestId('action-approve').click();
+
+  await expect(page.getByTestId('decision-recorded')).toContainText(/not.*changed any published claim/i);
+  await expect(page.getByTestId('review-export')).toBeVisible();
+
+  // The tool page must be unaffected — still unreviewed.
+  await page.goto(p('/frontend/tools/typescript/'));
+  await expect(page.getByTestId('review-chip-draft').first()).toBeVisible();
+  await expect(page.getByTestId('review-chip-reviewed')).toHaveCount(0);
+});
+
+test('readiness reports blockers without a score or meter', async ({ page }) => {
+  await freshVisit(page, '/review/priority/');
+
+  await expect(page.getByTestId('readiness-legacy')).toContainText(/fully blocked/i);
+  await expect(page.getByTestId('readiness-design_systems')).toContainText(/fully blocked/i);
+  await expect(page.getByTestId('highest-leverage')).toContainText(/typescript/i);
+
+  const body = page.locator('body');
+  await expect(body).not.toContainText(/\b\d{1,3}\s?%\s*(complete|reviewed|ready)/i);
+  await expect(page.locator('progress, meter, [role="progressbar"]')).toHaveCount(0);
+});
+
+test('journey dependency map exposes rule-level review status', async ({ page }) => {
+  await freshVisit(page, '/review/priority/');
+  const journey = page.getByTestId('journey-legacy');
+  await journey.locator('summary').click();
+  await expect(journey).toContainText('legacy.recommend.vite');
+  await expect(journey).toContainText('legacy.reconsider.gulp');
+  await expect(journey).toContainText(/\[unreviewed\]/);
+});
+
+test('production ships no rule text at all while every rule is unreviewed', async ({ page }) => {
+  test.skip(!PRODUCTION_MODE, 'production-mode assertion');
+  await freshVisit(page, '/me/');
+
+  await expect(page.getByTestId('diagnosis-withheld')).toBeVisible();
+  const source = await page.content();
+  expect(source).not.toContain('still_appropriate');
+  expect(source).not.toContain('rule_id');
+  expect(source).not.toContain('bundler now owns the dependency graph');
+});

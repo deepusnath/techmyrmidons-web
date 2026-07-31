@@ -1,0 +1,78 @@
+{
+  "slug": "cursor",
+  "domain": "frontend",
+  "name": "Cursor",
+  "canonical_url": "https://cursor.com/",
+  "primary_source": "https://cursor.com/docs",
+  "proposed_lifecycle": "established",
+  "summary": "Editor built around AI assistance rather than adding it as an extension.",
+  "what_it_is": "A VS Code-derived editor where AI is the primary interaction model — codebase-aware chat, multi-file edits applied as reviewable diffs, and inline completion — rather than a plugin bolted onto an existing workflow.",
+  "why_it_matters": "Cursor's bet was that assistance built into the editor beats assistance added to it, mainly because it can reason over the whole codebase rather than the open file. Whether the editor or the terminal is the right home for this is genuinely unsettled, and that is worth saying plainly rather than declaring a winner.",
+  "suitable_for": [
+    "Multi-file changes that need whole-codebase context",
+    "Developers already comfortable in VS Code",
+    "Exploring unfamiliar codebases"
+  ],
+  "not_suitable_for": [
+    "Teams committed to JetBrains, Neovim or another editor",
+    "Organisations that cannot send source code to a third-party service",
+    "Developers who find AI suggestions disrupt rather than assist their flow"
+  ],
+  "alternatives": [
+    "GitHub Copilot",
+    "Claude Code",
+    "Windsurf",
+    "Zed"
+  ],
+  "verifiable_facts": [
+    "Official docs describe a VS Code-derived editor with codebase-aware chat and multi-file edits."
+  ],
+  "editorial_interpretation": [
+    "Classification as established.",
+    "That editor-integrated assistance beats extension-based assistance."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Multi-file changes that need whole-codebase context",
+    "Suitable: Developers already comfortable in VS Code",
+    "Suitable: Exploring unfamiliar codebases",
+    "Unsuitable: Teams committed to JetBrains, Neovim or another editor",
+    "Unsuitable: Organisations that cannot send source code to a third-party service",
+    "Unsuitable: Developers who find AI suggestions disrupt rather than assist their flow"
+  ],
+  "evidence_gaps": [
+    "No adoption evidence; invisible to manifest-based signals by nature."
+  ],
+  "wrong_if": "A reviewer judges \"established\" unsupportable for a tool this recent with no adoption evidence.",
+  "confidence": "low",
+  "conflict_of_interest": "Assessed by an AI assistant that competes with this product category.",
+  "diagnosis_rules": [
+    {
+      "rule_id": "content.recommend.cursor",
+      "context": "content",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "content"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:content.recommend.cursor"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}

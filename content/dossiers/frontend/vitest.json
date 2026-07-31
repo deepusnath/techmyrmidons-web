@@ -1,0 +1,88 @@
+{
+  "slug": "vitest",
+  "domain": "frontend",
+  "name": "Vitest",
+  "canonical_url": "https://vitest.dev/",
+  "primary_source": "https://vitest.dev/guide/",
+  "proposed_lifecycle": "established",
+  "summary": "Vite-native test runner with a Jest-compatible API.",
+  "what_it_is": "A unit test runner that reuses your Vite configuration and transform pipeline, with an API close enough to Jest that most test files need no changes, plus genuinely fast watch mode.",
+  "why_it_matters": "Vitest removed the long-standing annoyance of maintaining a second, divergent build configuration purely for tests. If your project already uses Vite, there is very little argument for running Jest alongside it. The migration is usually far smaller than teams expect.",
+  "suitable_for": [
+    "Any project already building with Vite",
+    "Teams wanting fast watch-mode feedback",
+    "Migrating from Jest with minimal test rewrites"
+  ],
+  "not_suitable_for": [
+    "React Native projects, where Jest remains better supported",
+    "Codebases depending on Jest-specific plugins with no equivalent"
+  ],
+  "alternatives": [
+    "Jest",
+    "node:test",
+    "Playwright component testing"
+  ],
+  "verifiable_facts": [
+    "Official docs state it reuses the project Vite configuration and offers a Jest-compatible API."
+  ],
+  "editorial_interpretation": [
+    "That there is \"very little argument\" for running Jest alongside Vite."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Any project already building with Vite",
+    "Suitable: Teams wanting fast watch-mode feedback",
+    "Suitable: Migrating from Jest with minimal test rewrites",
+    "Unsuitable: React Native projects, where Jest remains better supported",
+    "Unsuitable: Codebases depending on Jest-specific plugins with no equivalent"
+  ],
+  "evidence_gaps": [
+    "Migration cost is asserted to be small without evidence."
+  ],
+  "wrong_if": "A reviewer judges the migration-cost claim unsupported.",
+  "confidence": "high",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.recommend.vitest",
+      "context": "apps",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "prerequisite",
+      "detail": "only offered in apps when the user marked vite"
+    }
+  ],
+  "journeys_affected": [
+    "apps"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "vitest was added to package.json in igrigorik/videospeed",
+      "source_url": "https://github.com/igrigorik/videospeed/commit/844c7d47e632f157ed76edd07b0d5287546ed418",
+      "observed_at": "2026-03-27T00:41:07Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.recommend.vitest"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31"
+}
