@@ -387,8 +387,18 @@ async function main() {
       if (d.reviewed_by || d.reviewed_at) {
         fail(`${ref}: carries a reviewer or review date; nothing here has been reviewed`);
       }
-      if (FORBIDDEN_ATTRIBUTION.test(raw)) {
+      // Drafted material must not be attributed to a person — but a decision
+      // log recording who made a real decision is exactly what we DO want, so
+      // it is excluded from the scan rather than the scan being dropped.
+      const { decision_log: _log, ...draftedOnly } = d;
+      if (FORBIDDEN_ATTRIBUTION.test(JSON.stringify(draftedOnly))) {
         fail(`${ref}: attributes drafted material to a named person`);
+      }
+      for (const entry of d.decision_log ?? []) {
+        checks++;
+        if (!entry.decided_by?.trim()) fail(`${ref}: a decision-log entry has no decider`);
+        if (!entry.date?.trim()) fail(`${ref}: a decision-log entry has no date`);
+        if (!entry.reasoning?.trim()) fail(`${ref}: a decision-log entry records no reasoning`);
       }
 
       // Facts need a source; interpretation must not masquerade as fact.
@@ -453,6 +463,22 @@ async function main() {
         }
         if (v.editorial_status !== 'reviewed' && (v.reviewed_by || v.reviewed_at)) {
           fail(`${ref}: carries reviewer details but is not marked reviewed`);
+        }
+
+        // A reviewed rule may only publish once its target tool is a real
+        // destination: both reader-facing fields individually reviewed AND
+        // non-empty. Naming a blank field in reviewed_fields approves nothing.
+        if (v.editorial_status === 'reviewed') {
+          const target = toolIndex.get(`${file.replace(/\.json$/, '')}/${slug}`);
+          if (target) {
+            const values = ['one_liner', 'what_it_is'] as const;
+            const present = values.every((f) => typeof target[f] === 'string' && target[f]!.trim());
+            const named = new Set(target.reviewed_fields ?? []);
+            const covered = target.editorial_status === 'reviewed' || values.every((f) => named.has(f));
+            if (covered && !present) {
+              fail(`${ref}: target "${slug}" lists reader-facing fields as reviewed but one is blank — that must not unblock publication`);
+            }
+          }
         }
       }
     }

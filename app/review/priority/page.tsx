@@ -84,7 +84,9 @@ export default function PriorityReviewPage() {
 
         <ul className="mt-4 space-y-1 text-sm" style={{ color: 'var(--fg-dim)' }}>
           <li>· Priority tool records reviewed: <strong>{readiness.priorityToolsReviewed} of {readiness.priorityToolsTotal}</strong></li>
-          <li>· Diagnosis rules reviewed: <strong>{readiness.rulesReviewed} of {readiness.rulesTotal}</strong></li>
+          <li>· Diagnosis rules reviewed: <strong data-testid="rules-reviewed">{readiness.rulesReviewed}</strong> of {readiness.rulesTotal}</li>
+          <li>· Reviewed but publication blocked: <strong data-testid="rules-blocked">{readiness.rulesReviewedButBlocked}</strong> — the decision stands; only its release waits on a reader-facing destination</li>
+          <li>· Reviewed and publishable: <strong data-testid="rules-publishable">{readiness.rulesPublishable}</strong></li>
           <li>· Lifecycle views blocked: <strong>{readiness.lifecycleViewsBlocked.join(', ') || 'none'}</strong></li>
         </ul>
 
@@ -121,8 +123,12 @@ export default function PriorityReviewPage() {
                       {m[kind].map((r) => (
                         <li key={r.rule_id}>
                           <code>{r.rule_id}</code> → {r.tool_slug}{' '}
-                          <span style={{ color: r.reviewed ? 'var(--color-tier-community)' : '#c8913a' }}>
-                            [{r.reviewed ? 'reviewed' : 'unreviewed'}]
+                          <span
+                            data-rule-state={r.publishable ? 'publishable' : r.reviewed ? 'reviewed-blocked' : 'unreviewed'}
+                            title={r.blockedBy ?? 'reviewed and publishable'}
+                            style={{ color: r.publishable ? 'var(--color-tier-community)' : r.reviewed ? '#4a9db5' : '#c8913a' }}
+                          >
+                            [{r.publishable ? 'reviewed · publishable' : r.reviewed ? 'reviewed · publication blocked' : 'unreviewed'}]
                           </span>
                         </li>
                       ))}

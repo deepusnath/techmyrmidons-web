@@ -29,9 +29,50 @@ thereby approved the interpretation.
 
 ---
 
-## 2. Who may review what
+## 2. Approval model (confirmed)
+
+Approval is **rule-level and field-level**. Approving a tool dossier does not
+approve the rules that use that tool, and approving one rule does not approve
+another rule naming the same tool. Enforced in code by `redactToReviewed()` and
+proved by `scripts/tests/rule-isolation.test.ts`.
+
+**One named reviewer is sufficient** for the pilot when all three hold:
+
+1. the reviewer is qualified for that claim type under §3,
+2. the evidence they relied on is recorded, and
+3. the decision is made rule by rule rather than in bulk.
+
+**A second reviewer is required** for:
+
+- dossiers covering AI coding tools,
+- any decision where two reviewers disagree, and
+- `declining` classifications and comparable ecosystem-wide claims.
+
+### Withheld pending independent review
+
+Claude Code, Cursor and GitHub Copilot are **withheld** until reviewed by an
+independent frontend practitioner with no interest in promoting tools in that
+category. This is not a scheduling note — those dossiers were drafted using a
+tool from the category they assess, and self-assessment is not review.
+
+---
+
+## 3. Who may review what
 
 ### Lifecycle classification (`emerging` / `established` / `declining` / `legacy`)
+
+A lifecycle value is an **evidence-constrained editorial judgement**. It is not
+a factual conclusion, and official documentation is not evidence of ecosystem-
+wide adoption — documentation shows a project exists and is maintained, nothing
+more.
+
+Where the available evidence does not meet the representativeness standard in
+§8, the reviewer must either:
+
+- replace the classification with a **narrower, context-specific description**
+  that the evidence does support ("still the default in framework CLIs of that
+  era" rather than "declining"), or
+- **withhold the classification** entirely.
 
 Requires a reviewer who:
 
@@ -66,7 +107,7 @@ required, because the question is only whether the source supports the sentence.
 
 ---
 
-## 3. Evidence standards
+## 4. Evidence standards
 
 Acceptable primary sources:
 
@@ -81,7 +122,7 @@ Acceptable primary sources:
 - search-result snippets
 - marketing pages of competing or adjacent products
 - "top N tools" listicles, popularity indexes or download-count aggregators
-- repository dependency changes (see §7)
+- repository dependency changes (see §8)
 - another entry in this product
 
 Every factual claim must carry a source or be explicitly recorded as an evidence
@@ -89,7 +130,7 @@ gap. A claim with neither is a defect, and the validator fails the build.
 
 ---
 
-## 4. When a claim must remain withheld
+## 5. When a claim must remain withheld
 
 A claim is withheld from the production build when **any** of the following
 holds:
@@ -106,7 +147,7 @@ and readers act on the classification, not the caveat.
 
 ---
 
-## 5. Review expiry and revalidation
+## 6. Review expiry and revalidation
 
 | Claim type | Revalidate after | Immediate trigger |
 | --- | --- | --- |
@@ -120,7 +161,7 @@ published.
 
 ---
 
-## 6. Conflicts of interest
+## 7. Conflicts of interest
 
 A reviewer must disclose, and generally must not be the sole approver, where
 they:
@@ -140,7 +181,7 @@ someone with no stake in the outcome, or withheld.
 
 ---
 
-## 7. Repository signals: eligibility for trend conclusions
+## 8. Repository signals: eligibility for trend conclusions
 
 Repository signals record that a dependency was added to or removed from a file
 in a public repository, on a date, in a specific commit. That is all they
@@ -167,7 +208,7 @@ ago, whose public repositories skew heavily toward libraries, specifications and
 demonstrations rather than production applications. Any trend derived from it
 would describe *what ten specific people published*, not what the field does.
 
-### Minimum bar before using trend vocabulary
+### Minimum bar before using trend vocabulary (confirmed)
 
 The words **popular, widely used, adopted, emerging, declining, standard,
 default, most teams** may not appear in a published claim unless:
@@ -185,7 +226,7 @@ evidence. Several dossiers flag exactly this in their `wrong_if`.
 
 ---
 
-## 8. Recording disagreement
+## 9. Recording disagreement
 
 Disagreement is expected and is recorded, not resolved by seniority.
 
@@ -199,7 +240,7 @@ Disagreement is expected and is recorded, not resolved by seniority.
 
 ---
 
-## 9. What this phase deliberately does not do
+## 10. What this phase deliberately does not do
 
 - It records **no** approvals. Every claim remains `ai_draft` with no reviewer.
 - It does not attribute any drafted judgement to a named person.

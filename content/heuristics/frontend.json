@@ -107,16 +107,16 @@
         },
         {
           "slug": "typescript",
-          "why": "Refactoring a codebase you did not write is exactly where types earn their cost \u2014 accurate rename and reference-finding across unfamiliar code.",
-          "unsuitable_if": "The codebase is small enough to hold in your head, or the team will not invest in learning the type system and will reach for `any`.",
+          "why": "TypeScript can make unfamiliar JavaScript code easier to navigate and change by providing type information, reference checking, and editor-assisted refactoring.",
+          "unsuitable_if": "The codebase is small enough to maintain safely without it, the team cannot sustain type coverage, or the migration itself creates more risk than it resolves. Incremental TypeScript adoption in a large untyped codebase should be treated as a migration project, not merely a configuration change.",
           "goals": [
             "modernize",
             "skill_gaps"
           ],
           "rule_id": "legacy.recommend.typescript",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-07-31"
         },
         {
           "slug": "pnpm",
@@ -271,11 +271,11 @@
           "reviewed_at": null
         },
         "typescript": {
-          "text": "Effectively expected on any application a team maintains.",
+          "text": "Retain TypeScript when the application already depends on its type checking, typed APIs, or TypeScript-based tooling. Removing it may discard useful type information and require changes across the codebase.",
           "rule_id": "apps.retain.typescript",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-07-31"
         },
         "tailwind": {
           "text": "Works well in component-based application code.",
@@ -318,8 +318,8 @@
       "candidates": [
         {
           "slug": "typescript",
-          "why": "You build applications a team maintains. Types pay for themselves on refactoring and editor tooling long before they pay off on bug-catching.",
-          "unsuitable_if": "The project is a prototype you expect to throw away.",
+          "why": "For an application maintained by several people, TypeScript can improve editor-assisted navigation, rename operations, and reference checking during changes.",
+          "unsuitable_if": "The application is a short-lived prototype, the team does not intend to maintain type coverage, or introducing TypeScript would add more complexity than the project warrants.",
           "goals": [
             "stay_current",
             "modernize",
@@ -327,9 +327,9 @@
             "skill_gaps"
           ],
           "rule_id": "apps.recommend.typescript",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-07-31"
         },
         {
           "slug": "vitest",
@@ -407,11 +407,11 @@
           "reviewed_at": null
         },
         "typescript": {
-          "text": "Consumers of your components expect type definitions.",
+          "text": "Retain TypeScript when the design system publishes type information that consuming applications rely on. Removing it may break editor support or require consumers to recreate those types.",
           "rule_id": "design_systems.retain.typescript",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-07-31"
         },
         "figma": {
           "text": "Where the tokens you are implementing usually originate.",
@@ -476,8 +476,8 @@
         },
         {
           "slug": "typescript",
-          "why": "Consumers of a component library expect type definitions; shipping without them pushes the cost onto every team that uses you.",
-          "unsuitable_if": "You already ship types via JSDoc and the build cost is not worth changing.",
+          "why": "A component library can reduce integration effort by publishing usable type information with its public APIs.",
+          "unsuitable_if": "The library already provides accurate and maintained type information through JSDoc or generated declarations, and changing the implementation would add cost without improving the consumer experience.",
           "goals": [
             "stay_current",
             "new_stack",
@@ -485,9 +485,9 @@
             "modernize"
           ],
           "rule_id": "design_systems.recommend.typescript",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-07-31"
         },
         {
           "slug": "playwright",
@@ -570,8 +570,8 @@
         },
         {
           "slug": "typescript",
-          "why": "You are comfortable writing JavaScript, which is exactly the point at which types start paying for themselves rather than getting in the way.",
-          "unsuitable_if": "You are still building fluency in JavaScript itself \u2014 types are a second language to learn at the same time.",
+          "why": "Once a learner is comfortable writing JavaScript and has built an application, TypeScript can introduce static type checking and type-aware editor tooling without replacing the need to understand JavaScript.",
+          "unsuitable_if": "You are still developing fluency in HTML, CSS, or JavaScript. In that case, learning the frontend fundamentals first may reduce unnecessary cognitive load.",
           "baselines": [
             "writes_js",
             "built_app"
@@ -583,9 +583,9 @@
             "modernize"
           ],
           "rule_id": "learning.recommend.typescript",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-07-31"
         },
         {
           "slug": "react",

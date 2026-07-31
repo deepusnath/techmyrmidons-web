@@ -13,7 +13,7 @@
 
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { listRules, redactToReviewed } from '../../lib/review.ts';
+import { listRules, redactToReviewed, rulePublicationStatus, toolProvidesDestination } from '../../lib/review.ts';
 import { diagnose } from '../../lib/assessment.ts';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
@@ -35,14 +35,29 @@ async function main() {
   const toolsDir = path.join(ROOT, 'content', 'tools', 'frontend');
   const { readdir } = await import('node:fs/promises');
   const toolNames: Record<string, string> = {};
+  const realTools = new Map<string, any>();
   for (const f of await readdir(toolsDir)) {
     const t = JSON.parse(await readFile(path.join(toolsDir, f), 'utf8'));
     toolNames[t.slug] = t.name;
+    realTools.set(t.slug, t);
   }
 
-  // --- baseline: nothing reviewed -----------------------------------------
-  check('no rules reviewed in committed content', listRules(base).filter((r) => r.reviewed).length, 0);
-  check('redaction yields nothing publishable', redactToReviewed(base), null);
+  /**
+   * For the rule-isolation proof we need every tool to provide a destination, so
+   * that the ONLY variable is rule review status. Otherwise the publication gate
+   * would mask the thing being tested.
+   */
+  const destinationReady = new Map(
+    [...realTools].map(([slug, t]) => [slug, { ...t, reviewed_fields: ['one_liner', 'what_it_is'] }]),
+  );
+
+  // --- baseline: only the six reviewed TypeScript rules exist --------------
+  const baseReviewed = listRules(base, realTools).filter((r) => r.reviewed);
+  check('exactly the six reviewed rules are TypeScript',
+    [...new Set(baseReviewed.map((r) => r.tool_slug))], ['typescript']);
+  check('and there are six of them', baseReviewed.length, 6);
+  check('none of them is publishable', baseReviewed.some((r) => r.publishable), false);
+  check('so committed content publishes nothing', redactToReviewed(base, realTools), null);
 
   // --- approve exactly one rule -------------------------------------------
   const one = clone(base);
@@ -51,8 +66,19 @@ async function main() {
   one.contexts.legacy.candidates[0].reviewed_at = '2026-07-31';
   const approvedId: string = one.contexts.legacy.candidates[0].rule_id;
 
-  const redacted = redactToReviewed(one);
-  const survived = redacted ? listRules(redacted) : [];
+  // Destination-ready tools throughout, so review status is the only variable.
+  // TypeScript's six reviewed rules are reverted here for the same reason.
+  for (const ctx of Object.values(one.contexts) as any[]) {
+    for (const v of Object.values(ctx.still_appropriate ?? {}) as any[]) {
+      if (v.rule_id?.includes('typescript')) { v.editorial_status = 'ai_draft'; v.reviewed_by = null; v.reviewed_at = null; }
+    }
+    for (const c of ctx.candidates ?? []) {
+      if (c.rule_id?.includes('typescript')) { c.editorial_status = 'ai_draft'; c.reviewed_by = null; c.reviewed_at = null; }
+    }
+  }
+
+  const redacted = redactToReviewed(one, destinationReady);
+  const survived = redacted ? listRules(redacted, destinationReady) : [];
   check('exactly one rule survives redaction', survived.length, 1);
   check('and it is the approved one', survived[0]?.rule_id, approvedId);
 
@@ -100,6 +126,65 @@ async function main() {
   const serialised = JSON.stringify(redacted);
   check('no unreviewed rule text survives redaction',
     /bundler now owns the dependency graph|A working stylesheet is an asset/.test(serialised), false);
+
+  // =========================================================================
+  // Publication gate: review status vs publication eligibility
+  // =========================================================================
+  const toolIndex = realTools;
+  const committed = JSON.parse(raw);
+  const tsRules = listRules(committed, toolIndex).filter((r) => r.tool_slug === 'typescript');
+
+  // (1) the six TypeScript rules are recorded reviewed, with reviewer and date
+  check('six TypeScript rules recorded', tsRules.length, 6);
+  check('all six are reviewed', tsRules.every((r) => r.reviewed), true);
+  const tsRaw = [
+    committed.contexts.apps.still_appropriate.typescript,
+    committed.contexts.design_systems.still_appropriate.typescript,
+    ...['apps', 'legacy', 'design_systems', 'learning'].map((c: string) =>
+      committed.contexts[c].candidates.find((x: any) => x.slug === 'typescript')),
+  ];
+  check('reviewer recorded on all six', tsRaw.every((r: any) => r.reviewed_by === 'Deepu S Nath'), true);
+  check('date recorded on all six', tsRaw.every((r: any) => r.reviewed_at === '2026-07-31'), true);
+
+  // (2) no unrelated rule became reviewed
+  const otherReviewed = listRules(committed, toolIndex).filter((r) => r.reviewed && r.tool_slug !== 'typescript');
+  check('no unrelated rule reviewed', otherReviewed.map((r) => r.rule_id), []);
+
+  // (3) reviewed TypeScript rules are absent from production redaction
+  check('nothing publishable while destination unreviewed', redactToReviewed(committed, toolIndex), null);
+  check('all six blocked on destination', tsRules.every((r) => !r.publishable && /destination/.test(r.blockedBy ?? '')), true);
+
+  // (4) no rule text, reason or condition leaks into the redacted output
+  const redactedNow = redactToReviewed(committed, toolIndex);
+  check('redacted output is empty, so nothing can leak', redactedNow, null);
+
+  // (5) naming the fields while values are blank does not unblock
+  const blankTool = { ...toolIndex.get('typescript'), one_liner: '   ', what_it_is: '', reviewed_fields: ['one_liner', 'what_it_is'] };
+  check('blank values do not unblock', toolProvidesDestination(blankTool as never), false);
+
+  // (6) reviewing only one of the two fields does not unblock
+  const halfTool = { ...toolIndex.get('typescript'), reviewed_fields: ['one_liner'] };
+  check('one field alone does not unblock', toolProvidesDestination(halfTool as never), false);
+
+  // (7) both non-empty reviewed fields unblock all six, with NO rule edit
+  const readyTools = new Map(toolIndex);
+  readyTools.set('typescript', { ...toolIndex.get('typescript'), reviewed_fields: ['one_liner', 'what_it_is'] });
+  const unblocked = listRules(committed, readyTools).filter((r) => r.tool_slug === 'typescript');
+  check('all six become publishable', unblocked.every((r) => r.publishable), true);
+  const redactedReady = redactToReviewed(committed, readyTools);
+  check('exactly six rules survive redaction', redactedReady ? listRules(redactedReady, readyTools).length : 0, 6);
+  check('and only TypeScript rules do',
+    redactedReady ? [...new Set(listRules(redactedReady, readyTools).map((r) => r.tool_slug))] : [], ['typescript']);
+
+  // (8) the deferred lifecycle stays withheld even once rules publish
+  check('tool record still unreviewed after rules publish',
+    readyTools.get('typescript').editorial_status, 'ai_draft');
+  check('lifecycle still unreviewed (not in reviewed_fields)',
+    (readyTools.get('typescript').reviewed_fields ?? []).includes('lifecycle'), false);
+
+  // A reviewed rule pointing at a nonexistent tool must never publish.
+  check('missing tool blocks publication',
+    rulePublicationStatus(tsRaw[0] as never, undefined).publishable, false);
 
   console.log(failures === 0 ? '\nall green' : `\n${failures} FAILED`);
   process.exit(failures === 0 ? 0 : 1);

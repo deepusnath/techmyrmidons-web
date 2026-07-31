@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getHeuristics } from '../../lib/content.ts';
+import { getHeuristics, getTools } from '../../lib/content.ts';
 import { getToolViews } from '../../lib/views.ts';
 import { SHOW_DRAFTS } from '../../lib/provenance.ts';
 import { redactToReviewed } from '../../lib/review.ts';
@@ -23,7 +23,8 @@ export default function MePage() {
    */
   // Rule-level, not file-level: production ships exactly the rules a human has
   // reviewed. With none reviewed this is null and nothing is sent to the client.
-  const publishable = SHOW_DRAFTS ? heuristics : redactToReviewed(heuristics);
+  const toolIndex = new Map(getTools(DOMAIN).map((t) => [t.slug, t]));
+  const publishable = SHOW_DRAFTS ? heuristics : redactToReviewed(heuristics, toolIndex);
   const withheld = publishable === null;
 
   return (

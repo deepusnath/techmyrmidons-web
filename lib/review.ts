@@ -11,9 +11,82 @@
  *     component. Anything passed to the client is serialised into the page,
  *     so "hidden in the UI" is not the same as withheld.
  */
+import type { Tool } from '../content/schema.ts';
 import type { Candidate, ContextRules, Heuristics, RuleValue, WorkContext } from './assessment.ts';
 import { ruleId, ruleReviewed, ruleText } from './assessment.ts';
 import { getHeuristics, getPublishedTools, getTools } from './content.ts';
+
+// ---------------------------------------------------------------------------
+// editorial review status vs production publication eligibility
+// ---------------------------------------------------------------------------
+
+/**
+ * These are two different questions and were previously one.
+ *
+ *   reviewed    — a named human approved this specific wording. A completed
+ *                 editorial decision, and a permanent record of it.
+ *   publishable — that reviewed decision may appear in production *now*.
+ *
+ * A rule can be reviewed and still not publishable: approving a recommendation
+ * whose tool page has no reviewed description sends the reader from useful
+ * guidance to a blank card. The reviewer's decision stands; only its release
+ * waits.
+ *
+ * Publication eligibility is derived, never stored. A stored flag would need
+ * hand-maintaining and could disagree with reality; a derived one lifts by
+ * itself the moment the real precondition is met, and cannot be stale.
+ */
+
+/**
+ * The reader-facing minimum that makes a tool page a destination rather than a
+ * stub. Both must be individually reviewed AND non-empty — listing a field name
+ * in `reviewed_fields` while its value is blank approves nothing.
+ */
+export const DESTINATION_FIELDS = ['one_liner', 'what_it_is'] as const;
+
+export function toolProvidesDestination(tool: Tool | undefined): boolean {
+  if (!tool) return false;
+
+  // Values must actually exist. A reviewed-but-empty field is not a destination.
+  const present = DESTINATION_FIELDS.every((f) => {
+    const v = tool[f as 'one_liner' | 'what_it_is'];
+    return typeof v === 'string' && v.trim().length > 0;
+  });
+  if (!present) return false;
+
+  // A whole-record review covers the fields; otherwise each must be named.
+  if (tool.editorial_status === 'reviewed') return true;
+  const reviewed = new Set(tool.reviewed_fields ?? []);
+  return DESTINATION_FIELDS.every((f) => reviewed.has(f));
+}
+
+export interface PublicationStatus {
+  reviewed: boolean;
+  publishable: boolean;
+  blockedBy: string | null;
+}
+
+/**
+ * Lifecycle is deliberately NOT part of this. A deferred classification does not
+ * block a contextual rule — the rule's conclusion does not display lifecycle.
+ * Lifecycle gates the lifecycle views, and only those.
+ */
+export function rulePublicationStatus(
+  rule: RuleValue | Candidate,
+  tool: Tool | undefined,
+): PublicationStatus {
+  const reviewed = ruleReviewed(rule);
+  if (!reviewed) return { reviewed: false, publishable: false, blockedBy: 'awaiting editorial review' };
+  if (!tool) return { reviewed: true, publishable: false, blockedBy: 'target tool does not exist' };
+  if (!toolProvidesDestination(tool)) {
+    return {
+      reviewed: true,
+      publishable: false,
+      blockedBy: `destination: ${tool.slug} has no reviewed reader-facing content (${DESTINATION_FIELDS.join(' + ')})`,
+    };
+  }
+  return { reviewed: true, publishable: true, blockedBy: null };
+}
 
 // ---------------------------------------------------------------------------
 // rule inventory
@@ -28,30 +101,35 @@ export interface RuleRef {
   tool_slug: string;
   text: string;
   reviewed: boolean;
+  publishable: boolean;
+  blockedBy: string | null;
 }
 
-export function listRules(h: Heuristics): RuleRef[] {
+export function listRules(h: Heuristics, tools?: Map<string, Tool>): RuleRef[] {
   const out: RuleRef[] = [];
   for (const [context, rules] of Object.entries(h.contexts) as Array<[WorkContext, ContextRules]>) {
     for (const [slug, v] of Object.entries(rules.still_appropriate ?? {})) {
       out.push({
         rule_id: ruleId(v as RuleValue, `${context}.retain.${slug}`),
         context, kind: 'retain', tool_slug: slug,
-        text: ruleText(v as RuleValue), reviewed: ruleReviewed(v as RuleValue),
+        text: ruleText(v as RuleValue),
+        ...rulePublicationStatus(v as RuleValue, tools?.get(slug)),
       });
     }
     for (const [slug, v] of Object.entries(rules.reconsider ?? {})) {
       out.push({
         rule_id: ruleId(v as RuleValue, `${context}.reconsider.${slug}`),
         context, kind: 'reconsider', tool_slug: slug,
-        text: ruleText(v as RuleValue), reviewed: ruleReviewed(v as RuleValue),
+        text: ruleText(v as RuleValue),
+        ...rulePublicationStatus(v as RuleValue, tools?.get(slug)),
       });
     }
     for (const c of rules.candidates ?? []) {
       out.push({
         rule_id: c.rule_id ?? `${context}.recommend.${c.slug}`,
         context, kind: 'recommend', tool_slug: c.slug,
-        text: c.why, reviewed: ruleReviewed(c),
+        text: c.why,
+        ...rulePublicationStatus(c, tools?.get(c.slug)),
       });
     }
   }
@@ -63,13 +141,15 @@ export function listRules(h: Heuristics): RuleRef[] {
 // ---------------------------------------------------------------------------
 
 /**
- * Returns a heuristics document containing only reviewed rules.
+ * Returns a heuristics document containing only PUBLISHABLE rules — reviewed
+ * AND with a reader-facing destination. A reviewed-but-blocked rule is removed
+ * entirely, text included, so nothing about it reaches the page source.
  *
  * Unreviewed rule text is removed entirely rather than flagged, so it cannot
  * appear in a production page's source. Returns null when nothing survives —
  * the caller then ships no rules at all.
  */
-export function redactToReviewed(h: Heuristics): Heuristics | null {
+export function redactToReviewed(h: Heuristics, tools?: Map<string, Tool>): Heuristics | null {
   const contexts = {} as Record<WorkContext, ContextRules>;
   let kept = 0;
 
@@ -79,13 +159,17 @@ export function redactToReviewed(h: Heuristics): Heuristics | null {
     const candidates: Candidate[] = [];
 
     for (const [slug, v] of Object.entries(rules.still_appropriate ?? {})) {
-      if (ruleReviewed(v as RuleValue)) { retain[slug] = v as RuleValue; kept++; }
+      if (rulePublicationStatus(v as RuleValue, tools?.get(slug)).publishable) {
+        retain[slug] = v as RuleValue; kept++;
+      }
     }
     for (const [slug, v] of Object.entries(rules.reconsider ?? {})) {
-      if (ruleReviewed(v as RuleValue)) { reconsider[slug] = v as RuleValue; kept++; }
+      if (rulePublicationStatus(v as RuleValue, tools?.get(slug)).publishable) {
+        reconsider[slug] = v as RuleValue; kept++;
+      }
     }
     for (const c of rules.candidates ?? []) {
-      if (ruleReviewed(c)) { candidates.push(c); kept++; }
+      if (rulePublicationStatus(c, tools?.get(c.slug)).publishable) { candidates.push(c); kept++; }
     }
 
     contexts[context] = { label: rules.label, still_appropriate: retain, reconsider, candidates };
@@ -120,7 +204,7 @@ export function getPrioritySet(domain: string): PriorityEntry[] {
   const h = getHeuristics(domain);
   if (!h) return [];
   const tools = new Map(getTools(domain).map((t) => [t.slug, t]));
-  const rules = listRules(h);
+  const rules = listRules(h, tools);
 
   const byTool = new Map<string, PriorityEntry>();
   const ensure = (slug: string): PriorityEntry => {
@@ -191,7 +275,7 @@ export function getJourneyMaps(domain: string): JourneyMap[] {
   const h = getHeuristics(domain);
   if (!h) return [];
   const tools = new Map(getTools(domain).map((t) => [t.slug, t]));
-  const rules = listRules(h);
+  const rules = listRules(h, tools);
 
   return (Object.entries(h.contexts) as Array<[WorkContext, ContextRules]>).map(([context, r]) => {
     const mine = rules.filter((x) => x.context === context);
@@ -209,8 +293,9 @@ export function getJourneyMaps(domain: string): JourneyMap[] {
     // A conclusion needs BOTH its rule reviewed and the tool it names reviewed:
     // an approved recommendation pointing at an unreviewed lifecycle would still
     // publish an unreviewed claim.
+    // A rule blocks the journey if it is unreviewed OR reviewed-but-unpublishable.
     const blockedBy = [
-      ...mine.filter((x) => !x.reviewed).map((x) => `rule ${x.rule_id}`),
+      ...mine.filter((x) => !x.publishable).map((x) => `rule ${x.rule_id}${x.reviewed ? ' (reviewed, destination missing)' : ''}`),
       ...toolsInvolved.filter((t) => !t.reviewed).map((t) => `tool ${t.slug}`),
     ];
 
@@ -222,7 +307,7 @@ export function getJourneyMaps(domain: string): JourneyMap[] {
       recommend,
       toolsInvolved,
       blockedBy,
-      fullyBlocked: mine.every((x) => !x.reviewed),
+      fullyBlocked: mine.every((x) => !x.publishable),
     };
   });
 }
@@ -239,6 +324,8 @@ export interface Readiness {
   priorityToolsReviewed: number;
   rulesTotal: number;
   rulesReviewed: number;
+  rulesPublishable: number;
+  rulesReviewedButBlocked: number;
   lifecycleViewsBlocked: string[];
   /** The single action unlocking the most surface area, with its reasoning. */
   highestLeverage: { action: string; unlocks: string } | null;
@@ -246,7 +333,8 @@ export interface Readiness {
 
 export function getReadiness(domain: string): Readiness {
   const h = getHeuristics(domain);
-  const rules = h ? listRules(h) : [];
+  const tools = new Map(getTools(domain).map((t) => [t.slug, t]));
+  const rules = h ? listRules(h, tools) : [];
   const priority = getPrioritySet(domain);
   const published = getPublishedTools(domain);
   const maps = getJourneyMaps(domain);
@@ -278,6 +366,8 @@ export function getReadiness(domain: string): Readiness {
     priorityToolsReviewed: priority.filter((p) => p.toolReviewed).length,
     rulesTotal: rules.length,
     rulesReviewed: rules.filter((r) => r.reviewed).length,
+    rulesPublishable: rules.filter((r) => r.publishable).length,
+    rulesReviewedButBlocked: rules.filter((r) => r.reviewed && !r.publishable).length,
     lifecycleViewsBlocked,
     highestLeverage: topTool
       ? {

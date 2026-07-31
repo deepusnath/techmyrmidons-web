@@ -392,6 +392,78 @@ test('AngularJS end-of-life cites a primary source, not an AI reading', async ({
 // Phase 2.6 — editorial evidence and review preparation
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Review status vs publication eligibility
+// ---------------------------------------------------------------------------
+
+test('review queue distinguishes unreviewed, reviewed-blocked and publishable', async ({ page }) => {
+  await freshVisit(page, '/review/priority/');
+
+  await expect(page.getByTestId('rules-reviewed')).toHaveText('6');
+  await expect(page.getByTestId('rules-blocked')).toHaveText('6');
+  await expect(page.getByTestId('rules-publishable')).toHaveText('0');
+
+  const apps = page.getByTestId('journey-apps');
+  await apps.locator('summary').click();
+
+  // The six TypeScript rules read as reviewed-but-blocked, not unreviewed.
+  const blocked = apps.locator('[data-rule-state="reviewed-blocked"]');
+  expect(await blocked.count()).toBeGreaterThan(0);
+  await expect(blocked.first()).toContainText(/reviewed · publication blocked/i);
+
+  // An unrelated rule in the same journey stays plainly unreviewed.
+  await expect(apps.locator('[data-rule-state="unreviewed"]').first()).toContainText(/unreviewed/);
+  await expect(apps.locator('[data-rule-state="publishable"]')).toHaveCount(0);
+});
+
+test('production publishes no reviewed-but-blocked rule text', async ({ page }) => {
+  test.skip(!PRODUCTION_MODE, 'production-mode assertion');
+  await freshVisit(page, '/me/');
+
+  await expect(page.getByTestId('diagnosis-withheld')).toBeVisible();
+
+  // The six TypeScript rules are reviewed. Their wording must still be absent,
+  // as must the rule structure that would identify them.
+  const source = await page.content();
+  expect(source).not.toContain('Retain TypeScript when the application already depends');
+  expect(source).not.toContain('editor-assisted navigation, rename operations');
+  expect(source).not.toContain('treated as a migration project');
+  expect(source).not.toContain('publishes type information that consuming applications rely on');
+  expect(source).not.toContain('reduce integration effort by publishing usable type information');
+  expect(source).not.toContain('static type checking and type-aware editor tooling');
+  expect(source).not.toContain('rule_id');
+  expect(source).not.toContain('still_appropriate');
+
+  // `reviewed_by` may appear as tool-record metadata; what must never appear is
+  // a reviewer's NAME attached to something this build has not published.
+  expect(source).not.toContain('Deepu S Nath');
+});
+
+test('preview still shows draft material with correct labelling', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'preview-mode assertion');
+  await freshVisit(page, '/me/');
+  await completeAssessment(page, 'apps', 'stay_current', [['react', 'using']]);
+
+  // Preview renders everything, still labelled as unreviewed overall.
+  await expect(page.getByTestId('diagnosis-draft-notice')).toBeVisible();
+  await expect(page.getByTestId('suggestions')).toBeVisible();
+
+  // The reviewed TypeScript wording is the version approved on 2026-07-31.
+  await expect(page.getByTestId('suggestion-typescript')).toContainText(
+    /editor-assisted navigation, rename operations, and reference checking/i,
+  );
+  await expect(page.getByTestId('suggestion-typescript')).not.toContainText(
+    /pay for themselves on refactoring and editor tooling long before/i,
+  );
+});
+
+test('deferred lifecycle stays withheld on the TypeScript tool page', async ({ page }) => {
+  await freshVisit(page, '/frontend/tools/typescript/');
+  await expect(page.getByTestId('review-chip-draft').first()).toBeVisible();
+  await expect(page.getByTestId('review-chip-reviewed')).toHaveCount(0);
+  await expect(page.locator('body')).not.toContainText(/Reviewed by Deepu S Nath/i);
+});
+
 test('priority review queue shows evidence and records nothing as reviewed', async ({ page }) => {
   await freshVisit(page, '/review/priority/');
 

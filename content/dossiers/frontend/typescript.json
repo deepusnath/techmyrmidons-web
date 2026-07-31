@@ -7,7 +7,7 @@
   "proposed_lifecycle": "established",
   "summary": "Typed superset of JavaScript that has become the default for non-trivial frontend code.",
   "what_it_is": "A language that adds static types to JavaScript and compiles to plain JavaScript, with type information erased at build time. Its structural type system is designed to describe existing JavaScript patterns rather than impose new ones.",
-  "why_it_matters": "TypeScript stopped being a choice somewhere around 2020: libraries ship types, editors assume them, and most job postings expect it. The value is less about catching bugs than about editor tooling — accurate autocomplete and safe renames across a large codebase change how quickly you can work in unfamiliar code. If you last evaluated it early and found the tooling immature, that objection has expired.",
+  "why_it_matters": "TypeScript stopped being a choice somewhere around 2020: libraries ship types, editors assume them, and most job postings expect it. The value is less about catching bugs than about editor tooling \u2014 accurate autocomplete and safe renames across a large codebase change how quickly you can work in unfamiliar code. If you last evaluated it early and found the tooling immature, that objection has expired.",
   "suitable_for": [
     "Any codebase more than one person maintains",
     "Long-lived projects where refactoring safety matters",
@@ -126,6 +126,65 @@
   "editorial_status": "ai_draft",
   "reviewed_by": null,
   "reviewed_at": null,
-  "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "author": "AI-assisted draft \u2014 unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "lifecycle",
+      "decision": "defer",
+      "reasoning": "Official documentation establishes active maintenance but not ecosystem adoption, and does not meet the representativeness standard in governance \u00a78. The proposed value \"established\" is retained in the tool record as an unreviewed draft so a future reviewer can see what was proposed. No substitute value was written into the lifecycle field and the taxonomy was not expanded."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "rule:apps.retain.typescript",
+      "decision": "approve_with_edits",
+      "reasoning": "Original wording and the proposed alternative both asserted industry-wide norms. Replaced with a conditional that describes the cost of removal in a codebase that already depends on TypeScript."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "rule:design_systems.retain.typescript",
+      "decision": "approve_with_edits",
+      "reasoning": "Removed the claim about what consumers expect; replaced with a conditional about published type information that consumers rely on."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "rule:apps.recommend.typescript",
+      "decision": "approve_with_edits",
+      "reasoning": "Removed the claim that a particular benefit appears first or that types inevitably pay for themselves. Added complexity cost to the unsuitable condition."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "rule:legacy.recommend.typescript",
+      "decision": "approve_with_edits",
+      "reasoning": "Added migration risk to the unsuitable condition and stated explicitly that incremental adoption in a large untyped codebase is a migration project rather than a configuration change."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "rule:design_systems.recommend.typescript",
+      "decision": "approve_with_edits",
+      "reasoning": "Reframed around reducing integration effort rather than asserting universal consumer expectation; JSDoc and generated declarations acknowledged as sufficient alternatives."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "rule:learning.recommend.typescript",
+      "decision": "approve_with_edits",
+      "reasoning": "Stated that TypeScript does not replace the need to understand JavaScript, and framed the unsuitable condition around fundamentals and cognitive load. Baseline gate writes_js/built_app retained."
+    },
+    {
+      "date": "2026-07-31",
+      "decided_by": "Deepu S Nath",
+      "subject": "publication",
+      "decision": "blocked",
+      "reasoning": "The six reviewed rules must not publish while the TypeScript tool card lacks reviewed reader-facing content, because a reader following a recommendation would reach a card with no description. Publication eligibility is derived from one_liner and what_it_is being both individually reviewed and non-empty; it is not stored, so the block lifts automatically once that content is reviewed."
+    }
+  ],
+  "review_note": "Six contextual rules were reviewed on 2026-07-31 and are recorded in content/heuristics/frontend.json. This dossier itself remains unreviewed: the lifecycle classification and the tool's reader-facing claims were deferred."
 }
