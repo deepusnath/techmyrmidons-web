@@ -242,6 +242,7 @@ export const EVENT_TYPE_META: Record<string, { label: string; meaning: string }>
 export const BASIS_META: Record<string, { label: string; color: string }> = {
   archive_record: { label: 'archive record', color: 'var(--color-tier-archive)' },
   observed_commit: { label: 'commit', color: 'var(--color-tier-observed)' },
+  primary_source: { label: 'official source', color: 'var(--color-tier-community)' },
   ai_interpretation: { label: 'AI interpretation, unreviewed', color: '#c8913a' },
 };
 

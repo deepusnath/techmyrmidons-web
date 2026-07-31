@@ -234,9 +234,22 @@ export type TimelineEventType =
  * Where an event's claim comes from.
  * - `archive_record`  the tool appears in a dated file in the original archive
  * - `observed_commit` a real commit changed a manifest; links to the commit
+ * - `primary_source`   an official publication by the project itself (a release
+ *                      announcement, a support-status page). Required for
+ *                      factual event types such as a release or an end of life.
  * - `ai_interpretation` an AI-authored reading of what mattered; ALWAYS a draft
  */
-export type TimelineBasis = 'archive_record' | 'observed_commit' | 'ai_interpretation';
+export type TimelineBasis =
+  | 'archive_record'
+  | 'observed_commit'
+  | 'primary_source'
+  | 'ai_interpretation';
+
+/**
+ * Event types that assert a checkable fact about the tool itself rather than an
+ * opinion about its significance. These may never rest on an AI interpretation.
+ */
+export const FACTUAL_EVENT_TYPES = ['first_released', 'reached_end_of_life'] as const;
 
 export interface TimelineEvent {
   type: TimelineEventType;
@@ -261,6 +274,12 @@ export interface TimelineEntry extends Seeded {
   domain: string;
   year: number;
   headline: string;
+  /**
+   * Headline and body are newly authored narrative ABOUT the year. Their review
+   * status is deliberately separate from the events: an archive event can be
+   * sourced and verifiable while the paragraph interpreting it is not.
+   */
+  headline_status: EditorialStatus;
   body: string;
   events: TimelineEvent[];
   /** Null while unreviewed. See EditorialNote.author. */

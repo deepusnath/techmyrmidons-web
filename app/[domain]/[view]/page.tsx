@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CATEGORIES, getDomain, getDomains, getTimeline } from '../../../lib/content.ts';
 import { getAllToolViews, getToolViews, LANDSCAPE_VIEWS, type LandscapeSlug } from '../../../lib/views.ts';
-import { isVisible } from '../../../lib/provenance.ts';
+import { SHOW_DRAFTS } from '../../../lib/provenance.ts';
+import { routes } from '../../../lib/routes.ts';
 import { LandscapeBrowser } from '../../../components/LandscapeBrowser.tsx';
 import { DraftBanner, EmptyState, ProvenanceChip, TimelineEventRow } from '../../../components/Provenance.tsx';
 
@@ -25,14 +26,29 @@ export default async function LandscapeView({
 
   const isHistorical = view === 'historical';
   const tools = getToolViews(slug).filter((t) => config.lifecycles.includes(t.lifecycle as never));
-  const timeline = getTimeline(slug).filter(isVisible);
   const allTools = getAllToolViews(slug);
   const toolName = (s: string) => allTools.find((t) => t.slug === s)?.name ?? s;
+
+  /**
+   * Year narrative and event provenance are gated separately.
+   *
+   * The archive events are verifiable — the tool really does appear in a dated
+   * file. The paragraphs interpreting those files were written for the rebuild
+   * and are not archive content, so a production build keeps the events and
+   * withholds the prose.
+   */
+  const timeline = getTimeline(slug)
+    .map((year) => {
+      const events = year.events.filter((e) => SHOW_DRAFTS || e.claim_status === 'sourced');
+      const showNarrative = SHOW_DRAFTS || year.headline_status === 'reviewed';
+      return { ...year, events, showNarrative };
+    })
+    .filter((year) => year.showNarrative || year.events.length > 0);
 
   return (
     <div>
       <nav className="mb-6 flex flex-wrap gap-2 text-sm" aria-label="Landscape views">
-        <Link href={`/${slug}/`} className="hover:underline" style={{ color: 'var(--fg-faint)' }}>
+        <Link href={routes.domain(slug)} className="hover:underline" style={{ color: 'var(--fg-faint)' }}>
           ← {domain.name} Myrmidon
         </Link>
       </nav>
@@ -41,7 +57,7 @@ export default async function LandscapeView({
         {Object.values(LANDSCAPE_VIEWS).map((v) => (
           <Link
             key={v.slug}
-            href={`/${slug}/${v.slug}/`}
+            href={routes.landscape(slug, v.slug)}
             data-testid={`tab-${v.slug}`}
             aria-current={v.slug === view ? 'page' : undefined}
             className="rounded-sm border px-3 py-1.5 text-sm font-medium"
@@ -56,16 +72,24 @@ export default async function LandscapeView({
         ))}
       </div>
 
-      <header className="mb-8 max-w-3xl">
+      <header className="mb-8 max-w-[68ch]">
         <h1 className="mb-2 text-3xl">{config.title}</h1>
         <p className="text-sm leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{config.lede}</p>
+        {isHistorical ? (
+          <p className="mt-3 text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
+            The archive records what TechMyrmidons listed in a given year. That is a verifiable fact
+            about this site — it is not evidence of what frontend developers in general used, and
+            claims about deprecation, support or significance carry their own sources where they
+            exist.
+          </p>
+        ) : null}
       </header>
 
       {isHistorical ? (
         <section>
           {timeline.length === 0 ? (
-            <EmptyState title="No timeline has been recorded for this domain.">
-              <p>The Historical view needs at least one curated or authored year.</p>
+            <EmptyState title="No timeline entries can be shown in this build.">
+              <p>Every entry is either unreviewed narrative or has no sourced events.</p>
             </EmptyState>
           ) : (
             <ol className="space-y-8">
@@ -76,13 +100,28 @@ export default async function LandscapeView({
                       {e.year}
                     </h2>
                     {e.is_seed ? <ProvenanceChip kind="archive" detail="original curation" /> : null}
-                    {!e.is_seed && !e.draft ? <ProvenanceChip kind="editorial" /> : null}
                   </div>
 
-                  {e.draft ? <DraftBanner /> : null}
-
-                  <p className="mb-2 text-base leading-snug font-medium">{e.headline}</p>
-                  <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{e.body}</p>
+                  {e.showNarrative ? (
+                    <>
+                      {e.headline_status !== 'reviewed' ? <DraftBanner /> : null}
+                      <p className="mb-2 max-w-[68ch] text-base leading-snug font-medium">{e.headline}</p>
+                      <p className="mb-3 max-w-[68ch] text-sm leading-relaxed" style={{ color: 'var(--fg-dim)' }}>
+                        {e.body}
+                      </p>
+                    </>
+                  ) : (
+                    /* Strictly factual heading. No interpretation survives here. */
+                    <p
+                      data-testid={`factual-heading-${e.year}`}
+                      className="mb-3 text-base leading-snug font-medium"
+                    >
+                      Tools first included in TechMyrmidons in {e.year}
+                      <span className="ml-2 text-xs font-normal" style={{ color: 'var(--fg-faint)' }}>
+                        · narrative withheld pending editorial review
+                      </span>
+                    </p>
+                  )}
 
                   {e.events.length ? (
                     <>
@@ -95,20 +134,16 @@ export default async function LandscapeView({
                             key={`${ev.type}-${ev.tool_slug}`}
                             event={ev}
                             toolName={toolName(ev.tool_slug)}
-                            href={`/${slug}/tools/${ev.tool_slug}/`}
+                            href={routes.tool(slug, ev.tool_slug)}
                           />
                         ))}
                       </ul>
                     </>
                   ) : null}
 
-                  {/* Draft years carry no byline — see lib/provenance.ts */}
                   <p className="mt-3 text-[11px]" style={{ color: 'var(--fg-faint)' }}>
-                    {e.draft
-                      ? 'Unattributed pending review'
-                      : e.is_seed
-                        ? `Source: ${e.seed_source}`
-                        : `By ${e.author}`}
+                    {e.author ? `By ${e.author}` : 'Narrative unattributed pending review'}
+                    {e.is_seed && e.seed_source ? ` · events sourced from ${e.seed_source}` : ''}
                   </p>
                 </li>
               ))}
@@ -117,22 +152,24 @@ export default async function LandscapeView({
 
           <div className="mt-10">
             <h2 className="mb-3 text-xl">Legacy tools</h2>
-            <p className="mb-4 max-w-3xl text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
+            <p className="mb-4 max-w-[68ch] text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
               Superseded, kept because recognising them tells you when a codebase or tutorial was
               written.
             </p>
             {tools.length ? (
               <LandscapeBrowser tools={tools} domain={slug} categories={CATEGORIES(slug)} />
             ) : (
-              <EmptyState title="No legacy tools recorded." />
+              <EmptyState title="No legacy tools can be shown in this build.">
+                <p>Lifecycle is an unreviewed editorial classification and is withheld here.</p>
+              </EmptyState>
             )}
           </div>
         </section>
       ) : tools.length === 0 ? (
-        <EmptyState title={`Nothing is currently marked as ${config.title.toLowerCase()}.`}>
+        <EmptyState title={`Nothing can be shown as ${config.title.toLowerCase()} in this build.`}>
           <p>
-            This is an honest empty state rather than filler — no tool in the catalogue carries that
-            lifecycle right now.
+            Lifecycle is an editorial classification. Every classification is currently unreviewed,
+            so this build withholds it rather than presenting it as established.
           </p>
         </EmptyState>
       ) : (

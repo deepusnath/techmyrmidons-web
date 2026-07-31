@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { EditorialReview, EvidenceTier } from '../content/schema.ts';
 import {
   ARCHIVE_META,
@@ -181,7 +182,8 @@ export function TimelineEventRow({
       className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs"
     >
       <span className="font-semibold" style={{ color: 'var(--fg-dim)' }}>{meta?.label ?? event.type}:</span>
-      <a href={href} className="hover:underline" style={{ color: 'var(--color-ember)' }}>{toolName}</a>
+      {/* next/link, not a raw anchor — only Link applies the deployment basePath. */}
+      <Link href={href} className="hover:underline" style={{ color: 'var(--color-ember)' }}>{toolName}</Link>
       <span
         className="rounded-sm border px-1.5 py-0.5 text-[10px]"
         style={{

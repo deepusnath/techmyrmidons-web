@@ -21,6 +21,7 @@ import {
   EVIDENCE_TIERS,
   LIFECYCLES,
   EDITORIAL_TOOL_FIELDS,
+  FACTUAL_EVENT_TYPES,
   isPublishable,
   type Domain,
   type EditorialNote,
@@ -258,6 +259,11 @@ async function main() {
       if (!e.headline?.trim()) fail(`${ref}: empty headline`);
       // Reviewed years need a byline; unreviewed ones must not carry one.
       if (!e.draft && !e.author?.trim()) fail(`${ref}: published year has no author byline`);
+      // Narrative review status is tracked separately from event provenance.
+      if (!e.headline_status) fail(`${ref}: missing headline_status`);
+      if (e.headline_status === 'reviewed' && e.draft) {
+        fail(`${ref}: narrative marked reviewed but the year is still flagged draft`);
+      }
       if (e.is_seed && !e.seed_source) fail(`${ref}: seeded but has no seed_source`);
 
       // Every event must name a real tool, declare its basis, and never present
@@ -275,6 +281,20 @@ async function main() {
         if (ev.basis === 'observed_commit' && !ev.source_url) {
           fail(`${ref}: event for "${ev.tool_slug}" claims a commit basis but links to no commit`);
         }
+
+        // A release date or an end of life is a checkable fact about the tool.
+        // It may not rest on an AI reading, and it must cite the project itself.
+        if ((FACTUAL_EVENT_TYPES as readonly string[]).includes(ev.type)) {
+          if (ev.basis === 'ai_interpretation') {
+            fail(`${ref}: "${ev.type}" for "${ev.tool_slug}" uses an AI interpretation as its basis; factual event types need a primary source`);
+          }
+          if (ev.claim_status !== 'sourced') {
+            fail(`${ref}: "${ev.type}" for "${ev.tool_slug}" must be claim_status "sourced"`);
+          }
+          if (!ev.source_url || !/^https?:\/\//.test(ev.source_url)) {
+            fail(`${ref}: "${ev.type}" for "${ev.tool_slug}" has no resolvable primary source URL`);
+          }
+        }
       }
       if (e.draft && e.author) {
         fail(`${ref}: unreviewed timeline year carries an author byline`);
@@ -284,6 +304,42 @@ async function main() {
   }
   if (timelineDrafts) {
     note(`${timelineDrafts} timeline entr(ies) are draft and must not render until signed off.`);
+  }
+
+  // --- heuristics -----------------------------------------------------------
+  // The guided assessment may only ever point at a tool that has been written
+  // up. Recommending an archive-only record sends the user to a page with no
+  // guidance on it.
+  const heuristicsFile = path.join(CONTENT, 'heuristics');
+  let heuristicCandidates = 0;
+  for (const file of existsSync(heuristicsFile) ? await readdir(heuristicsFile) : []) {
+    const domain = file.replace(/\.json$/, '');
+    const h = await load<{
+      editorial_status: string;
+      reviewed_by: string | null;
+      reviewed_at: string | null;
+      contexts: Record<string, { candidates: Array<{ slug: string; why: string; unsuitable_if: string }> }>;
+    }>(path.join('heuristics', file));
+    checks++;
+
+    if (h.editorial_status === 'reviewed' && (!h.reviewed_by || !h.reviewed_at)) {
+      fail(`heuristics/${domain}: marked reviewed without a reviewer and date`);
+    }
+
+    for (const [ctx, rules] of Object.entries(h.contexts ?? {})) {
+      for (const c of rules.candidates ?? []) {
+        checks++;
+        heuristicCandidates++;
+        const tool = toolIndex.get(`${domain}/${c.slug}`);
+        const ref = `heuristics/${domain}:${ctx}:${c.slug}`;
+        if (!tool) fail(`${ref}: references a tool that does not exist`);
+        else if (!tool.published) {
+          fail(`${ref}: recommends "${c.slug}", which is an unpublished archive record with no authored guidance`);
+        }
+        if (!c.why?.trim()) fail(`${ref}: has no "why this applies" text`);
+        if (!c.unsuitable_if?.trim()) fail(`${ref}: has no "unsuitable if" condition`);
+      }
+    }
   }
 
   // --- resources ------------------------------------------------------------

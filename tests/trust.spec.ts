@@ -137,6 +137,7 @@ test('recommendations require context rather than guessing', async ({ page }) =>
 });
 
 test('an empty category alone never triggers a recommendation', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered separately');
   await freshVisit(page, '/me/');
   // Design-system context with Storybook marked. Many categories are empty, but
   // suggestions must come from the context rules, not from those gaps.
@@ -157,6 +158,7 @@ test('an empty category alone never triggers a recommendation', async ({ page })
 });
 
 test('recommendations differ meaningfully by work context and goal', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered separately');
   const collect = async () => {
     const ids = await page.getByTestId('suggestions').locator('[data-testid^="suggestion-"]').all();
     const slugs: string[] = [];
@@ -193,6 +195,7 @@ test('recommendations differ meaningfully by work context and goal', async ({ pa
 });
 
 test('no score, percentage, level or completeness meter is produced', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered separately');
   await freshVisit(page, '/me/');
   await completeAssessment(page, 'apps', 'stay_current', [['react', 'using']]);
   const body = page.locator('body');
@@ -251,4 +254,124 @@ test('no contact address is exposed when none is configured', async ({ page }) =
   await page.getByTestId('feedback-open').click();
   await expect(page.getByTestId('feedback-panel')).toContainText(/No contact address is configured/i);
   await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);
+});
+
+// ---------------------------------------------------------------------------
+// Phase 2.5.1 — gating, learner journey, redundancy
+// ---------------------------------------------------------------------------
+
+test('production withholds the ENTIRE diagnosis, not just recommendations', async ({ page }) => {
+  test.skip(!PRODUCTION_MODE, 'production-mode assertion');
+  await freshVisit(page, '/me/');
+  await completeAssessment(page, 'legacy', 'modernize', [['gulp', 'using']]);
+
+  await expect(page.getByTestId('diagnosis-withheld')).toBeVisible();
+  await expect(page.getByTestId('diagnosis-withheld')).toContainText(/awaiting editorial review/i);
+
+  // None of the three judgement sections may run.
+  await expect(page.getByTestId('suggestions')).toHaveCount(0);
+  await expect(page.getByTestId('still-appropriate')).toHaveCount(0);
+  await expect(page.getByTestId('reconsider')).toHaveCount(0);
+
+  // No heuristic prose may leak through any of them.
+  const body = page.locator('body');
+  await expect(body).not.toContainText(/The bundler now owns the dependency graph/i);
+  await expect(body).not.toContainText(/Why this applies to you:/i);
+  await expect(body).not.toContainText(/Not for you if:/i);
+  await expect(body).not.toContainText(/A working stylesheet is an asset/i);
+
+  // The user's own marked tools are their data and must survive.
+  await expect(page.getByTestId('snapshot-item-gulp')).toBeVisible();
+});
+
+test('preview labels the whole diagnosis, not only the recommendations', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'preview-mode assertion');
+  await freshVisit(page, '/me/');
+  await completeAssessment(page, 'legacy', 'modernize', [['gulp', 'using'], ['sass', 'using']]);
+
+  const notice = page.getByTestId('diagnosis-draft-notice');
+  await expect(notice).toBeVisible();
+  await expect(notice).toContainText(/what remains appropriate/i);
+  await expect(notice).toContainText(/what may deserve reconsideration/i);
+  await expect(notice).toContainText(/worth exploring next/i);
+
+  // It sits above all three sections.
+  const noticeBox = await notice.boundingBox();
+  const appropriateBox = await page.getByTestId('still-appropriate').boundingBox();
+  expect(noticeBox!.y).toBeLessThan(appropriateBox!.y);
+});
+
+test('learner: baseline is required, then the diagnosis suits that level', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'preview-mode assertion');
+  await freshVisit(page, '/me/');
+
+  await page.getByTestId('work-learning').click();
+  await page.getByTestId('goal-skill_gaps').click();
+
+  // Work + goal are not enough for a learner with nothing marked.
+  await expect(page.getByTestId('baseline-question')).toBeVisible();
+  await expect(page.getByTestId('assessment-done')).toBeDisabled();
+
+  // A beginner must not be handed an application toolchain.
+  await page.getByTestId('baseline-new_to_web').click();
+  await page.getByTestId('assessment-done').click();
+
+  const suggestions = page.getByTestId('suggestions');
+  await expect(suggestions).toBeVisible();
+  await expect(page.getByTestId('suggestion-typescript')).toHaveCount(0);
+  await expect(page.getByTestId('suggestion-react')).toHaveCount(0);
+  await expect(page.getByTestId('suggestion-vite')).toHaveCount(0);
+
+  // Recommending nothing is an acceptable and honest answer here.
+  await expect(suggestions).toContainText(/No tool is worth recommending to you yet/i);
+  await expect(suggestions).toContainText(/new to HTML, CSS and JavaScript/i);
+  const shown = await suggestions.locator('[data-testid^="suggestion-"]').count();
+  expect(shown).toBe(0);
+
+  // A more advanced learner gets different, level-appropriate answers.
+  await page.getByTestId('edit-assessment').click();
+  await page.getByTestId('baseline-built_app').click();
+  await page.getByTestId('assessment-done').click();
+  await expect(page.getByTestId('suggestion-typescript')).toBeVisible();
+});
+
+test('recommendations are not internally contradictory', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'preview-mode assertion');
+  await freshVisit(page, '/me/');
+  await completeAssessment(page, 'content', 'new_stack');
+
+  // Astro brings its own build. Recommending Vite alongside it as a separate
+  // priority contradicts Vite's own stated "not for you if".
+  await expect(page.getByTestId('suggestion-astro')).toBeVisible();
+  await expect(page.getByTestId('suggestion-vite')).toHaveCount(0);
+});
+
+test('archive years keep sourced events but withhold new narrative in production', async ({ page }) => {
+  test.skip(!PRODUCTION_MODE, 'production-mode assertion');
+  await freshVisit(page, '/frontend/historical/');
+
+  // Factual heading, no interpretive prose.
+  await expect(page.getByTestId('factual-heading-2017')).toContainText(
+    /Tools first included in TechMyrmidons in 2017/i,
+  );
+  const body = page.locator('body');
+  await expect(body).not.toContainText(/preserved unedited/i);
+  await expect(body).not.toContainText(/what a well-informed frontend developer used/i);
+
+  // The sourced events themselves survive, because they are verifiable.
+  await expect(page.getByTestId('year-2017').getByTestId(/^event-/).first()).toHaveAttribute(
+    'data-claim-status',
+    'sourced',
+  );
+  // AI interpretations do not.
+  await expect(page.locator('[data-claim-status="ai_draft"]')).toHaveCount(0);
+});
+
+test('AngularJS end-of-life cites a primary source, not an AI reading', async ({ page }) => {
+  await freshVisit(page, '/frontend/historical/');
+  const eol = page.getByTestId('year-2021').getByTestId('event-angularjs');
+  await expect(eol).toHaveAttribute('data-event-type', 'reached_end_of_life');
+  await expect(eol).toHaveAttribute('data-claim-status', 'sourced');
+  await expect(eol).toContainText(/official source/i);
+  await expect(eol.getByRole('link', { name: /source/i })).toHaveAttribute('href', /angularjs\.org/);
 });

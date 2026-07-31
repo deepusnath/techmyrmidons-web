@@ -11,7 +11,8 @@ import {
   type AssessmentAnswers,
   type Heuristics,
 } from '../lib/assessment.ts';
-import { DRAFT_LABEL_SHORT } from '../lib/provenance.ts';
+import { DRAFT_LABEL_SHORT, SHOW_DRAFTS } from '../lib/provenance.ts';
+import { routes } from '../lib/routes.ts';
 import { EmptyState, LifecycleBadge } from './Provenance.tsx';
 import { ToolStateButtons } from './ToolStateButtons.tsx';
 import { Assessment } from './Assessment.tsx';
@@ -39,9 +40,10 @@ export function PersonalSnapshot({
     ? {
         work: (state.assessment.work as AssessmentAnswers['work']) ?? null,
         goal: (state.assessment.goal as AssessmentAnswers['goal']) ?? null,
+        baseline: (state.assessment.baseline as AssessmentAnswers['baseline']) ?? null,
         completed_at: state.assessment.completed_at,
       }
-    : { work: null, goal: null, completed_at: null };
+    : { work: null, goal: null, baseline: null, completed_at: null };
 
   const diagnosis = useMemo(
     () => diagnose({ answers, marked, heuristics, toolNames }),
@@ -105,6 +107,10 @@ export function PersonalSnapshot({
     );
   }
 
+  // Every judgement section shares one source of truth: the heuristics file.
+  // If that is unreviewed and this build hides drafts, none of them may render.
+  const heuristicsWithheld = !SHOW_DRAFTS && diagnosis.rulesAreDraft;
+
   const workLabel = WORK_OPTIONS.find((w) => w.value === answers.work)?.label;
   const goalLabel = GOAL_OPTIONS.find((g) => g.value === answers.goal)?.label;
   const total = Object.keys(marked).length;
@@ -146,6 +152,41 @@ export function PersonalSnapshot({
           Clear everything
         </button>
       </div>
+
+      {heuristicsWithheld ? (
+        /* Production: the rules behind all three judgement sections are
+           unreviewed, so none of them runs. The user's own marked tools are
+           still shown — those are their data, not our editorial. */
+        <div
+          data-testid="diagnosis-withheld"
+          role="note"
+          className="rounded-sm border border-dashed p-4 text-sm leading-relaxed"
+          style={{ borderColor: '#c8913a', color: '#c8913a' }}
+        >
+          <strong>Contextual diagnosis is awaiting editorial review.</strong> What remains
+          appropriate, what may deserve reconsideration, and what is worth exploring next are all
+          derived from context-fit rules that no human editor has checked. Rather than present
+          unreviewed judgements as guidance, this build withholds them. Your own marked tools are
+          unaffected and shown below.
+        </div>
+      ) : (
+        <>
+      {/* One notice for the WHOLE diagnosis. All three sections below are
+          produced by the same unreviewed rules — labelling only the
+          recommendations would misrepresent the other two. */}
+      {diagnosis.rulesAreDraft ? (
+        <div
+          data-testid="diagnosis-draft-notice"
+          role="note"
+          className="rounded-sm border border-dashed p-3 text-xs leading-relaxed"
+          style={{ borderColor: '#c8913a', color: '#c8913a', background: '#c8913a11' }}
+        >
+          <strong>{DRAFT_LABEL_SHORT}.</strong> All three sections below — what remains appropriate,
+          what may deserve reconsideration, and what is worth exploring next — are generated from
+          AI-drafted context-fit rules that no human editor has reviewed. They carry no byline. See
+          the <Link href={routes.review()} className="underline">review inventory</Link>.
+        </div>
+      ) : null}
 
       <section data-testid="still-appropriate">
         <h2 className="mb-1 text-xl">What remains appropriate for your context</h2>
@@ -192,15 +233,6 @@ export function PersonalSnapshot({
       <section data-testid="suggestions">
         <div className="mb-1 flex flex-wrap items-center gap-2">
           <h2 className="text-xl">Worth exploring next</h2>
-          {diagnosis.rulesAreDraft ? (
-            <span
-              className="rounded-sm border border-dashed px-2 py-0.5 text-[10px] font-semibold"
-              style={{ borderColor: '#c8913a', color: '#c8913a' }}
-              data-testid="rules-draft-badge"
-            >
-              {DRAFT_LABEL_SHORT}
-            </span>
-          ) : null}
         </div>
         <p className="mb-4 max-w-[68ch] text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
           At most three, chosen from your work context, your goal and what you have marked — never
@@ -209,8 +241,12 @@ export function PersonalSnapshot({
         </p>
 
         {diagnosis.suggestions.length === 0 ? (
-          <EmptyState title="Nothing further to suggest for this context and goal.">
-            <p>That is a real answer, not an empty list — changing your goal will change it.</p>
+          <EmptyState title="No tool is worth recommending to you yet.">
+            <p>
+              {answers.work === 'learning' && answers.baseline === 'new_to_web'
+                ? 'You said you are new to HTML, CSS and JavaScript. This is a catalogue of tools, and at that point no tool is the thing standing between you and progress — the language and the browser are. Come back once you are building pages and the recommendations will mean something.'
+                : 'That is a real answer rather than an empty list. Changing your goal, or marking more of what you already use, will change it.'}
+            </p>
           </EmptyState>
         ) : (
           <ul className="space-y-3">
@@ -239,6 +275,9 @@ export function PersonalSnapshot({
           </ul>
         )}
       </section>
+
+        </>
+      )}
 
       {sections.map((s) => (
         <section key={s.key} data-testid={`snapshot-${s.key}`}>

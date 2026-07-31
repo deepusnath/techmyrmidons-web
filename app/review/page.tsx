@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { routes } from '../../lib/routes.ts';
 import {
   getDomains,
   getEditorial,
   getHeuristics,
+  getReviewCounts,
   getSignals,
   getTimeline,
   getTools,
@@ -20,6 +22,8 @@ const DOMAIN = 'frontend';
  * attributed to a named editor, because none of it has been reviewed by one.
  */
 export default function ReviewPage() {
+  // Single source of truth — see getReviewCounts in lib/content.ts.
+  const counts = getReviewCounts(DOMAIN);
   const tools = getTools(DOMAIN).filter((t) => t.published);
   const unreviewedTools = tools.filter((t) => t.editorial_status !== 'reviewed');
   const reviewedTools = tools.filter((t) => t.editorial_status === 'reviewed');
@@ -68,37 +72,37 @@ export default function ReviewPage() {
             <tbody>
               <Row
                 label="Published tools"
-                value={`${reviewedTools.length} reviewed / ${tools.length}`}
-                note={`${unreviewedTools.length} unreviewed`}
+                value={`${counts.tools.reviewed} reviewed / ${counts.tools.total}`}
+                note={`${counts.tools.unreviewed} unreviewed`}
               />
               <Row
                 label="Unreviewed editorial claims on tools"
-                value={String(claimCount)}
-                note={`${unreviewedTools.length} tools × ${EDITORIAL_TOOL_FIELDS.length} claim fields (${EDITORIAL_TOOL_FIELDS.join(', ')})`}
+                value={String(counts.unreviewedToolClaims)}
+                note={`${counts.tools.unreviewed} tools × ${counts.toolClaimFields} claim fields (${EDITORIAL_TOOL_FIELDS.join(', ')})`}
               />
               <Row
                 label="Lifecycle classifications"
-                value={`${unreviewedTools.length} unreviewed`}
+                value={`${counts.tools.unreviewed} unreviewed`}
                 note="Each lifecycle value is an AI-authored editorial classification, not a measurement"
               />
               <Row
                 label="Editorial notes"
-                value={`${draftNotes.length} draft / ${notes.length}`}
+                value={`${counts.editorialNotes.draft} draft / ${counts.editorialNotes.total}`}
                 note="Draft notes carry no byline and are withheld in production"
               />
               <Row
                 label="Timeline years"
-                value={`${draftYears.length} draft / ${timeline.length}`}
+                value={`${counts.timelineYears.narrativeUnreviewed} unreviewed narrative / ${counts.timelineYears.total}`}
                 note="2017 and 2019 are archive records; 2020–2026 are AI interpretations"
               />
               <Row
                 label="Timeline events"
-                value={`${draftEvents.length} AI-drafted / ${allEvents.length}`}
-                note={`${sourcedEvents.length} sourced from the original archive files`}
+                value={`${counts.timelineEvents.aiDraft} AI-drafted / ${counts.timelineEvents.total}`}
+                note={`${counts.timelineEvents.sourced} sourced from archive files or an official primary source`}
               />
               <Row
                 label="Context-fit rules (guided assessment)"
-                value={heuristics?.editorial_status === 'reviewed' ? 'reviewed' : 'unreviewed'}
+                value={counts.heuristicsReviewed ? 'reviewed' : 'unreviewed'}
                 note="AI-authored judgements about which tools serve which kind of work"
               />
             </tbody>
@@ -113,17 +117,17 @@ export default function ReviewPage() {
             <tbody>
               <Row
                 label="Tools with any repository signal"
-                value={`${toolsWithObserved.size} / ${tools.length}`}
-                note={`${tools.length - toolsWithObserved.size} published tools have no observed evidence at all`}
+                value={`${counts.signals.toolsCovered} / ${counts.publishedTools}`}
+                note={`${counts.publishedTools - counts.signals.toolsCovered} published tools have no repository signal at all`}
               />
               <Row
                 label="Repository signals"
-                value={String(observed.length)}
+                value={String(counts.signals.observed)}
                 note="Each links to a commit; none has had its repository context established"
               />
               <Row
                 label="Signals eligible to inform trends"
-                value={String(eligible.length)}
+                value={String(counts.signals.eligibleForTrends)}
                 note="Requires a human to review the repository's context first. Currently none do."
               />
               <Row label="Self-declared evidence" value="0" note="Requires accounts, which are out of scope for this pilot" />
@@ -151,7 +155,7 @@ export default function ReviewPage() {
               className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-dashed px-3 py-2"
               style={{ borderColor: '#c8913a' }}
             >
-              <Link href={`/${DOMAIN}/tools/${t.slug}/`} className="text-sm hover:underline">{t.name}</Link>
+              <Link href={routes.tool(DOMAIN, t.slug)} className="text-sm hover:underline">{t.name}</Link>
               <span className="text-[10px]" style={{ color: '#c8913a' }}>
                 {t.lifecycle ?? 'unclassified'} · unreviewed
               </span>

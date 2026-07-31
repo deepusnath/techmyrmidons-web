@@ -19,6 +19,12 @@ const arg = (flag: string, fallback: string) => {
 
 const PORT = Number(arg('port', '3100'));
 const ROOT = path.resolve(process.cwd(), arg('dir', 'out'));
+/**
+ * Serve under a sub-path, mirroring a GitHub Pages project site. Without this
+ * a basePath build can only be exercised after deploying — which is how a
+ * base-path routing bug reached production unnoticed.
+ */
+const PREFIX = arg('prefix', '').replace(/\/$/, '');
 
 const TYPES: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -36,7 +42,12 @@ const TYPES: Record<string, string> = {
 };
 
 function resolveFile(urlPath: string): string | null {
-  const clean = decodeURIComponent(urlPath.split('?')[0]);
+  let clean = decodeURIComponent(urlPath.split('?')[0]);
+  if (PREFIX) {
+    if (clean === PREFIX) clean = '/';
+    else if (clean.startsWith(`${PREFIX}/`)) clean = clean.slice(PREFIX.length);
+    else return null; // outside the base path — must 404, exactly like Pages
+  }
   // Contain traversal to ROOT.
   const target = path.normalize(path.join(ROOT, clean));
   if (!target.startsWith(ROOT)) return null;
@@ -65,5 +76,5 @@ createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] ?? 'application/octet-stream' });
   createReadStream(file).pipe(res);
 }).listen(PORT, () => {
-  console.log(`serving ${path.relative(process.cwd(), ROOT)} at http://localhost:${PORT}`);
+  console.log(`serving ${path.relative(process.cwd(), ROOT)} at http://localhost:${PORT}${PREFIX}`);
 });

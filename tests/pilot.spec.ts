@@ -224,11 +224,13 @@ test('historical: records decline as a typed event with a stated basis', async (
 
   await expect(page.getByTestId('year-2017')).toContainText(/original curation/i);
 
-  // The structural fix: AngularJS reaching end of life is recorded, and the
-  // event says what kind of claim it is rather than just "faded".
+  // The structural fix: AngularJS reaching end of life is recorded as a typed
+  // event, and — being a factual claim about the project — it now cites the
+  // project's own support-status page rather than resting on an AI reading.
   const eol = page.getByTestId('year-2021').getByTestId('event-angularjs');
   await expect(eol).toContainText(/Reached end of life/i);
-  await expect(eol).toHaveAttribute('data-claim-status', 'ai_draft');
+  await expect(eol).toHaveAttribute('data-claim-status', 'sourced');
+  await expect(eol).toContainText(/official source/i);
 });
 
 test('no horizontal overflow at mobile or desktop width', async ({ page }) => {

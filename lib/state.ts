@@ -48,6 +48,7 @@ export interface FeedbackRecord {
 export interface AssessmentState {
   work: string | null;
   goal: string | null;
+  baseline: string | null;
   completed_at: string | null;
 }
 
@@ -61,7 +62,7 @@ export interface LocalState {
 
 const KEY = 'techmyrmidons.v1';
 
-const EMPTY_ASSESSMENT: AssessmentState = { work: null, goal: null, completed_at: null };
+const EMPTY_ASSESSMENT: AssessmentState = { work: null, goal: null, baseline: null, completed_at: null };
 
 const EMPTY: LocalState = {
   follows: [],

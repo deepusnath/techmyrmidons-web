@@ -167,7 +167,7 @@ async function main() {
         if (!title) continue;
         const key = toolKey(title);
 
-        let tool = tools.get(key);
+        let tool: Tool | undefined = tools.get(key);
         if (!tool) {
           tool = {
             slug: key,
@@ -188,13 +188,18 @@ async function main() {
             not_suitable_for: [],
             alternatives: [],
             published: false,
+            // Archive imports are unreviewed by construction.
+            editorial_status: 'ai_draft',
+            reviewed_by: null,
+            reviewed_at: null,
+            reviewed_fields: [],
             is_seed: true,
             seed_source: `original curation, src/data/${folder}/${year}.json`,
           };
           tools.set(key, tool);
         }
-        if (!tool.archive_years.includes(year)) tool.archive_years.push(year);
-        if (!entry.url && !tool.homepage) {
+        if (!tool!.archive_years.includes(year)) tool!.archive_years.push(year);
+        if (!entry.url && !tool!.homepage) {
           warn(`${folder}/${year}: "${title}" has no url`);
         }
 
@@ -210,6 +215,11 @@ async function main() {
           actor_id: null,
           note: null,
           confidence: 'medium',
+          repo: null,
+          manifest_path: null,
+          action: null,
+          context_status: 'unknown',
+          eligible_for_trends: false,
           is_seed: true,
           seed_source: `src/data/${folder}/${year}.json`,
         });

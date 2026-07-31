@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { ToolView } from '../lib/views.ts';
-import { GOAL_OPTIONS, WORK_OPTIONS } from '../lib/assessment.ts';
+import { BASELINE_OPTIONS, GOAL_OPTIONS, WORK_OPTIONS, needsBaseline } from '../lib/assessment.ts';
 import { PROGRESS_META, PROGRESS_ORDER, useLocalState, type ProgressState } from '../lib/state.ts';
 
 /**
@@ -91,6 +91,38 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
         </div>
       </section>
 
+      {needsBaseline(state.assessment.work as never) ? (
+        <section data-testid="baseline-question">
+          <h2 className="mb-1 text-lg">2b · What best describes where you are now?</h2>
+          <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>
+            Asked only for learning, because “learn frontend” means something very different at each
+            of these points. Without it we would rather recommend nothing than hand you a toolchain.
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {BASELINE_OPTIONS.map((o) => {
+              const active = state.assessment.baseline === o.value;
+              return (
+                <button
+                  key={o.value}
+                  type="button"
+                  data-testid={`baseline-${o.value}`}
+                  aria-pressed={active}
+                  onClick={() => setAssessment({ baseline: o.value })}
+                  className="rounded-sm border p-3 text-left text-sm font-semibold"
+                  style={{
+                    borderColor: active ? 'var(--color-ember)' : 'var(--rule)',
+                    background: active ? 'var(--color-ember)11' : 'transparent',
+                    color: active ? 'var(--color-ember)' : 'var(--fg)',
+                  }}
+                >
+                  {o.label}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
       <section>
         <h2 className="mb-1 text-lg">3 · Which of these do you already work with?</h2>
         <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>
@@ -164,7 +196,13 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
           type="button"
           data-testid="assessment-done"
           onClick={() => { completeAssessment(); onDone(); }}
-          disabled={!state.assessment.work || !state.assessment.goal}
+          disabled={
+            !state.assessment.work ||
+            !state.assessment.goal ||
+            (needsBaseline(state.assessment.work as never) &&
+              Object.keys(state.tools).length === 0 &&
+              !state.assessment.baseline)
+          }
           className="rounded-sm px-4 py-2 text-sm font-semibold disabled:opacity-40"
           style={{ background: 'var(--color-ember)', color: '#fff' }}
         >

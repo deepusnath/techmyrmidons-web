@@ -4,6 +4,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { EDITORIAL_TOOL_FIELDS } from '../content/schema.ts';
 import type {
   Domain,
   EditorialNote,
@@ -117,3 +118,63 @@ export function getHeuristics(domain: string) {
 
 export const CATEGORIES = (domain: string): string[] =>
   [...new Set(getPublishedTools(domain).map((t) => t.category).filter(Boolean))].sort() as string[];
+
+// ---------------------------------------------------------------------------
+// review inventory counts
+// ---------------------------------------------------------------------------
+
+/**
+ * The single source of truth for "how much is unreviewed".
+ *
+ * The validator, the review page and any report all read these figures from
+ * here so they cannot drift apart — a completion report claiming 34 AI-drafted
+ * timeline events while the live inventory showed 21 is exactly the kind of
+ * divergence this prevents.
+ */
+export interface ReviewCounts {
+  tools: { total: number; reviewed: number; unreviewed: number };
+  toolClaimFields: number;
+  unreviewedToolClaims: number;
+  editorialNotes: { total: number; draft: number };
+  timelineYears: { total: number; narrativeUnreviewed: number };
+  timelineEvents: { total: number; sourced: number; aiDraft: number };
+  signals: { observed: number; eligibleForTrends: number; toolsCovered: number };
+  heuristicsReviewed: boolean;
+  publishedTools: number;
+}
+
+export function getReviewCounts(domain: string): ReviewCounts {
+  const all = getTools(domain);
+  const published = all.filter((t) => t.published);
+  const reviewed = published.filter((t) => t.editorial_status === 'reviewed');
+  const unreviewed = published.filter((t) => t.editorial_status !== 'reviewed');
+
+  const notes = getEditorial(domain);
+  const years = getTimeline(domain);
+  const events = years.flatMap((y) => y.events ?? []);
+  const observed = getSignals(domain).filter((s) => s.tier === 'observed');
+  const heuristics = getHeuristics(domain);
+
+  return {
+    tools: { total: published.length, reviewed: reviewed.length, unreviewed: unreviewed.length },
+    toolClaimFields: EDITORIAL_TOOL_FIELDS.length,
+    unreviewedToolClaims: unreviewed.length * EDITORIAL_TOOL_FIELDS.length,
+    editorialNotes: { total: notes.length, draft: notes.filter((n) => n.draft).length },
+    timelineYears: {
+      total: years.length,
+      narrativeUnreviewed: years.filter((y) => y.headline_status !== 'reviewed').length,
+    },
+    timelineEvents: {
+      total: events.length,
+      sourced: events.filter((e) => e.claim_status === 'sourced').length,
+      aiDraft: events.filter((e) => e.claim_status === 'ai_draft').length,
+    },
+    signals: {
+      observed: observed.length,
+      eligibleForTrends: observed.filter((s) => s.eligible_for_trends).length,
+      toolsCovered: new Set(observed.map((s) => s.tool_slug)).size,
+    },
+    heuristicsReviewed: heuristics?.editorial_status === 'reviewed',
+    publishedTools: published.length,
+  };
+}

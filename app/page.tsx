@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getDomains, getPublishedTools } from '../lib/content.ts';
+import { routes } from '../lib/routes.ts';
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -23,7 +24,7 @@ export default function Onboarding() {
           match the trends, and follows the right experts in one field. Follow the Myrmidon for your
           area and you get four things a search engine answers badly:{' '}
           <strong style={{ color: 'var(--fg)' }}>what changed</strong>,{' '}
-          <strong style={{ color: 'var(--fg)' }}>who credibly says so</strong>,{' '}
+          <strong style={{ color: 'var(--fg)' }}>what evidence supports it</strong>,{' '}
           <strong style={{ color: 'var(--fg)' }}>where you stand</strong>, and{' '}
           <strong style={{ color: 'var(--fg)' }}>what to learn next</strong>.
         </p>
@@ -44,7 +45,7 @@ export default function Onboarding() {
             return (
               <Link
                 key={d.slug}
-                href={`/${d.slug}/`}
+                href={routes.domain(d.slug)}
                 data-testid={`domain-${d.slug}`}
                 className="group rounded-sm border p-5 transition-colors"
                 style={{ borderColor: 'var(--color-ember)', background: 'var(--bg-2)' }}
