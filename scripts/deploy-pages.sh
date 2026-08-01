@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Deploy the static export to GitHub Pages (gh-pages branch).
+# Deploy the drafts-hidden production export to GitHub Pages (gh-pages branch).
+#
+# This is the only supported way to publish. It builds with drafts hidden and
+# refuses to push an export that still contains the editorial review tooling.
 #
 # Uses whatever GitHub auth already exists (gh CLI / credential helper).
 # It never reads, prints or stores a token.
@@ -16,8 +19,17 @@ cd "$ROOT"
 echo "→ validating content"
 node scripts/validate-content.ts
 
-echo "→ building with basePath=${BASE_PATH}"
-NEXT_PUBLIC_BASE_PATH="$BASE_PATH" npx next build
+# Always the drafts-hidden production build. A plain `next build` leaves
+# NEXT_PUBLIC_SHOW_DRAFTS unset, which makes next.config.ts discover the
+# preview-only editorial review routes and emit them — that is how /review and
+# /review/priority came to be publicly readable on Pages.
+echo "→ building drafts-hidden production export with basePath=${BASE_PATH}"
+NEXT_PUBLIC_BASE_PATH="$BASE_PATH" npm run build:production
+
+# The build flag is the intent; this is the proof. Nothing is pushed until the
+# artifact itself is clean.
+echo "→ checking the export carries no editorial review tooling"
+node scripts/check-production-artifacts.ts
 
 # GitHub Pages runs Jekyll by default, which ignores _next/.
 touch out/.nojekyll
@@ -30,9 +42,10 @@ cd out
 rm -rf .git
 git init -q -b gh-pages
 git add -A
-git commit -q -m "deploy: TechMyrmidons pilot preview
+git commit -q -m "deploy: TechMyrmidons pilot (drafts hidden)
 
-Static export of ${BRANCH} @ ${SHA}.
+Drafts-hidden production export of ${BRANCH} @ ${SHA}.
+Editorial review routes are preview-only and are not present here.
 Generated artifact — source lives on the ${BRANCH} branch."
 git remote add origin "https://github.com/${REPO_SLUG}.git"
 git push -q --force origin gh-pages

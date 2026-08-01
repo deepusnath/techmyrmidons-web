@@ -6,12 +6,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev              # Next dev server
-npm run build            # Static export to out/
-npm run build:production # Production build with drafts hidden (NEXT_PUBLIC_SHOW_DRAFTS=false)
+npm run build            # Preview static export to out/ (drafts and review routes included)
+npm run build:production # Drafts-hidden export — the only build that may be published
 npm run validate         # Validate content/ against schema.ts — run after editing content
-npm test                 # Playwright suite
-npm run deploy           # Build + publish to GitHub Pages
+npm run test:rules       # Rule-isolation and publication-gate assertions
+npm run deploy           # Drafts-hidden build + guard + publish to GitHub Pages
 ```
+
+### Verification
+
+There are exactly two supported verification commands. Each builds the export it
+tests, so neither can pass against a stale `out/`.
+
+```bash
+npm run test:preview     # next build, then the full Playwright suite
+npm run test:production  # build:production, artifact guard, then Playwright with DRAFTS_HIDDEN=1
+```
+
+`npm test` alone runs Playwright against whatever `out/` happens to contain and
+does not build — use it only for a quick re-run of a suite you just built for.
+
+The two runs assert different things. Preview mode exercises the editorial
+review workstation at `/review`. Production mode asserts the opposite: that the
+review routes, every child artifact of them, every `/review` URL and all
+withheld editorial are absent from `out/`. The production assertions in
+`tests/review-routes.spec.ts`, `tests/pilot.spec.ts` and `tests/trust.spec.ts`
+are gated on `DRAFTS_HIDDEN=1`, which `test:production` sets — without it they
+silently skip.
+
+`npm run check:production` runs the artifact guard
+(`scripts/check-production-artifacts.ts`) on its own against an existing `out/`.
+`npm run deploy` runs it too, and will not push an export that fails it.
 
 Run a single test file or case:
 
@@ -21,6 +46,11 @@ npx playwright test tests/pilot.spec.ts -g "name of the test"
 ```
 
 `npm run test:deployed` runs the same specs against the live GitHub Pages site rather than a local server.
+
+**Never publish a plain `next build`.** Route discovery is what excludes the
+review tooling: with `NEXT_PUBLIC_SHOW_DRAFTS` unset, `next.config.ts` treats
+`page.preview.tsx` as a route and the review pages are emitted as real, publicly
+readable HTML and RSC payloads. Deploy only through `npm run deploy`.
 
 ## Architecture
 
