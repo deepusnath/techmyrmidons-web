@@ -70,10 +70,17 @@ const FORBIDDEN_RULE_IDS = [
   'legacy.reconsider.gulp', 'content.recommend.astro',
 ];
 
-/** Every file under `dir`, as paths relative to it, with `/` separators on any OS. */
+/**
+ * Every file under `dir`, as paths relative to it, with `/` separators on any OS.
+ *
+ * `.git` is skipped: it is not part of the export, and deploy-pages.sh builds a
+ * throwaway repo inside out/ whose reflog names the committer — which would
+ * otherwise trip the reviewer-identity check on a tree that is perfectly clean.
+ */
 function allFiles(dir: string, base = dir): string[] {
   const out: string[] = [];
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name === '.git') continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) out.push(...allFiles(full, base));
     else if (entry.isFile()) out.push(path.relative(base, full).split(path.sep).join('/'));

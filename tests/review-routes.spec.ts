@@ -22,12 +22,21 @@ async function freshVisit(page: Page, route: string) {
   await page.goto(p(route));
 }
 
-/** Every file in the static export, for artifact-level assertions. */
+/**
+ * Every file in the static export, for artifact-level assertions.
+ *
+ * `.git` is not part of the export. scripts/deploy-pages.sh builds a throwaway
+ * repo inside out/ to push to gh-pages, and its reflog records the committer's
+ * name — one of the reviewer identities asserted against below. It is never
+ * published (`git add -A` cannot stage the .git it lives in), so skipping it
+ * here fails no real leak.
+ */
 function allOutputFiles(): string[] {
   const out: string[] = [];
   const walk = (dir: string) => {
     if (!fs.existsSync(dir)) return;
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (e.name === '.git') continue;
       const full = path.join(dir, e.name);
       if (e.isDirectory()) walk(full);
       else out.push(full);

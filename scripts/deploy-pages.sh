@@ -50,4 +50,11 @@ Generated artifact — source lives on the ${BRANCH} branch."
 git remote add origin "https://github.com/${REPO_SLUG}.git"
 git push -q --force origin gh-pages
 
+# Leave out/ as a plain export again. The throwaway repo is never published —
+# `git add -A` cannot stage the .git it lives in — but its reflog records the
+# committer's name, which is one of the reviewer identities the artifact checks
+# search for. Left behind it makes `npm run check:production` fail on the next
+# run for a reason that has nothing to do with the export.
+rm -rf .git
+
 echo "✓ deployed → https://${REPO_SLUG%%/*}.github.io/${REPO_SLUG##*/}/"
