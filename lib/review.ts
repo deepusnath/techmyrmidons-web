@@ -348,11 +348,17 @@ export function getReadiness(domain: string): Readiness {
       .every((t) => t.editorial_status !== 'reviewed');
   });
 
-  // Count how many tools each candidate action would unblock, so the
-  // recommendation is derived rather than asserted.
+  // Rank by rules that are still blocked, so the recommendation is derived
+  // rather than asserted — and so it stops naming work already finished once a
+  // tool's rules start publishing.
+  const blockedRules = rules.filter((r) => !r.publishable);
   const byTool = new Map<string, number>();
-  for (const r of rules) byTool.set(r.tool_slug, (byTool.get(r.tool_slug) ?? 0) + 1);
+  for (const r of blockedRules) byTool.set(r.tool_slug, (byTool.get(r.tool_slug) ?? 0) + 1);
   const topTool = [...byTool.entries()].sort((a, b) => b[1] - a[1])[0];
+  const topJourneys = topTool
+    ? new Set(blockedRules.filter((r) => r.tool_slug === topTool[0]).map((r) => r.context)).size
+    : 0;
+  const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
   return {
     journeys: maps.map((m) => ({
@@ -371,10 +377,21 @@ export function getReadiness(domain: string): Readiness {
     lifecycleViewsBlocked,
     highestLeverage: topTool
       ? {
-          action: `Review the lifecycle classification for "${topTool[0]}"`,
-          unlocks: `${topTool[1]} rules across ${
-            [...new Set(rules.filter((r) => r.tool_slug === topTool[0]).map((r) => r.context))].length
-          } journeys depend on it — more than any other single tool.`,
+          /**
+           * Names the field that actually gates these rules. Lifecycle is
+           * deliberately not named: it gates the lifecycle views and nothing
+           * else (see rulePublicationStatus), so recommending it here would
+           * send a reviewer to read the evidence, record a decision, and
+           * publish nothing.
+           */
+          action: toolProvidesDestination(tools.get(topTool[0]))
+            // Destination already reviewed, so what remains is the rules.
+            ? `Review the ${plural(topTool[1], 'unpublished rule')} targeting "${topTool[0]}"`
+            : `Review the reader-facing destination for "${topTool[0]}" (${DESTINATION_FIELDS.join(' + ')})`,
+          unlocks: `${plural(topTool[1], 'blocked rule')} across ${plural(
+            topJourneys,
+            'journey',
+          )} depend on it — more than any other single tool.`,
         }
       : null,
   };
