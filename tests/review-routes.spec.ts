@@ -72,15 +72,18 @@ test('preview shows all three review states', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
   await freshVisit(page, '/review/priority/');
 
+  // Since the TypeScript destination was approved on 2026-08-06 those six rules
+  // are publishable rather than blocked. The queue must show that, and must
+  // still show the 50 unreviewed rules as unreviewed.
   await expect(page.getByTestId('rules-reviewed')).toHaveText('6');
-  await expect(page.getByTestId('rules-blocked')).toHaveText('6');
-  await expect(page.getByTestId('rules-publishable')).toHaveText('0');
+  await expect(page.getByTestId('rules-blocked')).toHaveText('0');
+  await expect(page.getByTestId('rules-publishable')).toHaveText('6');
 
   const apps = page.getByTestId('journey-apps');
   await apps.locator('summary').click();
-  expect(await apps.locator('[data-rule-state="reviewed-blocked"]').count()).toBeGreaterThan(0);
+  expect(await apps.locator('[data-rule-state="publishable"]').count()).toBeGreaterThan(0);
   expect(await apps.locator('[data-rule-state="unreviewed"]').count()).toBeGreaterThan(0);
-  await expect(apps.locator('[data-rule-state="publishable"]')).toHaveCount(0);
+  await expect(apps.locator('[data-rule-state="reviewed-blocked"]')).toHaveCount(0);
 });
 
 // --- 2, 3. production: the routes do not exist ------------------------------
@@ -155,7 +158,14 @@ test('six TypeScript rules remain recorded and non-publishable', async () => {
   expect(ts.every((r) => r.reviewed_by === 'Deepu S Nath')).toBe(true);
   expect(ts.every((r) => r.reviewed_at === '2026-07-31')).toBe(true);
 
-  // Non-publishable because the destination is unreviewed.
+  // The destination was approved field by field on 2026-08-06, which lifted the
+  // publication block. Crucially it was NOT approved by marking the whole record
+  // reviewed: everything else on the card stays unreviewed and withheld.
   expect(tool.editorial_status).toBe('ai_draft');
-  expect(tool.reviewed_fields).toEqual([]);
+  expect(tool.reviewed_fields).toEqual(['one_liner', 'what_it_is']);
+  expect(tool.reviewed_by).toBe('Deepu S Nath');
+  expect(tool.reviewed_at).toBe('2026-08-06');
+  for (const deferred of ['lifecycle', 'why_it_matters', 'suitable_for', 'not_suitable_for', 'alternatives']) {
+    expect(tool.reviewed_fields).not.toContain(deferred);
+  }
 });

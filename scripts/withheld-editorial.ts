@@ -14,21 +14,34 @@
  * of forbidden phrases must not live is inside the artifact it polices.
  */
 
+/**
+ * This list is a snapshot of what is *not yet approved*, so it shrinks as
+ * review progresses. An entry may only be removed once the material it names
+ * has genuinely been approved — never to make a failing build pass. Removing
+ * one without an approval behind it turns the guard into a rubber stamp.
+ *
+ * Removed on 2026-08-06, when TypeScript's destination fields were reviewed and
+ * the six TypeScript rules became publishable:
+ *   - three reviewed rule wordings ("Retain TypeScript when the application
+ *     already depends", "editor-assisted navigation, rename operations",
+ *     "treated as a migration project") — approved 2026-07-31, blocked only on
+ *     a destination, and now published
+ *   - the six approved TypeScript rule ids
+ *   - "Deepu S Nath" — the reviewer of that published content, whose
+ *     attribution the trust model requires the site to show
+ * Each was verified present in the export for that reason and no other; the
+ * unapproved rule ids and every unreviewed field stayed absent.
+ */
+
 /** Withheld editorial, checked as substrings. */
 export const FORBIDDEN_TEXT = [
-  // dossier bodies
+  // dossier bodies — the review workspace never ships
   'Verifiable facts', 'Editorial interpretation', 'verifiable_facts', 'wrong_if', 'evidence_gaps',
   // decision log
   'decision_log', 'approve_with_edits',
-  // AI-drafted rule text
+  // AI-drafted rule text, still unreviewed
   'bundler now owns the dependency graph', 'A working stylesheet is an asset',
   'clearest example of a shift',
-  // reviewed-but-blocked TypeScript wording
-  'Retain TypeScript when the application already depends',
-  'editor-assisted navigation, rename operations',
-  'treated as a migration project',
-  // reviewer identity
-  'Deepu S Nath',
 ];
 
 /**
@@ -37,9 +50,9 @@ export const FORBIDDEN_TEXT = [
  * compiled diagnosis, which runs client-side.
  */
 export const FORBIDDEN_RULE_IDS = [
-  'apps.retain.typescript', 'design_systems.retain.typescript',
-  'apps.recommend.typescript', 'legacy.recommend.typescript',
-  'design_systems.recommend.typescript', 'learning.recommend.typescript',
+  // The six TypeScript ids were removed on 2026-08-06 — those rules publish now.
+  // These two remain unreviewed and must stay absent; they are also what proves
+  // the isolation still holds, since approving TypeScript released neither.
   'legacy.reconsider.gulp', 'content.recommend.astro',
 ];
 

@@ -7,7 +7,7 @@
   "proposed_lifecycle": "established",
   "summary": "Typed superset of JavaScript that has become the default for non-trivial frontend code.",
   "what_it_is": "A language that adds static types to JavaScript and compiles to plain JavaScript, with type information erased at build time. Its structural type system is designed to describe existing JavaScript patterns rather than impose new ones.",
-  "why_it_matters": "TypeScript stopped being a choice somewhere around 2020: libraries ship types, editors assume them, and most job postings expect it. The value is less about catching bugs than about editor tooling \u2014 accurate autocomplete and safe renames across a large codebase change how quickly you can work in unfamiliar code. If you last evaluated it early and found the tooling immature, that objection has expired.",
+  "why_it_matters": "TypeScript stopped being a choice somewhere around 2020: libraries ship types, editors assume them, and most job postings expect it. The value is less about catching bugs than about editor tooling — accurate autocomplete and safe renames across a large codebase change how quickly you can work in unfamiliar code. If you last evaluated it early and found the tooling immature, that objection has expired.",
   "suitable_for": [
     "Any codebase more than one person maintains",
     "Long-lived projects where refactoring safety matters",
@@ -126,7 +126,7 @@
   "editorial_status": "ai_draft",
   "reviewed_by": null,
   "reviewed_at": null,
-  "author": "AI-assisted draft \u2014 unattributed pending review",
+  "author": "AI-assisted draft — unattributed pending review",
   "generated_at": "2026-07-31",
   "decision_log": [
     {
@@ -134,7 +134,7 @@
       "decided_by": "Deepu S Nath",
       "subject": "lifecycle",
       "decision": "defer",
-      "reasoning": "Official documentation establishes active maintenance but not ecosystem adoption, and does not meet the representativeness standard in governance \u00a78. The proposed value \"established\" is retained in the tool record as an unreviewed draft so a future reviewer can see what was proposed. No substitute value was written into the lifecycle field and the taxonomy was not expanded."
+      "reasoning": "Official documentation establishes active maintenance but not ecosystem adoption, and does not meet the representativeness standard in governance §8. The proposed value \"established\" is retained in the tool record as an unreviewed draft so a future reviewer can see what was proposed. No substitute value was written into the lifecycle field and the taxonomy was not expanded."
     },
     {
       "date": "2026-07-31",
@@ -184,7 +184,28 @@
       "subject": "publication",
       "decision": "blocked",
       "reasoning": "The six reviewed rules must not publish while the TypeScript tool card lacks reviewed reader-facing content, because a reader following a recommendation would reach a card with no description. Publication eligibility is derived from one_liner and what_it_is being both individually reviewed and non-empty; it is not stored, so the block lifts automatically once that content is reviewed."
+    },
+    {
+      "date": "2026-08-06",
+      "decided_by": "Deepu S Nath",
+      "subject": "what_it_is",
+      "decision": "approve",
+      "reasoning": "Verified clause by clause against the primary source. \"Adds static types\" and \"compiles to plain JavaScript\": the Handbook states TypeScript offers all of JavaScript's features plus a type layer, and that tsc transforms a .ts file into a plain JavaScript file. \"Types erased at build time\": the Handbook section \"Erased Types\" shows annotations absent from the emitted output. \"Structural type system\": type checking focuses on the shape values have. \"Designed to describe existing JavaScript patterns rather than impose new ones\": Type Compatibility states the structural type system was designed based on how JavaScript code is typically written. No trend vocabulary under governance §8. Approved as written."
+    },
+    {
+      "date": "2026-08-06",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner",
+      "decision": "approve_with_edits",
+      "reasoning": "Original wording — \"has become the default for non-trivial frontend code\" — used \"default\", which governance §8 bars from a published claim unless a population, a sampling method with acknowledged bias, a robustness check and a date are all recorded. None are, and this dossier already records the gap: no measured adoption evidence exists in this product. Replaced with wording carried entirely by the primary source: \"A typed superset of JavaScript that compiles to plain JavaScript, with types erased at build time.\" The adoption claim is not restated elsewhere; it remains editorial interpretation, unpublished."
+    },
+    {
+      "date": "2026-08-06",
+      "decided_by": "Deepu S Nath",
+      "subject": "publication",
+      "decision": "unblocked",
+      "reasoning": "one_liner and what_it_is are now individually reviewed and non-empty, so the tool card offers a reader-facing destination and the six rules reviewed on 2026-07-31 become publishable. Approval remains field-level: editorial_status stays ai_draft, and lifecycle, why_it_matters, suitable_for, not_suitable_for and alternatives are unreviewed and stay withheld."
     }
   ],
-  "review_note": "Six contextual rules were reviewed on 2026-07-31 and are recorded in content/heuristics/frontend.json. This dossier itself remains unreviewed: the lifecycle classification and the tool's reader-facing claims were deferred."
+  "review_note": "Six contextual rules were reviewed on 2026-07-31 and are recorded in content/heuristics/frontend.json. On 2026-08-06 the two reader-facing destination fields (one_liner, what_it_is) were reviewed against the primary source, one of them amended; that lifted the publication block on those six rules. The lifecycle classification remains deferred, and this dossier itself records no approval of the remaining fields."
 }

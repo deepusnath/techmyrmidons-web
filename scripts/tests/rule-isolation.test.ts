@@ -53,13 +53,30 @@ async function main() {
     [...realTools].map(([slug, t]) => [slug, { ...t, reviewed_fields: ['one_liner', 'what_it_is'] }]),
   );
 
+  /**
+   * The mirror of the above: every tool stripped back to having no reviewed
+   * destination.
+   *
+   * The isolation proofs assert what happens *while* a destination is missing,
+   * so they must construct that state rather than assume the committed content
+   * still has it. Once TypeScript's destination fields were approved on
+   * 2026-08-06 the committed content legitimately began publishing, and six
+   * assertions that had silently depended on "nothing is approved yet" failed.
+   * They were testing a snapshot of review progress, not an invariant.
+   */
+  const destinationBlocked = new Map(
+    [...realTools].map(([slug, t]) => [slug, { ...t, editorial_status: 'ai_draft', reviewed_fields: [] }]),
+  );
+
   // --- baseline: only the six reviewed TypeScript rules exist --------------
   const baseReviewed = listRules(base, realTools).filter((r) => r.reviewed);
   check('exactly the six reviewed rules are TypeScript',
     [...new Set(baseReviewed.map((r) => r.tool_slug))], ['typescript']);
   check('and there are six of them', baseReviewed.length, 6);
-  check('none of them is publishable', baseReviewed.some((r) => r.publishable), false);
-  check('so committed content publishes nothing', redactToReviewed(base, realTools), null);
+  check('none is publishable without a destination',
+    listRules(base, destinationBlocked).some((r) => r.publishable), false);
+  check('and nothing at all publishes without one',
+    redactToReviewed(base, destinationBlocked), null);
 
   // --- approve exactly one rule -------------------------------------------
   const one = clone(base);
@@ -152,13 +169,23 @@ async function main() {
   const otherReviewed = listRules(committed, toolIndex).filter((r) => r.reviewed && r.tool_slug !== 'typescript');
   check('no unrelated rule reviewed', otherReviewed.map((r) => r.rule_id), []);
 
-  // (3) reviewed TypeScript rules are absent from production redaction
-  check('nothing publishable while destination unreviewed', redactToReviewed(committed, toolIndex), null);
-  check('all six blocked on destination', tsRules.every((r) => !r.publishable && /destination/.test(r.blockedBy ?? '')), true);
+  // (3) with no reviewed destination, the six reviewed rules stay blocked
+  const tsBlocked = listRules(committed, destinationBlocked).filter((r) => r.tool_slug === 'typescript');
+  check('nothing publishable while destination unreviewed',
+    redactToReviewed(committed, destinationBlocked), null);
+  check('all six blocked on destination',
+    tsBlocked.every((r) => !r.publishable && /destination/.test(r.blockedBy ?? '')), true);
 
-  // (4) no rule text, reason or condition leaks into the redacted output
-  const redactedNow = redactToReviewed(committed, toolIndex);
-  check('redacted output is empty, so nothing can leak', redactedNow, null);
+  // (4) no rule text, reason or condition leaks into that redacted output
+  check('redacted output is empty, so nothing can leak',
+    redactToReviewed(committed, destinationBlocked), null);
+
+  // (4b) and the committed content, whose destination IS approved, publishes
+  // exactly those six rules and nothing else.
+  const committedRedacted = redactToReviewed(committed, toolIndex);
+  const committedRules = committedRedacted ? listRules(committedRedacted, toolIndex) : [];
+  check('committed content publishes exactly six rules', committedRules.length, 6);
+  check('all of them TypeScript', [...new Set(committedRules.map((r) => r.tool_slug))], ['typescript']);
 
   // (5) naming the fields while values are blank does not unblock
   const blankTool = { ...toolIndex.get('typescript'), one_liner: '   ', what_it_is: '', reviewed_fields: ['one_liner', 'what_it_is'] };
@@ -201,7 +228,7 @@ async function main() {
   check('record-level review covers every field',
     EDITORIAL_TOOL_FIELDS.every((f) => isFieldReviewed(wholeTs as never, f)), true);
   check('an unreviewed tool renders no editorial field',
-    EDITORIAL_TOOL_FIELDS.some((f) => isFieldReviewed(toolIndex.get('typescript'), f)), false);
+    EDITORIAL_TOOL_FIELDS.some((f) => isFieldReviewed(destinationBlocked.get('typescript'), f)), false);
 
   // A reviewed rule pointing at a nonexistent tool must never publish.
   check('missing tool blocks publication',
