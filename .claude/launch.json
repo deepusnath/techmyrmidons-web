@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "techmyrmidons-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/serve-static.ts", "--port", "3100"],
+      "port": 3100
     }
   ]
 }
