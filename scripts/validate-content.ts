@@ -73,14 +73,8 @@ async function main() {
     for (const dom of p.domains) {
       if (!domainSlugs.has(dom)) fail(`practitioner "${p.slug}" references unknown domain "${dom}"`);
     }
-    if (p.avatar) {
-      const legacy = path.join(
-        ROOT, 'src', 'data',
-        domains.find((d) => d.slug === p.domains[0])?.legacy_folder ?? p.domains[0],
-        'images', path.basename(p.avatar),
-      );
-      if (!existsSync(legacy)) note(`avatar source missing for "${p.slug}" (${path.basename(p.avatar)})`);
-    }
+    // Practitioners carry no portrait: see the Practitioner interface in schema.ts.
+    if ('avatar' in p) fail(`practitioner "${p.slug}" still carries an avatar field`);
   }
 
   // --- tools ----------------------------------------------------------------

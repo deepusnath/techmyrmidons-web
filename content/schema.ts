@@ -112,10 +112,14 @@ export interface Domain extends Seeded {
   practitioner_count: number;
 }
 
+/**
+ * No portrait field, deliberately. There was nowhere to record where a
+ * photograph came from or under what licence, which is the one thing this
+ * content model exists to track. The UI renders initials from `name`.
+ */
 export interface Practitioner extends Seeded {
   slug: string;
   name: string;
-  avatar: string | null;
   links: { site?: string; github?: string; x?: string };
   domains: string[];
   bio: string | null;

@@ -11,6 +11,7 @@ import {
 import { getToolViews, LANDSCAPE_VIEWS } from '../../lib/views.ts';
 import { formatDate, isVisible, LIFECYCLE_CAVEAT } from '../../lib/provenance.ts';
 import { Byline, DraftBanner, EmptyState, ProvenanceChip } from '../../components/Provenance.tsx';
+import { InitialsAvatar } from '../../components/InitialsAvatar.tsx';
 import { FollowButton } from '../../components/ToolStateButtons.tsx';
 
 export function generateStaticParams() {
@@ -169,12 +170,7 @@ export default async function DomainHome({ params }: { params: Promise<{ domain:
         <ul className="flex flex-wrap gap-3">
           {practitioners.map((p) => (
             <li key={p.slug} className="flex items-center gap-2 rounded-sm border px-3 py-2" style={{ borderColor: 'var(--rule)' }}>
-              {p.avatar ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={`${base}${p.avatar}`} alt="" className="h-8 w-8 rounded-full object-cover" />
-              ) : (
-                <span className="h-8 w-8 rounded-full" style={{ background: 'var(--bg-3)' }} />
-              )}
+              <InitialsAvatar name={p.name} />
               <span className="text-sm">
                 {p.links.site || p.links.github || p.links.x ? (
                   <a

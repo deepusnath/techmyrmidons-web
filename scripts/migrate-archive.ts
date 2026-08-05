@@ -246,12 +246,9 @@ async function main() {
         continue;
       }
 
-      let avatar: string | null = null;
-      if (person.photo) {
-        const source = path.join(SRC, folder, 'images', person.photo);
-        if (existsSync(source)) avatar = `/practitioners/${domainSlug}/${person.photo}`;
-        else warn(`${folder}: avatar missing on disk for ${personName} (${person.photo})`);
-      }
+      // `person.photo` from the legacy data is deliberately not carried over:
+      // the portraits had no recorded source or licence. The UI renders
+      // initials instead. See the Practitioner interface in content/schema.ts.
 
       const link = person.followLink?.trim() ?? '';
       const links: Practitioner['links'] = {};
@@ -262,7 +259,6 @@ async function main() {
       practitionersBySlug.set(slug, {
         slug,
         name: personName,
-        avatar,
         links,
         domains: [domainSlug],
         bio: null,
