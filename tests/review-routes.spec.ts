@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
+import { ALL_FORBIDDEN } from '../scripts/withheld-editorial.ts';
 
 /**
  * Review routes are internal editorial tooling. They render withheld dossier
@@ -121,39 +122,15 @@ test('production output contains no review-route URL', async () => {
 test('withheld dossier bodies, rule text, decision logs and reviewer names do not leak', async () => {
   test.skip(!PRODUCTION_MODE, 'production-mode assertion');
 
-  const forbidden = [
-    // dossier bodies
-    'Verifiable facts', 'Editorial interpretation', 'verifiable_facts', 'wrong_if', 'evidence_gaps',
-    // decision log
-    'decision_log', 'approve_with_edits',
-    // AI-drafted rule text
-    'bundler now owns the dependency graph', 'A working stylesheet is an asset',
-    'clearest example of a shift',
-    // reviewed-but-blocked TypeScript wording
-    'Retain TypeScript when the application already depends',
-    'editor-assisted navigation, rename operations',
-    'treated as a migration project',
-    // reviewer identity
-    'Deepu S Nath',
-  ];
-
-  // Rule IDENTIFIERS must not appear as values. The property names `rule_id`
-  // and `still_appropriate` legitimately ship inside the compiled diagnosis
-  // code — the diagnosis runs client-side — so they are checked as values here
-  // rather than banned as substrings, which would fail on the algorithm itself.
-  const forbiddenRuleIds = [
-    'apps.retain.typescript', 'design_systems.retain.typescript',
-    'apps.recommend.typescript', 'legacy.recommend.typescript',
-    'design_systems.recommend.typescript', 'learning.recommend.typescript',
-    'legacy.reconsider.gulp', 'content.recommend.astro',
-  ];
-  forbidden.push(...forbiddenRuleIds);
-
+  // ALL_FORBIDDEN covers withheld prose plus the rule IDENTIFIERS. The latter
+  // are checked as values, not banned as substrings: the property names
+  // `rule_id` and `still_appropriate` legitimately ship inside the compiled
+  // diagnosis, which runs client-side.
   const leaks: Array<{ file: string; phrase: string }> = [];
   for (const f of allOutputFiles()) {
     if (/\.(png|jpe?g|gif|woff2?|ico)$/i.test(f)) continue;
     const text = fs.readFileSync(f, 'utf8');
-    for (const phrase of forbidden) {
+    for (const phrase of ALL_FORBIDDEN) {
       if (text.includes(phrase)) leaks.push({ file: path.relative(OUT, f), phrase });
     }
   }

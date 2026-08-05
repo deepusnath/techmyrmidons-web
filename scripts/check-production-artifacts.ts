@@ -15,13 +15,14 @@
  *
  * tests/review-routes.spec.ts asserts the same properties in more depth, from
  * inside the Playwright suite. This is the cheap gate that runs on the deploy
- * path itself, without a browser. If you add a forbidden phrase there, add it
- * here too.
+ * path itself, without a browser. Both read the same phrase list from
+ * scripts/withheld-editorial.ts, so the two cannot drift.
  *
  * Usage: node scripts/check-production-artifacts.ts [--dir out]
  */
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
+import { ALL_FORBIDDEN } from './withheld-editorial.ts';
 
 const arg = (flag: string, fallback: string) => {
   const i = process.argv.indexOf(`--${flag}`);
@@ -37,38 +38,6 @@ const OUT = path.resolve(process.cwd(), arg('dir', 'out'));
  * only in HTML.
  */
 const BINARY = /\.(png|jpe?g|gif|webp|avif|ico|woff2?|ttf|otf|eot|pdf|mp4|webm|zip)$/i;
-
-/**
- * Withheld editorial that must never reach a production artifact. Kept in step
- * with the `forbidden` list in tests/review-routes.spec.ts.
- */
-const FORBIDDEN_TEXT = [
-  // dossier bodies
-  'Verifiable facts', 'Editorial interpretation', 'verifiable_facts', 'wrong_if', 'evidence_gaps',
-  // decision log
-  'decision_log', 'approve_with_edits',
-  // AI-drafted rule text
-  'bundler now owns the dependency graph', 'A working stylesheet is an asset',
-  'clearest example of a shift',
-  // reviewed-but-blocked TypeScript wording
-  'Retain TypeScript when the application already depends',
-  'editor-assisted navigation, rename operations',
-  'treated as a migration project',
-  // reviewer identity
-  'Deepu S Nath',
-];
-
-/**
- * Rule identifiers are checked as values, not as substrings: the property names
- * `rule_id` and `still_appropriate` legitimately ship inside the compiled
- * diagnosis, which runs client-side.
- */
-const FORBIDDEN_RULE_IDS = [
-  'apps.retain.typescript', 'design_systems.retain.typescript',
-  'apps.recommend.typescript', 'legacy.recommend.typescript',
-  'design_systems.recommend.typescript', 'learning.recommend.typescript',
-  'legacy.reconsider.gulp', 'content.recommend.astro',
-];
 
 /**
  * Every file under `dir`, as paths relative to it, with `/` separators on any OS.
@@ -134,7 +103,7 @@ function main() {
       continue; // unreadable as text — the binary skip list missed it
     }
     if (text.includes('/review')) urlHits.push(f);
-    for (const phrase of [...FORBIDDEN_TEXT, ...FORBIDDEN_RULE_IDS]) {
+    for (const phrase of ALL_FORBIDDEN) {
       if (text.includes(phrase)) textHits.push(`${f} :: ${phrase}`);
     }
   }
