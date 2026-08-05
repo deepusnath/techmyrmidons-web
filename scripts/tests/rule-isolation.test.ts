@@ -13,8 +13,10 @@
 
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { listRules, redactToReviewed, rulePublicationStatus, toolProvidesDestination } from '../../lib/review.ts';
+import { DESTINATION_FIELDS, listRules, redactToReviewed, rulePublicationStatus, toolProvidesDestination } from '../../lib/review.ts';
 import { diagnose } from '../../lib/assessment.ts';
+import { isFieldReviewed } from '../../lib/provenance.ts';
+import { EDITORIAL_TOOL_FIELDS } from '../../content/schema.ts';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
 
@@ -181,6 +183,25 @@ async function main() {
     readyTools.get('typescript').editorial_status, 'ai_draft');
   check('lifecycle still unreviewed (not in reviewed_fields)',
     (readyTools.get('typescript').reviewed_fields ?? []).includes('lifecycle'), false);
+
+  // (9) the renderer must agree with the publication gate, field by field.
+  // Gating the render on editorial_status alone let the six rules publish
+  // while the fields they point at stayed blank — a published recommendation
+  // leading to an empty card.
+  const readyTs = readyTools.get('typescript');
+  check('approved one_liner renders', isFieldReviewed(readyTs, 'one_liner'), true);
+  check('approved what_it_is renders', isFieldReviewed(readyTs, 'what_it_is'), true);
+  check('unapproved lifecycle stays withheld', isFieldReviewed(readyTs, 'lifecycle'), false);
+  check('unapproved why_it_matters stays withheld', isFieldReviewed(readyTs, 'why_it_matters'), false);
+  check('every field the destination gate needs also renders',
+    DESTINATION_FIELDS.every((f) => isFieldReviewed(readyTs, f)), toolProvidesDestination(readyTs));
+
+  // Record-level review still covers everything; an untouched record covers nothing.
+  const wholeTs = { ...readyTs, editorial_status: 'reviewed', reviewed_by: 'A Reviewer', reviewed_at: '2026-01-01' };
+  check('record-level review covers every field',
+    EDITORIAL_TOOL_FIELDS.every((f) => isFieldReviewed(wholeTs as never, f)), true);
+  check('an unreviewed tool renders no editorial field',
+    EDITORIAL_TOOL_FIELDS.some((f) => isFieldReviewed(toolIndex.get('typescript'), f)), false);
 
   // A reviewed rule pointing at a nonexistent tool must never publish.
   check('missing tool blocks publication',

@@ -105,11 +105,17 @@ async function main() {
       if (tool.editorial_status !== 'ai_draft' && tool.editorial_status !== 'reviewed') {
         fail(`${ref}: editorial_status must be 'ai_draft' or 'reviewed', got "${tool.editorial_status}"`);
       }
+      // Approval is record-level OR field-level. Either way it names a person:
+      // a signed-off field with no reviewer is an approval nobody owns.
+      const hasFieldReview = (tool.reviewed_fields ?? []).length > 0;
       if (tool.editorial_status === 'reviewed' && (!tool.reviewed_by || !tool.reviewed_at)) {
         fail(`${ref}: marked reviewed but has no reviewed_by/reviewed_at — nothing may claim a named editor without one`);
       }
-      if (tool.editorial_status !== 'reviewed' && (tool.reviewed_by || tool.reviewed_at)) {
-        fail(`${ref}: carries reviewer details but is not marked reviewed`);
+      if (hasFieldReview && (!tool.reviewed_by || !tool.reviewed_at)) {
+        fail(`${ref}: has reviewed_fields but no reviewed_by/reviewed_at — a field-level approval must name its reviewer`);
+      }
+      if (tool.editorial_status !== 'reviewed' && !hasFieldReview && (tool.reviewed_by || tool.reviewed_at)) {
+        fail(`${ref}: carries reviewer details but nothing is marked reviewed`);
       }
       for (const f of tool.reviewed_fields ?? []) {
         if (!(EDITORIAL_TOOL_FIELDS as readonly string[]).includes(f)) {

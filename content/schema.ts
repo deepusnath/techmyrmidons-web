@@ -71,10 +71,17 @@ export type EditorialStatus = 'ai_draft' | 'reviewed';
 
 export interface EditorialReview {
   editorial_status: EditorialStatus;
-  /** Required when editorial_status is 'reviewed'. Never set speculatively. */
+  /**
+   * Required when editorial_status is 'reviewed', and equally when
+   * reviewed_fields is non-empty — a field-level approval names its reviewer
+   * too. Never set speculatively.
+   */
   reviewed_by: string | null;
   reviewed_at: string | null;
-  /** Fields a reviewer has signed off individually, if not the whole record. */
+  /**
+   * Fields a reviewer has signed off individually, if not the whole record.
+   * Rendering honours this per field: see canShowEditorialField().
+   */
   reviewed_fields: string[];
 }
 

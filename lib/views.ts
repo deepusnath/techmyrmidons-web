@@ -3,9 +3,9 @@
  * these run once at build and hand plain serialisable objects to the client
  * components that do search, filtering and progress marking.
  */
-import type { EvidenceTier } from '../content/schema.ts';
+import { EDITORIAL_TOOL_FIELDS, type EvidenceTier } from '../content/schema.ts';
 import { getEditorialFor, getPublishedTools, getSignalsFor, getTools, type Tool } from './content.ts';
-import { canShowEditorialClaim, isVisible } from './provenance.ts';
+import { canShowEditorialClaim, canShowEditorialField, isVisible } from './provenance.ts';
 
 export interface EvidenceSummary {
   tier: EvidenceTier;
@@ -62,18 +62,21 @@ function summarise(domain: string, slug: string): EvidenceSummary[] {
 function toView(domain: string, tool: Tool): ToolView {
   const notes = getEditorialFor(domain, tool.slug);
   const showEditorial = canShowEditorialClaim(tool);
+  // Per field, not per record: a reviewer may sign off `one_liner` and
+  // `what_it_is` without vouching for the lifecycle or the suitability
+  // guidance, and `toolProvidesDestination` opens the publication gate on
+  // exactly that. Blanking here means no component can leak an unreviewed
+  // claim by forgetting to check.
+  const show = (field: string) => canShowEditorialField(tool, field);
   return {
     ...tool,
-    // In a production build an unreviewed classification is withheld rather
-    // than shown as a fact. Blanking the fields here means no component can
-    // leak one by forgetting to check.
-    one_liner: showEditorial ? tool.one_liner : null,
-    what_it_is: showEditorial ? tool.what_it_is : null,
-    why_it_matters: showEditorial ? tool.why_it_matters : null,
-    lifecycle: showEditorial ? tool.lifecycle : null,
-    suitable_for: showEditorial ? tool.suitable_for : [],
-    not_suitable_for: showEditorial ? tool.not_suitable_for : [],
-    alternatives: showEditorial ? tool.alternatives : [],
+    one_liner: show('one_liner') ? tool.one_liner : null,
+    what_it_is: show('what_it_is') ? tool.what_it_is : null,
+    why_it_matters: show('why_it_matters') ? tool.why_it_matters : null,
+    lifecycle: show('lifecycle') ? tool.lifecycle : null,
+    suitable_for: show('suitable_for') ? tool.suitable_for : [],
+    not_suitable_for: show('not_suitable_for') ? tool.not_suitable_for : [],
+    alternatives: show('alternatives') ? tool.alternatives : [],
     showEditorial,
     evidence: summarise(domain, tool.slug),
     hasDraftNote: notes.some((n) => n.draft && isVisible(n)),
@@ -89,10 +92,14 @@ export function getToolViews(domain: string): ToolView[] {
  * Tools whose editorial claims this build withholds because they are
  * unreviewed. Surfaced as an explicit list so a production build says
  * "withheld pending review" rather than silently having fewer tools.
+ *
+ * A tool counts as withheld only when *no* editorial field survives. One
+ * signed-off field is enough to give the reader something real, so listing it
+ * as withheld would misdescribe the page they would land on.
  */
 export function getWithheldTools(domain: string): Array<{ slug: string; name: string; homepage: string | null }> {
   return getPublishedTools(domain)
-    .filter((t) => !canShowEditorialClaim(t))
+    .filter((t) => !EDITORIAL_TOOL_FIELDS.some((f) => canShowEditorialField(t, f)))
     .map((t) => ({ slug: t.slug, name: t.name, homepage: t.homepage }));
 }
 

@@ -66,6 +66,37 @@ export function canShowEditorialClaim(r: Pick<EditorialReview, 'editorial_status
   return SHOW_DRAFTS || isReviewed(r);
 }
 
+/**
+ * Has this specific field been signed off? Record-level review covers every
+ * field; otherwise the field must be named individually in `reviewed_fields`.
+ *
+ * Separate from `canShowEditorialField` so it can be asserted directly, without
+ * the build flag deciding the answer.
+ */
+export function isFieldReviewed(
+  r: Pick<EditorialReview, 'editorial_status' | 'reviewed_fields'>,
+  field: string,
+): boolean {
+  return isReviewed(r) || (r.reviewed_fields ?? []).includes(field);
+}
+
+/**
+ * The field-level counterpart of `canShowEditorialClaim`.
+ *
+ * `toolProvidesDestination` opens the publication gate on `reviewed_fields`, so
+ * the renderer has to close it on the same thing. Gating the render on
+ * `editorial_status` alone meant an approved field stayed blank while the rules
+ * pointing at it went live — a reader following a published recommendation to
+ * an empty card, which is the exact outcome the destination gate exists to
+ * prevent.
+ */
+export function canShowEditorialField(
+  r: Pick<EditorialReview, 'editorial_status' | 'reviewed_fields'>,
+  field: string,
+): boolean {
+  return SHOW_DRAFTS || isFieldReviewed(r, field);
+}
+
 /** Attribution line for a reviewed record. Never invents a reviewer. */
 export function reviewAttribution(r: EditorialReview): string | null {
   if (!isReviewed(r) || !r.reviewed_by || !r.reviewed_at) return null;
