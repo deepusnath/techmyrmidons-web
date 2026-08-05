@@ -99,3 +99,4 @@ next-env.d.ts
 
 # local logs
 phase0-backfill.log
+.gstack/
