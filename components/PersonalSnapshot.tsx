@@ -29,22 +29,22 @@ export function PersonalSnapshot({
   heuristics: Heuristics | null;
   heuristicsWithheld: boolean;
 }) {
-  const { state, reset, clearAssessment } = useLocalState();
+  const { state, marked: markedRecords, assessment, reset, clearAssessment } = useLocalState(domain);
   const hydrated = useHydrated();
   const [editing, setEditing] = useState(false);
 
   const marked = hydrated
-    ? (Object.fromEntries(Object.entries(state.tools).map(([k, v]) => [k, v.state])) as Record<string, ProgressState>)
+    ? (Object.fromEntries(Object.entries(markedRecords).map(([k, v]) => [k, v.state])) as Record<string, ProgressState>)
     : {};
 
   const toolNames = useMemo(() => Object.fromEntries(tools.map((t) => [t.slug, t.name])), [tools]);
 
   const answers: AssessmentAnswers = hydrated
     ? {
-        work: (state.assessment.work as AssessmentAnswers['work']) ?? null,
-        goal: (state.assessment.goal as AssessmentAnswers['goal']) ?? null,
-        baseline: (state.assessment.baseline as AssessmentAnswers['baseline']) ?? null,
-        completed_at: state.assessment.completed_at,
+        work: (assessment.work as AssessmentAnswers['work']) ?? null,
+        goal: (assessment.goal as AssessmentAnswers['goal']) ?? null,
+        baseline: (assessment.baseline as AssessmentAnswers['baseline']) ?? null,
+        completed_at: assessment.completed_at,
       }
     : { work: null, goal: null, baseline: null, completed_at: null };
 
@@ -73,7 +73,7 @@ export function PersonalSnapshot({
   // answering question 2 does not snatch away question 3.
   const inAssessment =
     !heuristicsWithheld &&
-    (editing || !state.assessment.completed_at || diagnosis?.status === 'needs_context');
+    (editing || !assessment.completed_at || diagnosis?.status === 'needs_context');
 
   if (inAssessment) {
     return (
@@ -98,7 +98,7 @@ export function PersonalSnapshot({
           </div>
         ) : null}
 
-        <Assessment tools={tools} onDone={() => setEditing(false)} />
+        <Assessment domain={domain} tools={tools} onDone={() => setEditing(false)} />
 
         {editing ? (
           <button
@@ -339,7 +339,7 @@ export function PersonalSnapshot({
                 <p className="mb-3 text-xs leading-relaxed" style={{ color: '#c8913a' }}>
                   <span className="font-semibold">Not for you if: </span>{s.unsuitable_if}
                 </p>
-                <ToolStateButtons slug={s.slug} size="sm" />
+                <ToolStateButtons domain={domain} slug={s.slug} size="sm" />
               </li>
             ))}
           </ul>

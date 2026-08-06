@@ -54,13 +54,28 @@ export interface AssessmentState {
 
 export interface LocalState {
   follows: string[];
+  /** Keyed `${domain}/${slug}`: tool slugs are unique per domain, not globally. */
   tools: Record<string, ToolStateRecord>;
   submissions: Submission[];
   feedback: FeedbackRecord[];
-  assessment: AssessmentState;
+  /**
+   * One assessment per domain. The work contexts are domain-specific — a
+   * design-system context means something in frontend and nothing in AI — so a
+   * single shared answer would ask the wrong question of the second domain.
+   */
+  assessments: Record<string, AssessmentState>;
 }
 
-const KEY = 'techmyrmidons.v1';
+const KEY = 'techmyrmidons.v2';
+
+/**
+ * v1 stored one assessment and keyed tools by bare slug, because the pilot had
+ * a single active domain. Everything it holds therefore belongs to that domain.
+ */
+const LEGACY_KEY = 'techmyrmidons.v1';
+const LEGACY_DOMAIN = 'frontend';
+
+export const toolKey = (domain: string, slug: string) => `${domain}/${slug}`;
 
 const EMPTY_ASSESSMENT: AssessmentState = { work: null, goal: null, baseline: null, completed_at: null };
 
@@ -69,18 +84,44 @@ const EMPTY: LocalState = {
   tools: {},
   submissions: [],
   feedback: [],
-  assessment: EMPTY_ASSESSMENT,
+  assessments: {},
 };
 
 let cache: LocalState = EMPTY;
 let cacheRaw: string | null = null;
 const listeners = new Set<() => void>();
 
+/** v1 payload → v2 shape. Everything it holds belongs to the one domain it had. */
+function migrateLegacy(parsed: Record<string, unknown>): LocalState {
+  const tools: Record<string, ToolStateRecord> = {};
+  const old = (parsed.tools ?? {}) as Record<string, ToolStateRecord>;
+  for (const [slug, rec] of Object.entries(old)) tools[toolKey(LEGACY_DOMAIN, slug)] = rec;
+
+  const assessment = parsed.assessment as AssessmentState | undefined;
+  return {
+    follows: Array.isArray(parsed.follows) ? (parsed.follows as string[]) : [],
+    tools,
+    submissions: Array.isArray(parsed.submissions) ? (parsed.submissions as Submission[]) : [],
+    feedback: Array.isArray(parsed.feedback) ? (parsed.feedback as FeedbackRecord[]) : [],
+    assessments:
+      assessment && typeof assessment === 'object'
+        ? { [LEGACY_DOMAIN]: { ...EMPTY_ASSESSMENT, ...assessment } }
+        : {},
+  };
+}
+
 function read(): LocalState {
   if (typeof window === 'undefined') return EMPTY;
   let raw: string | null = null;
+  let legacy = false;
   try {
     raw = window.localStorage.getItem(KEY);
+    if (raw === null) {
+      // Migration is read-only: the v2 payload is written on the next change,
+      // so this never writes to storage during a render.
+      raw = window.localStorage.getItem(LEGACY_KEY);
+      legacy = raw !== null;
+    }
   } catch {
     return EMPTY; // private mode / storage disabled
   }
@@ -91,17 +132,22 @@ function read(): LocalState {
     return cache;
   }
   try {
-    const parsed = JSON.parse(raw) as Partial<LocalState>;
-    cache = {
-      follows: Array.isArray(parsed.follows) ? parsed.follows : [],
-      tools: parsed.tools && typeof parsed.tools === 'object' ? parsed.tools : {},
-      submissions: Array.isArray(parsed.submissions) ? parsed.submissions : [],
-      feedback: Array.isArray(parsed.feedback) ? parsed.feedback : [],
-      assessment:
-        parsed.assessment && typeof parsed.assessment === 'object'
-          ? { ...EMPTY_ASSESSMENT, ...parsed.assessment }
-          : EMPTY_ASSESSMENT,
-    };
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    cache = legacy
+      ? migrateLegacy(parsed)
+      : {
+          follows: Array.isArray(parsed.follows) ? (parsed.follows as string[]) : [],
+          tools:
+            parsed.tools && typeof parsed.tools === 'object'
+              ? (parsed.tools as Record<string, ToolStateRecord>)
+              : {},
+          submissions: Array.isArray(parsed.submissions) ? (parsed.submissions as Submission[]) : [],
+          feedback: Array.isArray(parsed.feedback) ? (parsed.feedback as FeedbackRecord[]) : [],
+          assessments:
+            parsed.assessments && typeof parsed.assessments === 'object'
+              ? (parsed.assessments as Record<string, AssessmentState>)
+              : {},
+        };
   } catch {
     cache = EMPTY; // corrupt payload should not brick the app
   }
@@ -133,7 +179,12 @@ function subscribe(listener: () => void) {
   };
 }
 
-export function useLocalState() {
+/**
+ * @param domain scopes tool marks and the assessment. Omitted only by callers
+ *   that touch neither — submissions, feedback and the follow toggle, which are
+ *   genuinely global.
+ */
+export function useLocalState(domain = '') {
   const state = useSyncExternalStore(subscribe, read, () => EMPTY);
 
   const toggleFollow = useCallback((domain: string) => {
@@ -148,10 +199,11 @@ export function useLocalState() {
   const setToolState = useCallback((slug: string, next: ProgressState | null) => {
     const cur = read();
     const tools = { ...cur.tools };
-    if (next === null || tools[slug]?.state === next) delete tools[slug];
-    else tools[slug] = { state: next, updated_at: new Date().toISOString() };
+    const k = toolKey(domain, slug);
+    if (next === null || tools[k]?.state === next) delete tools[k];
+    else tools[k] = { state: next, updated_at: new Date().toISOString() };
     write({ ...cur, tools });
-  }, []);
+  }, [domain]);
 
   const addSubmission = useCallback((s: Omit<Submission, 'id' | 'created_at'>) => {
     const cur = read();
@@ -177,8 +229,9 @@ export function useLocalState() {
 
   const setAssessment = useCallback((patch: Partial<AssessmentState>) => {
     const cur = read();
-    write({ ...cur, assessment: { ...cur.assessment, ...patch } });
-  }, []);
+    const prev = cur.assessments[domain] ?? EMPTY_ASSESSMENT;
+    write({ ...cur, assessments: { ...cur.assessments, [domain]: { ...prev, ...patch } } });
+  }, [domain]);
 
   /**
    * Marks the guided flow finished. Deliberately separate from answering:
@@ -187,24 +240,39 @@ export function useLocalState() {
    */
   const completeAssessment = useCallback(() => {
     const cur = read();
-    if (!cur.assessment.work || !cur.assessment.goal) return;
+    const prev = cur.assessments[domain] ?? EMPTY_ASSESSMENT;
+    if (!prev.work || !prev.goal) return;
     write({
       ...cur,
-      assessment: { ...cur.assessment, completed_at: new Date().toISOString() },
+      assessments: {
+        ...cur.assessments,
+        [domain]: { ...prev, completed_at: new Date().toISOString() },
+      },
     });
-  }, []);
+  }, [domain]);
 
   const clearAssessment = useCallback(() => {
     const cur = read();
-    write({ ...cur, assessment: EMPTY_ASSESSMENT });
-  }, []);
+    write({ ...cur, assessments: { ...cur.assessments, [domain]: EMPTY_ASSESSMENT } });
+  }, [domain]);
 
   const reset = useCallback(() => write(EMPTY), []);
 
+  /** Tool marks for this domain only, keyed by bare slug for the callers' convenience. */
+  const marked: Record<string, ToolStateRecord> = {};
+  const prefix = `${domain}/`;
+  for (const [k, v] of Object.entries(state.tools)) {
+    if (k.startsWith(prefix)) marked[k.slice(prefix.length)] = v;
+  }
+
   return {
     state,
+    /** This domain's answers. Never the other domain's. */
+    assessment: state.assessments[domain] ?? EMPTY_ASSESSMENT,
+    marked,
     isFollowing: (domain: string) => state.follows.includes(domain),
-    toolState: (slug: string): ProgressState | null => state.tools[slug]?.state ?? null,
+    toolState: (slug: string): ProgressState | null =>
+      state.tools[toolKey(domain, slug)]?.state ?? null,
     toggleFollow,
     setToolState,
     addSubmission,

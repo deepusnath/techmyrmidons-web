@@ -36,11 +36,11 @@ export function ActivityFeed({
   toolNames: Record<string, string>;
   domain: string;
 }) {
-  const { state } = useLocalState();
+  const { marked } = useLocalState(domain);
   const hydrated = useHydrated();
 
   const mine = hydrated
-    ? Object.entries(state.tools)
+    ? Object.entries(marked)
         .map(([slug, rec]) => ({ slug, ...rec }))
         .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
     : [];

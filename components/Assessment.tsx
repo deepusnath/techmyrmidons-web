@@ -10,8 +10,8 @@ import { PROGRESS_META, PROGRESS_ORDER, useLocalState, type ProgressState } from
  * the diagnosis can be about this person's work rather than about which
  * catalogue categories happen to be empty.
  */
-export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () => void }) {
-  const { state, setAssessment, completeAssessment, setToolState, toolState } = useLocalState();
+export function Assessment({ domain, tools, onDone }: { domain: string; tools: ToolView[]; onDone?: () => void }) {
+  const { marked, assessment, setAssessment, completeAssessment, setToolState, toolState } = useLocalState(domain);
   const [query, setQuery] = useState('');
 
   const grouped = useMemo(() => {
@@ -27,7 +27,7 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
     return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   }, [tools, query]);
 
-  const markedCount = Object.keys(state.tools).length;
+  const markedCount = Object.keys(marked).length;
 
   return (
     <div className="space-y-8" data-testid="assessment">
@@ -39,7 +39,7 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
         </p>
         <div className="grid gap-2 sm:grid-cols-2">
           {WORK_OPTIONS.map((o) => {
-            const active = state.assessment.work === o.value;
+            const active = assessment.work === o.value;
             return (
               <button
                 key={o.value}
@@ -67,7 +67,7 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
         <h2 className="mb-1 text-lg">2 · What are you trying to achieve?</h2>
         <div className="grid gap-2 sm:grid-cols-2">
           {GOAL_OPTIONS.map((o) => {
-            const active = state.assessment.goal === o.value;
+            const active = assessment.goal === o.value;
             return (
               <button
                 key={o.value}
@@ -91,7 +91,7 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
         </div>
       </section>
 
-      {needsBaseline(state.assessment.work as never) ? (
+      {needsBaseline(assessment.work as never) ? (
         <section data-testid="baseline-question">
           <h2 className="mb-1 text-lg">2b · What best describes where you are now?</h2>
           <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>
@@ -100,7 +100,7 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
             {BASELINE_OPTIONS.map((o) => {
-              const active = state.assessment.baseline === o.value;
+              const active = assessment.baseline === o.value;
               return (
                 <button
                   key={o.value}
@@ -197,11 +197,11 @@ export function Assessment({ tools, onDone }: { tools: ToolView[]; onDone?: () =
           data-testid="assessment-done"
           onClick={() => { completeAssessment(); onDone(); }}
           disabled={
-            !state.assessment.work ||
-            !state.assessment.goal ||
-            (needsBaseline(state.assessment.work as never) &&
-              Object.keys(state.tools).length === 0 &&
-              !state.assessment.baseline)
+            !assessment.work ||
+            !assessment.goal ||
+            (needsBaseline(assessment.work as never) &&
+              Object.keys(marked).length === 0 &&
+              !assessment.baseline)
           }
           className="rounded-sm px-4 py-2 text-sm font-semibold disabled:opacity-40"
           style={{ background: 'var(--color-ember)', color: '#fff' }}

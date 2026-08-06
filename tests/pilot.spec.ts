@@ -341,3 +341,35 @@ test('landscape: pages 12 at a time and starts over when filters change', async 
 
   expect(errors).toEqual([]);
 });
+
+test('state: v1 local data survives the move to domain-scoped keys', async ({ page }) => {
+  // v1 stored one assessment and keyed tools by bare slug, because there was a
+  // single active domain. Everything it holds therefore belongs to frontend.
+  await page.goto(p('/frontend/'));
+  await page.evaluate(() => {
+    localStorage.clear();
+    localStorage.setItem('techmyrmidons.v1', JSON.stringify({
+      follows: ['frontend'],
+      tools: {
+        typescript: { state: 'using', updated_at: '2026-07-01T00:00:00.000Z' },
+        vite: { state: 'shipped', updated_at: '2026-07-02T00:00:00.000Z' },
+      },
+      submissions: [],
+      feedback: [],
+      assessment: { work: 'apps', goal: 'stay_current', baseline: null, completed_at: '2026-07-03T00:00:00.000Z' },
+    }));
+  });
+
+  // The old mark is honoured on read, before anything has been rewritten.
+  await page.goto(p('/frontend/tools/typescript/'));
+  await expect(page.getByTestId('state-using')).toHaveAttribute('aria-pressed', 'true');
+
+  // Any change persists the v2 shape, with both marks scoped to the domain.
+  await page.getByTestId('state-exploring').click();
+  const v2 = await page.evaluate(() => JSON.parse(localStorage.getItem('techmyrmidons.v2') || 'null'));
+  expect(Object.keys(v2.tools).sort()).toEqual(['frontend/typescript', 'frontend/vite']);
+  expect(v2.tools['frontend/vite'].state).toBe('shipped');
+  expect(v2.assessments.frontend.work).toBe('apps');
+  expect(v2.assessments.frontend.goal).toBe('stay_current');
+  expect(v2.follows).toEqual(['frontend']);
+});

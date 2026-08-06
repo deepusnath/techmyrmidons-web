@@ -11,15 +11,17 @@ import { PROGRESS_META, PROGRESS_ORDER, useHydrated, useLocalState, type Progres
  * progression is legible.
  */
 export function ToolStateButtons({
+  domain,
   slug,
   size = 'md',
   showProvenHint = false,
 }: {
+  domain: string;
   slug: string;
   size?: 'sm' | 'md';
   showProvenHint?: boolean;
 }) {
-  const { toolState, setToolState } = useLocalState();
+  const { toolState, setToolState } = useLocalState(domain);
   const hydrated = useHydrated();
   const current = hydrated ? toolState(slug) : null;
 

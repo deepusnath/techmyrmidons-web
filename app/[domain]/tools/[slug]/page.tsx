@@ -100,7 +100,7 @@ export default async function ToolDetail({
         style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
       >
         <p className="mb-2 text-xs font-semibold" style={{ color: 'var(--fg-dim)' }}>Your progress with this tool</p>
-        <ToolStateButtons slug={tool.slug} showProvenHint />
+        <ToolStateButtons domain={domainSlug} slug={tool.slug} showProvenHint />
         <p className="mt-2 text-[11px]" style={{ color: 'var(--fg-faint)' }}>
           Saved in this browser only. Nothing is uploaded and no account is needed.
         </p>

@@ -69,7 +69,7 @@ export function ToolCard({ tool, domain }: { tool: ToolView; domain: string }) {
       </div>
 
       <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-1">
-        <ToolStateButtons slug={tool.slug} size="sm" />
+        <ToolStateButtons domain={domain} slug={tool.slug} size="sm" />
         <Link
           href={`/${domain}/tools/${tool.slug}/`}
           className="text-xs font-semibold hover:underline"
