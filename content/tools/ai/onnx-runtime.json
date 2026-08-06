@@ -1,0 +1,34 @@
+{
+  "slug": "onnx-runtime",
+  "name": "ONNX Runtime",
+  "category": "serving and inference",
+  "homepage": "https://onnxruntime.ai/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "Cross-platform accelerator for running trained models.",
+  "what_it_is": "A cross-platform machine-learning model accelerator with a flexible interface to integrate hardware-specific libraries, in its own words. A model trained elsewhere is exported to the ONNX format and executed through whichever hardware backend the target machine provides.",
+  "why_it_matters": "It separates where a model is trained from where it runs, which is what lets one exported artefact serve a server, a phone and a browser. The export step is the catch: an operation the format does not cover has to be replaced or implemented before the model will convert.",
+  "suitable_for": [
+    "Deploying one model across several hardware targets",
+    "Inference on machines without the training framework installed",
+    "Latency-sensitive serving of conventional architectures"
+  ],
+  "not_suitable_for": [
+    "Training — it executes models rather than fitting them",
+    "Models using operations the format does not represent",
+    "Fast-moving research code, where re-exporting on every change is friction"
+  ],
+  "alternatives": [
+    "vLLM",
+    "TensorFlow"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "llama-cpp",
+  "name": "llama.cpp",
+  "category": "serving and inference",
+  "homepage": "https://github.com/ggml-org/llama.cpp",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "LLM inference in C/C++, built to run with minimal setup.",
+  "what_it_is": "An LLM inference implementation in C/C++ whose stated goal is inference with minimal setup on a wide range of hardware. It supports integer quantization from 1.5-bit upward and hybrid CPU+GPU execution, which lets a model larger than available VRAM run by keeping part of it in system memory.",
+  "why_it_matters": "It removes the assumption that running a model requires a datacentre GPU, which is what makes on-device and offline inference possible at all. The trade-off is quantization: you are trading measurable output quality for the ability to run, and how much you lose depends on the model and the bit depth.",
+  "suitable_for": [
+    "Running a model on a laptop or a small server",
+    "Offline or air-gapped inference",
+    "Hardware where CUDA is unavailable"
+  ],
+  "not_suitable_for": [
+    "High-concurrency serving, where a batching server uses the hardware better",
+    "Work where quantization loss is unacceptable and unmeasured",
+    "Teams who want a managed runtime rather than a binary to operate"
+  ],
+  "alternatives": [
+    "Ollama",
+    "vLLM"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
