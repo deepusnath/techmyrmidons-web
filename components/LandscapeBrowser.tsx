@@ -7,12 +7,27 @@ import { ToolCard } from './ToolCard.tsx';
 import { EmptyState } from './Provenance.tsx';
 
 /**
+ * How many cards are on screen before the reader asks for more.
+ *
+ * Twelve fills three rows at the widest grid and two on a laptop — enough to
+ * show the shape of a category without the page becoming a scroll.
+ */
+const PAGE_SIZE = 12;
+
+/**
  * Search and filtering over a landscape view.
  *
  * Sorting is alphabetical or by lifecycle grouping only. There is deliberately
  * no "most adopted" sort and no composite score — ranking tools by how many
  * people use them is exactly the popularity-as-quality equation this product
  * refuses to make.
+ *
+ * Paging is an explicit button rather than infinite scroll. The footer carries
+ * the provenance statement and the link to what has and has not been reviewed,
+ * and a list that grows as you approach it is a list whose footer you can never
+ * reach. A button also keeps the back button, keyboard order and screen-reader
+ * announcements intact, and these lists are tens of tools — bounded, scanned
+ * deliberately, nothing like a feed.
  */
 export function LandscapeBrowser({
   tools,
@@ -28,6 +43,7 @@ export function LandscapeBrowser({
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string>('all');
   const [lifecycle, setLifecycle] = useState<string>('all');
+  const [visible, setVisible] = useState(PAGE_SIZE);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -65,6 +81,21 @@ export function LandscapeBrowser({
     () => [...new Set(tools.map((t) => t.lifecycle).filter(Boolean))] as string[],
     [tools],
   );
+
+  /**
+   * Narrowing the results starts the count again. Without this, filtering after
+   * expanding leaves the reader looking at a page size they never chose, and
+   * "Show 12 more" would appear under a list of three.
+   */
+  const filterSignature = `${query}|${category}|${lifecycle}|${tools.length}`;
+  const [prevSignature, setPrevSignature] = useState(filterSignature);
+  if (filterSignature !== prevSignature) {
+    setPrevSignature(filterSignature);
+    setVisible(PAGE_SIZE);
+  }
+
+  const shown = filtered.slice(0, visible);
+  const remaining = filtered.length - shown.length;
 
   return (
     <div>
@@ -127,7 +158,8 @@ export function LandscapeBrowser({
       </div>
 
       <p className="mb-4 max-w-[68ch] text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
-        <span data-testid="result-count">{filtered.length}</span> of {tools.length} shown.
+        <span data-testid="result-count">{filtered.length}</span> of {tools.length} match
+        {remaining > 0 ? <>, <span data-testid="shown-count">{shown.length}</span> shown</> : null}.
         {query.trim()
           ? ' Closest name matches first, then alphabetical. Search also matches a tool’s listed alternatives, so you can find something by what it replaces.'
           : ' Listed alphabetically.'}{' '}
@@ -139,11 +171,36 @@ export function LandscapeBrowser({
           <p>Try clearing the search box or switching the category back to “All categories”.</p>
         </EmptyState>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((t) => (
-            <ToolCard key={t.slug} tool={t} domain={domain} />
-          ))}
-        </div>
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {shown.map((t) => (
+              <ToolCard key={t.slug} tool={t} domain={domain} />
+            ))}
+          </div>
+
+          {/* Announced rather than only drawn, so the count reaches a reader
+              who cannot see the grid grow. */}
+          <p className="sr-only" role="status" aria-live="polite">
+            Showing {shown.length} of {filtered.length} matching tools.
+          </p>
+
+          {remaining > 0 ? (
+            <div className="mt-6 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                data-testid="load-more"
+                onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                className="rounded-sm border px-4 py-2 text-sm font-medium transition-colors"
+                style={{ borderColor: 'var(--color-ember)', color: 'var(--color-ember)' }}
+              >
+                Show {Math.min(PAGE_SIZE, remaining)} more
+              </button>
+              <span className="text-xs" style={{ color: 'var(--fg-faint)' }}>
+                {remaining} still to show
+              </span>
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   );

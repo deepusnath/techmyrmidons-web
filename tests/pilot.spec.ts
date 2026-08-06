@@ -297,3 +297,47 @@ test('landscape: tabs switch the tool list in place, without navigating', async 
 
   expect(errors).toEqual([]);
 });
+
+test('landscape: pages 12 at a time and starts over when filters change', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'no lifecycle is reviewed, so production has no populated landscape');
+  const errors = trackConsoleErrors(page);
+  await freshVisit(page, '/frontend/current/');
+
+  const cards = page.getByTestId('tool-card');
+  const total = Number(await page.getByTestId('result-count').textContent());
+  expect(total).toBeGreaterThan(12);
+
+  // A long list arrives as one page, not as a scroll.
+  await expect(cards).toHaveCount(12);
+  await expect(page.getByTestId('load-more')).toBeVisible();
+
+  // Each press adds a page, and the last one asks for only what is left.
+  await page.getByTestId('load-more').click();
+  await expect(cards).toHaveCount(Math.min(24, total));
+  const remaining = total - 24;
+  if (remaining > 0) {
+    await expect(page.getByTestId('load-more')).toHaveText(`Show ${Math.min(12, remaining)} more`);
+    await page.getByTestId('load-more').click();
+  }
+
+  // Once everything is shown the control goes away rather than sitting there dead.
+  await expect(cards).toHaveCount(total);
+  await expect(page.getByTestId('load-more')).toHaveCount(0);
+
+  // Narrowing after expanding must start the count again, or the reader is left
+  // on a page size they never chose.
+  await page.getByTestId('tool-search').fill('e');
+  const matching = Number(await page.getByTestId('result-count').textContent());
+  if (matching > 12) {
+    await expect(cards).toHaveCount(12);
+    await expect(page.getByTestId('load-more')).toBeVisible();
+  }
+
+  // A filter narrower than one page offers nothing to load.
+  await page.getByTestId('tool-search').fill('');
+  await page.getByTestId('category-filter').selectOption('testing');
+  expect(await cards.count()).toBeLessThan(12);
+  await expect(page.getByTestId('load-more')).toHaveCount(0);
+
+  expect(errors).toEqual([]);
+});
