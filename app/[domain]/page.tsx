@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
+  CATEGORIES,
   getDomain,
   getDomainNote,
   getDomains,
@@ -12,6 +13,7 @@ import { getToolViews, LANDSCAPE_VIEWS } from '../../lib/views.ts';
 import { formatDate, isVisible, LIFECYCLE_CAVEAT } from '../../lib/provenance.ts';
 import { Byline, DraftBanner, EmptyState, ProvenanceChip } from '../../components/Provenance.tsx';
 import { InitialsAvatar } from '../../components/InitialsAvatar.tsx';
+import { LandscapeTabs } from '../../components/LandscapeTabs.tsx';
 import { FollowButton } from '../../components/ToolStateButtons.tsx';
 
 export function generateStaticParams() {
@@ -31,13 +33,6 @@ export default async function DomainHome({ params }: { params: Promise<{ domain:
   const timeline = getTimeline(slug).filter(isVisible);
   const practitioners = getPractitioners(slug);
   const resources = getResources(slug);
-
-  const counts = {
-    current: tools.filter((t) => t.lifecycle === 'established').length,
-    emerging: tools.filter((t) => t.lifecycle === 'emerging').length,
-    declining: tools.filter((t) => t.lifecycle === 'declining').length,
-    historical: tools.filter((t) => t.lifecycle === 'legacy').length,
-  };
 
   const recent = timeline.slice(0, 3);
 
@@ -110,27 +105,17 @@ export default async function DomainHome({ params }: { params: Promise<{ domain:
         <p className="mb-5 max-w-3xl text-xs leading-relaxed" style={{ color: 'var(--fg-faint)' }}>
           {LIFECYCLE_CAVEAT}
         </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {Object.values(LANDSCAPE_VIEWS).map((v) => (
-            <Link
-              key={v.slug}
-              href={`/${slug}/${v.slug}/`}
-              data-testid={`view-${v.slug}`}
-              className="group rounded-sm border p-4 transition-colors"
-              style={{ borderColor: 'var(--rule)', background: 'var(--bg-2)' }}
-            >
-              <div className="mb-1 flex items-baseline justify-between gap-3">
-                <span className="display text-lg font-semibold">{v.title}</span>
-                <span className="text-xs" style={{ color: 'var(--fg-faint)' }}>
-                  {v.slug === 'historical'
-                    ? `${timeline.length} years`
-                    : `${counts[v.slug as keyof typeof counts]} tools`}
-                </span>
-              </div>
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--fg-dim)' }}>{v.lede}</p>
-            </Link>
-          ))}
-        </div>
+        <LandscapeTabs
+          domain={slug}
+          categories={CATEGORIES(slug)}
+          timelineYears={timeline.length}
+          views={Object.values(LANDSCAPE_VIEWS).map((v) => ({
+            slug: v.slug,
+            title: v.title,
+            lede: v.lede,
+            tools: tools.filter((t) => (v.lifecycles as readonly string[]).includes(t.lifecycle as string)),
+          }))}
+        />
       </section>
 
       {/* --- recent years --- */}

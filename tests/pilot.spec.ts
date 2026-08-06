@@ -251,3 +251,49 @@ test('no horizontal overflow at mobile or desktop width', async ({ page }) => {
     expect(overflow, `horizontal overflow at ${route}`).toBe(false);
   }
 });
+
+test('landscape: tabs switch the tool list in place, without navigating', async ({ page }) => {
+  // Lifecycle is unreviewed, so a production build has nothing to put in any of
+  // the four panels. Preview-only until those classifications are reviewed.
+  test.skip(PRODUCTION_MODE, 'no lifecycle is reviewed, so production has no populated landscape');
+  const errors = trackConsoleErrors(page);
+  await freshVisit(page, '/frontend/');
+
+  const url = page.url();
+  const panelCards = () => page.locator('[role="tabpanel"] [data-testid="tool-card"]');
+
+  // Current is selected on arrival and its tools are already on the page —
+  // the point of the change is not having to click through to see them.
+  await expect(page.getByTestId('landscape-tab-current')).toHaveAttribute('aria-selected', 'true');
+  const currentCount = await panelCards().count();
+  expect(currentCount).toBeGreaterThan(5);
+
+  // Switching is in place: the panel swaps and the URL does not change.
+  await page.getByTestId('landscape-tab-emerging').click();
+  await expect(page.getByTestId('landscape-panel-emerging')).toBeVisible();
+  await expect(page.getByTestId('landscape-tab-emerging')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByTestId('landscape-tab-current')).toHaveAttribute('aria-selected', 'false');
+  expect(page.url()).toBe(url);
+  const emergingCount = await panelCards().count();
+  expect(emergingCount).toBeGreaterThan(0);
+  expect(emergingCount).not.toBe(currentCount);
+
+  // Arrow keys drive the tablist, as a tablist is expected to.
+  await page.getByTestId('landscape-tab-emerging').press('ArrowRight');
+  await expect(page.getByTestId('landscape-tab-declining')).toHaveAttribute('aria-selected', 'true');
+
+  // Each panel still offers its own page, so the views stay deep-linkable.
+  await expect(page.getByTestId('landscape-full-declining')).toHaveAttribute('href', /\/frontend\/declining\/$/);
+
+  // A query typed in one tab must not silently narrow the next one.
+  await page.getByTestId('landscape-tab-current').click();
+  await page.getByTestId('tool-search').fill('tailwind');
+  const filtered = await panelCards().count();
+  expect(filtered).toBeLessThan(currentCount);
+  await page.getByTestId('landscape-tab-emerging').click();
+  await page.getByTestId('landscape-tab-current').click();
+  await expect(page.getByTestId('tool-search')).toHaveValue('');
+  expect(await panelCards().count()).toBe(currentCount);
+
+  expect(errors).toEqual([]);
+});

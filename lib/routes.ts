@@ -15,8 +15,21 @@ export const routes = {
   signals: (domain: string) => `/${domain}/activity/`,
   me: () => '/me/',
   submit: () => '/submit/',
-  review: () => '/review/',
 } as const;
+
+/**
+ * The editorial review inventory.
+ *
+ * Deliberately NOT a member of `routes`. That object is imported by client
+ * components, and every member ships in the production JS bundle whether or not
+ * anything calls it — a second client consumer was enough to emit this string
+ * into a drafts-hidden export and trip the artifact guard. No review URL may
+ * appear in a production build, so the one route that must never be bundled
+ * stays out of the object that gets bundled.
+ *
+ * Both call sites are server components, so nothing here reaches the client.
+ */
+export const REVIEW_ROUTE = '/review/';
 
 /** Absolute deployment prefix, used by the link-integrity crawler. */
 export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';

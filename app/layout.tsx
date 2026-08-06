@@ -4,7 +4,7 @@ import Link from 'next/link';
 import './globals.css';
 import { FeedbackWidget } from '../components/FeedbackWidget.tsx';
 import { SHOW_DRAFTS } from '../lib/provenance.ts';
-import { routes } from '../lib/routes.ts';
+import { REVIEW_ROUTE, routes } from '../lib/routes.ts';
 
 const DOMAIN = 'frontend';
 
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {SHOW_DRAFTS ? (
                 <>
                   {' '}See the{' '}
-                  <Link href={routes.review()} className="underline" style={{ color: 'var(--color-ember)' }}>
+                  <Link href={REVIEW_ROUTE} className="underline" style={{ color: 'var(--color-ember)' }}>
                     editorial review inventory
                   </Link>{' '}
                   for exactly what has and has not been checked.

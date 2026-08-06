@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import Link from 'next/link';
-import { routes } from '../../lib/routes.ts';
+import { REVIEW_ROUTE, routes } from '../../lib/routes.ts';
 import { getJourneyMaps, getPrioritySet, getReadiness } from '../../lib/review.ts';
 import { PriorityReview, type DossierView } from '../PriorityReview.tsx';
 
@@ -31,7 +31,7 @@ export function PriorityReviewQueue() {
   return (
     <div className="max-w-[80ch]">
       <nav className="mb-6 text-sm">
-        <Link href={routes.review()} className="hover:underline" style={{ color: 'var(--fg-faint)' }}>
+        <Link href={REVIEW_ROUTE} className="hover:underline" style={{ color: 'var(--fg-faint)' }}>
           ← Review inventory
         </Link>
       </nav>
