@@ -1,0 +1,35 @@
+{
+  "slug": "pytorch",
+  "name": "PyTorch",
+  "category": "model framework",
+  "homepage": "https://pytorch.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2016,
+  "one_liner": "Tensor library for deep learning that runs on GPUs and CPUs.",
+  "what_it_is": "An optimized tensor library for deep learning using GPUs and CPUs, per its own documentation. Models are ordinary Python objects and gradients are recorded as the code runs, so a model can be inspected and debugged with the same tools as any other Python program.",
+  "why_it_matters": "Most published research code and most model weights you will want to load are written against it, so working in anything else usually means porting someone else’s implementation before you can start. The cost is that the flexibility which makes it pleasant to experiment in is also what makes a production deployment a separate piece of work.",
+  "suitable_for": [
+    "Training or fine-tuning a model you intend to modify",
+    "Reproducing published research",
+    "Work where stepping through the model in a debugger matters"
+  ],
+  "not_suitable_for": [
+    "Deploying to a constrained runtime without an export step — the Python model is not the deployable artefact",
+    "Teams with no GPU access and no budget for one, where a classical method may answer the question",
+    "Problems that tabular methods already solve, where a neural network adds cost and opacity for no gain"
+  ],
+  "alternatives": [
+    "TensorFlow",
+    "JAX",
+    "Keras"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

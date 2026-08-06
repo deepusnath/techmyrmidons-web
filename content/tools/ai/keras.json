@@ -1,0 +1,35 @@
+{
+  "slug": "keras",
+  "name": "Keras",
+  "category": "model framework",
+  "homepage": "https://keras.io/",
+  "lifecycle": "established",
+  "first_seen_year": 2015,
+  "one_liner": "High-level deep learning API that runs on JAX, TensorFlow or PyTorch.",
+  "what_it_is": "A deep learning API written in Python and capable of running on top of either JAX, TensorFlow or PyTorch, per its own documentation. It describes models in layers rather than in tensor operations, and the same model definition can be executed by any of the three backends.",
+  "why_it_matters": "It lets a model be written once and moved between backends, which matters when the reason for choosing a backend is deployment or hardware rather than the model itself. The abstraction is also the limit: work that needs an unusual training loop tends to end up below the API rather than inside it.",
+  "suitable_for": [
+    "Conventional architectures assembled from established layers",
+    "Teams who need one model definition to run on more than one backend",
+    "Teaching, where layer-level description is the clearer explanation"
+  ],
+  "not_suitable_for": [
+    "Custom training loops or novel gradients, which sit below the abstraction",
+    "Reproducing research written directly against a backend",
+    "Work where you need to reason about exactly which kernels run"
+  ],
+  "alternatives": [
+    "PyTorch",
+    "JAX",
+    "TensorFlow"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

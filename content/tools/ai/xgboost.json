@@ -1,0 +1,34 @@
+{
+  "slug": "xgboost",
+  "name": "XGBoost",
+  "category": "classical ML",
+  "homepage": "https://xgboost.readthedocs.io/",
+  "lifecycle": "established",
+  "first_seen_year": 2014,
+  "one_liner": "Gradient boosting library for tabular prediction.",
+  "what_it_is": "An optimized distributed gradient boosting library designed to be highly efficient, flexible and portable, implementing machine learning algorithms under the Gradient Boosting framework, per its own documentation. It provides parallel tree boosting and runs the same code across distributed environments.",
+  "why_it_matters": "On tabular data it often reaches a usable answer with far less compute and far less data preparation than a neural approach, and the resulting model can be interrogated feature by feature. The reason to know it is to avoid reaching for a deep model on a problem a boosted tree settles in minutes.",
+  "suitable_for": [
+    "Tabular prediction and ranking problems",
+    "Cases where per-feature explanation is required",
+    "Baselines that a deeper approach has to beat before it is worth its cost"
+  ],
+  "not_suitable_for": [
+    "Text, audio or images, where the input has structure trees cannot use",
+    "Problems needing generation rather than prediction",
+    "Very small datasets, where a simpler regression is easier to defend"
+  ],
+  "alternatives": [
+    "scikit-learn",
+    "LightGBM"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

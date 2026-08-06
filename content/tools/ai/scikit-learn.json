@@ -1,23 +1,34 @@
 {
   "slug": "scikit-learn",
-  "domain": "ai",
   "name": "scikit-learn",
-  "category": null,
-  "homepage": "https://github.com/scikit-learn/scikit-learn",
-  "one_liner": null,
-  "what_it_is": "scikit-learn is a Python module for machine learning built on top of SciPy and distributed under the 3-Clause BSD license.",
-  "why_it_matters": null,
-  "lifecycle": null,
+  "category": "classical ML",
+  "homepage": "https://scikit-learn.org/",
+  "lifecycle": "established",
   "first_seen_year": 2018,
+  "one_liner": "Machine learning library for supervised and unsupervised learning.",
+  "what_it_is": "An open source machine learning library supporting supervised and unsupervised learning, per its own documentation, providing dozens of built-in algorithms along with tools for model fitting, data preprocessing, model selection and evaluation.",
+  "why_it_matters": "It is the shortest path from a dataset to a defensible baseline, and its consistent fit/predict interface means swapping algorithms is a one-line change rather than a rewrite. Knowing it is what stops a problem being handed to a neural network before anyone has checked whether a simpler method answers it.",
+  "suitable_for": [
+    "Establishing a baseline before anything more expensive",
+    "Tabular classification, regression and clustering",
+    "Preprocessing and model-selection steps around another framework"
+  ],
+  "not_suitable_for": [
+    "Deep learning — it is not a neural network framework and does not target GPUs",
+    "Datasets too large for one machine",
+    "Text or image problems where learned representations are the point"
+  ],
+  "alternatives": [
+    "XGBoost",
+    "PyTorch"
+  ],
+  "domain": "ai",
   "archive_years": [
     2018,
     2019,
     2021
   ],
-  "suitable_for": [],
-  "not_suitable_for": [],
-  "alternatives": [],
-  "published": false,
+  "published": true,
   "is_seed": true,
   "seed_source": "original curation, src/data/ai/2018.json",
   "editorial_status": "ai_draft",

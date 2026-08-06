@@ -1,0 +1,34 @@
+{
+  "slug": "jax",
+  "name": "JAX",
+  "category": "model framework",
+  "homepage": "https://docs.jax.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "Array computation and function transformation for accelerators.",
+  "what_it_is": "A Python library for accelerator-oriented array computation and program transformation, designed for high-performance numerical computing and large-scale machine learning, per its own README. Its core is a system for transforming numerical functions — differentiation, vectorisation and compilation are composable transforms applied to ordinary functions.",
+  "why_it_matters": "The functional model makes parallelism across many accelerators explicit rather than incidental, which is why it appears in large training runs. That same explicitness is the cost: state has to be threaded by hand, and code that assumes in-place mutation has to be rewritten rather than ported.",
+  "suitable_for": [
+    "Training that spans many accelerators",
+    "Numerical work where composable autodiff is the point",
+    "Research where a transform-based model fits the problem"
+  ],
+  "not_suitable_for": [
+    "Teams new to functional programming, where the rewrite cost lands before any benefit",
+    "Loading an ecosystem of pretrained weights published for another framework",
+    "Small models where compilation time exceeds the training time it saves"
+  ],
+  "alternatives": [
+    "PyTorch",
+    "TensorFlow"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
