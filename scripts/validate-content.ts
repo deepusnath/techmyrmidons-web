@@ -58,9 +58,27 @@ async function main() {
     }
     if (d.is_seed && !d.seed_source) fail(`domain "${d.slug}" is seeded but has no seed_source`);
   }
+  /**
+   * The pilot ran one domain deliberately — better to test the experience
+   * properly in one field than thinly across twelve. That is a judgement about
+   * editorial capacity, not a technical limit, so the check is that an active
+   * domain is actually equipped rather than that there is exactly one of them.
+   *
+   * A domain claiming to be active without rules or an editorial note would
+   * render a Myrmidon that cannot answer the question it exists to answer.
+   */
   const active = domains.filter((d) => d.status === 'active');
-  if (active.length !== 1) {
-    fail(`expected exactly 1 active domain for the pilot, found ${active.length}`);
+  if (active.length === 0) fail('no active domain: the pilot needs at least one');
+  for (const d of active) {
+    if (!existsSync(path.join(CONTENT, 'heuristics', `${d.slug}.json`))) {
+      fail(`domain "${d.slug}" is active but has no heuristics — the diagnosis would have no rules`);
+    }
+    if (!existsSync(path.join(CONTENT, 'editorial', `${d.slug}.json`))) {
+      fail(`domain "${d.slug}" is active but has no editorial note`);
+    }
+    if (!existsSync(path.join(CONTENT, 'tools', d.slug))) {
+      fail(`domain "${d.slug}" is active but has no tools directory`);
+    }
   }
 
   // --- practitioners --------------------------------------------------------
