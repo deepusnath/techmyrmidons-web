@@ -10,6 +10,7 @@ import {
   getTimeline,
 } from '../../lib/content.ts';
 import { getToolViews, LANDSCAPE_VIEWS } from '../../lib/views.ts';
+import { routes } from '../../lib/routes.ts';
 import { formatDate, isVisible, LIFECYCLE_CAVEAT } from '../../lib/provenance.ts';
 import { Byline, DraftBanner, EmptyState, ProvenanceChip } from '../../components/Provenance.tsx';
 import { InitialsAvatar } from '../../components/InitialsAvatar.tsx';
@@ -61,11 +62,21 @@ export default async function DomainHome({ params }: { params: Promise<{ domain:
           <div className="flex flex-wrap items-center gap-3">
             <FollowButton domain={slug} label={`${domain.name} Myrmidon`} />
             <Link
-              href="/me/"
+              href={routes.me()}
               className="text-sm font-semibold hover:underline"
               style={{ color: 'var(--fg-dim)' }}
             >
               See where I stand →
+            </Link>
+            {/* Signals are this domain's data, so they live here rather than in
+                a global nav that cannot say which domain it means. */}
+            <Link
+              href={routes.signals(slug)}
+              data-testid="domain-signals"
+              className="text-sm font-semibold hover:underline"
+              style={{ color: 'var(--fg-dim)' }}
+            >
+              Signals →
             </Link>
           </div>
         </div>

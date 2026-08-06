@@ -12,16 +12,35 @@ import {
 import { EDITORIAL_TOOL_FIELDS } from '../../content/schema.ts';
 import { SHOW_DRAFTS, formatDate } from '../../lib/provenance.ts';
 
-const DOMAIN = 'frontend';
-
 /**
  * A compact inventory of everything a human has not yet checked.
  *
  * The point is that the scale of unreviewed material is visible in one place
  * rather than inferred from labels scattered across the site. Nothing here is
  * attributed to a named editor, because none of it has been reviewed by one.
+ *
+ * One section per active domain: review is per domain, so a single combined
+ * total would hide which field the backlog is actually in.
  */
 export function ReviewInventory() {
+  const active = getDomains().filter((d) => d.status === 'active');
+  return (
+    <>
+      {active.map((d) => (
+        <section key={d.slug} className="mb-16" data-testid={`inventory-${d.slug}`}>
+          {active.length > 1 ? (
+            <h2 className="display mb-4 text-2xl font-semibold" style={{ color: 'var(--color-ember)' }}>
+              {d.name}
+            </h2>
+          ) : null}
+          <DomainInventory domain={d.slug} />
+        </section>
+      ))}
+    </>
+  );
+}
+
+function DomainInventory({ domain: DOMAIN }: { domain: string }) {
   // Single source of truth — see getReviewCounts in lib/content.ts.
   const counts = getReviewCounts(DOMAIN);
   const tools = getTools(DOMAIN).filter((t) => t.published);

@@ -5,8 +5,7 @@ import './globals.css';
 import { FeedbackWidget } from '../components/FeedbackWidget.tsx';
 import { SHOW_DRAFTS } from '../lib/provenance.ts';
 import { REVIEW_ROUTE, routes } from '../lib/routes.ts';
-
-const DOMAIN = 'frontend';
+import { getDomains } from '../lib/content.ts';
 
 const maitree = Maitree({
   subsets: ['latin'],
@@ -24,6 +23,10 @@ export const metadata: Metadata = {
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const domains = getDomains();
+  const activeDomains = domains.filter((d) => d.status === 'active');
+  const archivedCount = domains.length - activeDomains.length;
+
   return (
     <html lang="en" className={maitree.variable}>
       <body>
@@ -48,12 +51,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="display text-lg font-semibold tracking-tight">TechMyrmidons</span>
             </Link>
             <nav aria-label="Main" className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-              <Link href={routes.domain(DOMAIN)} className="hover:underline" style={{ color: 'var(--fg-dim)' }}>
-                Frontend Myrmidon
-              </Link>
-              <Link href={routes.signals(DOMAIN)} className="hover:underline" style={{ color: 'var(--fg-dim)' }}>
-                Signals
-              </Link>
+              {/* One entry per active Myrmidon. Signals are per-domain and live
+                  on the domain page: a single "Signals" link cannot say which
+                  domain it means once there is more than one. */}
+              {activeDomains.map((d) => (
+                <Link
+                  key={d.slug}
+                  href={routes.domain(d.slug)}
+                  data-testid={`nav-domain-${d.slug}`}
+                  className="hover:underline"
+                  style={{ color: 'var(--fg-dim)' }}
+                >
+                  {d.name} Myrmidon
+                </Link>
+              ))}
               <Link href={routes.me()} className="hover:underline" style={{ color: 'var(--fg-dim)' }} data-testid="nav-me">
                 Where I stand
               </Link>
@@ -83,9 +94,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ) : null}
             </p>
             <p>
-              Frontend is the active pilot domain. Eleven other domains are archived with their
-              reasons shown. Your progress is stored only in this browser — there is no account and
-              nothing is uploaded.
+              {activeDomains.map((d) => d.name).join(' and ')}{' '}
+              {activeDomains.length === 1 ? 'is the active pilot domain' : 'are the active pilot domains'}.
+              {archivedCount > 0
+                ? ` ${archivedCount} other ${archivedCount === 1 ? 'domain is' : 'domains are'} archived with their reasons shown.`
+                : ''}{' '}
+              Your progress is stored only in this browser — there is no account and nothing is
+              uploaded.
             </p>
           </div>
         </footer>

@@ -34,9 +34,12 @@ export default function Onboarding() {
       </section>
 
       <section className="mb-14">
-        <h2 className="mb-1 text-xl">Active pilot domain</h2>
+        <h2 className="mb-1 text-xl">
+          {active.length === 1 ? 'Active pilot domain' : 'Active pilot domains'}
+        </h2>
         <p className="mb-5 text-sm" style={{ color: 'var(--fg-faint)' }}>
-          One domain is live while we test the experience properly rather than thinly across twelve.
+          {active.length === 1 ? 'One domain is' : `${active.length} domains are`} live while we test
+          the experience properly rather than thinly across twelve.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2">

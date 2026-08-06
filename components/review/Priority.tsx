@@ -3,14 +3,15 @@ import path from 'node:path';
 import Link from 'next/link';
 import { REVIEW_ROUTE, routes } from '../../lib/routes.ts';
 import { getJourneyMaps, getPrioritySet, getReadiness } from '../../lib/review.ts';
+import { getDomains } from '../../lib/content.ts';
 import { PriorityReview, type DossierView } from '../PriorityReview.tsx';
 
-const DOMAIN = 'frontend';
 
-function loadDossiers(): DossierView[] {
-  const dir = path.join(process.cwd(), 'content', 'dossiers', DOMAIN);
+
+function loadDossiers(domain: string): DossierView[] {
+  const dir = path.join(process.cwd(), 'content', 'dossiers', domain);
   if (!fs.existsSync(dir)) return [];
-  const order = getPrioritySet(DOMAIN).map((p) => p.slug);
+  const order = getPrioritySet(domain).map((p) => p.slug);
   const byslug = new Map<string, DossierView>();
   for (const f of fs.readdirSync(dir)) {
     const raw = fs.readFileSync(path.join(dir, f), 'utf8');
@@ -23,7 +24,25 @@ function loadDossiers(): DossierView[] {
 }
 
 export function PriorityReviewQueue() {
-  const dossiers = loadDossiers();
+  const active = getDomains().filter((d) => d.status === 'active');
+  return (
+    <>
+      {active.map((d) => (
+        <section key={d.slug} className="mb-16" data-testid={`priority-${d.slug}`}>
+          {active.length > 1 ? (
+            <h2 className="display mb-4 text-2xl font-semibold" style={{ color: 'var(--color-ember)' }}>
+              {d.name}
+            </h2>
+          ) : null}
+          <DomainPriorityQueue domain={d.slug} />
+        </section>
+      ))}
+    </>
+  );
+}
+
+function DomainPriorityQueue({ domain: DOMAIN }: { domain: string }) {
+  const dossiers = loadDossiers(DOMAIN);
   const priority = getPrioritySet(DOMAIN);
   const readiness = getReadiness(DOMAIN);
   const maps = getJourneyMaps(DOMAIN);
@@ -144,7 +163,7 @@ export function PriorityReviewQueue() {
 
       <section>
         <h2 className="mb-3 text-xl">Review queue</h2>
-        <PriorityReview dossiers={dossiers} />
+        <PriorityReview domain={DOMAIN} dossiers={dossiers} />
       </section>
     </div>
   );

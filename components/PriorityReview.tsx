@@ -79,7 +79,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-export function PriorityReview({ dossiers }: { dossiers: DossierView[] }) {
+export function PriorityReview({ domain, dossiers }: { domain: string; dossiers: DossierView[] }) {
   const hydrated = useHydrated();
   const [index, setIndex] = useState(0);
   const [decisions, setDecisions] = useState<Record<string, Decision>>({});
@@ -184,7 +184,7 @@ export function PriorityReview({ dossiers }: { dossiers: DossierView[] }) {
               primary source ↗
             </a>
           ) : null}
-          <Link href={routes.tool('frontend', d.slug)} className="text-xs hover:underline" style={{ color: 'var(--color-ember)' }}>
+          <Link href={routes.tool(domain, d.slug)} className="text-xs hover:underline" style={{ color: 'var(--color-ember)' }}>
             tool page →
           </Link>
         </header>
