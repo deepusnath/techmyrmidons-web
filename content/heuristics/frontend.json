@@ -7,6 +7,7 @@
   "contexts": {
     "legacy": {
       "label": "Legacy maintenance",
+      "hint": "Keeping an older codebase working",
       "still_appropriate": {
         "sass": {
           "text": "Still fine where it already exists. A working stylesheet is an asset; migrating it wholesale rarely pays for itself.",
@@ -53,7 +54,7 @@
           "reviewed_at": null
         },
         "bower": {
-          "text": "Deprecated by its own maintainers and the registry is effectively frozen \u2014 no security advisories will reach you.",
+          "text": "Deprecated by its own maintainers and the registry is effectively frozen — no security advisories will reach you.",
           "rule_id": "legacy.reconsider.bower",
           "editorial_status": "ai_draft",
           "reviewed_by": null,
@@ -78,7 +79,7 @@
         {
           "slug": "vite",
           "why": "You are maintaining a build that predates bundlers owning the dependency graph. Vite is the smallest step that removes the plugin chain and the dev-server wait at the same time.",
-          "unsuitable_if": "Your build depends on webpack-specific loaders or module federation with no Vite equivalent \u2014 check before committing to a migration.",
+          "unsuitable_if": "Your build depends on webpack-specific loaders or module federation with no Vite equivalent — check before committing to a migration.",
           "goals": [
             "modernize",
             "stay_current",
@@ -92,8 +93,8 @@
         },
         {
           "slug": "htmx",
-          "why": "You marked jQuery. htmx lets you keep server-rendered pages and drop the jQuery dependency without adopting a client-side framework \u2014 the smaller of the two available moves.",
-          "unsuitable_if": "The application has genuinely rich client state \u2014 an editor, a canvas, real-time collaboration \u2014 in which case a framework is the right answer, not htmx.",
+          "why": "You marked jQuery. htmx lets you keep server-rendered pages and drop the jQuery dependency without adopting a client-side framework — the smaller of the two available moves.",
+          "unsuitable_if": "The application has genuinely rich client state — an editor, a canvas, real-time collaboration — in which case a framework is the right answer, not htmx.",
           "requires_any": [
             "jquery"
           ],
@@ -120,7 +121,7 @@
         },
         {
           "slug": "pnpm",
-          "why": "On an older repository with a large dependency tree, the strict layout surfaces undeclared dependencies that npm silently tolerates \u2014 a common source of surprise during a migration.",
+          "why": "On an older repository with a large dependency tree, the strict layout surfaces undeclared dependencies that npm silently tolerates — a common source of surprise during a migration.",
           "unsuitable_if": "Packages in your tree rely on a flat, permissive node_modules layout.",
           "goals": [
             "modernize"
@@ -146,6 +147,7 @@
     },
     "content": {
       "label": "Content or marketing sites",
+      "hint": "Documentation, marketing, editorial, blogs",
       "still_appropriate": {
         "sass": {
           "text": "Fine for content sites, though check how much of what you use is now native CSS.",
@@ -162,7 +164,7 @@
           "reviewed_at": null
         },
         "tailwind": {
-          "text": "Works well here \u2014 content sites usually have few enough templates that utility classes stay manageable.",
+          "text": "Works well here — content sites usually have few enough templates that utility classes stay manageable.",
           "rule_id": "content.retain.tailwind",
           "editorial_status": "ai_draft",
           "reviewed_by": null,
@@ -195,7 +197,7 @@
       "candidates": [
         {
           "slug": "astro",
-          "why": "You build content sites. Astro ships zero JavaScript by default and lets you opt into interactivity per component \u2014 the inverse of the framework assumption, and the right default for content.",
+          "why": "You build content sites. Astro ships zero JavaScript by default and lets you opt into interactivity per component — the inverse of the framework assumption, and the right default for content.",
           "unsuitable_if": "The site is really an application in disguise, with pervasive client state across most of the page.",
           "goals": [
             "new_stack",
@@ -255,6 +257,7 @@
     },
     "apps": {
       "label": "Web applications or SaaS",
+      "hint": "Dashboards, products, stateful interfaces",
       "still_appropriate": {
         "react": {
           "text": "A reasonable default for application work, and the largest hiring pool.",
@@ -351,7 +354,7 @@
         {
           "slug": "tanstack-query",
           "why": "Most application state turns out to be a cache of server data. Naming that distinction removes a lot of hand-written loading and refetch logic.",
-          "unsuitable_if": "Your state is genuinely client-side \u2014 editor buffers, form drafts \u2014 or your framework already provides a data layer.",
+          "unsuitable_if": "Your state is genuinely client-side — editor buffers, form drafts — or your framework already provides a data layer.",
           "goals": [
             "stay_current",
             "skill_gaps",
@@ -365,7 +368,7 @@
         {
           "slug": "playwright",
           "why": "Application work is where end-to-end coverage matters most, and auto-waiting removes the flakiness that usually kills these suites.",
-          "unsuitable_if": "You have no capacity to maintain an E2E suite \u2014 an ignored suite is worse than none.",
+          "unsuitable_if": "You have no capacity to maintain an E2E suite — an ignored suite is worse than none.",
           "goals": [
             "stay_current",
             "skill_gaps"
@@ -391,9 +394,10 @@
     },
     "design_systems": {
       "label": "Design systems or component libraries",
+      "hint": "Components other teams consume",
       "still_appropriate": {
         "storybook": {
-          "text": "The right tool for this work \u2014 it is where a design system crosses a team boundary.",
+          "text": "The right tool for this work — it is where a design system crosses a team boundary.",
           "rule_id": "design_systems.retain.storybook",
           "editorial_status": "ai_draft",
           "reviewed_by": null,
@@ -447,7 +451,7 @@
       "candidates": [
         {
           "slug": "css-modules",
-          "why": "You build components other people consume. CSS Modules give you scoping while emitting ordinary, restyleable CSS \u2014 which matters when the consumer needs to override you.",
+          "why": "You build components other people consume. CSS Modules give you scoping while emitting ordinary, restyleable CSS — which matters when the consumer needs to override you.",
           "unsuitable_if": "You need a shared token scale supplied for you rather than authored, in which case a framework is the better fit.",
           "goals": [
             "stay_current",
@@ -505,6 +509,8 @@
     },
     "learning": {
       "label": "Learning or exploring",
+      "hint": "Building your foundation",
+      "needs_baseline": true,
       "still_appropriate": {},
       "reconsider": {
         "angularjs": {
@@ -533,7 +539,7 @@
         {
           "slug": "sass",
           "why": "You are comfortable with static pages. Sass is the smallest step beyond plain CSS that teaches you why build steps exist at all, without committing you to a framework.",
-          "unsuitable_if": "You would rather learn what modern CSS does natively first \u2014 which is a defensible choice, since much of what Sass added is now built in.",
+          "unsuitable_if": "You would rather learn what modern CSS does natively first — which is a defensible choice, since much of what Sass added is now built in.",
           "baselines": [
             "static_pages"
           ],
@@ -551,7 +557,7 @@
         {
           "slug": "vite",
           "why": "You already write JavaScript. Vite is the current default build tool and needs almost no configuration, so you can learn it without learning build engineering first.",
-          "unsuitable_if": "You are following a course built around a different toolchain \u2014 fighting the course is not worth it.",
+          "unsuitable_if": "You are following a course built around a different toolchain — fighting the course is not worth it.",
           "baselines": [
             "writes_js",
             "built_app"
@@ -590,7 +596,7 @@
         {
           "slug": "react",
           "why": "You have already built a frontend application. React is not necessarily the best framework, but it is the one most tutorials, libraries and job listings assume, which makes everything else easier to read.",
-          "unsuitable_if": "You are drawn to a simpler model \u2014 Vue and Svelte are gentler and the concepts transfer.",
+          "unsuitable_if": "You are drawn to a simpler model — Vue and Svelte are gentler and the concepts transfer.",
           "baselines": [
             "built_app"
           ],
@@ -606,7 +612,7 @@
         },
         {
           "slug": "claude-code",
-          "why": "Worth learning deliberately rather than by osmosis \u2014 including where it misleads you, which matters more while you are still building judgement.",
+          "why": "Worth learning deliberately rather than by osmosis — including where it misleads you, which matters more while you are still building judgement.",
           "unsuitable_if": "You are learning fundamentals and would accept generated code you cannot yet evaluate. That is the main trap.",
           "baselines": [
             "writes_js",
@@ -623,5 +629,23 @@
       ]
     }
   },
-  "review_granularity": "rule"
+  "review_granularity": "rule",
+  "baselines": [
+    {
+      "value": "new_to_web",
+      "label": "New to HTML, CSS, and JavaScript"
+    },
+    {
+      "value": "static_pages",
+      "label": "Comfortable building static pages"
+    },
+    {
+      "value": "writes_js",
+      "label": "Comfortable writing JavaScript"
+    },
+    {
+      "value": "built_app",
+      "label": "Have already built a frontend application"
+    }
+  ]
 }

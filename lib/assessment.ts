@@ -17,7 +17,15 @@
  */
 import type { ProgressState } from './state.ts';
 
-export type WorkContext = 'content' | 'apps' | 'design_systems' | 'legacy' | 'learning';
+/**
+ * A work context is whatever the domain says it is.
+ *
+ * These were a fixed union of frontend's five, which meant a second domain
+ * would have asked an AI reader which kind of design system they maintain. The
+ * valid set now comes from that domain's own heuristics, so adding a domain is
+ * a content change rather than a code change.
+ */
+export type WorkContext = string;
 export type Goal = 'stay_current' | 'modernize' | 'new_stack' | 'ai_productivity' | 'skill_gaps';
 
 /**
@@ -26,22 +34,8 @@ export type Goal = 'stay_current' | 'modernize' | 'new_stack' | 'ai_productivity
  * an application, and recommending TypeScript, Vite and React to the former is
  * actively unhelpful.
  */
-export type Baseline = 'new_to_web' | 'static_pages' | 'writes_js' | 'built_app';
-
-export const BASELINE_OPTIONS: Array<{ value: Baseline; label: string }> = [
-  { value: 'new_to_web', label: 'New to HTML, CSS, and JavaScript' },
-  { value: 'static_pages', label: 'Comfortable building static pages' },
-  { value: 'writes_js', label: 'Comfortable writing JavaScript' },
-  { value: 'built_app', label: 'Have already built a frontend application' },
-];
-
-export const WORK_OPTIONS: Array<{ value: WorkContext; label: string; hint: string }> = [
-  { value: 'content', label: 'Content or marketing sites', hint: 'Documentation, marketing, editorial, blogs' },
-  { value: 'apps', label: 'Web applications or SaaS', hint: 'Dashboards, products, stateful interfaces' },
-  { value: 'design_systems', label: 'Design systems or component libraries', hint: 'Components other teams consume' },
-  { value: 'legacy', label: 'Legacy maintenance', hint: 'Keeping an older codebase working' },
-  { value: 'learning', label: 'Learning or exploring', hint: 'Building your foundation' },
-];
+/** Baseline levels are domain-specific too — see `baselines` in the heuristics. */
+export type Baseline = string;
 
 export const GOAL_OPTIONS: Array<{ value: Goal; label: string; hint: string }> = [
   { value: 'stay_current', label: 'Stay current', hint: 'Know what changed and why' },
@@ -63,8 +57,30 @@ export const EMPTY_ASSESSMENT: AssessmentAnswers = {
 };
 
 /** Only the learning context needs the extra baseline question. */
-export function needsBaseline(work: WorkContext | null): boolean {
-  return work === 'learning';
+/**
+ * Which contexts ask a follow-up, and what the options are.
+ *
+ * Both come from the domain. Work type and goal alone cannot distinguish
+ * somebody who has never written CSS from somebody who has shipped an
+ * application, but what that distinction *is* differs by field.
+ */
+export function workOptions(h: Heuristics | null): Array<{ value: WorkContext; label: string; hint: string }> {
+  if (!h) return [];
+  return Object.entries(h.contexts).map(([value, c]) => ({ value, label: c.label, hint: c.hint ?? '' }));
+}
+
+export function baselineOptions(h: Heuristics | null): Array<{ value: Baseline; label: string }> {
+  return h?.baselines ?? [];
+}
+
+export function workLabel(h: Heuristics | null, work: WorkContext | null): string | undefined {
+  if (!h || !work) return undefined;
+  return h.contexts[work]?.label;
+}
+
+export function needsBaseline(h: Heuristics | null, work: WorkContext | null): boolean {
+  if (!h || !work) return false;
+  return h.contexts[work]?.needs_baseline === true;
 }
 
 // ---------------------------------------------------------------------------
@@ -124,6 +140,10 @@ export function ruleReviewed(v: RuleValue | Candidate): boolean {
 
 export interface ContextRules {
   label: string;
+  /** Short disambiguator shown under the label when choosing a context. */
+  hint?: string;
+  /** Whether choosing this context asks the follow-up baseline question. */
+  needs_baseline?: boolean;
   still_appropriate: Record<string, RuleValue>;
   reconsider: Record<string, RuleValue>;
   candidates: Candidate[];
@@ -136,6 +156,8 @@ export interface Heuristics {
   reviewed_at: string | null;
   note: string;
   contexts: Record<WorkContext, ContextRules>;
+  /** Options for the conditional follow-up, when a context asks for one. */
+  baselines?: Array<{ value: Baseline; label: string }>;
 }
 
 // ---------------------------------------------------------------------------
@@ -204,7 +226,7 @@ export function diagnose({
   // A learner with nothing marked and no stated starting point has given us no
   // usable context, so we ask instead of guessing at their level.
   const noToolsMarked = Object.keys(marked).length === 0;
-  if (needsBaseline(answers.work) && noToolsMarked && !answers.baseline) missing.push('baseline');
+  if (needsBaseline(heuristics, answers.work) && noToolsMarked && !answers.baseline) missing.push('baseline');
 
   // Without context we ask rather than produce something generic.
   if (missing.length > 0 || !answers.work || !answers.goal) {

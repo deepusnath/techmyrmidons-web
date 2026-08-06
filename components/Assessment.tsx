@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { ToolView } from '../lib/views.ts';
-import { BASELINE_OPTIONS, GOAL_OPTIONS, WORK_OPTIONS, needsBaseline } from '../lib/assessment.ts';
+import { GOAL_OPTIONS, baselineOptions, needsBaseline, workOptions, type Heuristics } from '../lib/assessment.ts';
 import { PROGRESS_META, PROGRESS_ORDER, useLocalState, type ProgressState } from '../lib/state.ts';
 
 /**
@@ -10,7 +10,20 @@ import { PROGRESS_META, PROGRESS_ORDER, useLocalState, type ProgressState } from
  * the diagnosis can be about this person's work rather than about which
  * catalogue categories happen to be empty.
  */
-export function Assessment({ domain, tools, onDone }: { domain: string; tools: ToolView[]; onDone?: () => void }) {
+export function Assessment({
+  domain,
+  tools,
+  heuristics,
+  onDone,
+}: {
+  domain: string;
+  tools: ToolView[];
+  /** Supplies this domain's work contexts and baseline options. */
+  heuristics: Heuristics | null;
+  onDone?: () => void;
+}) {
+  const WORK_OPTIONS = workOptions(heuristics);
+  const BASELINE_OPTIONS = baselineOptions(heuristics);
   const { marked, assessment, setAssessment, completeAssessment, setToolState, toolState } = useLocalState(domain);
   const [query, setQuery] = useState('');
 
@@ -91,7 +104,7 @@ export function Assessment({ domain, tools, onDone }: { domain: string; tools: T
         </div>
       </section>
 
-      {needsBaseline(assessment.work as never) ? (
+      {needsBaseline(heuristics, assessment.work) ? (
         <section data-testid="baseline-question">
           <h2 className="mb-1 text-lg">2b · What best describes where you are now?</h2>
           <p className="mb-3 text-xs" style={{ color: 'var(--fg-faint)' }}>
@@ -199,7 +212,7 @@ export function Assessment({ domain, tools, onDone }: { domain: string; tools: T
           disabled={
             !assessment.work ||
             !assessment.goal ||
-            (needsBaseline(assessment.work as never) &&
+            (needsBaseline(heuristics, assessment.work) &&
               Object.keys(marked).length === 0 &&
               !assessment.baseline)
           }

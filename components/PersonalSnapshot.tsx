@@ -7,7 +7,7 @@ import { PROGRESS_META, useHydrated, useLocalState, type ProgressState } from '.
 import {
   diagnose,
   GOAL_OPTIONS,
-  WORK_OPTIONS,
+  workLabel as workLabelFor,
   type AssessmentAnswers,
   type Heuristics,
 } from '../lib/assessment.ts';
@@ -98,7 +98,7 @@ export function PersonalSnapshot({
           </div>
         ) : null}
 
-        <Assessment domain={domain} tools={tools} onDone={() => setEditing(false)} />
+        <Assessment domain={domain} tools={tools} heuristics={heuristics} onDone={() => setEditing(false)} />
 
         {editing ? (
           <button
@@ -183,7 +183,7 @@ export function PersonalSnapshot({
     );
   }
 
-  const workLabel = WORK_OPTIONS.find((w) => w.value === answers.work)?.label;
+  const workLabel = workLabelFor(heuristics, answers.work);
   const goalLabel = GOAL_OPTIONS.find((g) => g.value === answers.goal)?.label;
   const total = Object.keys(marked).length;
 

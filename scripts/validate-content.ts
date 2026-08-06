@@ -337,15 +337,42 @@ async function main() {
       reviewed_by: string | null;
       reviewed_at: string | null;
       contexts: Record<string, {
+        label?: string;
+        hint?: string;
+        needs_baseline?: boolean;
         still_appropriate?: Record<string, unknown>;
         reconsider?: Record<string, unknown>;
-        candidates: Array<{ slug: string; why: string; unsuitable_if: string }>;
+        candidates: Array<{ slug: string; why: string; unsuitable_if: string; baselines?: string[] }>;
       }>;
+      baselines?: Array<{ value: string; label: string }>;
     }>(path.join('heuristics', file));
     checks++;
 
     if (h.editorial_status === 'reviewed' && (!h.reviewed_by || !h.reviewed_at)) {
       fail(`heuristics/${domain}: marked reviewed without a reviewer and date`);
+    }
+
+    /**
+     * The assessment is built from these, so a context without a label or hint
+     * renders an unlabelled choice, and a rule gated on a baseline that is not
+     * defined can never be offered to anyone.
+     */
+    const declaredBaselines = new Set((h.baselines ?? []).map((b) => b.value));
+    for (const [ctx, rules] of Object.entries(h.contexts ?? {})) {
+      checks++;
+      if (!rules.label?.trim()) fail(`heuristics/${domain}:${ctx}: context has no label`);
+      if (!rules.hint?.trim()) fail(`heuristics/${domain}:${ctx}: context has no hint to disambiguate it`);
+      if (rules.needs_baseline && declaredBaselines.size === 0) {
+        fail(`heuristics/${domain}:${ctx}: asks for a baseline but the domain declares none`);
+      }
+      for (const c of rules.candidates ?? []) {
+        for (const b of c.baselines ?? []) {
+          checks++;
+          if (!declaredBaselines.has(b)) {
+            fail(`heuristics/${domain}:${ctx}:${c.slug}: gated on baseline "${b}", which this domain does not declare`);
+          }
+        }
+      }
     }
 
     for (const [ctx, rules] of Object.entries(h.contexts ?? {})) {
