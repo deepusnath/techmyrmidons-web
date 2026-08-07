@@ -1,0 +1,34 @@
+{
+  "slug": "llamaindex",
+  "name": "LlamaIndex",
+  "category": "orchestration",
+  "homepage": "https://docs.llamaindex.ai/",
+  "lifecycle": "established",
+  "first_seen_year": 2022,
+  "one_liner": "Framework for building agents over your own data.",
+  "what_it_is": "A framework for building LLM-powered agents over your own data using workflows, in its own words, available in Python and TypeScript. Its focus is the ingestion, indexing and retrieval path that puts private documents in front of a model.",
+  "why_it_matters": "It treats retrieval as the primary problem rather than one integration among many, which is the right emphasis when the answer depends on documents a model was never trained on. That focus is also the limit: work that is mostly tool-calling rather than document grounding gets less from it.",
+  "suitable_for": [
+    "Question answering grounded in a private corpus",
+    "Work where ingestion and chunking decide answer quality",
+    "Teams who want the retrieval path to be the framework’s main concern"
+  ],
+  "not_suitable_for": [
+    "Applications with no document corpus to retrieve from",
+    "Control-flow-heavy agents, where an orchestration-first tool fits better",
+    "Cases where a single well-written query to a database is the real answer"
+  ],
+  "alternatives": [
+    "LangChain",
+    "LangGraph"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

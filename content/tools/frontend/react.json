@@ -5,7 +5,7 @@
   "homepage": "https://react.dev/",
   "lifecycle": "established",
   "first_seen_year": 2013,
-  "one_liner": "Component-based UI library, and the default assumption of most frontend job descriptions.",
+  "one_liner": "Component-based UI library for building interfaces from composable pieces.",
   "what_it_is": "A library for building user interfaces from composable components, with state changes driving re-renders through a virtual DOM diff. Modern React centres on hooks and, increasingly, on server components that render on the server and stream to the client.",
   "why_it_matters": "React is less a choice than a baseline: it shapes hiring, tutorials and the surrounding tool ecosystem, so understanding it is close to mandatory even if you never pick it. The genuinely current shift is server components, which move a meaningful share of work back to the server and invalidate a lot of client-side patterns people learned between 2018 and 2022.",
   "suitable_for": [

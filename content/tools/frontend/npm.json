@@ -5,7 +5,7 @@
   "homepage": "https://www.npmjs.com/",
   "lifecycle": "established",
   "first_seen_year": 2010,
-  "one_liner": "The default JavaScript package manager and registry.",
+  "one_liner": "JavaScript package manager and registry, bundled with Node.js.",
   "what_it_is": "The package manager bundled with Node.js, plus the registry that essentially all JavaScript packages publish to. Modern versions support workspaces for monorepos and lockfile-based reproducible installs.",
   "why_it_matters": "npm is the substrate — even alternative package managers publish to and install from its registry. It is worth knowing what it does badly, which is disk usage and install speed on large monorepos, because that is the entire reason pnpm and Bun exist.",
   "suitable_for": [

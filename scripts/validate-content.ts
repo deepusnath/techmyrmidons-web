@@ -35,6 +35,16 @@ import {
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const CONTENT = path.join(ROOT, 'content');
 
+/**
+ * Words governance §8 bars from a published claim. Spaced where a bare
+ * substring would fire on innocent text: "standard" inside "standardise",
+ * "industry" inside a tool's own name.
+ */
+const TREND_VOCABULARY = [
+  'popular', 'widely used', ' adopted', 'adoption', 'most teams', 'everyone uses',
+  'the default', 'de facto', 'industry standard', 'leading framework', 'state-of-the-art',
+];
+
 const errors: string[] = [];
 const notes: string[] = [];
 const fail = (msg: string) => errors.push(msg);
@@ -138,6 +148,34 @@ async function main() {
       for (const f of tool.reviewed_fields ?? []) {
         if (!(EDITORIAL_TOOL_FIELDS as readonly string[]).includes(f)) {
           fail(`${ref}: reviewed_fields contains unknown editorial field "${f}"`);
+        }
+      }
+
+      /**
+       * The §8 vocabulary bar, enforced rather than remembered.
+       *
+       * Governance §8 keeps these words out of a published claim unless a
+       * population, a sampling method, a robustness check and a date are all
+       * recorded. None of the catalogue carries that evidence.
+       *
+       * Scoped to the descriptive fields, because §8 permits the vocabulary
+       * "inside clearly-labelled editorial interpretation, never as a sourced
+       * fact" — and why_it_matters is that interpretation. Checking it too
+       * flagged Tailwind's "not because it is popular, but because the problem
+       * it solves is one you probably still have", which is the product's own
+       * anti-popularity stance rather than a breach of it. A substring cannot
+       * tell an assertion from its disclaimer; the field boundary can.
+       */
+      if (tool.published) {
+        const prose = [
+          tool.one_liner ?? '', tool.what_it_is ?? '',
+          ...(tool.suitable_for ?? []), ...(tool.not_suitable_for ?? []),
+        ].join(' ').toLowerCase();
+        for (const word of TREND_VOCABULARY) {
+          checks++;
+          if (prose.includes(word)) {
+            fail(`${ref}: published prose uses "${word.trim()}", which §8 bars without a stated population, sampling method and date`);
+          }
         }
       }
 

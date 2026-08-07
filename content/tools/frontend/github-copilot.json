@@ -5,7 +5,7 @@
   "homepage": "https://github.com/features/copilot",
   "lifecycle": "established",
   "first_seen_year": 2021,
-  "one_liner": "Inline AI code completion, the first such tool to reach broad adoption.",
+  "one_liner": "Inline AI code completion inside the editor.",
   "what_it_is": "An editor extension providing multi-line code completion from surrounding context, with chat and command interfaces in more recent versions, integrated into most major editors.",
   "why_it_matters": "Copilot is the tool that made AI assistance normal, and it is the clearest example of the blind spot in any repository-derived view of tooling: it appears in no package manifest, leaves no dependency trace, and is nonetheless among the most consequential changes to how frontend code gets written since 2021. Its practical ceiling is that inline completion works at the scale of the current file.",
   "suitable_for": [

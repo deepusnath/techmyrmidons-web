@@ -1,0 +1,34 @@
+{
+  "slug": "dspy",
+  "name": "DSPy",
+  "category": "orchestration",
+  "homepage": "https://dspy.ai/",
+  "lifecycle": "emerging",
+  "first_seen_year": 2023,
+  "one_liner": "Python framework for building AI systems as code rather than prompts.",
+  "what_it_is": "A Python framework for building AI systems, in its own words. Steps are declared by their input and output signature rather than written as prompt strings, and the prompts are produced from those declarations against examples.",
+  "why_it_matters": "It treats prompt wording as an implementation detail to be derived rather than hand-tuned, which changes what a change to the system looks like: you edit a signature and examples, not a paragraph. That only pays off if you already have examples and a way to score them — a prerequisite rather than a detail, and the usual reason it does not fit a project.",
+  "suitable_for": [
+    "Tasks with a labelled set and a usable success measure",
+    "Pipelines where prompt drift across steps is a maintenance problem",
+    "Work where the prompt should be derived rather than owned"
+  ],
+  "not_suitable_for": [
+    "Teams with no evaluation data, where there is nothing to optimise against",
+    "One-off prompts that will never be tuned",
+    "Cases where the exact wording sent to the model must be fixed and auditable"
+  ],
+  "alternatives": [
+    "LangChain",
+    "LangGraph"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
