@@ -1,0 +1,33 @@
+{
+  "slug": "ragas",
+  "name": "Ragas",
+  "category": "evaluation",
+  "homepage": "https://docs.ragas.io/",
+  "lifecycle": "emerging",
+  "first_seen_year": 2023,
+  "one_liner": "Toolkit for evaluating retrieval-augmented applications.",
+  "what_it_is": "A toolkit for evaluating and optimising Large Language Model applications, in its maintainers’ words, with metrics aimed at the retrieval path — whether retrieved context supported the answer, and whether the answer stayed within it.",
+  "why_it_matters": "It gives retrieval failures a number, which is the difference between \"the answers feel worse\" and knowing that recall dropped when the chunking changed. The metrics are themselves model-judged, so they carry the judge’s biases and cost a model call each — a measurement instrument that needs its own scrutiny.",
+  "suitable_for": [
+    "Retrieval pipelines where answer quality depends on what was fetched",
+    "Catching regressions when chunking or embeddings change",
+    "Teams who have questions and reference answers to test against"
+  ],
+  "not_suitable_for": [
+    "Applications with no retrieval step to measure",
+    "Teams with no reference set, where there is nothing to score against",
+    "Cases where a model-judged score cannot be justified to a stakeholder"
+  ],
+  "alternatives": [
+    "DeepEval"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

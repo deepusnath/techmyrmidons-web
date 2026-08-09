@@ -1,0 +1,33 @@
+{
+  "slug": "mlflow",
+  "name": "MLflow",
+  "category": "experiment tracking",
+  "homepage": "https://mlflow.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "Open source platform for tracking experiments and managing models.",
+  "what_it_is": "An open source platform covering agents, LLM applications and ML models, described by its maintainers as vendor-neutral. It records runs with their parameters, metrics and artefacts, and keeps versioned models in a registry that deployment can read from.",
+  "why_it_matters": "Untracked experiments are the reason a result cannot be reproduced two months later: the number is in a notebook and the configuration that produced it is gone. Recording runs is the cheapest thing that makes work auditable, and a registry gives deployment something to point at other than a file on somebody laptop.",
+  "suitable_for": [
+    "Teams who need to reproduce a result months later",
+    "Comparing runs across parameter changes",
+    "Self-hosting, where the tracking server is yours to run"
+  ],
+  "not_suitable_for": [
+    "One-off analyses that will never be revisited",
+    "Teams unwilling to operate a tracking server and its storage",
+    "Work where the bottleneck is data quality rather than run bookkeeping"
+  ],
+  "alternatives": [
+    "Weights & Biases"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
