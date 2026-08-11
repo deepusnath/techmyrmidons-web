@@ -1,0 +1,35 @@
+{
+  "slug": "pgvector",
+  "name": "pgvector",
+  "category": "vector store",
+  "homepage": "https://github.com/pgvector/pgvector",
+  "lifecycle": "established",
+  "first_seen_year": 2021,
+  "one_liner": "Vector similarity search inside Postgres.",
+  "what_it_is": "An open-source extension providing vector similarity search for Postgres, in its own words. Embeddings live in an ordinary column, so a similarity search is a query against the same database, in the same transaction, as the rows it joins to.",
+  "why_it_matters": "It answers the question most retrieval projects should ask first — whether a separate system is needed at all. Keeping vectors beside the records they describe removes a service to run, a copy to keep in sync and a consistency problem to reason about. Where it gives out is scale and index tuning, and that limit arrives later than teams expect.",
+  "suitable_for": [
+    "Teams already running Postgres",
+    "Retrieval that must join to relational data in one query",
+    "Avoiding a second datastore until the limit is demonstrated"
+  ],
+  "not_suitable_for": [
+    "Corpora large enough to need distributed indexing",
+    "Workloads needing index types or filtering the extension does not implement",
+    "Teams with no Postgres in the stack, where it brings a database along with it"
+  ],
+  "alternatives": [
+    "Qdrant",
+    "Chroma",
+    "Weaviate"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

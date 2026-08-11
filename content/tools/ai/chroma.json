@@ -1,0 +1,34 @@
+{
+  "slug": "chroma",
+  "name": "Chroma",
+  "category": "vector store",
+  "homepage": "https://www.trychroma.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2022,
+  "one_liner": "Embedding store aimed at getting retrieval running quickly.",
+  "what_it_is": "Open-source data infrastructure for AI, in its maintainers’ words, providing storage and querying of embeddings with their documents and metadata. It can run in-process against local files, so a retrieval prototype needs no server.",
+  "why_it_matters": "Running in-process removes the operational step between an idea and a working retrieval loop, which is where most such projects stall. That same property is the reason it is not automatically the answer later: the embedded mode that made it easy to start is not the mode you run for many users.",
+  "suitable_for": [
+    "Prototyping a retrieval loop before committing to infrastructure",
+    "Local or single-process applications",
+    "Teaching and experiments where setup cost dominates"
+  ],
+  "not_suitable_for": [
+    "Production retrieval under concurrency, which is a different deployment",
+    "Cases where vectors belong beside relational data",
+    "Teams needing the filtering guarantees of a search-first engine"
+  ],
+  "alternatives": [
+    "pgvector",
+    "Qdrant"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
