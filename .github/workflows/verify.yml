@@ -48,6 +48,9 @@ jobs:
       - name: Rule isolation and publication-gate assertions
         run: npm run test:rules
 
+      - name: Completion model assertions
+        run: npm run test:completion
+
       - name: Preview build and full preview suite
         run: npm run test:preview
 
