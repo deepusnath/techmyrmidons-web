@@ -16,15 +16,14 @@
   {
     "slug": "ai",
     "name": "Artificial Intelligence",
-    "status": "archived",
-    "archived_reason": "Not maintained since 2021.",
+    "status": "active",
     "last_curated_year": 2021,
     "logo": "ai-logo.png",
     "legacy_folder": "ai",
     "duplicate_years": [
       2020
     ],
-    "tool_count": 10,
+    "tool_count": 29,
     "practitioner_count": 15,
     "is_seed": true,
     "seed_source": "original curation, src/data/home.json"

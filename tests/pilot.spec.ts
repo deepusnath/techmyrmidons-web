@@ -26,6 +26,30 @@ async function freshVisit(page: Page, route: string) {
   await page.goto(p(route));
 }
 
+/**
+ * Open "Where I stand" for one domain.
+ *
+ * With more than one active Myrmidon the page renders a switcher, and which
+ * snapshot is on screen first is domain ordering rather than anything a test
+ * should rest on. A test that means frontend's diagnosis now says so.
+ */
+async function selectSnapshotDomain(page: Page, domain: string) {
+  const tab = page.getByTestId(`snapshot-domain-${domain}`);
+  if (await tab.count()) await tab.click();
+}
+
+/** Navigate to the snapshot without touching stored state. */
+async function gotoSnapshot(page: Page, domain = 'frontend') {
+  await page.goto(p('/me/'));
+  await selectSnapshotDomain(page, domain);
+}
+
+/** Start clean, then open the snapshot. For tests that begin at /me/. */
+async function openSnapshot(page: Page, domain = 'frontend') {
+  await freshVisit(page, '/me/');
+  await selectSnapshotDomain(page, domain);
+}
+
 /** Fails the test if the page logged a console error. */
 function trackConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
@@ -144,7 +168,7 @@ test('progress: mark a tool, toggle it off, and confirm it persists', async ({ p
 test('snapshot: context assessment drives an explainable diagnosis', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered in trust.spec');
   const errors = trackConsoleErrors(page);
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
 
   // Context is required before anything is recommended.
   await expect(page.getByTestId('needs-context')).toBeVisible();

@@ -22,13 +22,47 @@ async function freshVisit(page: Page, route: string) {
   await page.goto(p(route));
 }
 
+/**
+ * The review workstation renders a section per active domain, so a bare testid
+ * matches once per Myrmidon. Tests scope to the domain they are asserting about.
+ */
+const priorityOf = (page: Page, domain = 'frontend') => page.getByTestId(`priority-${domain}`);
+const inventoryOf = (page: Page, domain = 'frontend') => page.getByTestId(`inventory-${domain}`);
+
+/**
+ * Open "Where I stand" for one domain.
+ *
+ * With more than one active Myrmidon the page renders a switcher, and which
+ * snapshot is on screen first is domain ordering rather than anything a test
+ * should rest on. A test that means frontend's diagnosis now says so.
+ */
+async function selectSnapshotDomain(page: Page, domain: string) {
+  const tab = page.getByTestId(`snapshot-domain-${domain}`);
+  if (await tab.count()) await tab.click();
+}
+
+/** Navigate to the snapshot without touching stored state. */
+async function gotoSnapshot(page: Page, domain = 'frontend') {
+  await page.goto(p('/me/'));
+  await selectSnapshotDomain(page, domain);
+}
+
+/** Start clean, then open the snapshot. For tests that begin at /me/. */
+async function openSnapshot(page: Page, domain = 'frontend') {
+  await freshVisit(page, '/me/');
+  await selectSnapshotDomain(page, domain);
+}
+
 async function completeAssessment(
   page: Page,
   work: string,
   goal: string,
   tools: Array<[string, string]> = [],
+  domain = 'frontend',
 ) {
-  await page.goto(p('/me/'));
+  // Deliberately not a fresh visit: callers mark tools first, and clearing
+  // storage here would discard exactly what the assessment is meant to see.
+  await gotoSnapshot(page, domain);
   await page.getByTestId(`work-${work}`).click();
   await page.getByTestId(`goal-${goal}`).click();
   for (const [slug, state] of tools) {
@@ -90,8 +124,8 @@ test('footer does not overclaim source coverage', async ({ page }) => {
 test('review inventory lists unreviewed claims without attributing them', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await page.goto(p('/review/'));
-  await expect(page.getByRole('heading', { name: /Editorial review inventory/i })).toBeVisible();
-  await expect(page.getByTestId('unreviewed-tools').locator('li').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Editorial review inventory/i }).first()).toBeVisible();
+  await expect(inventoryOf(page).getByTestId('unreviewed-tools').locator('li').first()).toBeVisible();
   await expect(page.locator('body')).not.toContainText('Deepu S Nath');
   // Coverage and gaps are stated, not implied.
   await expect(page.locator('body')).toContainText(/Signals eligible to inform trends/i);
@@ -133,7 +167,7 @@ test('repository signals never imply personal usage', async ({ page }) => {
 
 test('recommendations require context rather than guessing', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'production withholds the rules entirely; covered by the gating test');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await expect(page.getByTestId('needs-context')).toBeVisible();
   await expect(page.getByTestId('assessment')).toBeVisible();
   // Nothing is recommended before context exists.
@@ -142,7 +176,7 @@ test('recommendations require context rather than guessing', async ({ page }) =>
 
 test('an empty category alone never triggers a recommendation', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered separately');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   // Design-system context with Storybook marked. Many categories are empty, but
   // suggestions must come from the context rules, not from those gaps.
   await completeAssessment(page, 'design_systems', 'stay_current', [['storybook', 'using']]);
@@ -171,7 +205,7 @@ test('recommendations differ meaningfully by work context and goal', async ({ pa
   };
 
   // Journey 1 — legacy maintenance, modernizing an old stack.
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'legacy', 'modernize', [
     ['gulp', 'using'], ['jquery', 'using'], ['bootstrap', 'using'], ['sass', 'using'],
   ]);
@@ -182,13 +216,13 @@ test('recommendations differ meaningfully by work context and goal', async ({ pa
   await expect(page.getByTestId('appropriate-sass')).toBeVisible();
 
   // Journey 2 — content site, new stack.
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'content', 'new_stack');
   const content = await collect();
   expect(content).toContain('astro');
 
   // Journey 3 — SaaS app already on React and Vite.
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'apps', 'stay_current', [['react', 'using'], ['vite', 'using']]);
   const apps = await collect();
   expect(apps).not.toContain('astro');
@@ -200,7 +234,7 @@ test('recommendations differ meaningfully by work context and goal', async ({ pa
 
 test('no score, percentage, level or completeness meter is produced', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered separately');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'apps', 'stay_current', [['react', 'using']]);
   const body = page.locator('body');
 
@@ -266,7 +300,7 @@ test('no contact address is exposed when none is configured', async ({ page }) =
 
 test('production runs the diagnosis on reviewed rules only', async ({ page }) => {
   test.skip(!PRODUCTION_MODE, 'production-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
 
   // Until 2026-08-06 nothing was publishable and the whole diagnosis was
   // withheld. Six TypeScript rules now publish, so the diagnosis runs — but
@@ -294,7 +328,7 @@ test('production runs the diagnosis on reviewed rules only', async ({ page }) =>
 
 test('preview labels the whole diagnosis, not only the recommendations', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'legacy', 'modernize', [['gulp', 'using'], ['sass', 'using']]);
 
   const notice = page.getByTestId('diagnosis-draft-notice');
@@ -311,7 +345,7 @@ test('preview labels the whole diagnosis, not only the recommendations', async (
 
 test('learner: baseline is required, then the diagnosis suits that level', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
 
   await page.getByTestId('work-learning').click();
   await page.getByTestId('goal-skill_gaps').click();
@@ -345,7 +379,7 @@ test('learner: baseline is required, then the diagnosis suits that level', async
 
 test('recommendations are not internally contradictory', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'content', 'new_stack');
 
   // Astro brings its own build. Recommending Vite alongside it as a separate
@@ -396,11 +430,11 @@ test('review queue distinguishes unreviewed, reviewed-blocked and publishable', 
   test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
-  await expect(page.getByTestId('rules-reviewed')).toHaveText('6');
-  await expect(page.getByTestId('rules-blocked')).toHaveText('0');
-  await expect(page.getByTestId('rules-publishable')).toHaveText('6');
+  await expect(priorityOf(page).getByTestId('rules-reviewed')).toHaveText('6');
+  await expect(priorityOf(page).getByTestId('rules-blocked')).toHaveText('0');
+  await expect(priorityOf(page).getByTestId('rules-publishable')).toHaveText('6');
 
-  const apps = page.getByTestId('journey-apps');
+  const apps = priorityOf(page).getByTestId('journey-apps');
   await apps.locator('summary').click();
 
   // The six TypeScript rules now read as publishable: reviewed, and with a
@@ -416,7 +450,7 @@ test('review queue distinguishes unreviewed, reviewed-blocked and publishable', 
 
 test('production publishes reviewed rule text and withholds the rest', async ({ page }) => {
   test.skip(!PRODUCTION_MODE, 'production-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   const source = await page.content();
 
   // The six reviewed TypeScript rules publish, carrying their reviewer's name:
@@ -438,7 +472,7 @@ test('production publishes reviewed rule text and withholds the rest', async ({ 
 
 test('preview still shows draft material with correct labelling', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
   await completeAssessment(page, 'apps', 'stay_current', [['react', 'using']]);
 
   // Preview renders everything, still labelled as unreviewed overall.
@@ -465,10 +499,10 @@ test('priority review queue shows evidence and records nothing as reviewed', asy
   test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
-  await expect(page.getByRole('heading', { name: /Priority editorial review/i })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Priority editorial review/i }).first()).toBeVisible();
   await expect(page.getByText(/Nothing here is applied/i)).toBeVisible();
 
-  const dossier = page.getByTestId('dossier');
+  const dossier = priorityOf(page).getByTestId('dossier');
   await expect(dossier).toBeVisible();
 
   // Facts, interpretation and gaps are shown as three distinct things.
@@ -490,15 +524,15 @@ test('a reviewer decision stays local and changes no published claim', async ({ 
   await freshVisit(page, '/review/priority/');
 
   // An approval cannot be recorded anonymously.
-  await expect(page.getByTestId('action-approve')).toBeDisabled();
-  await page.getByTestId('reviewer-name').fill('Test Reviewer');
-  await expect(page.getByTestId('action-approve')).toBeEnabled();
+  await expect(priorityOf(page).getByTestId('action-approve')).toBeDisabled();
+  await priorityOf(page).getByTestId('reviewer-name').fill('Test Reviewer');
+  await expect(priorityOf(page).getByTestId('action-approve')).toBeEnabled();
 
-  await page.getByTestId('review-note').fill('Verified against the official docs.');
-  await page.getByTestId('action-approve').click();
+  await priorityOf(page).getByTestId('review-note').fill('Verified against the official docs.');
+  await priorityOf(page).getByTestId('action-approve').click();
 
-  await expect(page.getByTestId('decision-recorded')).toContainText(/not.*changed any published claim/i);
-  await expect(page.getByTestId('review-export')).toBeVisible();
+  await expect(priorityOf(page).getByTestId('decision-recorded')).toContainText(/not.*changed any published claim/i);
+  await expect(priorityOf(page).getByTestId('review-export')).toBeVisible();
 
   // The tool page must be unaffected — still unreviewed.
   await page.goto(p('/frontend/tools/typescript/'));
@@ -513,12 +547,12 @@ test('readiness reports blockers without a score or meter', async ({ page }) => 
   // Readiness is per journey. The four journeys carrying a TypeScript rule are
   // now partly available; "content" has none, so it stays fully blocked — which
   // is what shows the approval released only what it should.
-  await expect(page.getByTestId('readiness-legacy')).toContainText(/partly available/i);
-  await expect(page.getByTestId('readiness-design_systems')).toContainText(/partly available/i);
-  await expect(page.getByTestId('readiness-content')).toContainText(/fully blocked/i);
+  await expect(priorityOf(page).getByTestId('readiness-legacy')).toContainText(/partly available/i);
+  await expect(priorityOf(page).getByTestId('readiness-design_systems')).toContainText(/partly available/i);
+  await expect(priorityOf(page).getByTestId('readiness-content')).toContainText(/fully blocked/i);
   // TypeScript is done, so the recommendation has moved on to the next tool
   // carrying the most still-blocked rules.
-  await expect(page.getByTestId('highest-leverage')).toContainText(/tailwind/i);
+  await expect(priorityOf(page).getByTestId('highest-leverage')).toContainText(/tailwind/i);
 
   const body = page.locator('body');
   await expect(body).not.toContainText(/\b\d{1,3}\s?%\s*(complete|reviewed|ready)/i);
@@ -537,7 +571,7 @@ test('journey dependency map exposes rule-level review status', async ({ page })
 
 test('production ships only the rule text that has been reviewed', async ({ page }) => {
   test.skip(!PRODUCTION_MODE, 'production-mode assertion');
-  await freshVisit(page, '/me/');
+  await openSnapshot(page);
 
   const source = await page.content();
   // 6 of 56 rules are reviewed. The other 50 must be absent — checked by their

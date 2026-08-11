@@ -1,0 +1,407 @@
+{
+  "domain": "ai",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "note": "Context-fit rules for the AI Myrmidon. These are AI-authored editorial judgements about which tools serve which kind of work, and they are unreviewed. Review status is tracked per rule (rule_id), not per file: approving one rule must never publish an unrelated one. An AI domain drafted by an AI is the conflict governance §2 already withholds AI coding tools for — every rule here needs a reviewer with no stake in the category.",
+  "contexts": {
+    "building": {
+      "label": "Building with models",
+      "hint": "Calling a model from an application you ship",
+      "still_appropriate": {
+        "openai-python": {
+          "text": "Retain a direct provider SDK when the application targets one provider and uses capabilities its own client exposes first. Adding an abstraction to code that will not change provider buys portability you are not going to spend.",
+          "rule_id": "building.retain.openai-python",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        "instructor": {
+          "text": "Retain schema-validated extraction where responses feed downstream code. Removing it does not remove the failure mode; it moves the malformed response from a caught error to a parsing bug further along.",
+          "rule_id": "building.retain.instructor",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "reconsider": {
+        "langchain": {
+          "text": "Reconsider a framework layer when the application makes one kind of call to one provider. The abstractions earn their cost when a provider, store or tool is genuinely expected to change, and are indirection to debug when none of them will.",
+          "rule_id": "building.reconsider.langchain",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "candidates": [
+        {
+          "slug": "litellm",
+          "why": "You expect to change provider, mix providers, or need spend and routing controlled in one place rather than in each service.",
+          "unsuitable_if": "You call one provider and have no plan to change, where the gateway is a hop to operate for portability you will not use.",
+          "goals": [
+            "modernize",
+            "new_stack"
+          ],
+          "rule_id": "building.recommend.litellm",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "instructor",
+          "why": "You need model output as a typed object rather than a string you hope parses, and would rather a malformed response failed than propagated.",
+          "unsuitable_if": "Your output is free-form prose with no schema to hold it to, or retry cost on a hard schema is difficult to bound.",
+          "goals": [
+            "new_stack",
+            "stay_current"
+          ],
+          "rule_id": "building.recommend.instructor",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "langgraph",
+          "why": "Your agent runs long enough that it must be paused, resumed or inspected at a step boundary, or a human has to approve something partway through.",
+          "unsuitable_if": "The task is a single call, where a graph, a state schema and a persistence decision are ceremony around one request.",
+          "goals": [
+            "new_stack",
+            "modernize"
+          ],
+          "rule_id": "building.recommend.langgraph",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "anthropic-sdk",
+          "why": "You are committed to this provider and want each request and response handled explicitly rather than flattened through a shared format.",
+          "unsuitable_if": "You need to move between providers without a rewrite, or you are running local models the SDK does not target.",
+          "goals": [
+            "new_stack"
+          ],
+          "rule_id": "building.recommend.anthropic-sdk",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      ]
+    },
+    "training": {
+      "label": "Training and fine-tuning",
+      "hint": "Fitting or adapting a model on your own data",
+      "still_appropriate": {
+        "pytorch": {
+          "text": "Retain PyTorch when the work involves reading, modifying or reproducing published model code. Most research implementations and most published weights assume it, and porting is work before any of the actual work starts.",
+          "rule_id": "training.retain.pytorch",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        "scikit-learn": {
+          "text": "Retain a classical baseline alongside anything deeper. Its value is not the model but the comparison: without it there is no evidence that the expensive approach earned its cost.",
+          "rule_id": "training.retain.scikit-learn",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "reconsider": {
+        "keras": {
+          "text": "Reconsider a layer-level API when the work has moved to custom training loops or novel gradients. That work sits below the abstraction, and fighting through it is harder than writing against the backend directly.",
+          "rule_id": "training.reconsider.keras",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "candidates": [
+        {
+          "slug": "transformers",
+          "why": "You are adapting a published model rather than training one from scratch, and want loading, tokenisation and training loops that already work.",
+          "unsuitable_if": "Your architecture has no published implementation, or the uniform interface would hide differences between architectures that matter to you.",
+          "goals": [
+            "new_stack",
+            "skill_gaps"
+          ],
+          "rule_id": "training.recommend.transformers",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "mlflow",
+          "why": "You need to reproduce a result later and can no longer tell which configuration produced which number.",
+          "unsuitable_if": "The work is a one-off analysis nobody will revisit, or you cannot operate a tracking server and its storage.",
+          "goals": [
+            "modernize",
+            "stay_current"
+          ],
+          "rule_id": "training.recommend.mlflow",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "xgboost",
+          "why": "Your data is tabular and a boosted tree may answer the question at a fraction of the compute and with per-feature explanation.",
+          "unsuitable_if": "Your input is text, audio or images, where the structure a neural approach uses is exactly what trees cannot.",
+          "goals": [
+            "skill_gaps",
+            "modernize"
+          ],
+          "rule_id": "training.recommend.xgboost",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "jax",
+          "why": "Training spans many accelerators and you want that parallelism expressed explicitly rather than inferred.",
+          "unsuitable_if": "The team is new to functional programming, where the rewrite cost lands well before any benefit does.",
+          "goals": [
+            "new_stack"
+          ],
+          "rule_id": "training.recommend.jax",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      ]
+    },
+    "serving": {
+      "label": "Serving and inference",
+      "hint": "Putting a model behind a request",
+      "still_appropriate": {
+        "onnx-runtime": {
+          "text": "Retain an exported runtime where one artefact serves several hardware targets. Re-coupling serving to the training framework trades that portability for a dependency on every target machine.",
+          "rule_id": "serving.retain.onnx-runtime",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "reconsider": {
+        "text-generation-inference": {
+          "text": "Reconsider Text Generation Inference for new work. Its own documentation states it is in maintenance mode, accepting only minor fixes and lightweight maintenance, and points readers to other engines. Existing deployments are not broken by that, but new ones start on a fixed target.",
+          "rule_id": "serving.reconsider.text-generation-inference",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "candidates": [
+        {
+          "slug": "vllm",
+          "why": "You are serving many concurrent callers and GPU cost per request decides whether self-hosting beats an API.",
+          "unsuitable_if": "You are serving one developer machine, or you have no capacity to own a serving tier and its failure modes.",
+          "goals": [
+            "modernize",
+            "new_stack"
+          ],
+          "rule_id": "serving.recommend.vllm",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "ollama",
+          "why": "You want a model running locally in one command to evaluate it before committing to anything.",
+          "unsuitable_if": "You are serving production traffic, or you need quantization and context settings chosen explicitly rather than for you.",
+          "goals": [
+            "stay_current",
+            "skill_gaps"
+          ],
+          "rule_id": "serving.recommend.ollama",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "llama-cpp",
+          "why": "Inference must run without a datacentre GPU — on a laptop, a small server, or offline.",
+          "unsuitable_if": "Quantization loss is unacceptable and unmeasured, or concurrency is high enough that a batching server uses the hardware better.",
+          "goals": [
+            "new_stack",
+            "modernize"
+          ],
+          "rule_id": "serving.recommend.llama-cpp",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      ]
+    },
+    "data_eval": {
+      "label": "Data and evaluation",
+      "hint": "Retrieval, measurement and knowing whether it works",
+      "still_appropriate": {
+        "pgvector": {
+          "text": "Retain vectors in the database you already run while it serves. Moving them to a dedicated store adds a service, a copy to keep in sync and a consistency problem, and the limit that justifies it arrives later than teams expect.",
+          "rule_id": "data_eval.retain.pgvector",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "reconsider": {
+        "chroma": {
+          "text": "Reconsider an in-process store once the workload is serving real concurrency. The embedded mode that made it quick to start is not the mode you operate for many users, and the move is a deployment decision rather than a configuration change.",
+          "rule_id": "data_eval.reconsider.chroma",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      },
+      "candidates": [
+        {
+          "slug": "ragas",
+          "why": "Answer quality depends on what retrieval fetched, and you need the regression to show as a number rather than a feeling.",
+          "unsuitable_if": "There is no retrieval step to measure, or no reference set to score against.",
+          "goals": [
+            "modernize",
+            "stay_current"
+          ],
+          "rule_id": "data_eval.recommend.ragas",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "deepeval",
+          "why": "You want model behaviour under a test gate before release, alongside the tests you already run.",
+          "unsuitable_if": "Nobody has agreed what a good answer is, so there is no definition for the metrics to encode.",
+          "goals": [
+            "stay_current",
+            "modernize"
+          ],
+          "rule_id": "data_eval.recommend.deepeval",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "qdrant",
+          "why": "Retrieval must satisfy structured filters as part of the search rather than after it — tenancy, dates, permissions.",
+          "unsuitable_if": "The corpus is small enough that an extension to your existing database serves, or you cannot operate another stateful service.",
+          "goals": [
+            "new_stack",
+            "modernize"
+          ],
+          "rule_id": "data_eval.recommend.qdrant",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "weights-and-biases",
+          "why": "You are comparing many runs and the comparison is visual rather than tabular.",
+          "unsuitable_if": "Run data cannot leave your network without the self-hosted tier, or the project is small enough that a naming convention suffices.",
+          "goals": [
+            "stay_current"
+          ],
+          "rule_id": "data_eval.recommend.weights-and-biases",
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      ]
+    },
+    "learning": {
+      "label": "Learning or exploring",
+      "hint": "Building your foundation in the field",
+      "needs_baseline": true,
+      "still_appropriate": {},
+      "reconsider": {},
+      "candidates": [
+        {
+          "slug": "scikit-learn",
+          "why": "It is the shortest path from a dataset to a working model, and its consistent interface means changing algorithm is one line rather than a rewrite.",
+          "unsuitable_if": "You already work with classical methods daily, where the time is better spent on what you have not done.",
+          "goals": [
+            "skill_gaps",
+            "new_stack"
+          ],
+          "rule_id": "learning.recommend.scikit-learn",
+          "baselines": [
+            "new_to_ml",
+            "uses_apis"
+          ],
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "ollama",
+          "why": "Running a model on your own machine makes the thing concrete, and costs nothing per experiment.",
+          "unsuitable_if": "You are still learning what a model is for, where reading before installing is the cheaper start.",
+          "goals": [
+            "skill_gaps",
+            "stay_current"
+          ],
+          "rule_id": "learning.recommend.ollama",
+          "baselines": [
+            "new_to_ml",
+            "uses_apis"
+          ],
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "pytorch",
+          "why": "Once you are modifying models rather than calling them, this is what published implementations assume.",
+          "unsuitable_if": "You have not yet trained anything, where a framework is more surface than the problem needs.",
+          "goals": [
+            "skill_gaps",
+            "new_stack"
+          ],
+          "rule_id": "learning.recommend.pytorch",
+          "baselines": [
+            "trains_models",
+            "ships_ml"
+          ],
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        },
+        {
+          "slug": "transformers",
+          "why": "Loading a published model is the fastest way to see what a pretrained system does before you train one.",
+          "unsuitable_if": "You have not yet worked with a model at all, where the interface hides the concepts you are trying to learn.",
+          "goals": [
+            "skill_gaps",
+            "stay_current"
+          ],
+          "rule_id": "learning.recommend.transformers",
+          "baselines": [
+            "uses_apis",
+            "trains_models"
+          ],
+          "editorial_status": "ai_draft",
+          "reviewed_by": null,
+          "reviewed_at": null
+        }
+      ]
+    }
+  },
+  "baselines": [
+    {
+      "value": "new_to_ml",
+      "label": "New to machine learning"
+    },
+    {
+      "value": "uses_apis",
+      "label": "Comfortable calling model APIs"
+    },
+    {
+      "value": "trains_models",
+      "label": "Have trained or fine-tuned a model"
+    },
+    {
+      "value": "ships_ml",
+      "label": "Have shipped an ML system to production"
+    }
+  ],
+  "review_granularity": "rule"
+}

@@ -24,6 +24,13 @@ async function freshVisit(page: Page, route: string) {
 }
 
 /**
+ * The review workstation renders a section per active domain, so a bare testid
+ * matches once per Myrmidon. Tests scope to the domain they are asserting about.
+ */
+const priorityOf = (page: Page, domain = 'frontend') => page.getByTestId(`priority-${domain}`);
+const inventoryOf = (page: Page, domain = 'frontend') => page.getByTestId(`inventory-${domain}`);
+
+/**
  * Every file in the static export, for artifact-level assertions.
  *
  * `.git` is not part of the export. scripts/deploy-pages.sh builds a throwaway
@@ -53,19 +60,19 @@ test('preview serves the review inventory and priority queue', async ({ page }) 
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
 
   await freshVisit(page, '/review/');
-  await expect(page.getByRole('heading', { name: /Editorial review inventory/i })).toBeVisible();
-  await expect(page.getByTestId('priority-link')).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Editorial review inventory/i }).first()).toBeVisible();
+  await expect(inventoryOf(page).getByTestId('priority-link')).toBeVisible();
 
   await freshVisit(page, '/review/priority/');
-  await expect(page.getByRole('heading', { name: /Priority editorial review/i })).toBeVisible();
-  await expect(page.getByTestId('dossier')).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Priority editorial review/i }).first()).toBeVisible();
+  await expect(priorityOf(page).getByTestId('dossier')).toBeVisible();
 
   // The reviewer workflow itself still functions.
-  await expect(page.getByTestId('action-approve')).toBeDisabled();
-  await page.getByTestId('reviewer-name').fill('Test Reviewer');
-  await page.getByTestId('action-approve').click();
-  await expect(page.getByTestId('decision-recorded')).toBeVisible();
-  await expect(page.getByTestId('review-export')).toBeVisible();
+  await expect(priorityOf(page).getByTestId('action-approve')).toBeDisabled();
+  await priorityOf(page).getByTestId('reviewer-name').fill('Test Reviewer');
+  await priorityOf(page).getByTestId('action-approve').click();
+  await expect(priorityOf(page).getByTestId('decision-recorded')).toBeVisible();
+  await expect(priorityOf(page).getByTestId('review-export')).toBeVisible();
 });
 
 test('preview shows all three review states', async ({ page }) => {
@@ -75,11 +82,11 @@ test('preview shows all three review states', async ({ page }) => {
   // Since the TypeScript destination was approved on 2026-08-06 those six rules
   // are publishable rather than blocked. The queue must show that, and must
   // still show the 50 unreviewed rules as unreviewed.
-  await expect(page.getByTestId('rules-reviewed')).toHaveText('6');
-  await expect(page.getByTestId('rules-blocked')).toHaveText('0');
-  await expect(page.getByTestId('rules-publishable')).toHaveText('6');
+  await expect(priorityOf(page).getByTestId('rules-reviewed')).toHaveText('6');
+  await expect(priorityOf(page).getByTestId('rules-blocked')).toHaveText('0');
+  await expect(priorityOf(page).getByTestId('rules-publishable')).toHaveText('6');
 
-  const apps = page.getByTestId('journey-apps');
+  const apps = priorityOf(page).getByTestId('journey-apps');
   await apps.locator('summary').click();
   expect(await apps.locator('[data-rule-state="publishable"]').count()).toBeGreaterThan(0);
   expect(await apps.locator('[data-rule-state="unreviewed"]').count()).toBeGreaterThan(0);
