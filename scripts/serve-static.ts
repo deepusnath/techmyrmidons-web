@@ -17,7 +17,14 @@ const arg = (flag: string, fallback: string) => {
   return i === -1 ? fallback : process.argv[i + 1];
 };
 
-const PORT = Number(arg('port', '3100'));
+/**
+ * Explicit --port wins, then PORT from the environment, then the default.
+ *
+ * The environment step is what lets a launcher assign a free port when 3100 is
+ * already taken — without it, an assigned PORT is silently ignored and the
+ * server collides with whatever is already there.
+ */
+const PORT = Number(arg('port', process.env.PORT || '3100'));
 const ROOT = path.resolve(process.cwd(), arg('dir', 'out'));
 /**
  * Serve under a sub-path, mirroring a GitHub Pages project site. Without this

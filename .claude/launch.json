@@ -10,8 +10,9 @@
     {
       "name": "techmyrmidons-preview",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["scripts/serve-static.ts", "--port", "3100"],
-      "port": 3100
+      "runtimeArgs": ["scripts/serve-static.ts"],
+      "port": 3100,
+      "autoPort": true
     }
   ]
 }
