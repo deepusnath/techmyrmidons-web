@@ -4,6 +4,7 @@ import { SHOW_DRAFTS } from '../../lib/provenance.ts';
 import { redactToReviewed } from '../../lib/review.ts';
 import { routes } from '../../lib/routes.ts';
 import { ProfileCard, type ProfileDomainData } from '../../components/ProfileCard.tsx';
+import { ProfileShare } from '../../components/ProfileShare.tsx';
 
 /**
  * "My profile" — the user's journey through each active domain.
@@ -61,6 +62,8 @@ export default function ProfilePage() {
       {domains.map((d) => (
         <ProfileCard key={d.slug} domain={d} />
       ))}
+
+      <ProfileShare domains={domains} />
 
       <p className="text-xs" style={{ color: 'var(--fg-faint)' }}>
         Marks are made on tool pages —{' '}

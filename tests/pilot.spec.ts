@@ -427,3 +427,41 @@ test('profile: tiers are per domain, self-reported, and never a percentage', asy
   await page.getByTestId('me-profile-link').click();
   await expect(page.getByTestId('profile-card-frontend')).toBeVisible();
 });
+
+test('profile: share link round-trips serverless and declares provenance', async ({ page }) => {
+  // No activity → nothing shareable, and the panel says so instead of minting
+  // an empty link.
+  await freshVisit(page, '/profile/');
+  await expect(page.getByText(/Mark at least one tool and your profile becomes shareable/i)).toBeVisible();
+  await expect(page.getByTestId('share-create')).toHaveCount(0);
+
+  // Ship one tool, create the link.
+  await page.goto(p('/frontend/tools/vite/'));
+  await page.getByTestId('state-shipped').click();
+  await page.goto(p('/profile/'));
+  await page.getByTestId('share-create').click();
+  const url = await page.getByTestId('share-url').inputValue();
+  expect(url).toContain('/profile/view/#s=');
+
+  // The snapshot lives in the fragment: the server-visible part of the URL
+  // carries no user data.
+  expect(new URL(url).pathname).not.toContain('s=');
+
+  // The viewer renders the snapshot read-only with its provenance banner.
+  await page.goto(url);
+  await expect(page.getByTestId('share-provenance')).toContainText(/self-reported/i);
+  await expect(page.getByTestId('share-provenance')).toContainText(/not.*verified|Nothing here is verified/i);
+  const card = page.getByTestId('shared-domain');
+  await expect(card).toContainText('Frontend');
+  await expect(card).toContainText('Scout');
+  await expect(card).toContainText('Vite');
+
+  // Still no percentages, still no meters — the stance follows the data.
+  await expect(page.locator('body')).not.toContainText(/\b\d{1,3}\s?%/);
+  await expect(page.locator('progress, meter, [role="progressbar"]')).toHaveCount(0);
+
+  // A tampered fragment renders nothing, not something.
+  await page.goto(p('/profile/view/#s=corrupted-beyond-repair'));
+  await expect(page.getByTestId('share-invalid')).toBeVisible();
+  await expect(page.getByTestId('shared-domain')).toHaveCount(0);
+});

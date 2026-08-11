@@ -10,7 +10,7 @@ npm run build            # Preview static export to out/ (drafts and review rout
 npm run build:production # Drafts-hidden export — the only build that may be published
 npm run validate         # Validate content/ against schema.ts — run after editing content
 npm run test:rules       # Rule-isolation and publication-gate assertions
-npm run test:completion  # Completion-model assertions (profiles plan)
+npm run test:completion  # Completion-model and share-codec assertions (profiles plan)
 npm run deploy           # Drafts-hidden build + guard + publish to GitHub Pages
 ```
 
