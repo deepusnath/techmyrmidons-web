@@ -1,0 +1,34 @@
+{
+  "slug": "anthropic-sdk",
+  "name": "Anthropic SDK",
+  "category": "model access",
+  "homepage": "https://docs.anthropic.com/en/api/client-sdks",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "Official client libraries for the Claude API.",
+  "what_it_is": "General-purpose Messages API clients, published by the vendor for Python, TypeScript, C#, Go, Java, PHP and Ruby. Its documentation describes the SDKs as being for calling the API yourself: you send each request and handle each response.",
+  "why_it_matters": "It is the direct path to one provider’s API, with the same trade as any first-party client: full access to that vendor’s capabilities, and a surface that is theirs rather than portable. Where a provider’s request shape differs from the one an abstraction assumes, using the vendor client is what makes the difference visible instead of silently flattened.",
+  "suitable_for": [
+    "Applications committed to this provider",
+    "Using capabilities before a shared abstraction expresses them",
+    "Cases where each request and response should be handled explicitly"
+  ],
+  "not_suitable_for": [
+    "Applications that must move between providers without a rewrite",
+    "Central routing or spend control across providers",
+    "Local or self-hosted models, which it does not target"
+  ],
+  "alternatives": [
+    "LiteLLM",
+    "OpenAI Python SDK"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

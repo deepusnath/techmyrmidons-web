@@ -1,0 +1,34 @@
+{
+  "slug": "openai-python",
+  "name": "OpenAI Python SDK",
+  "category": "model access",
+  "homepage": "https://github.com/openai/openai-python",
+  "lifecycle": "established",
+  "first_seen_year": 2020,
+  "one_liner": "Official Python client for the OpenAI REST API.",
+  "what_it_is": "A library providing convenient access to the OpenAI REST API from Python, in its own words. Requests and responses are typed, and the request shape it defines is also implemented by several other providers and gateways.",
+  "why_it_matters": "Calling the API directly is the smallest thing that works, and for a single provider it is usually the clearest code to read a year later. The catch is that the surface is one vendor: model names, parameters and newer capabilities are theirs, and portability is something you add on top rather than get from it.",
+  "suitable_for": [
+    "Applications committed to one provider",
+    "Cases where the clearest possible request path matters",
+    "Using capabilities before an abstraction layer supports them"
+  ],
+  "not_suitable_for": [
+    "Applications that must move between providers without a rewrite",
+    "Central cost control across several teams",
+    "Local or self-hosted models, which it does not target"
+  ],
+  "alternatives": [
+    "LiteLLM",
+    "Anthropic SDK"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
