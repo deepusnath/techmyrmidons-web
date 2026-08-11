@@ -397,3 +397,33 @@ test('state: v1 local data survives the move to domain-scoped keys', async ({ pa
   expect(v2.assessments.frontend.goal).toBe('stay_current');
   expect(v2.follows).toEqual(['frontend']);
 });
+
+test('profile: tiers are per domain, self-reported, and never a percentage', async ({ page }) => {
+  await freshVisit(page, '/profile/');
+
+  // One card per active Myrmidon, both untouched.
+  await expect(page.getByTestId('profile-card-frontend').getByTestId('profile-tier')).toHaveText('Not started');
+  await expect(page.getByTestId('profile-card-ai').getByTestId('profile-tier')).toHaveText('Not started');
+
+  // Ship with one frontend tool.
+  await page.goto(p('/frontend/tools/vite/'));
+  await page.getByTestId('state-shipped').click();
+  await page.goto(p('/profile/'));
+
+  // The mark moves exactly one domain's tier — state is domain-scoped.
+  const frontend = page.getByTestId('profile-card-frontend');
+  await expect(frontend.getByTestId('profile-tier')).toHaveText('Scout');
+  await expect(frontend.getByTestId('profile-recent')).toContainText('Vite');
+  await expect(frontend.getByTestId('profile-recent')).toContainText('Shipped');
+  await expect(page.getByTestId('profile-card-ai').getByTestId('profile-tier')).toHaveText('Not started');
+
+  // The no-score stance holds on this page too: fractions and tiers, never a
+  // percentage or a meter element.
+  await expect(page.locator('body')).not.toContainText(/\b\d{1,3}\s?%/);
+  await expect(page.locator('progress, meter, [role="progressbar"]')).toHaveCount(0);
+
+  // Reachable from "Where I stand".
+  await page.goto(p('/me/'));
+  await page.getByTestId('me-profile-link').click();
+  await expect(page.getByTestId('profile-card-frontend')).toBeVisible();
+});

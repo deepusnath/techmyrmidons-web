@@ -1,8 +1,10 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getDomains, getHeuristics, getTools } from '../../lib/content.ts';
 import { getToolViews } from '../../lib/views.ts';
 import { SHOW_DRAFTS } from '../../lib/provenance.ts';
 import { redactToReviewed } from '../../lib/review.ts';
+import { routes } from '../../lib/routes.ts';
 import { MyrmidonSnapshots, type SnapshotDomain } from '../../components/MyrmidonSnapshots.tsx';
 
 export default function MePage() {
@@ -49,7 +51,10 @@ export default function MePage() {
           {domains.length > 1
             ? 'Each Myrmidon asks separately, because the contexts that matter differ by field. '
             : ''}
-          Stored in this browser only — no account, nothing uploaded.
+          Stored in this browser only — no account, nothing uploaded.{' '}
+          <Link href={routes.profile()} data-testid="me-profile-link" className="font-semibold hover:underline" style={{ color: 'var(--color-ember)' }}>
+            View my profile →
+          </Link>
         </p>
       </header>
 

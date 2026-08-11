@@ -14,6 +14,7 @@ export const routes = {
   tool: (domain: string, slug: string) => `/${domain}/tools/${slug}/`,
   signals: (domain: string) => `/${domain}/activity/`,
   me: () => '/me/',
+  profile: () => '/profile/',
   submit: () => '/submit/',
 } as const;
 
