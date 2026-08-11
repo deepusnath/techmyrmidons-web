@@ -46,6 +46,7 @@ const TYPES: Record<string, string> = {
   '.woff2': 'font/woff2',
   '.txt': 'text/plain; charset=utf-8',
   '.ico': 'image/x-icon',
+  '.xml': 'application/xml; charset=utf-8',
 };
 
 function resolveFile(urlPath: string): string | null {

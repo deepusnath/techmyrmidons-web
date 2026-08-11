@@ -465,3 +465,36 @@ test('profile: share link round-trips serverless and declares provenance', async
   await expect(page.getByTestId('share-invalid')).toBeVisible();
   await expect(page.getByTestId('shared-domain')).toHaveCount(0);
 });
+
+test('feed: each Myrmidon publishes reviewed changes only, linked from its page', async ({ page }) => {
+  // The feed link is on the domain page, as a plain file link.
+  await freshVisit(page, '/frontend/');
+  await expect(page.getByTestId('domain-feed')).toHaveAttribute('href', /\/frontend\/feed\.xml$/);
+
+  // Frontend has exactly one reviewed tool, so its feed has exactly one entry —
+  // and none of the unreviewed catalogue appears, in preview or production.
+  const fe = await page.request.get(p('/frontend/feed.xml'));
+  expect(fe.status()).toBe(200);
+  const feBody = await fe.text();
+  expect(feBody).toContain('<feed xmlns="http://www.w3.org/2005/Atom">');
+  expect(feBody).toContain('TypeScript — published in the Frontend catalogue');
+  expect((feBody.match(/<entry>/g) ?? []).length).toBe(1);
+  expect(feBody).not.toContain('Vite');
+  expect(feBody).not.toContain('Tailwind');
+
+  // The AI catalogue was approved wholesale, so its feed carries those entries,
+  // each dated by its sign-off.
+  const ai = await page.request.get(p('/ai/feed.xml'));
+  expect(ai.status()).toBe(200);
+  const aiBody = await ai.text();
+  expect((aiBody.match(/<entry>/g) ?? []).length).toBeGreaterThan(20);
+  expect(aiBody).toContain('PyTorch — published in the Artificial Intelligence catalogue');
+  expect(aiBody).toContain('<updated>2026-08-07T00:00:00Z</updated>');
+
+  // Feed prose stays inside the review boundary: no draft labels, no withheld
+  // wording, and summaries only where that field was reviewed.
+  for (const body of [feBody, aiBody]) {
+    expect(body).not.toContain('AI-assisted draft');
+    expect(body).not.toContain('unreviewed');
+  }
+});

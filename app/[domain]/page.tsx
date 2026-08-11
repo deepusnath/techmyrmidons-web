@@ -78,6 +78,16 @@ export default async function DomainHome({ params }: { params: Promise<{ domain:
             >
               Signals →
             </Link>
+            {/* A plain file, not a route the client router should intercept. */}
+            <a
+              href={`${base}/${slug}/feed.xml`}
+              data-testid="domain-feed"
+              title="Atom feed — entries appear when an editor signs content off"
+              className="text-sm font-semibold hover:underline"
+              style={{ color: 'var(--fg-dim)' }}
+            >
+              Feed →
+            </a>
           </div>
         </div>
       </section>

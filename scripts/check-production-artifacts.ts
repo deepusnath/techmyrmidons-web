@@ -109,6 +109,22 @@ function main() {
   }
   check('no /review URL remains anywhere in out/', urlHits);
 
+  // 2b. Every active domain ships its Atom feed. The feed is the "follow the
+  //     Myrmidon" surface, and its entries derive from review metadata only —
+  //     the generic phrase scan above covers its content like any other file,
+  //     so what remains to prove is that the deploy did not silently drop it.
+  try {
+    const domains = JSON.parse(
+      readFileSync(path.resolve(process.cwd(), 'content/domains.json'), 'utf8'),
+    ) as Array<{ slug: string; status: string }>;
+    check(
+      'every active domain ships its Atom feed',
+      domains.filter((d) => d.status === 'active' && !files.includes(`${d.slug}/feed.xml`)).map((d) => d.slug),
+    );
+  } catch {
+    check('every active domain ships its Atom feed', ['content/domains.json unreadable']);
+  }
+
   // 3. Withheld editorial must not leak through any other surface either.
   check('no withheld dossier text, decision log, rule id or reviewer name leaks', textHits);
 
