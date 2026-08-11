@@ -1,6 +1,6 @@
 # ADR-001 — Backend for identity, public profiles and social
 
-**Status:** Proposed — awaiting owner acceptance and provisioning
+**Status:** Accepted by Deepu S Nath, 2026-08-12 — provisioning outstanding
 **Decider:** Deepu S Nath · drafted with AI assistance, 2026-08-12
 **Story:** B1 in [PRODUCT_PLAN_PROFILES.md](../PRODUCT_PLAN_PROFILES.md) · epic #8
 
@@ -107,8 +107,9 @@ Prices and quotas above were read from the vendors' pages on 2026-08-12 and
 will drift; region choice (data residency) and an SMTP provider for magic-link
 email (built-in sender rate limits) are provisioning-day decisions.
 
-## What acceptance looks like
+## Acceptance
 
-Deepu replies accepting (or amending) this ADR and provisions the project.
-Then B2–B4, E1–E2 and F1–F2 get filed as issues and Phase B starts. Until
-then, nothing here binds anything.
+Accepted 2026-08-12. Phase B stories are filed. Implementation of B2–B4 and
+E1–E2 remains blocked on the one act that is the owner's alone: provisioning
+the Supabase project (region and SMTP decisions land then). F1–F2 need no
+backend and may proceed immediately.
