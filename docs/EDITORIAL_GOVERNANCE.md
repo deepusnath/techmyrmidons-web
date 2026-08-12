@@ -224,6 +224,25 @@ interpretation, never as a sourced fact — and a reviewer may legitimately reje
 a lifecycle classification on the grounds that the word itself overstates the
 evidence. Several dossiers flag exactly this in their `wrong_if`.
 
+### User-adoption aggregates (added 2026-08-12, story F2)
+
+Profiles let users mark tools as exploring, using or shipped. Aggregating those
+marks — "N people ship with X", "most users here prefer Y" — is **ineligible
+evidence for trend vocabulary**, for the same reasons repository signals are,
+compounded:
+
+- **Self-selected sample.** People who mark tools on this site are not a
+  population anyone can state, and the bias direction is unknowable.
+- **Self-reported and unverifiable.** A mark records a claim about oneself; no
+  reviewer can check it against a primary source, which fails §4 outright.
+- **Reflexive.** The site recommending X causes marks on X; feeding marks back
+  into editorial would launder the site's own influence into "evidence".
+
+The minimum bar above applies unchanged, and no current or planned surface
+meets it. Aggregate adoption counts therefore do not appear on tool pages,
+landscape views, or any editorial surface — not as numbers, not as ranks, not
+as "trending" flags.
+
 ---
 
 ## 9. Recording disagreement
@@ -247,3 +266,46 @@ Disagreement is expected and is recorded, not resolved by seniority.
 - It does not make repository signals eligible for anything.
 - It does not add a backend. Reviewer decisions export as JSON for a human to
   inspect and commit deliberately.
+
+---
+
+## 11. The user-data firewall (added 2026-08-12, story F1)
+
+Profiles and completion (docs/PRODUCT_PLAN_PROFILES.md, ADR-001) introduce a
+second kind of data: what users say about themselves. The firewall keeps the
+two kinds from contaminating each other, in both directions.
+
+**Editorial never grades people.** The diagnosis produces no score, percentage,
+level or completeness meter — unchanged. Completion tiers grade only a user's
+own self-reported journey, on profile surfaces, never inside the diagnosis.
+
+**User data never feeds editorial.** No mark, tier, aggregate or share ever
+contributes to a lifecycle classification, a rule, a trend claim, or any
+ranking of tools or people. Editorial claims trace to §4 sources; "our users"
+is not one.
+
+**User activity never renders on editorial surfaces.** Tool pages, landscape
+views, timelines, the diagnosis and the review workstation display editorial
+content and its provenance only. Profile, share-view and feed surfaces display
+user data and review metadata only.
+
+### Enforcement points
+
+Held by checks, not memory:
+
+- `scripts/validate-content.ts` — the §8 vocabulary bar on published content
+  prose (TREND_VOCABULARY), which any aggregate-derived wording would trip.
+- `scripts/check-production-artifacts.ts` — every production export scanned;
+  withheld editorial cannot reach user-facing surfaces, feeds included.
+- `lib/completion.ts` — a pure function over one user's marks; its signature
+  admits no second user, so cross-user aggregation has no code path. Its test
+  suite fails if any output surface formats a percentage.
+- **Phase B gate:** the B3 review must show the backend schema exposes no
+  cross-user aggregate view or query. Per ADR-001, F2 there means "no such
+  view exists" — refusal is structural, not policy.
+
+What remains convention rather than check: future app code could in principle
+render an aggregate it computed itself. It would have nothing to compute from
+— no cross-user data exists client-side, and the Phase B schema refuses it
+server-side — but reviewers of any PR touching editorial components should
+treat a new import of user-state into them as this firewall being breached.
