@@ -12,25 +12,25 @@
         "openai-python": {
           "text": "Retain a direct provider SDK when the application targets one provider and uses capabilities its own client exposes first. Adding an abstraction to code that will not change provider buys portability you are not going to spend.",
           "rule_id": "building.retain.openai-python",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         "instructor": {
           "text": "Retain schema-validated extraction where responses feed downstream code. Removing it does not remove the failure mode; it moves the malformed response from a caught error to a parsing bug further along.",
           "rule_id": "building.retain.instructor",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "reconsider": {
         "langchain": {
           "text": "Reconsider a framework layer when the application makes one kind of call to one provider. The abstractions earn their cost when a provider, store or tool is genuinely expected to change, and are indirection to debug when none of them will.",
           "rule_id": "building.reconsider.langchain",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "candidates": [
@@ -43,9 +43,9 @@
             "new_stack"
           ],
           "rule_id": "building.recommend.litellm",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "instructor",
@@ -56,9 +56,9 @@
             "stay_current"
           ],
           "rule_id": "building.recommend.instructor",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "langgraph",
@@ -69,9 +69,9 @@
             "modernize"
           ],
           "rule_id": "building.recommend.langgraph",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "anthropic-sdk",
@@ -92,27 +92,27 @@
       "hint": "Fitting or adapting a model on your own data",
       "still_appropriate": {
         "pytorch": {
-          "text": "Retain PyTorch when the work involves reading, modifying or reproducing published model code. Most research implementations and most published weights assume it, and porting is work before any of the actual work starts.",
+          "text": "Retain PyTorch when the work involves reading, modifying or reproducing published model code written against it. Porting someone else’s implementation to another framework is work that lands before any of the actual work starts.",
           "rule_id": "training.retain.pytorch",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         "scikit-learn": {
           "text": "Retain a classical baseline alongside anything deeper. Its value is not the model but the comparison: without it there is no evidence that the expensive approach earned its cost.",
           "rule_id": "training.retain.scikit-learn",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "reconsider": {
         "keras": {
           "text": "Reconsider a layer-level API when the work has moved to custom training loops or novel gradients. That work sits below the abstraction, and fighting through it is harder than writing against the backend directly.",
           "rule_id": "training.reconsider.keras",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "candidates": [
@@ -125,9 +125,9 @@
             "skill_gaps"
           ],
           "rule_id": "training.recommend.transformers",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "mlflow",
@@ -138,9 +138,9 @@
             "stay_current"
           ],
           "rule_id": "training.recommend.mlflow",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "xgboost",
@@ -151,9 +151,9 @@
             "modernize"
           ],
           "rule_id": "training.recommend.xgboost",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "jax",
@@ -163,9 +163,9 @@
             "new_stack"
           ],
           "rule_id": "training.recommend.jax",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       ]
     },
@@ -176,18 +176,18 @@
         "onnx-runtime": {
           "text": "Retain an exported runtime where one artefact serves several hardware targets. Re-coupling serving to the training framework trades that portability for a dependency on every target machine.",
           "rule_id": "serving.retain.onnx-runtime",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "reconsider": {
         "text-generation-inference": {
           "text": "Reconsider Text Generation Inference for new work. Its own documentation states it is in maintenance mode, accepting only minor fixes and lightweight maintenance, and points readers to other engines. Existing deployments are not broken by that, but new ones start on a fixed target.",
           "rule_id": "serving.reconsider.text-generation-inference",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "candidates": [
@@ -200,9 +200,9 @@
             "new_stack"
           ],
           "rule_id": "serving.recommend.vllm",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "ollama",
@@ -213,9 +213,9 @@
             "skill_gaps"
           ],
           "rule_id": "serving.recommend.ollama",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "llama-cpp",
@@ -226,9 +226,9 @@
             "modernize"
           ],
           "rule_id": "serving.recommend.llama-cpp",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       ]
     },
@@ -239,18 +239,18 @@
         "pgvector": {
           "text": "Retain vectors in the database you already run while it serves. Moving them to a dedicated store adds a service, a copy to keep in sync and a consistency problem, and the limit that justifies it arrives later than teams expect.",
           "rule_id": "data_eval.retain.pgvector",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "reconsider": {
         "chroma": {
           "text": "Reconsider an in-process store once the workload is serving real concurrency. The embedded mode that made it quick to start is not the mode you operate for many users, and the move is a deployment decision rather than a configuration change.",
           "rule_id": "data_eval.reconsider.chroma",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       },
       "candidates": [
@@ -263,9 +263,9 @@
             "stay_current"
           ],
           "rule_id": "data_eval.recommend.ragas",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "deepeval",
@@ -276,9 +276,9 @@
             "modernize"
           ],
           "rule_id": "data_eval.recommend.deepeval",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "qdrant",
@@ -289,9 +289,9 @@
             "modernize"
           ],
           "rule_id": "data_eval.recommend.qdrant",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "weights-and-biases",
@@ -301,9 +301,9 @@
             "stay_current"
           ],
           "rule_id": "data_eval.recommend.weights-and-biases",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       ]
     },
@@ -327,9 +327,9 @@
             "new_to_ml",
             "uses_apis"
           ],
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "ollama",
@@ -344,9 +344,9 @@
             "new_to_ml",
             "uses_apis"
           ],
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "pytorch",
@@ -361,9 +361,9 @@
             "trains_models",
             "ships_ml"
           ],
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         },
         {
           "slug": "transformers",
@@ -378,9 +378,9 @@
             "uses_apis",
             "trains_models"
           ],
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-12"
         }
       ]
     }
