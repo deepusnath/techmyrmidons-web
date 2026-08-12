@@ -471,16 +471,18 @@ test('feed: each Myrmidon publishes reviewed changes only, linked from its page'
   await freshVisit(page, '/frontend/');
   await expect(page.getByTestId('domain-feed')).toHaveAttribute('href', /\/frontend\/feed\.xml$/);
 
-  // Frontend has exactly one reviewed tool, so its feed has exactly one entry —
-  // and none of the unreviewed catalogue appears, in preview or production.
+  // The feed grows exactly as review does: four frontend tools carry a
+  // reviewer's signature, so four entries — and nothing unreviewed appears,
+  // in preview or production.
   const fe = await page.request.get(p('/frontend/feed.xml'));
   expect(fe.status()).toBe(200);
   const feBody = await fe.text();
   expect(feBody).toContain('<feed xmlns="http://www.w3.org/2005/Atom">');
   expect(feBody).toContain('TypeScript — published in the Frontend catalogue');
-  expect((feBody.match(/<entry>/g) ?? []).length).toBe(1);
-  expect(feBody).not.toContain('Vite');
-  expect(feBody).not.toContain('Tailwind');
+  expect(feBody).toContain('Tailwind CSS — published in the Frontend catalogue');
+  expect((feBody.match(/<entry>/g) ?? []).length).toBe(4);
+  expect(feBody).not.toContain('React —');
+  expect(feBody).not.toContain('webpack');
 
   // The AI catalogue was approved wholesale, so its feed carries those entries,
   // each dated by its sign-off.

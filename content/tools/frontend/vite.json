@@ -5,8 +5,8 @@
   "homepage": "https://vite.dev/",
   "lifecycle": "established",
   "first_seen_year": 2020,
-  "one_liner": "Native-ESM dev server with near-instant startup; the current default build tool.",
-  "what_it_is": "A build tool serving source over native ES modules in development — so startup does not scale with project size — and bundling with Rollup for production. Framework-agnostic, with official plugins for the major frameworks.",
+  "one_liner": "Build tool serving source on demand over native ESM in development, bundling with Rolldown for production.",
+  "what_it_is": "A build tool that serves source code on demand over native ES modules in development, so dev-server startup is nearly instant regardless of application size, and bundles for production with Rolldown, the Rust bundler that unified its earlier esbuild-and-Rollup pipeline. Framework-agnostic, with a plugin API many frameworks build on.",
   "why_it_matters": "Vite is the single most consequential build change since webpack, and the most likely gap in the stack of a developer who stopped re-evaluating tooling around 2019. The difference is not incremental: dev server startup goes from tens of seconds to roughly constant regardless of codebase size, which changes working rhythm rather than just saving time.",
   "suitable_for": [
     "Essentially all new frontend projects",
@@ -30,7 +30,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-13",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

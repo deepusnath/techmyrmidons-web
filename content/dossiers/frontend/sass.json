@@ -120,5 +120,14 @@
   "reviewed_by": null,
   "reviewed_at": null,
   "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against sass-lang.com. The superset claim now carries the source’s own hedge (\"with a few small exceptions ... essentially all valid CSS\"), \"imports\" became \"modules\" since @import sits in the project’s Breaking Changes, and the interpretive \"best ideas absorbed by the platform\" line moved out of the descriptive field. Lifecycle NOT signed: the approval question misstated the drafted value as \"declining\" when the record says \"established\", so the field stays draft until the editor decides which it should be."
+    }
+  ]
 }

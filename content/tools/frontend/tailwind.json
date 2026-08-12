@@ -4,8 +4,8 @@
   "name": "Tailwind CSS",
   "category": "styling",
   "homepage": "https://tailwindcss.com/",
-  "one_liner": "Utility-class CSS framework that moves styling decisions into markup.",
-  "what_it_is": "A CSS framework that ships a large set of single-purpose utility classes — padding, colour, flex, typography — which you compose directly in markup, plus a build step that strips every class you did not use. It deliberately does not ship pre-built components like a button or a card; it gives you the scale, not the parts.",
+  "one_liner": "Utility-first CSS framework: single-purpose classes composed directly in markup.",
+  "what_it_is": "A CSS framework packed with single-purpose utility classes — flex, padding, colour, typography — composed to build designs directly in your markup, in its own words. A build step scans your source files and generates only the CSS for the classes you actually use.",
   "why_it_matters": "Tailwind is the clearest example of a shift many experienced CSS developers sat out. The standard objection — that utility classes in markup are inline styles with extra steps — is reasonable, and it lost on practical grounds rather than aesthetic ones. Constraining developers to a fixed token scale prevents the slow entropy that afflicts hand-written stylesheets, and colocating style with markup dissolves the naming problem that consumed a decade of CSS architecture argument (BEM, OOCSS, SMACSS). If your view of styling settled around Sass and BEM, this is the specific thing worth re-examining — not because it is popular, but because the problem it solves is one you probably still have.",
   "lifecycle": "established",
   "first_seen_year": 2017,
@@ -32,7 +32,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-13",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

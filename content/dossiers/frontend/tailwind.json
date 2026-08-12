@@ -100,5 +100,14 @@
   "reviewed_by": null,
   "reviewed_at": null,
   "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against tailwindcss.com. Two amendments: the build-step clause reversed direction — the project scans source and generates the CSS for classes actually used, rather than stripping unused classes — and the unsourced \"gives you the scale, not the parts\" line was dropped. Lifecycle published under the same standing caveat as the 2026-08-07 AI batch: no adoption evidence, editor’s knowing exception."
+    }
+  ]
 }
