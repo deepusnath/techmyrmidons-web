@@ -1,4 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Smoke coverage for the browser pilot's core loop.
@@ -471,18 +473,25 @@ test('feed: each Myrmidon publishes reviewed changes only, linked from its page'
   await freshVisit(page, '/frontend/');
   await expect(page.getByTestId('domain-feed')).toHaveAttribute('href', /\/frontend\/feed\.xml$/);
 
-  // The feed grows exactly as review does: four frontend tools carry a
-  // reviewer's signature, so four entries — and nothing unreviewed appears,
-  // in preview or production.
+  // The feed grows exactly as review does, so the expected count comes from
+  // the content itself: one entry per published frontend tool a reviewer has
+  // signed. Pinning a number here just made every review batch a test edit.
+  const toolsDir = path.join(process.cwd(), 'content/tools/frontend');
+  const reviewed = fs.readdirSync(toolsDir)
+    .map((f) => JSON.parse(fs.readFileSync(path.join(toolsDir, f), 'utf8')))
+    .filter((t) => t.published && t.reviewed_at &&
+      ((t.reviewed_fields ?? []).length > 0 || t.editorial_status === 'reviewed'));
+  const unreviewedName = fs.readdirSync(toolsDir)
+    .map((f) => JSON.parse(fs.readFileSync(path.join(toolsDir, f), 'utf8')))
+    .find((t) => t.published && !t.reviewed_at)?.name;
+
   const fe = await page.request.get(p('/frontend/feed.xml'));
   expect(fe.status()).toBe(200);
   const feBody = await fe.text();
   expect(feBody).toContain('<feed xmlns="http://www.w3.org/2005/Atom">');
-  expect(feBody).toContain('TypeScript — published in the Frontend catalogue');
-  expect(feBody).toContain('Tailwind CSS — published in the Frontend catalogue');
-  expect((feBody.match(/<entry>/g) ?? []).length).toBe(4);
-  expect(feBody).not.toContain('React —');
-  expect(feBody).not.toContain('webpack');
+  expect((feBody.match(/<entry>/g) ?? []).length).toBe(reviewed.length);
+  for (const t of reviewed) expect(feBody).toContain(`${t.name} — published in the Frontend catalogue`);
+  if (unreviewedName) expect(feBody).not.toContain(`${unreviewedName} — published`);
 
   // The AI catalogue was approved wholesale, so its feed carries those entries,
   // each dated by its sign-off.

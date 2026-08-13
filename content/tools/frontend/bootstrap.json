@@ -4,8 +4,8 @@
   "name": "Bootstrap",
   "category": "styling",
   "homepage": "https://getbootstrap.com/",
-  "one_liner": "Component-and-grid CSS framework that made responsive layout routine.",
-  "what_it_is": "A CSS framework shipping pre-built components — navbars, modals, forms, cards — with a responsive grid and utility classes. Recent versions dropped the jQuery dependency and moved the grid onto flexbox and CSS grid.",
+  "one_liner": "Frontend toolkit shipping pre-built components on a responsive grid.",
+  "what_it_is": "A feature-packed frontend toolkit, in its own words, shipping pre-built components — navbars, modals, forms, cards — on a responsive flexbox-based grid, with an alternate layout system built on CSS Grid available as an opt-in. Version 5 dropped the jQuery dependency and rewrote the plugins in regular JavaScript.",
   "why_it_matters": "Bootstrap solved responsive layout when doing it by hand was genuinely hard, and it is still a sensible choice when you need a working interface faster than you need a distinctive one. Two things changed around it: native flexbox and grid removed the layout problem most teams actually bought it for, and its component styling is recognisable enough that products using it un-customised tend to look like one another. That is a real trade to weigh, not a reason to dismiss it.",
   "lifecycle": "established",
   "first_seen_year": 2011,
@@ -33,7 +33,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-13",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

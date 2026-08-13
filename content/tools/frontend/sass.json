@@ -37,6 +37,7 @@
   "reviewed_at": "2026-08-13",
   "reviewed_fields": [
     "one_liner",
-    "what_it_is"
+    "what_it_is",
+    "lifecycle"
   ]
 }

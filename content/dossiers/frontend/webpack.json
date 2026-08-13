@@ -100,5 +100,14 @@
   "reviewed_by": null,
   "reviewed_at": null,
   "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against webpack.js.org/concepts. Removed three unevidenced §8 claims: \"defined the 2016–2022 JavaScript build\", \"ceding default status\" (which evaded the substring check), and \"substrate underneath almost every framework CLI\". Lifecycle \"declining\" signed as pure editorial judgement — the project is actively maintained and has published no maintenance notice, unlike TGI — under the standing no-adoption-evidence caveat."
+    }
+  ]
 }

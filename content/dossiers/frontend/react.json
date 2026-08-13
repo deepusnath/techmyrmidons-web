@@ -96,5 +96,14 @@
   "reviewed_by": null,
   "reviewed_at": null,
   "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against react.dev and its Server Components reference. Dropped \"virtual DOM\", which the project’s current documentation does not use to describe itself, and the trend adverb \"increasingly\"; Server Components now carry the project’s exact wording. One-liner unchanged — it was already amended on 2026-08-07 to remove an unevidenced adoption claim. Lifecycle \"established\" signed under the standing caveat."
+    }
+  ]
 }

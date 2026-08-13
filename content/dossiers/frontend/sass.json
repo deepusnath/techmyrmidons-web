@@ -128,6 +128,13 @@
       "subject": "one_liner, what_it_is",
       "decision": "approve_with_edits",
       "reasoning": "Descriptions verified against sass-lang.com. The superset claim now carries the source’s own hedge (\"with a few small exceptions ... essentially all valid CSS\"), \"imports\" became \"modules\" since @import sits in the project’s Breaking Changes, and the interpretive \"best ideas absorbed by the platform\" line moved out of the descriptive field. Lifecycle NOT signed: the approval question misstated the drafted value as \"declining\" when the record says \"established\", so the field stays draft until the editor decides which it should be."
+    },
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "lifecycle",
+      "decision": "approve",
+      "reasoning": "Asked directly after the earlier misstatement was surfaced: the editor keeps \"established\". Recorded under the standing caveat that lifecycle values carry no adoption evidence."
     }
   ]
 }

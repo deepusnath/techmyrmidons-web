@@ -107,5 +107,14 @@
   "reviewed_by": null,
   "reviewed_at": null,
   "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against getbootstrap.com docs and the v5 migration notes (\"Dropped jQuery dependency and rewrote plugins to be in regular JavaScript\"). Corrected the grid claim: CSS Grid is the project’s opt-in alternate layout system, flexbox remains the default — the draft’s \"moved onto flexbox and CSS grid\" overstated. Dropped the unevidenced \"made responsive layout routine\". Lifecycle \"established\" signed under the standing caveat."
+    }
+  ]
 }
