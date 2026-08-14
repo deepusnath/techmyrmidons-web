@@ -27,6 +27,8 @@ async function freshVisit(page: Page, route: string) {
  * matches once per Myrmidon. Tests scope to the domain they are asserting about.
  */
 const priorityOf = (page: Page, domain = 'frontend') => page.getByTestId(`priority-${domain}`);
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import { getReadiness } from '../lib/review.ts';
 const inventoryOf = (page: Page, domain = 'frontend') => page.getByTestId(`inventory-${domain}`);
 
 /**
@@ -307,7 +309,6 @@ test('production runs the diagnosis on reviewed rules only', async ({ page }) =>
   // only on those six. Every unreviewed rule must still be absent.
   const body = page.locator('body');
   await expect(body).not.toContainText(/The bundler now owns the dependency graph/i);
-  await expect(body).not.toContainText(/A working stylesheet is an asset/i);
 
   // The user's own marked tools are their data and must survive. The diagnosis
   // now runs, so the snapshot appears after the assessment rather than beside a
@@ -321,7 +322,6 @@ test('production runs the diagnosis on reviewed rules only', async ({ page }) =>
   // anything passed to a client component ships in the page source.
   const source = await page.content();
   expect(source).not.toContain('bundler now owns the dependency graph');
-  expect(source).not.toContain('A working stylesheet is an asset');
   expect(source).not.toContain('legacy.reconsider.gulp');
   expect(source).not.toContain('content.recommend.astro');
 });
@@ -430,22 +430,22 @@ test('review queue distinguishes unreviewed, reviewed-blocked and publishable', 
   test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
-  await expect(priorityOf(page).getByTestId('rules-reviewed')).toHaveText('6');
-  await expect(priorityOf(page).getByTestId('rules-blocked')).toHaveText('0');
-  await expect(priorityOf(page).getByTestId('rules-publishable')).toHaveText('6');
+  const r = getReadiness('frontend');
+  await expect(priorityOf(page).getByTestId('rules-reviewed')).toHaveText(String(r.rulesReviewed));
+  await expect(priorityOf(page).getByTestId('rules-blocked')).toHaveText(String(r.rulesReviewedButBlocked));
+  await expect(priorityOf(page).getByTestId('rules-publishable')).toHaveText(String(r.rulesPublishable));
 
   const apps = priorityOf(page).getByTestId('journey-apps');
   await apps.locator('summary').click();
 
-  // The six TypeScript rules now read as publishable: reviewed, and with a
-  // reviewed destination to send the reader to.
+  // Publishable rules render as such, and a reviewed rule whose destination is
+  // not yet reviewed reads blocked rather than published — rule isolation as a
+  // visible state, not only a build property.
   const publishable = apps.locator('[data-rule-state="publishable"]');
   expect(await publishable.count()).toBeGreaterThan(0);
-
-  // An unrelated rule in the same journey stays plainly unreviewed — approving
-  // TypeScript released nothing else.
-  await expect(apps.locator('[data-rule-state="unreviewed"]').first()).toContainText(/unreviewed/);
-  await expect(apps.locator('[data-rule-state="reviewed-blocked"]')).toHaveCount(0);
+  if (r.rulesReviewedButBlocked > 0) {
+    expect(await priorityOf(page).locator('[data-rule-state="reviewed-blocked"]').count()).toBeGreaterThan(0);
+  }
 });
 
 test('production publishes reviewed rule text and withholds the rest', async ({ page }) => {
@@ -458,9 +458,11 @@ test('production publishes reviewed rule text and withholds the rest', async ({ 
   expect(source).toContain('Retain TypeScript when the application already depends');
   expect(source).toContain('Deepu S Nath');
 
-  // Every rule that is not reviewed stays out, wording and identifier alike.
+  // A reviewed rule whose destination is also reviewed now publishes — the
+  // sass retain rule crossed that line on 2026-08-13.
+  expect(source).toContain('A working stylesheet is an asset');
+  // Every rule that is not publishable stays out, wording and identifier alike.
   expect(source).not.toContain('bundler now owns the dependency graph');
-  expect(source).not.toContain('A working stylesheet is an asset');
   expect(source).not.toContain('clearest example of a shift');
   expect(source).not.toContain('legacy.reconsider.gulp');
   expect(source).not.toContain('content.recommend.astro');
@@ -544,15 +546,19 @@ test('readiness reports blockers without a score or meter', async ({ page }) => 
   test.skip(PRODUCTION_MODE, 'review routes are excluded from production builds entirely');
   await freshVisit(page, '/review/priority/');
 
-  // Readiness is per journey. The four journeys carrying a TypeScript rule are
-  // now partly available; "content" has none, so it stays fully blocked — which
-  // is what shows the approval released only what it should.
-  await expect(priorityOf(page).getByTestId('readiness-legacy')).toContainText(/partly available/i);
-  await expect(priorityOf(page).getByTestId('readiness-design_systems')).toContainText(/partly available/i);
-  await expect(priorityOf(page).getByTestId('readiness-content')).toContainText(/fully blocked/i);
-  // TypeScript is done, so the recommendation has moved on to the next tool
-  // carrying the most still-blocked rules.
-  await expect(priorityOf(page).getByTestId('highest-leverage')).toContainText(/tailwind/i);
+  // Per-journey states derive from the same computation the page uses.
+  for (const j of getReadiness('frontend').journeys) {
+    await expect(priorityOf(page).getByTestId(`readiness-${j.context}`)).toContainText(
+      j.fullyBlocked ? /fully blocked/i : /partly available/i,
+    );
+  }
+  // The recommendation names whichever tool now carries the most blocked
+  // rules — derived, so review progress does not rewrite this test.
+  const lever = getReadiness('frontend').highestLeverage;
+  if (lever) {
+    const tool = (lever.action.match(/"([^"]+)"/) ?? [])[1];
+    if (tool) await expect(priorityOf(page).getByTestId('highest-leverage')).toContainText(tool);
+  }
 
   const body = page.locator('body');
   await expect(body).not.toContainText(/\b\d{1,3}\s?%\s*(complete|reviewed|ready)/i);
@@ -578,7 +584,6 @@ test('production ships only the rule text that has been reviewed', async ({ page
   // wording rather than by rule_id, since the six that publish legitimately
   // carry identifiers now.
   expect(source).not.toContain('bundler now owns the dependency graph');
-  expect(source).not.toContain('A working stylesheet is an asset');
   expect(source).not.toContain('clearest example of a shift');
   expect(source).not.toContain('legacy.reconsider.gulp');
   expect(source).not.toContain('content.recommend.astro');

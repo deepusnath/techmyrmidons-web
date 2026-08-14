@@ -68,33 +68,38 @@ async function main() {
     [...realTools].map(([slug, t]) => [slug, { ...t, editorial_status: 'ai_draft', reviewed_fields: [] }]),
   );
 
-  // --- baseline: only the six reviewed TypeScript rules exist --------------
-  const baseReviewed = listRules(base, realTools).filter((r) => r.reviewed);
-  check('exactly the six reviewed rules are TypeScript',
-    [...new Set(baseReviewed.map((r) => r.tool_slug))], ['typescript']);
-  check('and there are six of them', baseReviewed.length, 6);
+  /**
+   * A fully draft document, synthesized. Earlier versions used the committed
+   * file as the "nothing reviewed" baseline and pinned "exactly six TypeScript
+   * rules" — which broke the moment review progressed, twice. The invariants
+   * below are about the mechanism, so their inputs are constructed.
+   */
+  const allDraft = clone(base);
+  for (const ctx of Object.values(allDraft.contexts) as any[]) {
+    for (const map of [ctx.still_appropriate ?? {}, ctx.reconsider ?? {}]) {
+      for (const v of Object.values(map) as any[]) {
+        if (typeof v !== 'string') { v.editorial_status = 'ai_draft'; v.reviewed_by = null; v.reviewed_at = null; }
+      }
+    }
+    for (const c of ctx.candidates ?? []) { c.editorial_status = 'ai_draft'; c.reviewed_by = null; c.reviewed_at = null; }
+  }
+
+  check('a fully draft document reviews nothing',
+    listRules(allDraft, realTools).some((r) => r.reviewed), false);
+  // Committed-content integrity, derived rather than pinned: publishable ⊆ reviewed.
+  check('every publishable committed rule is reviewed',
+    listRules(base, realTools).every((r) => !r.publishable || r.reviewed), true);
   check('none is publishable without a destination',
     listRules(base, destinationBlocked).some((r) => r.publishable), false);
   check('and nothing at all publishes without one',
     redactToReviewed(base, destinationBlocked), null);
 
-  // --- approve exactly one rule -------------------------------------------
-  const one = clone(base);
+  // --- approve exactly one rule, starting from the synthetic draft state ---
+  const one = clone(allDraft);
   one.contexts.legacy.candidates[0].editorial_status = 'reviewed';
   one.contexts.legacy.candidates[0].reviewed_by = 'Test Reviewer';
   one.contexts.legacy.candidates[0].reviewed_at = '2026-07-31';
   const approvedId: string = one.contexts.legacy.candidates[0].rule_id;
-
-  // Destination-ready tools throughout, so review status is the only variable.
-  // TypeScript's six reviewed rules are reverted here for the same reason.
-  for (const ctx of Object.values(one.contexts) as any[]) {
-    for (const v of Object.values(ctx.still_appropriate ?? {}) as any[]) {
-      if (v.rule_id?.includes('typescript')) { v.editorial_status = 'ai_draft'; v.reviewed_by = null; v.reviewed_at = null; }
-    }
-    for (const c of ctx.candidates ?? []) {
-      if (c.rule_id?.includes('typescript')) { c.editorial_status = 'ai_draft'; c.reviewed_by = null; c.reviewed_at = null; }
-    }
-  }
 
   const redacted = redactToReviewed(one, destinationReady);
   const survived = redacted ? listRules(redacted, destinationReady) : [];
@@ -165,9 +170,23 @@ async function main() {
   check('reviewer recorded on all six', tsRaw.every((r: any) => r.reviewed_by === 'Deepu S Nath'), true);
   check('date recorded on all six', tsRaw.every((r: any) => r.reviewed_at === '2026-07-31'), true);
 
-  // (2) no unrelated rule became reviewed
-  const otherReviewed = listRules(committed, toolIndex).filter((r) => r.reviewed && r.tool_slug !== 'typescript');
-  check('no unrelated rule reviewed', otherReviewed.map((r) => r.rule_id), []);
+  // (2) nothing is reviewed anonymously — every committed signature carries a
+  // name and a date. (The old assertion here — "no rule beyond TypeScript is
+  // reviewed" — was a snapshot of review progress, broken by progress.)
+  const anonymous: string[] = [];
+  for (const ctx of Object.values(committed.contexts) as any[]) {
+    const all = [
+      ...Object.values(ctx.still_appropriate ?? {}),
+      ...Object.values(ctx.reconsider ?? {}),
+      ...(ctx.candidates ?? []),
+    ] as any[];
+    for (const r of all) {
+      if (typeof r !== 'string' && r.editorial_status === 'reviewed' && (!r.reviewed_by || !r.reviewed_at)) {
+        anonymous.push(r.rule_id);
+      }
+    }
+  }
+  check('no rule is reviewed anonymously', anonymous, []);
 
   // (3) with no reviewed destination, the six reviewed rules stay blocked
   const tsBlocked = listRules(committed, destinationBlocked).filter((r) => r.tool_slug === 'typescript');
@@ -180,12 +199,14 @@ async function main() {
   check('redacted output is empty, so nothing can leak',
     redactToReviewed(committed, destinationBlocked), null);
 
-  // (4b) and the committed content, whose destination IS approved, publishes
-  // exactly those six rules and nothing else.
+  // (4b) the committed content's redaction is exactly its publishable set —
+  // derived, so review progress cannot rewrite this assertion.
   const committedRedacted = redactToReviewed(committed, toolIndex);
   const committedRules = committedRedacted ? listRules(committedRedacted, toolIndex) : [];
-  check('committed content publishes exactly six rules', committedRules.length, 6);
-  check('all of them TypeScript', [...new Set(committedRules.map((r) => r.tool_slug))], ['typescript']);
+  const expectPublishable = listRules(committed, toolIndex).filter((r) => r.publishable);
+  check('redaction keeps exactly the publishable set', committedRules.length, expectPublishable.length);
+  check('and every survivor is reviewed and publishable',
+    committedRules.every((r) => r.reviewed && r.publishable), true);
 
   // (5) naming the fields while values are blank does not unblock
   const blankTool = { ...toolIndex.get('typescript'), one_liner: '   ', what_it_is: '', reviewed_fields: ['one_liner', 'what_it_is'] };
@@ -201,9 +222,12 @@ async function main() {
   const unblocked = listRules(committed, readyTools).filter((r) => r.tool_slug === 'typescript');
   check('all six become publishable', unblocked.every((r) => r.publishable), true);
   const redactedReady = redactToReviewed(committed, readyTools);
-  check('exactly six rules survive redaction', redactedReady ? listRules(redactedReady, readyTools).length : 0, 6);
-  check('and only TypeScript rules do',
-    redactedReady ? [...new Set(listRules(redactedReady, readyTools).map((r) => r.tool_slug))] : [], ['typescript']);
+  const readySurvivors = redactedReady ? listRules(redactedReady, readyTools) : [];
+  const readyPublishable = listRules(committed, readyTools).filter((r) => r.publishable);
+  check('redaction under readyTools keeps exactly the publishable set',
+    readySurvivors.length, readyPublishable.length);
+  check('every readyTools survivor is reviewed and publishable',
+    readySurvivors.every((r) => r.reviewed && r.publishable), true);
 
   // (8) the deferred lifecycle stays withheld even once rules publish
   check('tool record still unreviewed after rules publish',

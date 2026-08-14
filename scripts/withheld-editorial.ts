@@ -39,8 +39,10 @@ export const FORBIDDEN_TEXT = [
   'Verifiable facts', 'Editorial interpretation', 'verifiable_facts', 'wrong_if', 'evidence_gaps',
   // decision log
   'decision_log', 'approve_with_edits',
-  // AI-drafted rule text, still unreviewed
-  'bundler now owns the dependency graph', 'A working stylesheet is an asset',
+  // AI-drafted rule text, still unreviewed. 'A working stylesheet is an asset'
+  // was removed 2026-08-13 when legacy.retain.sass was reviewed and published —
+  // an earned removal, verified present in the export for that reason alone.
+  'bundler now owns the dependency graph',
   'clearest example of a shift',
 ];
 

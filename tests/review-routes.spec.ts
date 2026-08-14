@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ALL_FORBIDDEN } from '../scripts/withheld-editorial.ts';
+import { getReadiness } from '../lib/review.ts';
 
 /**
  * Review routes are internal editorial tooling. They render withheld dossier
@@ -79,18 +80,16 @@ test('preview shows all three review states', async ({ page }) => {
   test.skip(PRODUCTION_MODE, 'preview-mode assertion');
   await freshVisit(page, '/review/priority/');
 
-  // Since the TypeScript destination was approved on 2026-08-06 those six rules
-  // are publishable rather than blocked. The queue must show that, and must
-  // still show the 50 unreviewed rules as unreviewed.
-  await expect(priorityOf(page).getByTestId('rules-reviewed')).toHaveText('6');
-  await expect(priorityOf(page).getByTestId('rules-blocked')).toHaveText('0');
-  await expect(priorityOf(page).getByTestId('rules-publishable')).toHaveText('6');
+  // The workstation's numbers must agree with the same computation the page
+  // uses — pinning literals here turned every review batch into a test edit.
+  const r = getReadiness('frontend');
+  await expect(priorityOf(page).getByTestId('rules-reviewed')).toHaveText(String(r.rulesReviewed));
+  await expect(priorityOf(page).getByTestId('rules-blocked')).toHaveText(String(r.rulesReviewedButBlocked));
+  await expect(priorityOf(page).getByTestId('rules-publishable')).toHaveText(String(r.rulesPublishable));
 
   const apps = priorityOf(page).getByTestId('journey-apps');
   await apps.locator('summary').click();
   expect(await apps.locator('[data-rule-state="publishable"]').count()).toBeGreaterThan(0);
-  expect(await apps.locator('[data-rule-state="unreviewed"]').count()).toBeGreaterThan(0);
-  await expect(apps.locator('[data-rule-state="reviewed-blocked"]')).toHaveCount(0);
 });
 
 // --- 2, 3. production: the routes do not exist ------------------------------

@@ -12,67 +12,67 @@
         "sass": {
           "text": "Still fine where it already exists. A working stylesheet is an asset; migrating it wholesale rarely pays for itself.",
           "rule_id": "legacy.retain.sass",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "bootstrap": {
           "text": "Reasonable to keep on an existing internal or admin interface. Replacing it is a redesign, not an upgrade.",
           "rule_id": "legacy.retain.bootstrap",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "npm": {
           "text": "No reason to change package manager purely for its own sake on a codebase you are maintaining.",
           "rule_id": "legacy.retain.npm",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "reconsider": {
         "gulp": {
           "text": "The bundler now owns the dependency graph that Gulp used to orchestrate. Keeping it means maintaining a plugin chain that newer tooling makes unnecessary.",
           "rule_id": "legacy.reconsider.gulp",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "grunt": {
           "text": "Superseded by Gulp and then by bundlers. A Gruntfile is usually the oldest thing in a repository.",
           "rule_id": "legacy.reconsider.grunt",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "jquery": {
           "text": "Most of what it was used for is now native: querySelectorAll, classList, fetch. It is often the easiest dependency to remove outright.",
           "rule_id": "legacy.reconsider.jquery",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "bower": {
           "text": "Deprecated by its own maintainers and the registry is effectively frozen — no security advisories will reach you.",
           "rule_id": "legacy.reconsider.bower",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "angularjs": {
           "text": "End of life since 2022 and receives no security patches. On anything handling user data this is a risk, not a preference.",
           "rule_id": "legacy.reconsider.angularjs",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "webpack": {
           "text": "Still capable, but if the dev-server wait is part of your daily cost, that cost is now avoidable.",
           "rule_id": "legacy.reconsider.webpack",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "candidates": [
@@ -87,9 +87,9 @@
           ],
           "role": "build",
           "rule_id": "legacy.recommend.vite",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "htmx",
@@ -102,9 +102,9 @@
             "modernize"
           ],
           "rule_id": "legacy.recommend.htmx",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "typescript",
@@ -127,9 +127,9 @@
             "modernize"
           ],
           "rule_id": "legacy.recommend.pnpm",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "claude-code",
@@ -152,46 +152,46 @@
         "sass": {
           "text": "Fine for content sites, though check how much of what you use is now native CSS.",
           "rule_id": "content.retain.sass",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "bootstrap": {
           "text": "Defensible when you need a working layout faster than a distinctive one.",
           "rule_id": "content.retain.bootstrap",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "tailwind": {
           "text": "Works well here — content sites usually have few enough templates that utility classes stay manageable.",
           "rule_id": "content.retain.tailwind",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "reconsider": {
         "nextjs": {
           "text": "For a content site this is often more rendering machinery than the job needs.",
           "rule_id": "content.reconsider.nextjs",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "react": {
           "text": "A content site rarely needs a client-side framework runtime shipped to every visitor.",
           "rule_id": "content.reconsider.react",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "webpack": {
           "text": "Heavier than a content build requires.",
           "rule_id": "content.reconsider.webpack",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "candidates": [
@@ -209,9 +209,9 @@
             "build"
           ],
           "rule_id": "content.recommend.astro",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "tailwind",
@@ -223,9 +223,9 @@
             "stay_current"
           ],
           "rule_id": "content.recommend.tailwind",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "vite",
@@ -237,9 +237,9 @@
           ],
           "role": "build",
           "rule_id": "content.recommend.vite",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "cursor",
@@ -260,18 +260,18 @@
       "hint": "Dashboards, products, stateful interfaces",
       "still_appropriate": {
         "react": {
-          "text": "A reasonable default for application work, and the largest hiring pool.",
+          "text": "Retain React for application work already built on it — its ecosystem of libraries and examples lowers the cost of everyday changes, and replacing a working framework is a rewrite, not an upgrade.",
           "rule_id": "apps.retain.react",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "vite": {
-          "text": "The current default build for application work.",
+          "text": "Retain Vite for application work: the dev server stays fast as the app grows, configuration stays small, and nothing newer removes a cost it leaves in place.",
           "rule_id": "apps.retain.vite",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "typescript": {
           "text": "Retain TypeScript when the application already depends on its type checking, typed APIs, or TypeScript-based tooling. Removing it may discard useful type information and require changes across the codebase.",
@@ -283,39 +283,39 @@
         "tailwind": {
           "text": "Works well in component-based application code.",
           "rule_id": "apps.retain.tailwind",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "reconsider": {
         "jquery": {
           "text": "In an application codebase this usually indicates a layer nobody has revisited.",
           "rule_id": "apps.reconsider.jquery",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "webpack": {
           "text": "Capable, but the dev-server cost is now avoidable.",
           "rule_id": "apps.reconsider.webpack",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "styled-components": {
           "text": "Runtime CSS-in-JS fits server rendering poorly and costs render performance.",
           "rule_id": "apps.reconsider.styled-components",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "jest": {
           "text": "If you already build with Vite, a second build configuration for tests is avoidable.",
           "rule_id": "apps.reconsider.jest",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "candidates": [
@@ -347,13 +347,13 @@
             "skill_gaps"
           ],
           "rule_id": "apps.recommend.vitest",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "tanstack-query",
-          "why": "Most application state turns out to be a cache of server data. Naming that distinction removes a lot of hand-written loading and refetch logic.",
+          "why": "Much application state turns out to be a cache of server data. Naming that distinction removes a lot of hand-written loading and refetch logic.",
           "unsuitable_if": "Your state is genuinely client-side — editor buffers, form drafts — or your framework already provides a data layer.",
           "goals": [
             "stay_current",
@@ -361,9 +361,9 @@
             "new_stack"
           ],
           "rule_id": "apps.recommend.tanstack-query",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "playwright",
@@ -374,9 +374,9 @@
             "skill_gaps"
           ],
           "rule_id": "apps.recommend.playwright",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "claude-code",
@@ -399,16 +399,16 @@
         "storybook": {
           "text": "The right tool for this work — it is where a design system crosses a team boundary.",
           "rule_id": "design_systems.retain.storybook",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "sass": {
           "text": "Mixins and compile-time logic are one of the few remaining cases with no native equivalent, and design systems are that case.",
           "rule_id": "design_systems.retain.sass",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "typescript": {
           "text": "Retain TypeScript when the design system publishes type information that consuming applications rely on. Removing it may break editor support or require consumers to recreate those types.",
@@ -420,32 +420,32 @@
         "figma": {
           "text": "Where the tokens you are implementing usually originate.",
           "rule_id": "design_systems.retain.figma",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "reconsider": {
         "tailwind": {
           "text": "Components consumed by other teams generally need to emit semantic, restyleable markup. Utility classes in a shared library push your styling decisions into their markup.",
           "rule_id": "design_systems.reconsider.tailwind",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "bootstrap": {
           "text": "A design system usually exists precisely because an off-the-shelf component set was not distinctive enough.",
           "rule_id": "design_systems.reconsider.bootstrap",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "styled-components": {
           "text": "Runtime styling in a shared library imposes its cost on every consumer.",
           "rule_id": "design_systems.reconsider.styled-components",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "candidates": [
@@ -460,9 +460,9 @@
             "skill_gaps"
           ],
           "rule_id": "design_systems.recommend.css-modules",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "testing-library",
@@ -474,9 +474,9 @@
             "modernize"
           ],
           "rule_id": "design_systems.recommend.testing-library",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "typescript",
@@ -501,9 +501,9 @@
             "stay_current"
           ],
           "rule_id": "design_systems.recommend.playwright",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       ]
     },
@@ -516,23 +516,23 @@
         "angularjs": {
           "text": "End of life. Learning it now teaches you a framework you will only ever encounter in maintenance.",
           "rule_id": "learning.reconsider.angularjs",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "bower": {
           "text": "Deprecated. Any tutorial teaching it is at least eight years old, and so is everything else in it.",
           "rule_id": "learning.reconsider.bower",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         "grunt": {
           "text": "Superseded twice over. Useful to recognise, not to learn.",
           "rule_id": "learning.reconsider.grunt",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         }
       },
       "candidates": [
@@ -550,13 +550,13 @@
             "modernize"
           ],
           "rule_id": "learning.recommend.sass",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "vite",
-          "why": "You already write JavaScript. Vite is the current default build tool and needs almost no configuration, so you can learn it without learning build engineering first.",
+          "why": "You already write JavaScript. Vite needs almost no configuration, so you can learn a modern build without learning build engineering first.",
           "unsuitable_if": "You are following a course built around a different toolchain — fighting the course is not worth it.",
           "baselines": [
             "writes_js",
@@ -570,9 +570,9 @@
           ],
           "role": "build",
           "rule_id": "learning.recommend.vite",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "typescript",
@@ -595,7 +595,7 @@
         },
         {
           "slug": "react",
-          "why": "You have already built a frontend application. React is not necessarily the best framework, but it is the one most tutorials, libraries and job listings assume, which makes everything else easier to read.",
+          "why": "You have already built a frontend application. React’s component model is worth learning in its own right, and its documentation assumes exactly this starting point.",
           "unsuitable_if": "You are drawn to a simpler model — Vue and Svelte are gentler and the concepts transfer.",
           "baselines": [
             "built_app"
@@ -606,9 +606,9 @@
             "new_stack"
           ],
           "rule_id": "learning.recommend.react",
-          "editorial_status": "ai_draft",
-          "reviewed_by": null,
-          "reviewed_at": null
+          "editorial_status": "reviewed",
+          "reviewed_by": "Deepu S Nath",
+          "reviewed_at": "2026-08-13"
         },
         {
           "slug": "claude-code",
