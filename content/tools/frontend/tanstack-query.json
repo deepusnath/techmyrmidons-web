@@ -5,7 +5,7 @@
   "homepage": "https://tanstack.com/query",
   "lifecycle": "established",
   "first_seen_year": 2019,
-  "one_liner": "Async server-state cache — the library that reframed most \"state management\" as caching.",
+  "one_liner": "Async server-state library: caching, deduplication and background refetching for fetched data.",
   "what_it_is": "A library managing asynchronous server data with caching, deduplication, background refetching, stale-while-revalidate semantics and pagination, framework-agnostic with bindings for React, Vue and Svelte.",
   "why_it_matters": "Its real contribution was conceptual: most of what teams were hand-rolling in Redux was not application state at all, it was a poorly implemented cache of server state. Naming that distinction let a large amount of boilerplate disappear. If your mental model of state management predates it, this is the specific idea worth catching up on.",
   "suitable_for": [
@@ -30,7 +30,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

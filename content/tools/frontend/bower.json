@@ -4,8 +4,8 @@
   "name": "Bower",
   "category": "package management",
   "homepage": "https://bower.io/",
-  "one_liner": "Front-end package manager, deprecated by its own maintainers and kept here as history.",
-  "what_it_is": "A package manager for browser libraries — jQuery, Bootstrap and similar — that installed a flat, unnested dependency tree into a bower_components folder for serving directly to the browser.",
+  "one_liner": "Front-end package manager whose own site now points users to other tools.",
+  "what_it_is": "A package manager for browser libraries — jQuery, Bootstrap and similar — installing a flat dependency tree into a bower_components folder for direct serving. Its own site now says: \"While Bower is maintained, we recommend using Yarn and Vite for front-end projects.\"",
   "why_it_matters": "Bower matters now as history, and history is the point of this view. It solved a real problem: npm's nested node_modules layout was hostile to assets that had to be served as-is to a browser. Once npm flattened its tree and bundlers made module resolution a build-time concern, Bower's reason to exist evaporated, and its maintainers recommended migrating away in 2017. The practical value in recognising it is diagnostic — if a tutorial tells you to run bower install, that tutorial is at least eight years old, and everything else it teaches you should be read in that light.",
   "lifecycle": "legacy",
   "first_seen_year": 2012,
@@ -31,7 +31,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

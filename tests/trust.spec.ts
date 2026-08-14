@@ -308,7 +308,6 @@ test('production runs the diagnosis on reviewed rules only', async ({ page }) =>
   // withheld. Six TypeScript rules now publish, so the diagnosis runs — but
   // only on those six. Every unreviewed rule must still be absent.
   const body = page.locator('body');
-  await expect(body).not.toContainText(/The bundler now owns the dependency graph/i);
 
   // The user's own marked tools are their data and must survive. The diagnosis
   // now runs, so the snapshot appears after the assessment rather than beside a
@@ -321,9 +320,8 @@ test('production runs the diagnosis on reviewed rules only', async ({ page }) =>
   // Withholding happens at the server boundary, not by hiding in the client:
   // anything passed to a client component ships in the page source.
   const source = await page.content();
-  expect(source).not.toContain('bundler now owns the dependency graph');
-  expect(source).not.toContain('legacy.reconsider.gulp');
-  expect(source).not.toContain('content.recommend.astro');
+  expect(source).not.toContain('clearest example of a shift');
+  expect(source).not.toContain('recommend.claude-code');
 });
 
 test('preview labels the whole diagnosis, not only the recommendations', async ({ page }) => {
@@ -458,14 +456,15 @@ test('production publishes reviewed rule text and withholds the rest', async ({ 
   expect(source).toContain('Retain TypeScript when the application already depends');
   expect(source).toContain('Deepu S Nath');
 
-  // A reviewed rule whose destination is also reviewed now publishes — the
-  // sass retain rule crossed that line on 2026-08-13.
+  // Reviewed rules with reviewed destinations publish — sass crossed the line
+  // on 2026-08-13, gulp on 2026-08-14.
   expect(source).toContain('A working stylesheet is an asset');
-  // Every rule that is not publishable stays out, wording and identifier alike.
-  expect(source).not.toContain('bundler now owns the dependency graph');
+  expect(source).toContain('bundler now owns the dependency graph');
+  // Unreviewed editorial stays out: tailwind's why_it_matters and the four
+  // §2-withheld AI-assistance rules.
   expect(source).not.toContain('clearest example of a shift');
-  expect(source).not.toContain('legacy.reconsider.gulp');
-  expect(source).not.toContain('content.recommend.astro');
+  expect(source).not.toContain('recommend.claude-code');
+  expect(source).not.toContain('content.recommend.cursor');
 
   // And approving the rules did not approve the rest of the tool card.
   expect(source).not.toContain('TypeScript stopped being a choice somewhere around 2020');
@@ -580,11 +579,10 @@ test('production ships only the rule text that has been reviewed', async ({ page
   await openSnapshot(page);
 
   const source = await page.content();
-  // 6 of 56 rules are reviewed. The other 50 must be absent — checked by their
-  // wording rather than by rule_id, since the six that publish legitimately
-  // carry identifiers now.
-  expect(source).not.toContain('bundler now owns the dependency graph');
+  // 52 of 56 rules are reviewed and publish; what must stay absent is the
+  // still-unreviewed editorial — tailwind's why_it_matters prose and the four
+  // §2-withheld AI-assistance rules.
   expect(source).not.toContain('clearest example of a shift');
-  expect(source).not.toContain('legacy.reconsider.gulp');
-  expect(source).not.toContain('content.recommend.astro');
+  expect(source).not.toContain('recommend.claude-code');
+  expect(source).not.toContain('recommend.cursor');
 });

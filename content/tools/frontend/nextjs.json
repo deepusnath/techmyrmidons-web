@@ -5,7 +5,7 @@
   "homepage": "https://nextjs.org/",
   "lifecycle": "established",
   "first_seen_year": 2016,
-  "one_liner": "The dominant React application framework, and the main vehicle for server components.",
+  "one_liner": "React framework for building full-stack web applications, in its own words — home of the App Router built on server components.",
   "what_it_is": "A React framework providing file-based routing, server rendering, static generation and API routes. Its App Router is built around React server components and streaming.",
   "why_it_matters": "Next.js is where most React teams end up, and it is the place where the server-components shift is actually encountered. It also carries a real critique worth knowing: its rendering model is genuinely complicated, and its tightest deployment story points at one vendor. Both things are true at once.",
   "suitable_for": [
@@ -31,7 +31,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

@@ -4,7 +4,7 @@
   "name": "Gulp",
   "category": "task runner",
   "homepage": "https://gulpjs.com/",
-  "one_liner": "Streaming task runner from the era before bundlers absorbed the build.",
+  "one_liner": "Streaming task runner: tasks are JavaScript functions piping files through in-memory transforms.",
   "what_it_is": "A build system where tasks are written as JavaScript functions piping files through transformation streams in memory, rather than configured declaratively and written to disk between steps as Grunt did.",
   "why_it_matters": "Gulp beat Grunt because code composed better than configuration, and then bundlers made the whole category largely redundant by owning the dependency graph. It is worth knowing for a reason this project can demonstrate directly: the site you are reading about was built with Gulp 4, Bower and Foundation 6, and that build no longer installs on a current Node at all. Recognising a gulpfile tells you roughly when a codebase was last thought about.",
   "lifecycle": "legacy",
@@ -30,7 +30,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

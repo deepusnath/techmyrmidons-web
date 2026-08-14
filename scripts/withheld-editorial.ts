@@ -39,10 +39,12 @@ export const FORBIDDEN_TEXT = [
   'Verifiable facts', 'Editorial interpretation', 'verifiable_facts', 'wrong_if', 'evidence_gaps',
   // decision log
   'decision_log', 'approve_with_edits',
-  // AI-drafted rule text, still unreviewed. 'A working stylesheet is an asset'
-  // was removed 2026-08-13 when legacy.retain.sass was reviewed and published —
-  // an earned removal, verified present in the export for that reason alone.
-  'bundler now owns the dependency graph',
+  // AI-drafted editorial, still unreviewed. Two rule phrases have left this
+  // list the earned way — 'A working stylesheet is an asset' (2026-08-13,
+  // legacy.retain.sass) and 'bundler now owns the dependency graph'
+  // (2026-08-14, legacy.reconsider.gulp reviewed and its destination signed).
+  // 'clearest example of a shift' stays: tailwind's why_it_matters remains
+  // unreviewed.
   'clearest example of a shift',
 ];
 
@@ -52,10 +54,11 @@ export const FORBIDDEN_TEXT = [
  * compiled diagnosis, which runs client-side.
  */
 export const FORBIDDEN_RULE_IDS = [
-  // The six TypeScript ids were removed on 2026-08-06 — those rules publish now.
-  // These two remain unreviewed and must stay absent; they are also what proves
-  // the isolation still holds, since approving TypeScript released neither.
-  'legacy.reconsider.gulp', 'content.recommend.astro',
+  // Emptied 2026-08-14: legacy.reconsider.gulp and content.recommend.astro were
+  // reviewed and their destinations signed, so those ids publish. The four
+  // §2-withheld AI-assistance rules are candidates for this list, but their
+  // ids never serialize while withheld — redaction drops them — so listing
+  // them would assert nothing the redaction tests do not already prove.
 ];
 
 /** Everything above, for checkers that scan with one pass. */

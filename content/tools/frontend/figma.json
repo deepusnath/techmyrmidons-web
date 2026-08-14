@@ -5,7 +5,7 @@
   "homepage": "https://www.figma.com/",
   "lifecycle": "established",
   "first_seen_year": 2016,
-  "one_liner": "Browser-based collaborative design tool, and the usual source of truth for what to build.",
+  "one_liner": "Browser-based collaborative interface design tool.",
   "what_it_is": "A collaborative interface design tool running in the browser, with multiplayer editing, components and variants, design tokens, prototyping, and inspection panels that expose measurements and values to developers.",
   "why_it_matters": "Figma is included deliberately, because it is exactly the kind of tool a repository-based view of the ecosystem cannot see — it appears in no manifest, yet it is where most frontend work originates. Fluency in reading a Figma file, not just receiving screenshots, is a real and unevenly distributed frontend skill.",
   "suitable_for": [
@@ -28,7 +28,11 @@
   "is_seed": false,
   "seed_source": null,
   "editorial_status": "ai_draft",
-  "reviewed_by": null,
-  "reviewed_at": null,
-  "reviewed_fields": []
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
 }

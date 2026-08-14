@@ -70,5 +70,14 @@
   "reviewed_by": null,
   "reviewed_at": null,
   "author": "AI-assisted draft — unattributed pending review",
-  "generated_at": "2026-07-31"
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve",
+      "reasoning": "Descriptions verified against the project’s own site; drafted wording carried by the source. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
 }
