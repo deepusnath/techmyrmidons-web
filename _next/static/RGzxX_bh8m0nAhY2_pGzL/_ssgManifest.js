@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002F[domain]","\u002F[domain]\u002F[view]","\u002F[domain]\u002Factivity","\u002F[domain]\u002Ffeed.xml","\u002F[domain]\u002Ftools\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[6683,["/techmyrmidons-web/_next/static/chunks/0uk8_zppnmoid.js","/techmyrmidons-web/_next/static/chunks/153tbw49q_1m9.js","/techmyrmidons-web/_next/static/chunks/2041bq05ddp9y.js"],"SubmissionForm"]
+3:I[97367,["/techmyrmidons-web/_next/static/chunks/0uk8_zppnmoid.js","/techmyrmidons-web/_next/static/chunks/153tbw49q_1m9.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-2xl","children":[["$","header",null,{"className":"mb-8","children":[["$","h1",null,{"className":"mb-2 text-3xl","children":"Share a tool or resource"}],["$","p",null,{"className":"text-sm leading-relaxed","style":{"color":"var(--fg-dim)"},"children":"Suggest something the Frontend Myrmidon should be tracking. Submissions are queued in your browser — an editor reviews them before anything is published, because a catalogue that anyone can write to directly is a link list, not a curated landscape."}]]}],["$","$L2",null,{}]]}],[["$","script","script-0",{"src":"/techmyrmidons-web/_next/static/chunks/2041bq05ddp9y.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"RGzxX_bh8m0nAhY2_pGzL"}
+5:null

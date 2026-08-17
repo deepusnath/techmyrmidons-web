@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[39756,["/techmyrmidons-web/_next/static/chunks/0uk8_zppnmoid.js","/techmyrmidons-web/_next/static/chunks/153tbw49q_1m9.js"],"default"]
+3:I[37457,["/techmyrmidons-web/_next/static/chunks/0uk8_zppnmoid.js","/techmyrmidons-web/_next/static/chunks/153tbw49q_1m9.js"],"default"]
+4:[]
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"RGzxX_bh8m0nAhY2_pGzL"}

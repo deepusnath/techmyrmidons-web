@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Artificial Intelligence Myrmidon — TechMyrmidons</title>
+  <subtitle>Reviewed catalogue changes. Entries appear when an editor signs content off, never before.</subtitle>
+  <id>https://deepusnath.github.io/techmyrmidons-web/ai/feed.xml</id>
+  <link rel="self" type="application/atom+xml" href="https://deepusnath.github.io/techmyrmidons-web/ai/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/"/>
+  <updated>2026-08-07T00:00:00Z</updated>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/anthropic-sdk/</id>
+    <title>Anthropic SDK — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/anthropic-sdk/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Official client libraries for the Claude API.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/chroma/</id>
+    <title>Chroma — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/chroma/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Embedding store aimed at getting retrieval running quickly.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/deepeval/</id>
+    <title>DeepEval — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/deepeval/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Open-source evaluation framework for LLM systems.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/dspy/</id>
+    <title>DSPy — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/dspy/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Python framework for building AI systems as code rather than prompts.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/instructor/</id>
+    <title>Instructor — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/instructor/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Structured extraction from models into typed objects.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/jax/</id>
+    <title>JAX — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/jax/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Array computation and function transformation for accelerators.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/keras/</id>
+    <title>Keras — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/keras/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>High-level deep learning API that runs on JAX, TensorFlow or PyTorch.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/langchain/</id>
+    <title>LangChain — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/langchain/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Framework for building agents and LLM-powered applications.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/langgraph/</id>
+    <title>LangGraph — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/langgraph/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Low-level orchestration for long-running, stateful agents.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/litellm/</id>
+    <title>LiteLLM — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/litellm/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>One interface for calling many model providers.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/llama-cpp/</id>
+    <title>llama.cpp — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/llama-cpp/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>LLM inference in C/C++, built to run with minimal setup.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/llamaindex/</id>
+    <title>LlamaIndex — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/llamaindex/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Framework for building agents over your own data.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/mlflow/</id>
+    <title>MLflow — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/mlflow/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Open source platform for tracking experiments and managing models.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/ollama/</id>
+    <title>Ollama — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/ollama/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Runs open models locally, with a pull-and-run workflow.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/onnx-runtime/</id>
+    <title>ONNX Runtime — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/onnx-runtime/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Cross-platform accelerator for running trained models.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/openai-python/</id>
+    <title>OpenAI Python SDK — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/openai-python/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Official Python client for the OpenAI REST API.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/outlines/</id>
+    <title>Outlines — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/outlines/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Constrains generation so output matches a schema.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/pgvector/</id>
+    <title>pgvector — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/pgvector/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Vector similarity search inside Postgres.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/pytorch/</id>
+    <title>PyTorch — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/pytorch/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Tensor library for deep learning that runs on GPUs and CPUs.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/qdrant/</id>
+    <title>Qdrant — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/qdrant/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Vector similarity search engine and database, written in Rust.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/ragas/</id>
+    <title>Ragas — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/ragas/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Toolkit for evaluating retrieval-augmented applications.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/scikit-learn/</id>
+    <title>scikit-learn — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/scikit-learn/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Machine learning library for supervised and unsupervised learning.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/tensorflow/</id>
+    <title>TensorFlow — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/tensorflow/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>End-to-end platform for machine learning.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/text-generation-inference/</id>
+    <title>Text Generation Inference — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/text-generation-inference/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>LLM serving toolkit, now in maintenance mode per its maintainers.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/transformers/</id>
+    <title>Transformers — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/transformers/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Library for inference and training with pretrained models.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/vllm/</id>
+    <title>vLLM — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/vllm/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Library for LLM inference and serving.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/weaviate/</id>
+    <title>Weaviate — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/weaviate/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Vector database storing objects alongside their vectors.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/weights-and-biases/</id>
+    <title>Weights &amp; Biases — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/weights-and-biases/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Hosted experiment tracking and visualisation for ML pipelines.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/ai/tools/xgboost/</id>
+    <title>XGBoost — published in the Artificial Intelligence catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/ai/tools/xgboost/"/>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Gradient boosting library for tabular prediction.</summary>
+  </entry>
+</feed>

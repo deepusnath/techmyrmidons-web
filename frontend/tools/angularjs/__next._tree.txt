@@ -1,0 +1,7 @@
+:HL["/techmyrmidons-web/_next/static/chunks/31t3utuha6ulh.css","style"]
+:HL["/techmyrmidons-web/_next/static/media/042d7c60888bc792-s.p.1geaio6e6zhg2.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/techmyrmidons-web/_next/static/media/0bac8880c5b3a024-s.p.26wx3g8r9ob-o.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/techmyrmidons-web/_next/static/media/4ca3c93a826f3fe0-s.p.1hosuyucjd5l5.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/techmyrmidons-web/_next/static/media/d8b0c5e01dbc4274-s.p.41ggsvupj7gz-.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/techmyrmidons-web/brand/myrmidon.gif","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"domain","param":{"type":"d","key":"frontend","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"tools","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"angularjs","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"RGzxX_bh8m0nAhY2_pGzL"}

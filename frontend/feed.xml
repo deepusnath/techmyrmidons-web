@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Frontend Myrmidon — TechMyrmidons</title>
+  <subtitle>Reviewed catalogue changes. Entries appear when an editor signs content off, never before.</subtitle>
+  <id>https://deepusnath.github.io/techmyrmidons-web/frontend/feed.xml</id>
+  <link rel="self" type="application/atom+xml" href="https://deepusnath.github.io/techmyrmidons-web/frontend/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/"/>
+  <updated>2026-08-14T00:00:00Z</updated>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/angularjs/</id>
+    <title>AngularJS — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/angularjs/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Google’s first-generation framework — support officially ended January 2022, per its own site — distinct from Angular.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/astro/</id>
+    <title>Astro — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/astro/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Content-first framework that ships zero JavaScript by default.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/bower/</id>
+    <title>Bower — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/bower/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Front-end package manager whose own site now points users to other tools.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/css-modules/</id>
+    <title>CSS Modules — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/css-modules/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Build-time class-name scoping that keeps you writing ordinary CSS.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/figma/</id>
+    <title>Figma — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/figma/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Browser-based collaborative interface design tool.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/grunt/</id>
+    <title>Grunt — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/grunt/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Configuration-driven JavaScript task runner orchestrating plugins over files on disk.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/gulp/</id>
+    <title>Gulp — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/gulp/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Streaming task runner: tasks are JavaScript functions piping files through in-memory transforms.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/htmx/</id>
+    <title>htmx — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/htmx/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Hypermedia-driven interactivity via HTML attributes, with no client framework.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/jest/</id>
+    <title>Jest — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/jest/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Batteries-included JavaScript testing framework focused, in its own words, on simplicity.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/jquery/</id>
+    <title>jQuery — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/jquery/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>DOM, event and AJAX library with a chainable API; much of what it provided is now native to the platform.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/nextjs/</id>
+    <title>Next.js — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/nextjs/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>React framework for building full-stack web applications, in its own words — home of the App Router built on server components.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/npm/</id>
+    <title>npm — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/npm/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>JavaScript package manager and registry, bundled with Node.js.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/playwright/</id>
+    <title>Playwright — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/playwright/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Cross-browser end-to-end testing with auto-waiting and strong debugging tools.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/pnpm/</id>
+    <title>pnpm — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/pnpm/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Content-addressed package manager that hard-links a global store instead of copying.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/storybook/</id>
+    <title>Storybook — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/storybook/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Develop and document components in isolation, outside the application.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/styled-components/</id>
+    <title>styled-components — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/styled-components/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Runtime CSS-in-JS: styles in tagged template literals, injected as scoped stylesheets at render time.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/tanstack-query/</id>
+    <title>TanStack Query — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/tanstack-query/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Async server-state library: caching, deduplication and background refetching for fetched data.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/testing-library/</id>
+    <title>Testing Library — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/testing-library/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Query components the way users find them, not by implementation detail.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/vitest/</id>
+    <title>Vitest — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/vitest/"/>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <summary>Vite-native test runner with a Jest-compatible API.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/bootstrap/</id>
+    <title>Bootstrap — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/bootstrap/"/>
+    <updated>2026-08-13T00:00:00Z</updated>
+    <summary>Frontend toolkit shipping pre-built components on a responsive grid.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/react/</id>
+    <title>React — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/react/"/>
+    <updated>2026-08-13T00:00:00Z</updated>
+    <summary>Component-based UI library for building interfaces from composable pieces.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/sass/</id>
+    <title>Sass — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/sass/"/>
+    <updated>2026-08-13T00:00:00Z</updated>
+    <summary>CSS preprocessor adding variables, nesting and mixins, compiled to plain CSS.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/tailwind/</id>
+    <title>Tailwind CSS — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/tailwind/"/>
+    <updated>2026-08-13T00:00:00Z</updated>
+    <summary>Utility-first CSS framework: single-purpose classes composed directly in markup.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/vite/</id>
+    <title>Vite — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/vite/"/>
+    <updated>2026-08-13T00:00:00Z</updated>
+    <summary>Build tool serving source on demand over native ESM in development, bundling with Rolldown for production.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/webpack/</id>
+    <title>webpack — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/webpack/"/>
+    <updated>2026-08-13T00:00:00Z</updated>
+    <summary>Static module bundler building optimised bundles from a dependency graph.</summary>
+  </entry>
+  <entry>
+    <id>https://deepusnath.github.io/techmyrmidons-web/frontend/tools/typescript/</id>
+    <title>TypeScript — published in the Frontend catalogue</title>
+    <link rel="alternate" type="text/html" href="https://deepusnath.github.io/techmyrmidons-web/frontend/tools/typescript/"/>
+    <updated>2026-08-06T00:00:00Z</updated>
+    <summary>A typed superset of JavaScript that compiles to plain JavaScript, with types erased at build time.</summary>
+  </entry>
+</feed>
