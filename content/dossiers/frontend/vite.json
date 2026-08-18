@@ -1,0 +1,146 @@
+{
+  "slug": "vite",
+  "domain": "frontend",
+  "name": "Vite",
+  "canonical_url": "https://vite.dev/",
+  "primary_source": "https://vite.dev/guide/",
+  "proposed_lifecycle": "established",
+  "summary": "Native-ESM dev server with near-instant startup; the current default build tool.",
+  "what_it_is": "A build tool serving source over native ES modules in development — so startup does not scale with project size — and bundling with Rollup for production. Framework-agnostic, with official plugins for the major frameworks.",
+  "why_it_matters": "Vite is the single most consequential build change since webpack, and the most likely gap in the stack of a developer who stopped re-evaluating tooling around 2019. The difference is not incremental: dev server startup goes from tens of seconds to roughly constant regardless of codebase size, which changes working rhythm rather than just saving time.",
+  "suitable_for": [
+    "Essentially all new frontend projects",
+    "Migrating away from slow webpack development builds",
+    "Library builds, via its library mode"
+  ],
+  "not_suitable_for": [
+    "Projects depending on webpack-specific loaders or plugins with no Vite equivalent",
+    "Builds needing module federation, where webpack remains stronger",
+    "Codebases that must support environments without native ESM in development"
+  ],
+  "alternatives": [
+    "webpack",
+    "Parcel",
+    "Rspack",
+    "esbuild"
+  ],
+  "verifiable_facts": [
+    "Serves source over native ES modules in development and bundles with Rollup for production, per its own guide.",
+    "Actively maintained; documentation is current."
+  ],
+  "editorial_interpretation": [
+    "That it is \"the current default build tool\".",
+    "That dev-server startup time is the dominant daily cost it removes."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Essentially all new frontend projects",
+    "Suitable: Migrating away from slow webpack development builds",
+    "Suitable: Library builds, via its library mode",
+    "Unsuitable: Projects depending on webpack-specific loaders or plugins with no Vite equivalent",
+    "Unsuitable: Builds needing module federation, where webpack remains stronger",
+    "Unsuitable: Codebases that must support environments without native ESM in development"
+  ],
+  "evidence_gaps": [
+    "No measured evidence that it is the default. Repository signals exist but are ineligible for trend conclusions."
+  ],
+  "wrong_if": "A reviewer judges \"default\" to be an adoption claim requiring representative evidence this product does not have.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.retain.vite",
+      "context": "apps",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "content.recommend.vite",
+      "context": "content",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "learning.recommend.vite",
+      "context": "learning",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.recommend.vite",
+      "context": "legacy",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "role",
+      "detail": "provides role \"build\" in legacy"
+    },
+    {
+      "type": "role",
+      "detail": "provides role \"build\" in content"
+    },
+    {
+      "type": "prerequisite-of",
+      "detail": "marking this unlocks the vitest recommendation in apps"
+    },
+    {
+      "type": "role",
+      "detail": "provides role \"build\" in learning"
+    },
+    {
+      "type": "gating",
+      "detail": "only offered in learning at learner baseline \"writes_js\""
+    },
+    {
+      "type": "gating",
+      "detail": "only offered in learning at learner baseline \"built_app\""
+    }
+  ],
+  "journeys_affected": [
+    "apps",
+    "content",
+    "learning",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "vite was added to package.json in addyosmani/basket.js",
+      "source_url": "https://github.com/addyosmani/basket.js/commit/ff4abae7f4b0552f0779df23fe447336ba181816",
+      "observed_at": "2025-03-02T06:13:33Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.retain.vite",
+    "rule:content.recommend.vite",
+    "rule:learning.recommend.vite",
+    "rule:legacy.recommend.vite"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 4 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against vite.dev/guide/why (v8 docs). Two corrections: production bundling is Rolldown, which unified the earlier esbuild-and-Rollup pipeline — the drafted \"bundling with Rollup\" was stale on the project’s own terms — and \"the current default build tool\" was removed from the one-liner as an unevidenced §8 adoption claim that had evaded the substring check. Lifecycle published under the standing caveat."
+    }
+  ]
+}

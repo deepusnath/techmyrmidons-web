@@ -1,0 +1,120 @@
+{
+  "slug": "bootstrap",
+  "domain": "frontend",
+  "name": "Bootstrap",
+  "canonical_url": "https://getbootstrap.com/",
+  "primary_source": "https://getbootstrap.com/docs/",
+  "proposed_lifecycle": "established",
+  "summary": "Component-and-grid CSS framework that made responsive layout routine.",
+  "what_it_is": "A CSS framework shipping pre-built components — navbars, modals, forms, cards — with a responsive grid and utility classes. Recent versions dropped the jQuery dependency and moved the grid onto flexbox and CSS grid.",
+  "why_it_matters": "Bootstrap solved responsive layout when doing it by hand was genuinely hard, and it is still a sensible choice when you need a working interface faster than you need a distinctive one. Two things changed around it: native flexbox and grid removed the layout problem most teams actually bought it for, and its component styling is recognisable enough that products using it un-customised tend to look like one another. That is a real trade to weigh, not a reason to dismiss it.",
+  "suitable_for": [
+    "Internal tools and admin interfaces where speed beats distinctiveness",
+    "Prototypes needing a complete component set immediately",
+    "Teams with no design resource who need sane defaults"
+  ],
+  "not_suitable_for": [
+    "Products with a distinct visual identity, where overriding it can cost more than starting from scratch",
+    "Projects that only wanted a grid — native CSS grid covers that now",
+    "Bundle-size-sensitive work, unless you are disciplined about importing only what you use"
+  ],
+  "alternatives": [
+    "Tailwind CSS",
+    "native CSS grid and flexbox",
+    "Pico CSS",
+    "Open Props"
+  ],
+  "verifiable_facts": [
+    "Actively maintained. Recent versions removed the jQuery dependency and use flexbox and CSS grid."
+  ],
+  "editorial_interpretation": [
+    "That un-customised Bootstrap products \"look like one another\".",
+    "Classification as established."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Internal tools and admin interfaces where speed beats distinctiveness",
+    "Suitable: Prototypes needing a complete component set immediately",
+    "Suitable: Teams with no design resource who need sane defaults",
+    "Unsuitable: Products with a distinct visual identity, where overriding it can cost more than starting from scratch",
+    "Unsuitable: Projects that only wanted a grid — native CSS grid covers that now",
+    "Unsuitable: Bundle-size-sensitive work, unless you are disciplined about importing only what you use"
+  ],
+  "evidence_gaps": [
+    "No evidence on how much current Bootstrap use is new work versus maintenance."
+  ],
+  "wrong_if": "A reviewer judges the visual-sameness claim to be an unsupported aesthetic assertion that should be cut.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "content.retain.bootstrap",
+      "context": "content",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "design_systems.reconsider.bootstrap",
+      "context": "design_systems",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.retain.bootstrap",
+      "context": "legacy",
+      "kind": "retain",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "content",
+    "design_systems",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2019",
+      "source_url": null,
+      "observed_at": "2019-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2017",
+      "source_url": null,
+      "observed_at": "2017-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:content.retain.bootstrap",
+    "rule:design_systems.reconsider.bootstrap",
+    "rule:legacy.retain.bootstrap"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 3 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against getbootstrap.com docs and the v5 migration notes (\"Dropped jQuery dependency and rewrote plugins to be in regular JavaScript\"). Corrected the grid claim: CSS Grid is the project’s opt-in alternate layout system, flexbox remains the default — the draft’s \"moved onto flexbox and CSS grid\" overstated. Dropped the unevidenced \"made responsive layout routine\". Lifecycle \"established\" signed under the standing caveat."
+    }
+  ]
+}

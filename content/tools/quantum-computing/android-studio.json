@@ -1,0 +1,27 @@
+{
+  "slug": "android-studio",
+  "domain": "quantum-computing",
+  "name": "Android Studio 1.0",
+  "category": null,
+  "homepage": "https://developer.android.com/studio/index.html#downloads",
+  "one_liner": null,
+  "what_it_is": "Android Studio is the official IDE for Android platform development. It encompasses the fastest tools for building apps on Android devices. The latest version 2.2 of the Studio was announced on May 18, 2016 during the Google I/O Conference. It is powered with a reengineered UI Designer and a Constraint Layout. Plunge deeper into the new version at http://android-developers.blogspot.in/2016/05/android-studio-22-preview-new-ui.html",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/quantum computing/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

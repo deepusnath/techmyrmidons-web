@@ -1,0 +1,37 @@
+{
+  "slug": "weights-and-biases",
+  "name": "Weights & Biases",
+  "category": "experiment tracking",
+  "homepage": "https://wandb.ai/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "Hosted experiment tracking and visualisation for ML pipelines.",
+  "what_it_is": "A platform for tracking and visualising the pieces of a machine learning pipeline, from datasets through to production models, covering experiment tracking and data versioning. Its own documentation states it is available in the cloud or installed on private infrastructure.",
+  "why_it_matters": "The visual comparison across runs is what makes a training sweep legible rather than a directory of logs, and the hosted option removes the tracking server from the work. That hosting is also the trade: runs, metrics and sometimes samples leave your infrastructure unless you pay for the version that does not.",
+  "suitable_for": [
+    "Training sweeps where comparing many runs visually is the task",
+    "Teams who would rather not operate tracking infrastructure",
+    "Sharing results with people who will not run code"
+  ],
+  "not_suitable_for": [
+    "Environments where run data cannot leave the network without the self-hosted tier",
+    "Small projects, where a spreadsheet and a naming convention suffice",
+    "Budgets with no line for a per-seat tool"
+  ],
+  "alternatives": [
+    "MLflow"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

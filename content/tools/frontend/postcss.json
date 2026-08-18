@@ -1,0 +1,33 @@
+{
+  "slug": "postcss",
+  "name": "PostCSS",
+  "category": "styling",
+  "homepage": "https://postcss.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2013,
+  "one_liner": "CSS transformation pipeline that most styling tools quietly run on.",
+  "what_it_is": "A tool that parses CSS into an abstract syntax tree and applies plugins to it — most commonly Autoprefixer for vendor prefixes, and the plugins that implement Tailwind and similar frameworks.",
+  "why_it_matters": "Most developers use PostCSS without knowing it, because it sits inside other tooling. Its direct relevance has narrowed as browsers implemented nesting and custom properties natively — a lot of what people used it for is now just CSS. Knowing it exists mainly helps when you need to debug what your build is doing to your stylesheets.",
+  "suitable_for": [
+    "Projects needing specific CSS transformations",
+    "Autoprefixing for defined browser support targets",
+    "Tooling that builds on its plugin model"
+  ],
+  "not_suitable_for": [
+    "Projects that only wanted nesting or variables — the platform now provides both"
+  ],
+  "alternatives": [
+    "Native CSS features",
+    "Sass",
+    "Lightning CSS"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "blockchain-team",
+    "domain": "blockchain",
+    "title": "BLOCKCHAIN TEAM",
+    "url": "https://blog.blockchain.com//",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "blockchain-unleashed",
+    "domain": "blockchain",
+    "title": "Blockchain Unleashed",
+    "url": "https://www.ibm.com/blogs/blockchain/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "vegard-nordahl-meghana-rao",
+    "domain": "blockchain",
+    "title": "Vegard Nordahl & Meghana Rao",
+    "url": "https://www.myblockchainblog.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "azzure-team",
+    "domain": "blockchain",
+    "title": "AZZURE TEAM",
+    "url": "https://azure.microsoft.com/en-us/blog/topics/blockchain/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "blockchain-at-berkeley",
+    "domain": "blockchain",
+    "title": "Blockchain at Berkeley",
+    "url": "https://blockchainatberkeley.blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "chain-letter",
+    "domain": "blockchain",
+    "title": "Chain Letter",
+    "url": "https://www.technologyreview.com/newsletters/chain-letter/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "coindesk",
+    "domain": "blockchain",
+    "title": "CoinDesk",
+    "url": "http://coindesk.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  },
+  {
+    "slug": "hackernoon",
+    "domain": "blockchain",
+    "title": "Hackernoon",
+    "url": "https://hackernoon.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/blog.json"
+  }
+]

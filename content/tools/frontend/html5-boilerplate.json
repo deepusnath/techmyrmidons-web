@@ -1,0 +1,26 @@
+{
+  "slug": "html5-boilerplate",
+  "domain": "frontend",
+  "name": "HTML5 Boilerplate",
+  "category": null,
+  "homepage": "https://html5boilerplate.com/",
+  "one_liner": null,
+  "what_it_is": "HTML5 Boilerplate helps you build fast, robust, and adaptable web apps or sites. Kick-start your project with the combined knowledge and effort of 100s of developers, all in one little package. Get started with HTML5 Boilerplate.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

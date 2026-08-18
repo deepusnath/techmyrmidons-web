@@ -1,0 +1,39 @@
+{
+  "slug": "langchain",
+  "name": "LangChain",
+  "category": "orchestration",
+  "homepage": "https://python.langchain.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2022,
+  "one_liner": "Framework for building agents and LLM-powered applications.",
+  "what_it_is": "A framework for building agents and LLM-powered applications, in its own words. It supplies interchangeable interfaces over model providers, retrieval stores and tools, so the surrounding application code does not change when one of those is swapped.",
+  "why_it_matters": "The abstractions are worth their cost when you genuinely expect to swap a provider or a store, and are pure overhead when you do not. Its breadth is also its main criticism: a thin wrapper written directly against one provider is often less code and easier to debug than the framework path.",
+  "suitable_for": [
+    "Applications expected to change model provider or retrieval store",
+    "Assembling retrieval, tools and memory without writing the plumbing",
+    "Prototyping where breadth of integrations saves time"
+  ],
+  "not_suitable_for": [
+    "A single fixed provider and a simple call, where direct SDK use is clearer",
+    "Teams who need to read every layer between their code and the request",
+    "Latency-critical paths where added indirection is measurable"
+  ],
+  "alternatives": [
+    "LlamaIndex",
+    "DSPy",
+    "LangGraph"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

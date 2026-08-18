@@ -1,0 +1,25 @@
+{
+  "slug": "magento",
+  "domain": "web",
+  "name": "Magento 2.1",
+  "category": null,
+  "homepage": "http://devdocs.magento.com/",
+  "one_liner": null,
+  "what_it_is": "Magento is the most flexible and customizable open-source e-commerce platform written in PHP. Rich, out-of-the-box functionality, an unlimited ability to customize, and seamless third-party integrations makes Magento the most sought after platforms among businesses. Magento 2.1 has been power packed with improved features such as Paypal enhancements, Braintree HOsted Fields, improved management interfaces and other security enhancements.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

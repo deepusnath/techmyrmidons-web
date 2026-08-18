@@ -1,0 +1,36 @@
+{
+  "slug": "typescript",
+  "name": "TypeScript",
+  "category": "language",
+  "homepage": "https://www.typescriptlang.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2012,
+  "one_liner": "A typed superset of JavaScript that compiles to plain JavaScript, with types erased at build time.",
+  "what_it_is": "A language that adds static types to JavaScript and compiles to plain JavaScript, with type information erased at build time. Its structural type system is designed to describe existing JavaScript patterns rather than impose new ones.",
+  "why_it_matters": "TypeScript stopped being a choice somewhere around 2020: libraries ship types, editors assume them, and most job postings expect it. The value is less about catching bugs than about editor tooling — accurate autocomplete and safe renames across a large codebase change how quickly you can work in unfamiliar code. If you last evaluated it early and found the tooling immature, that objection has expired.",
+  "suitable_for": [
+    "Any codebase more than one person maintains",
+    "Long-lived projects where refactoring safety matters",
+    "Library authors, whose consumers now expect type definitions"
+  ],
+  "not_suitable_for": [
+    "Throwaway scripts and prototypes, where the build step is pure overhead",
+    "Teams unwilling to invest in learning the type system, who will reach for `any` and get the cost without the benefit"
+  ],
+  "alternatives": [
+    "JavaScript with JSDoc type annotations",
+    "Flow"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-06",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is"
+  ]
+}

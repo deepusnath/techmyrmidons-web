@@ -1,0 +1,25 @@
+{
+  "slug": "blender",
+  "domain": "arvr",
+  "name": "Blender",
+  "category": null,
+  "homepage": "https://www.blender.org/",
+  "one_liner": null,
+  "what_it_is": "Blender is an open source, cross platform modeling animation and rendering tool. It has grown to be incredibly robust and powerful, rivaling the industry names like Maya, Softimage, and 3DS max. The feature set included with the absolutely free product is enough to take you through the entire production pipeline of game creation. It even has its own built-in game engine, though VR support is still not as strong as you’ll see in the real-time engines above.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

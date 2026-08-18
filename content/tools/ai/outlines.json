@@ -1,0 +1,37 @@
+{
+  "slug": "outlines",
+  "name": "Outlines",
+  "category": "structured output",
+  "homepage": "https://dottxt-ai.github.io/outlines/",
+  "lifecycle": "emerging",
+  "first_seen_year": 2023,
+  "one_liner": "Constrains generation so output matches a schema.",
+  "what_it_is": "A library its documentation describes as guaranteeing structured outputs during generation, and as low-abstraction. Rather than validating after the fact, it constrains what the model may emit while it is emitting, so tokens that would break the structure are not available to sample.",
+  "why_it_matters": "Constraining generation rather than checking it afterwards removes the retry loop entirely, which changes the cost profile for schema-heavy work. It needs access to the sampling step, so it applies where you run the model — not to a hosted API you can only send requests to.",
+  "suitable_for": [
+    "Self-hosted models where sampling can be constrained",
+    "Grammars and formats stricter than JSON",
+    "Workloads where retry cost from invalid output is the bottleneck"
+  ],
+  "not_suitable_for": [
+    "Hosted APIs that expose no sampling control",
+    "Teams wanting a high-level abstraction rather than a low-level one",
+    "Cases where post-hoc validation is sufficient and simpler"
+  ],
+  "alternatives": [
+    "Instructor"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

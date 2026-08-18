@@ -1,0 +1,35 @@
+{
+  "slug": "esbuild",
+  "name": "esbuild",
+  "category": "build and bundling",
+  "homepage": "https://esbuild.github.io/",
+  "lifecycle": "established",
+  "first_seen_year": 2020,
+  "one_liner": "Go-based bundler that made build speed a solved problem, now mostly used inside other tools.",
+  "what_it_is": "A bundler and minifier written in Go, typically one to two orders of magnitude faster than JavaScript-based equivalents. It is embedded inside many other tools rather than used directly.",
+  "why_it_matters": "esbuild reset expectations for how long a build should take, and most developers now use it indirectly — it sits inside Vite and several other toolchains. Knowing it exists explains why the current generation of tooling is fast, and it is a good direct choice for simple builds where you do not need a plugin ecosystem.",
+  "suitable_for": [
+    "Simple bundling and minification where speed dominates",
+    "Build steps inside other tooling",
+    "Library builds with straightforward requirements"
+  ],
+  "not_suitable_for": [
+    "Projects needing a rich plugin ecosystem or advanced code splitting",
+    "Teams wanting a full dev server experience — reach for Vite instead"
+  ],
+  "alternatives": [
+    "Vite",
+    "Rollup",
+    "SWC",
+    "Rspack"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

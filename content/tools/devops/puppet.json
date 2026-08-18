@@ -1,0 +1,25 @@
+{
+  "slug": "puppet",
+  "domain": "devops",
+  "name": "Puppet",
+  "category": null,
+  "homepage": "https://puppet.com/solutions/devops",
+  "one_liner": null,
+  "what_it_is": "Puppet is a configuration management tool that helps system administrators automate provisioning, configuration, and management of a server infrastructure.The tool comes in two flavors basically open source puppet and puppet enterprise. Besides freeing up time to work on projects that deliver more business value, Puppet ensures consistency, reliability and stability. It also facilitates closer collaboration between sysadmins and developers.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/devops/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,511 @@
+import { expect, test, type Page } from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
+
+/**
+ * Smoke coverage for the browser pilot's core loop.
+ *
+ * Each test starts from a clean localStorage so state from one does not leak
+ * into another, and the persistence test explicitly reloads to prove the
+ * local-first storage actually survives a refresh.
+ */
+
+/**
+ * Deployments under a subpath (GitHub Pages project sites) need every route
+ * prefixed. Without this a leading-slash path resolves against the origin and
+ * silently drops the subpath.
+ *   BASE_URL=https://user.github.io BASE_PREFIX=/repo npx playwright test
+ */
+const PREFIX = process.env.BASE_PREFIX ?? '';
+const p = (route: string) => `${PREFIX}${route}`;
+
+/** Set when running against a build made with NEXT_PUBLIC_SHOW_DRAFTS=false. */
+const PRODUCTION_MODE = process.env.DRAFTS_HIDDEN === '1';
+
+async function freshVisit(page: Page, route: string) {
+  await page.goto(p(route));
+  await page.evaluate(() => window.localStorage.clear());
+  await page.goto(p(route));
+}
+
+/**
+ * Open "Where I stand" for one domain.
+ *
+ * With more than one active Myrmidon the page renders a switcher, and which
+ * snapshot is on screen first is domain ordering rather than anything a test
+ * should rest on. A test that means frontend's diagnosis now says so.
+ */
+async function selectSnapshotDomain(page: Page, domain: string) {
+  const tab = page.getByTestId(`snapshot-domain-${domain}`);
+  if (await tab.count()) await tab.click();
+}
+
+/** Navigate to the snapshot without touching stored state. */
+async function gotoSnapshot(page: Page, domain = 'frontend') {
+  await page.goto(p('/me/'));
+  await selectSnapshotDomain(page, domain);
+}
+
+/** Start clean, then open the snapshot. For tests that begin at /me/. */
+async function openSnapshot(page: Page, domain = 'frontend') {
+  await freshVisit(page, '/me/');
+  await selectSnapshotDomain(page, domain);
+}
+
+/** Fails the test if the page logged a console error. */
+function trackConsoleErrors(page: Page): string[] {
+  const errors: string[] = [];
+  page.on('console', (m) => {
+    if (m.type() === 'error') errors.push(m.text());
+  });
+  page.on('pageerror', (e) => errors.push(String(e)));
+  return errors;
+}
+
+test('onboarding: land, see active and archived domains, enter Frontend', async ({ page }) => {
+  const errors = trackConsoleErrors(page);
+  await freshVisit(page, '/');
+
+  await expect(page.getByRole('heading', { name: /Pick a domain/i })).toBeVisible();
+
+  // Active pilot domain is present and reachable.
+  const frontend = page.getByTestId('domain-frontend');
+  await expect(frontend).toBeVisible();
+
+  // Archived domains are preserved and explain themselves rather than vanishing.
+  await expect(page.getByTestId('archived-quantum-computing')).toContainText(/archived/i);
+  await expect(page.getByTestId('archived-quantum-computing')).toContainText(/duplicates the Android list/i);
+  await expect(page.getByTestId('archived-actions-on-google')).toContainText(/No content was ever added/i);
+
+  await frontend.click();
+  await expect(page.getByRole('heading', { name: 'Frontend Myrmidon', level: 1 })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('draft editorial is labelled and never carries a byline', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'production withholds draft editorial rather than labelling it');
+  await freshVisit(page, '/frontend/');
+
+  const banner = page.getByText(/AI-assisted draft, awaiting domain-editor review/i).first();
+  await expect(banner).toBeVisible();
+
+  // The named editor must not appear as the author of unreviewed draft text.
+  await expect(page.getByText('Unattributed pending review').first()).toBeVisible();
+  await expect(page.locator('body')).not.toContainText('By Deepu S Nath');
+});
+
+test('landscape: search and category filter narrow the results', async ({ page }) => {
+  // Production withholds every lifecycle classification, so the Current view is
+  // legitimately empty and there is nothing to filter. Preview-only until
+  // lifecycles are reviewed.
+  test.skip(PRODUCTION_MODE, 'no lifecycle is reviewed, so production has no populated landscape');
+  const errors = trackConsoleErrors(page);
+  await freshVisit(page, '/frontend/current/');
+
+  const count = page.getByTestId('result-count');
+  const total = Number(await count.textContent());
+  expect(total).toBeGreaterThan(5);
+
+  // Search narrows.
+  await page.getByTestId('tool-search').fill('tailwind');
+  await expect(count).not.toHaveText(String(total));
+  await expect(page.getByTestId('tool-card').first()).toContainText('Tailwind');
+
+  // Clearing restores.
+  await page.getByTestId('tool-search').fill('');
+  await expect(count).toHaveText(String(total));
+
+  // Category filter narrows, and every remaining card matches.
+  await page.getByTestId('category-filter').selectOption('testing');
+  const cards = page.getByTestId('tool-card');
+  await expect(cards.first()).toBeVisible();
+  for (const c of await cards.all()) {
+    await expect(c).toHaveAttribute('data-category', 'testing');
+  }
+
+  // An impossible combination gives an honest empty state, not a blank page.
+  await page.getByTestId('tool-search').fill('zzzznotarealtool');
+  await expect(page.getByText(/Nothing matches those filters/i)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('follow: toggles on, off, and survives a reload', async ({ page }) => {
+  await freshVisit(page, '/frontend/');
+
+  const follow = page.getByTestId('follow-button');
+  await expect(follow).toHaveAttribute('data-following', 'false');
+
+  await follow.click();
+  await expect(follow).toHaveAttribute('data-following', 'true');
+  await expect(follow).toContainText(/Following/i);
+
+  await page.reload();
+  await expect(page.getByTestId('follow-button')).toHaveAttribute('data-following', 'true');
+
+  await page.getByTestId('follow-button').click();
+  await expect(page.getByTestId('follow-button')).toHaveAttribute('data-following', 'false');
+});
+
+test('progress: mark a tool, toggle it off, and confirm it persists', async ({ page }) => {
+  await freshVisit(page, '/frontend/tools/tailwind/');
+
+  const using = page.getByTestId('state-using');
+  await expect(using).toHaveAttribute('data-active', 'false');
+
+  await using.click();
+  await expect(using).toHaveAttribute('data-active', 'true');
+
+  // Persistence across a full reload is the point of local-first storage.
+  await page.reload();
+  await expect(page.getByTestId('state-using')).toHaveAttribute('data-active', 'true');
+
+  // Clicking the active state clears it.
+  await page.getByTestId('state-using').click();
+  await expect(page.getByTestId('state-using')).toHaveAttribute('data-active', 'false');
+
+  // "Proven" is present but locked in this pilot.
+  await expect(page.getByText(/Proven · locked/i)).toBeVisible();
+});
+
+test('snapshot: context assessment drives an explainable diagnosis', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'the diagnosis does not run in production; gating is covered in trust.spec');
+  const errors = trackConsoleErrors(page);
+  await openSnapshot(page);
+
+  // Context is required before anything is recommended.
+  await expect(page.getByTestId('needs-context')).toBeVisible();
+
+  await page.getByTestId('work-legacy').click();
+  await page.getByTestId('goal-modernize').click();
+  await page.getByTestId('assessment-search').fill('webpack');
+  await page.getByTestId('pick-webpack-using').click();
+  await page.getByTestId('assessment-search').fill('tailwind');
+  await page.getByTestId('pick-tailwind-shipped').click();
+  await page.getByTestId('assessment-done').click();
+
+  await expect(page.getByTestId('marked-total')).toHaveText('2');
+  await expect(page.getByTestId('snapshot-item-webpack')).toBeVisible();
+  await expect(page.getByTestId('snapshot-item-tailwind')).toBeVisible();
+
+  // Suggestions state why they apply and when they would not.
+  const suggestions = page.getByTestId('suggestions');
+  await expect(suggestions).toContainText(/Why this applies to you:/);
+  await expect(suggestions).toContainText(/Not for you if:/);
+
+  await expect(page.locator('body')).not.toContainText(/overall score/i);
+  expect(errors).toEqual([]);
+});
+
+test('activity: repository signals, own activity and demo data stay separated', async ({ page }) => {
+  await freshVisit(page, '/frontend/activity/');
+
+  await expect(page.getByRole('heading', { name: 'Repository signals' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Your activity' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Demonstration members' })).toBeVisible();
+
+  // Fictional users must be unmistakable.
+  await expect(page.getByText(/These people do not exist/i)).toBeVisible();
+  await expect(page.getByTestId('demo-activity')).toContainText('(demo)');
+
+  // Repository rows link to a real commit and make no claim about a person.
+  const rows = page.getByTestId('repo-signal');
+  if ((await rows.count()) > 0) {
+    await expect(rows.first().getByRole('link', { name: /commit/i })).toHaveAttribute(
+      'href',
+      /github\.com\/.+\/commit\/[0-9a-f]{7,}/,
+    );
+  }
+});
+
+test('submission: validates, queues locally, and survives a reload', async ({ page }) => {
+  await freshVisit(page, '/submit/');
+
+  // Validation rejects an incomplete submission rather than silently accepting.
+  await page.getByTestId('sub-submit').click();
+  await expect(page.getByTestId('sub-error')).toBeVisible();
+
+  await page.getByTestId('sub-name').fill('Panda CSS');
+  await page.getByTestId('sub-url').fill('not-a-url');
+  await page.getByTestId('sub-submit').click();
+  await expect(page.getByTestId('sub-error')).toContainText(/full URL/i);
+
+  await page.getByTestId('sub-url').fill('https://panda-css.com');
+  await page.getByTestId('sub-why').fill('Build-time CSS-in-JS; worth weighing against Tailwind.');
+  await page.getByTestId('sub-submit').click();
+
+  await expect(page.getByTestId('sub-success')).toBeVisible();
+  await expect(page.getByTestId('submission-list')).toContainText('Panda CSS');
+
+  await page.reload();
+  await expect(page.getByTestId('submission-list')).toContainText('Panda CSS');
+});
+
+test('feedback: states the no-backend limitation and saves locally', async ({ page }) => {
+  await freshVisit(page, '/frontend/');
+
+  await page.getByTestId('feedback-open').click();
+  const panel = page.getByTestId('feedback-panel');
+  await expect(panel).toBeVisible();
+  await expect(panel).toContainText(/No backend is configured/i);
+
+  await page.getByTestId('feedback-body').fill('The historical view is the most useful part.');
+  await page.getByTestId('feedback-save').click();
+  await expect(page.getByTestId('feedback-saved')).toBeVisible();
+  await expect(page.getByTestId('feedback-saved')).toContainText(/has not been sent/i);
+});
+
+test('historical: records decline as a typed event with a stated basis', async ({ page }) => {
+  await freshVisit(page, '/frontend/historical/');
+
+  await expect(page.getByTestId('year-2017')).toContainText(/original curation/i);
+
+  // The structural fix: AngularJS reaching end of life is recorded as a typed
+  // event, and — being a factual claim about the project — it now cites the
+  // project's own support-status page rather than resting on an AI reading.
+  const eol = page.getByTestId('year-2021').getByTestId('event-angularjs');
+  await expect(eol).toContainText(/Reached end of life/i);
+  await expect(eol).toHaveAttribute('data-claim-status', 'sourced');
+  await expect(eol).toContainText(/official source/i);
+});
+
+test('no horizontal overflow at mobile or desktop width', async ({ page }) => {
+  for (const route of ['/', '/frontend/', '/frontend/current/', '/frontend/historical/', '/me/', '/submit/']) {
+    await page.goto(p(route));
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+    );
+    expect(overflow, `horizontal overflow at ${route}`).toBe(false);
+  }
+});
+
+test('landscape: tabs switch the tool list in place, without navigating', async ({ page }) => {
+  // Lifecycle is unreviewed, so a production build has nothing to put in any of
+  // the four panels. Preview-only until those classifications are reviewed.
+  test.skip(PRODUCTION_MODE, 'no lifecycle is reviewed, so production has no populated landscape');
+  const errors = trackConsoleErrors(page);
+  await freshVisit(page, '/frontend/');
+
+  const url = page.url();
+  const panelCards = () => page.locator('[role="tabpanel"] [data-testid="tool-card"]');
+
+  // Current is selected on arrival and its tools are already on the page —
+  // the point of the change is not having to click through to see them.
+  await expect(page.getByTestId('landscape-tab-current')).toHaveAttribute('aria-selected', 'true');
+  const currentCount = await panelCards().count();
+  expect(currentCount).toBeGreaterThan(5);
+
+  // Switching is in place: the panel swaps and the URL does not change.
+  await page.getByTestId('landscape-tab-emerging').click();
+  await expect(page.getByTestId('landscape-panel-emerging')).toBeVisible();
+  await expect(page.getByTestId('landscape-tab-emerging')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByTestId('landscape-tab-current')).toHaveAttribute('aria-selected', 'false');
+  expect(page.url()).toBe(url);
+  const emergingCount = await panelCards().count();
+  expect(emergingCount).toBeGreaterThan(0);
+  expect(emergingCount).not.toBe(currentCount);
+
+  // Arrow keys drive the tablist, as a tablist is expected to.
+  await page.getByTestId('landscape-tab-emerging').press('ArrowRight');
+  await expect(page.getByTestId('landscape-tab-declining')).toHaveAttribute('aria-selected', 'true');
+
+  // Each panel still offers its own page, so the views stay deep-linkable.
+  await expect(page.getByTestId('landscape-full-declining')).toHaveAttribute('href', /\/frontend\/declining\/$/);
+
+  // A query typed in one tab must not silently narrow the next one.
+  await page.getByTestId('landscape-tab-current').click();
+  await page.getByTestId('tool-search').fill('tailwind');
+  const filtered = await panelCards().count();
+  expect(filtered).toBeLessThan(currentCount);
+  await page.getByTestId('landscape-tab-emerging').click();
+  await page.getByTestId('landscape-tab-current').click();
+  await expect(page.getByTestId('tool-search')).toHaveValue('');
+  expect(await panelCards().count()).toBe(currentCount);
+
+  expect(errors).toEqual([]);
+});
+
+test('landscape: pages 12 at a time and starts over when filters change', async ({ page }) => {
+  test.skip(PRODUCTION_MODE, 'no lifecycle is reviewed, so production has no populated landscape');
+  const errors = trackConsoleErrors(page);
+  await freshVisit(page, '/frontend/current/');
+
+  const cards = page.getByTestId('tool-card');
+  const total = Number(await page.getByTestId('result-count').textContent());
+  expect(total).toBeGreaterThan(12);
+
+  // A long list arrives as one page, not as a scroll.
+  await expect(cards).toHaveCount(12);
+  await expect(page.getByTestId('load-more')).toBeVisible();
+
+  // Each press adds a page, and the last one asks for only what is left.
+  await page.getByTestId('load-more').click();
+  await expect(cards).toHaveCount(Math.min(24, total));
+  const remaining = total - 24;
+  if (remaining > 0) {
+    await expect(page.getByTestId('load-more')).toHaveText(`Show ${Math.min(12, remaining)} more`);
+    await page.getByTestId('load-more').click();
+  }
+
+  // Once everything is shown the control goes away rather than sitting there dead.
+  await expect(cards).toHaveCount(total);
+  await expect(page.getByTestId('load-more')).toHaveCount(0);
+
+  // Narrowing after expanding must start the count again, or the reader is left
+  // on a page size they never chose.
+  await page.getByTestId('tool-search').fill('e');
+  const matching = Number(await page.getByTestId('result-count').textContent());
+  if (matching > 12) {
+    await expect(cards).toHaveCount(12);
+    await expect(page.getByTestId('load-more')).toBeVisible();
+  }
+
+  // A filter narrower than one page offers nothing to load.
+  await page.getByTestId('tool-search').fill('');
+  await page.getByTestId('category-filter').selectOption('testing');
+  expect(await cards.count()).toBeLessThan(12);
+  await expect(page.getByTestId('load-more')).toHaveCount(0);
+
+  expect(errors).toEqual([]);
+});
+
+test('state: v1 local data survives the move to domain-scoped keys', async ({ page }) => {
+  // v1 stored one assessment and keyed tools by bare slug, because there was a
+  // single active domain. Everything it holds therefore belongs to frontend.
+  await page.goto(p('/frontend/'));
+  await page.evaluate(() => {
+    localStorage.clear();
+    localStorage.setItem('techmyrmidons.v1', JSON.stringify({
+      follows: ['frontend'],
+      tools: {
+        typescript: { state: 'using', updated_at: '2026-07-01T00:00:00.000Z' },
+        vite: { state: 'shipped', updated_at: '2026-07-02T00:00:00.000Z' },
+      },
+      submissions: [],
+      feedback: [],
+      assessment: { work: 'apps', goal: 'stay_current', baseline: null, completed_at: '2026-07-03T00:00:00.000Z' },
+    }));
+  });
+
+  // The old mark is honoured on read, before anything has been rewritten.
+  await page.goto(p('/frontend/tools/typescript/'));
+  await expect(page.getByTestId('state-using')).toHaveAttribute('aria-pressed', 'true');
+
+  // Any change persists the v2 shape, with both marks scoped to the domain.
+  await page.getByTestId('state-exploring').click();
+  const v2 = await page.evaluate(() => JSON.parse(localStorage.getItem('techmyrmidons.v2') || 'null'));
+  expect(Object.keys(v2.tools).sort()).toEqual(['frontend/typescript', 'frontend/vite']);
+  expect(v2.tools['frontend/vite'].state).toBe('shipped');
+  expect(v2.assessments.frontend.work).toBe('apps');
+  expect(v2.assessments.frontend.goal).toBe('stay_current');
+  expect(v2.follows).toEqual(['frontend']);
+});
+
+test('profile: tiers are per domain, self-reported, and never a percentage', async ({ page }) => {
+  await freshVisit(page, '/profile/');
+
+  // One card per active Myrmidon, both untouched.
+  await expect(page.getByTestId('profile-card-frontend').getByTestId('profile-tier')).toHaveText('Not started');
+  await expect(page.getByTestId('profile-card-ai').getByTestId('profile-tier')).toHaveText('Not started');
+
+  // Ship with one frontend tool.
+  await page.goto(p('/frontend/tools/vite/'));
+  await page.getByTestId('state-shipped').click();
+  await page.goto(p('/profile/'));
+
+  // The mark moves exactly one domain's tier — state is domain-scoped.
+  const frontend = page.getByTestId('profile-card-frontend');
+  await expect(frontend.getByTestId('profile-tier')).toHaveText('Scout');
+  await expect(frontend.getByTestId('profile-recent')).toContainText('Vite');
+  await expect(frontend.getByTestId('profile-recent')).toContainText('Shipped');
+  await expect(page.getByTestId('profile-card-ai').getByTestId('profile-tier')).toHaveText('Not started');
+
+  // The no-score stance holds on this page too: fractions and tiers, never a
+  // percentage or a meter element.
+  await expect(page.locator('body')).not.toContainText(/\b\d{1,3}\s?%/);
+  await expect(page.locator('progress, meter, [role="progressbar"]')).toHaveCount(0);
+
+  // Reachable from "Where I stand".
+  await page.goto(p('/me/'));
+  await page.getByTestId('me-profile-link').click();
+  await expect(page.getByTestId('profile-card-frontend')).toBeVisible();
+});
+
+test('profile: share link round-trips serverless and declares provenance', async ({ page }) => {
+  // No activity → nothing shareable, and the panel says so instead of minting
+  // an empty link.
+  await freshVisit(page, '/profile/');
+  await expect(page.getByText(/Mark at least one tool and your profile becomes shareable/i)).toBeVisible();
+  await expect(page.getByTestId('share-create')).toHaveCount(0);
+
+  // Ship one tool, create the link.
+  await page.goto(p('/frontend/tools/vite/'));
+  await page.getByTestId('state-shipped').click();
+  await page.goto(p('/profile/'));
+  await page.getByTestId('share-create').click();
+  const url = await page.getByTestId('share-url').inputValue();
+  expect(url).toContain('/profile/view/#s=');
+
+  // The snapshot lives in the fragment: the server-visible part of the URL
+  // carries no user data.
+  expect(new URL(url).pathname).not.toContain('s=');
+
+  // The viewer renders the snapshot read-only with its provenance banner.
+  await page.goto(url);
+  await expect(page.getByTestId('share-provenance')).toContainText(/self-reported/i);
+  await expect(page.getByTestId('share-provenance')).toContainText(/not.*verified|Nothing here is verified/i);
+  const card = page.getByTestId('shared-domain');
+  await expect(card).toContainText('Frontend');
+  await expect(card).toContainText('Scout');
+  await expect(card).toContainText('Vite');
+
+  // Still no percentages, still no meters — the stance follows the data.
+  await expect(page.locator('body')).not.toContainText(/\b\d{1,3}\s?%/);
+  await expect(page.locator('progress, meter, [role="progressbar"]')).toHaveCount(0);
+
+  // A tampered fragment renders nothing, not something.
+  await page.goto(p('/profile/view/#s=corrupted-beyond-repair'));
+  await expect(page.getByTestId('share-invalid')).toBeVisible();
+  await expect(page.getByTestId('shared-domain')).toHaveCount(0);
+});
+
+test('feed: each Myrmidon publishes reviewed changes only, linked from its page', async ({ page }) => {
+  // The feed link is on the domain page, as a plain file link.
+  await freshVisit(page, '/frontend/');
+  await expect(page.getByTestId('domain-feed')).toHaveAttribute('href', /\/frontend\/feed\.xml$/);
+
+  // The feed grows exactly as review does, so the expected count comes from
+  // the content itself: one entry per published frontend tool a reviewer has
+  // signed. Pinning a number here just made every review batch a test edit.
+  const toolsDir = path.join(process.cwd(), 'content/tools/frontend');
+  const reviewed = fs.readdirSync(toolsDir)
+    .map((f) => JSON.parse(fs.readFileSync(path.join(toolsDir, f), 'utf8')))
+    .filter((t) => t.published && t.reviewed_at &&
+      ((t.reviewed_fields ?? []).length > 0 || t.editorial_status === 'reviewed'));
+  const unreviewedName = fs.readdirSync(toolsDir)
+    .map((f) => JSON.parse(fs.readFileSync(path.join(toolsDir, f), 'utf8')))
+    .find((t) => t.published && !t.reviewed_at)?.name;
+
+  const fe = await page.request.get(p('/frontend/feed.xml'));
+  expect(fe.status()).toBe(200);
+  const feBody = await fe.text();
+  expect(feBody).toContain('<feed xmlns="http://www.w3.org/2005/Atom">');
+  expect((feBody.match(/<entry>/g) ?? []).length).toBe(reviewed.length);
+  for (const t of reviewed) expect(feBody).toContain(`${t.name} — published in the Frontend catalogue`);
+  if (unreviewedName) expect(feBody).not.toContain(`${unreviewedName} — published`);
+
+  // The AI catalogue was approved wholesale, so its feed carries those entries,
+  // each dated by its sign-off.
+  const ai = await page.request.get(p('/ai/feed.xml'));
+  expect(ai.status()).toBe(200);
+  const aiBody = await ai.text();
+  expect((aiBody.match(/<entry>/g) ?? []).length).toBeGreaterThan(20);
+  expect(aiBody).toContain('PyTorch — published in the Artificial Intelligence catalogue');
+  expect(aiBody).toContain('<updated>2026-08-07T00:00:00Z</updated>');
+
+  // Feed prose stays inside the review boundary: no draft labels, no withheld
+  // wording, and summaries only where that field was reviewed.
+  for (const body of [feBody, aiBody]) {
+    expect(body).not.toContain('AI-assisted draft');
+    expect(body).not.toContain('unreviewed');
+  }
+});

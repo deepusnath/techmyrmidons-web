@@ -1,0 +1,25 @@
+{
+  "slug": "pimple",
+  "domain": "web",
+  "name": "Pimple",
+  "category": null,
+  "homepage": "http://pimple.sensiolabs.org/",
+  "one_liner": null,
+  "what_it_is": "Pimple is a small Dependency Injection Container for PHP which takes advantage of PHP’s closures to define dependencies in manageable way. As many other dependency injection containers, Pimple is able to manage two different kind of data: services and parameters.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,92 @@
+{
+  "slug": "astro",
+  "domain": "frontend",
+  "name": "Astro",
+  "canonical_url": "https://astro.build/",
+  "primary_source": "https://docs.astro.build/en/getting-started/",
+  "proposed_lifecycle": "established",
+  "summary": "Content-first framework that ships zero JavaScript by default.",
+  "what_it_is": "A framework for content-driven sites that renders to static HTML by default and hydrates only components you explicitly mark as interactive. It can host components from React, Vue, Svelte and others in the same project.",
+  "why_it_matters": "Astro inverted the default. Where SPA frameworks ship a runtime and let you opt out, Astro ships nothing and makes you opt in per component. For documentation, marketing and editorial sites — a large share of real frontend work — this is straightforwardly the better trade, and it is the tool most likely to be missing from the stack of someone who learned frontend inside a SPA framework.",
+  "suitable_for": [
+    "Documentation, marketing, blogs and editorial sites",
+    "Projects wanting to reuse existing React or Vue components without the runtime cost",
+    "Teams prioritising load performance"
+  ],
+  "not_suitable_for": [
+    "Application-shaped products with pervasive client state",
+    "Dashboards and highly stateful interfaces",
+    "Anything where most of the page is interactive"
+  ],
+  "alternatives": [
+    "Next.js",
+    "Eleventy",
+    "Nuxt",
+    "SvelteKit"
+  ],
+  "verifiable_facts": [
+    "Official docs state it ships zero JavaScript by default and hydrates components explicitly marked as interactive."
+  ],
+  "editorial_interpretation": [
+    "That it is \"the right default for content\".",
+    "Classification as established."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Documentation, marketing, blogs and editorial sites",
+    "Suitable: Projects wanting to reuse existing React or Vue components without the runtime cost",
+    "Suitable: Teams prioritising load performance",
+    "Unsuitable: Application-shaped products with pervasive client state",
+    "Unsuitable: Dashboards and highly stateful interfaces",
+    "Unsuitable: Anything where most of the page is interactive"
+  ],
+  "evidence_gaps": [
+    "No evidence about adoption maturity to support \"established\" over \"emerging\"."
+  ],
+  "wrong_if": "A reviewer judges it too young for \"established\" given the alternatives it competes with.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "content.recommend.astro",
+      "context": "content",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "suppression",
+      "detail": "covers role \"build\" in content, suppressing lower-priority rules needing it"
+    }
+  ],
+  "journeys_affected": [
+    "content"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:content.recommend.astro"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve",
+      "reasoning": "Descriptions verified against the project’s own site; drafted wording carried by the source. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

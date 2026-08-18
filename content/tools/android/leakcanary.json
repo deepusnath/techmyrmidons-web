@@ -1,0 +1,25 @@
+{
+  "slug": "leakcanary",
+  "domain": "android",
+  "name": "LeakCanary",
+  "category": null,
+  "homepage": "https://square.github.io/leakcanary/",
+  "one_liner": null,
+  "what_it_is": "Benjamin Franklin once said, A tiny leak can sink a huge ship. Therefore, LeakCanary is just meant for the same. LeakCanary is a memory leak detection tool. In case of a memory leak, this tool will automatically",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2021,
+  "archive_years": [
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2021.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

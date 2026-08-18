@@ -1,0 +1,39 @@
+{
+  "slug": "vllm",
+  "name": "vLLM",
+  "category": "serving and inference",
+  "homepage": "https://docs.vllm.ai/",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "Library for LLM inference and serving.",
+  "what_it_is": "A library for LLM inference and serving, in its own words. It manages attention memory in pages rather than contiguous blocks and batches incoming requests continuously, so one server can hold many concurrent conversations without reserving worst-case memory for each.",
+  "why_it_matters": "It is the difference between a GPU serving one request at a time and the same GPU serving many, which is usually what decides whether self-hosting is cheaper than an API. The cost is operational: you are now running a serving tier, with the capacity planning and failure modes that implies.",
+  "suitable_for": [
+    "Serving a model to many concurrent callers",
+    "Self-hosting where GPU cost per request decides viability",
+    "Workloads with an OpenAI-compatible client already written"
+  ],
+  "not_suitable_for": [
+    "A single developer machine, where a lighter local runner is less to operate",
+    "Teams without GPU capacity or someone to own the serving tier",
+    "Intermittent low-volume use, where a hosted API costs less than an idle GPU"
+  ],
+  "alternatives": [
+    "Ollama",
+    "llama.cpp",
+    "ONNX Runtime"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "crashlytics",
+  "domain": "android",
+  "name": "Crashlytics",
+  "category": null,
+  "homepage": "http://try.crashlytics.com/",
+  "one_liner": null,
+  "what_it_is": "Crashlytics delivers deep, rich crash reporting across devices in real-time. It performs a detailed analysis of every thread on every Android device to identify the most important issues.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

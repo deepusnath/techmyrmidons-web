@@ -1,0 +1,109 @@
+{
+  "slug": "angularjs",
+  "domain": "frontend",
+  "name": "AngularJS",
+  "canonical_url": "https://angularjs.org/",
+  "primary_source": "https://docs.angularjs.org/misc/version-support-status",
+  "proposed_lifecycle": "legacy",
+  "summary": "Google's first-generation framework — end-of-life since 2021, and not the same product as Angular.",
+  "what_it_is": "A framework built around two-way data binding, directives that extend HTML, dependency injection and scopes. It reached end of long-term support in January 2022 and receives no further patches, including security patches.",
+  "why_it_matters": "AngularJS is the sharpest illustration of why this archive needed rebuilding. It sat in the original 2021 frontend list presented as a current recommendation, years after it was superseded and shortly before support ended entirely — because the old data model was append-only and nothing could ever be removed. It is kept here, marked legacy, as the worked example of the failure being corrected. Its practical value now is diagnostic: recognising ng-* attributes dates a codebase precisely.",
+  "suitable_for": [
+    "Maintaining or assessing existing AngularJS applications ahead of migration",
+    "Recognising the framework when you inherit it"
+  ],
+  "not_suitable_for": [
+    "Any new project",
+    "Any application handling sensitive data — it receives no security patches",
+    "Teams expecting the knowledge to transfer to modern Angular, which is a different framework"
+  ],
+  "alternatives": [
+    "Angular",
+    "React",
+    "Vue",
+    "Svelte"
+  ],
+  "verifiable_facts": [
+    "The project's own support-status page records that long-term support ended; it receives no further patches."
+  ],
+  "editorial_interpretation": [
+    "That its remaining value is diagnostic — recognising it dates a codebase."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Maintaining or assessing existing AngularJS applications ahead of migration",
+    "Suitable: Recognising the framework when you inherit it",
+    "Unsuitable: Any new project",
+    "Unsuitable: Any application handling sensitive data — it receives no security patches",
+    "Unsuitable: Teams expecting the knowledge to transfer to modern Angular, which is a different framework"
+  ],
+  "evidence_gaps": [
+    "None material. This is the best-evidenced record in the set."
+  ],
+  "wrong_if": "The cited support-status page is superseded or its date is misread.",
+  "confidence": "high",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "learning.reconsider.angularjs",
+      "context": "learning",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.reconsider.angularjs",
+      "context": "legacy",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "learning",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2019",
+      "source_url": null,
+      "observed_at": "2019-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2017",
+      "source_url": null,
+      "observed_at": "2017-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:learning.reconsider.angularjs",
+    "rule:legacy.reconsider.angularjs"
+  ],
+  "proposed_decision": "Approve lifecycle \"legacy\" and the 2 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Source correction: angularjs.org states \"support has officially ended as of January 2022\" — the drafted \"since 2021\" was wrong. The legacy classification is sourced by that notice. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

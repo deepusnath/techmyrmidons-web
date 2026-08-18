@@ -1,0 +1,25 @@
+{
+  "slug": "instabug",
+  "domain": "android",
+  "name": "Instabug",
+  "category": null,
+  "homepage": "http:/instabug.com",
+  "one_liner": null,
+  "what_it_is": "Instabug empowers mobile teams to release with confidence through comprehensive bug and crash reports, performance monitoring, and real-time user surveys and feedback.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2021,
+  "archive_years": [
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2021.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

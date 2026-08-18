@@ -1,0 +1,25 @@
+{
+  "slug": "lumberyard",
+  "domain": "arvr",
+  "name": "Lumberyard",
+  "category": null,
+  "homepage": "https://aws.amazon.com/lumberyard/",
+  "one_liner": null,
+  "what_it_is": "Lumberyard was recently unveiled by Amazon. This is a recent addition to the market, and the community is just beginning to grow. On the technical side, this is a previous version of the crytech engine, but with Amazon backing it, some tweaks have been made.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "transformers",
+  "name": "Transformers",
+  "category": "model library",
+  "homepage": "https://huggingface.co/docs/transformers/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "Library for inference and training with pretrained models.",
+  "what_it_is": "A library that, in its own words, provides what is needed for inference or training with pretrained models, aimed at developers, machine learning engineers and researchers. It gives many architectures one loading and calling interface, so swapping model is largely a change of identifier.",
+  "why_it_matters": "It is how most published weights are actually loaded, which makes it the practical entry point to using someone else’s model rather than training your own. The uniform interface hides real differences between architectures, so a model that loads cleanly can still be the wrong shape for the task.",
+  "suitable_for": [
+    "Loading and running published pretrained weights",
+    "Fine-tuning an existing model rather than training from scratch",
+    "Comparing architectures behind one interface"
+  ],
+  "not_suitable_for": [
+    "High-throughput serving, where an inference engine handles batching and memory better",
+    "Very small deployments, where the dependency footprint outweighs the convenience",
+    "Architectures with no published implementation, which still need writing"
+  ],
+  "alternatives": [
+    "PyTorch",
+    "Keras"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

@@ -1,0 +1,334 @@
+/**
+ * Context-aware diagnosis.
+ *
+ * Replaces the previous "you have nothing in this category, here is something"
+ * logic, which recommended tools purely because a bucket was empty. Filling
+ * categories is not a diagnosis — it produces the same generic list for a
+ * legacy maintainer and a design-system author.
+ *
+ * Rules here:
+ *  - a recommendation requires work context AND goal; without them we ask for
+ *    context rather than guessing
+ *  - every suggestion states why it applies to THIS user and what would make it
+ *    unsuitable
+ *  - at most three suggestions
+ *  - no score, percentage, level or completeness meter is produced anywhere
+ *  - repository signals never contribute
+ */
+import type { ProgressState } from './state.ts';
+
+/**
+ * A work context is whatever the domain says it is.
+ *
+ * These were a fixed union of frontend's five, which meant a second domain
+ * would have asked an AI reader which kind of design system they maintain. The
+ * valid set now comes from that domain's own heuristics, so adding a domain is
+ * a content change rather than a code change.
+ */
+export type WorkContext = string;
+export type Goal = 'stay_current' | 'modernize' | 'new_stack' | 'ai_productivity' | 'skill_gaps';
+
+/**
+ * Conditional follow-up for learners. Work type and goal alone cannot
+ * distinguish somebody who has never written CSS from somebody who has shipped
+ * an application, and recommending TypeScript, Vite and React to the former is
+ * actively unhelpful.
+ */
+/** Baseline levels are domain-specific too — see `baselines` in the heuristics. */
+export type Baseline = string;
+
+export const GOAL_OPTIONS: Array<{ value: Goal; label: string; hint: string }> = [
+  { value: 'stay_current', label: 'Stay current', hint: 'Know what changed and why' },
+  { value: 'modernize', label: 'Modernize an existing project', hint: 'Reduce the cost of what you already run' },
+  { value: 'new_stack', label: 'Choose a stack for a new project', hint: 'Starting from scratch' },
+  { value: 'ai_productivity', label: 'Improve productivity with AI', hint: 'Where assistance actually helps' },
+  { value: 'skill_gaps', label: 'Identify skill gaps', hint: 'What you have drifted past' },
+];
+
+export interface AssessmentAnswers {
+  work: WorkContext | null;
+  goal: Goal | null;
+  baseline: Baseline | null;
+  completed_at: string | null;
+}
+
+export const EMPTY_ASSESSMENT: AssessmentAnswers = {
+  work: null, goal: null, baseline: null, completed_at: null,
+};
+
+/** Only the learning context needs the extra baseline question. */
+/**
+ * Which contexts ask a follow-up, and what the options are.
+ *
+ * Both come from the domain. Work type and goal alone cannot distinguish
+ * somebody who has never written CSS from somebody who has shipped an
+ * application, but what that distinction *is* differs by field.
+ */
+export function workOptions(h: Heuristics | null): Array<{ value: WorkContext; label: string; hint: string }> {
+  if (!h) return [];
+  return Object.entries(h.contexts).map(([value, c]) => ({ value, label: c.label, hint: c.hint ?? '' }));
+}
+
+export function baselineOptions(h: Heuristics | null): Array<{ value: Baseline; label: string }> {
+  return h?.baselines ?? [];
+}
+
+export function workLabel(h: Heuristics | null, work: WorkContext | null): string | undefined {
+  if (!h || !work) return undefined;
+  return h.contexts[work]?.label;
+}
+
+export function needsBaseline(h: Heuristics | null, work: WorkContext | null): boolean {
+  if (!h || !work) return false;
+  return h.contexts[work]?.needs_baseline === true;
+}
+
+// ---------------------------------------------------------------------------
+// heuristics shape (content/heuristics/<domain>.json)
+// ---------------------------------------------------------------------------
+
+export interface Candidate {
+  slug: string;
+  why: string;
+  unsuitable_if: string;
+  /** Only offered when the user has marked one of these. */
+  requires_any?: string[];
+  goals?: Goal[];
+  rule_id?: string;
+  editorial_status?: 'ai_draft' | 'reviewed';
+  reviewed_by?: string | null;
+  reviewed_at?: string | null;
+  /** Only offered at these learner baselines (learning context only). */
+  baselines?: Baseline[];
+  /**
+   * Roles this tool already covers. If a higher-priority suggestion provides a
+   * role, a lower one offering only that same role is redundant and suppressed
+   * — recommending Astro and Vite side by side as separate priorities when
+   * Astro brings its own build is a contradiction, not a richer answer.
+   */
+  provides?: string[];
+  /** Roles this tool needs from elsewhere; it is redundant without them. */
+  role?: string;
+}
+
+/**
+ * A single reviewable rule. Review status lives here rather than on the file so
+ * that approving one judgement can never publish an unrelated one.
+ */
+export interface RuleEntry {
+  text: string;
+  rule_id: string;
+  editorial_status: 'ai_draft' | 'reviewed';
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+}
+
+/** Older content stored these as plain strings; both shapes are accepted. */
+export type RuleValue = string | RuleEntry;
+
+export function ruleText(v: RuleValue): string {
+  return typeof v === 'string' ? v : v.text;
+}
+
+export function ruleId(v: RuleValue, fallback: string): string {
+  return typeof v === 'string' ? fallback : v.rule_id;
+}
+
+export function ruleReviewed(v: RuleValue | Candidate): boolean {
+  return typeof v !== 'string' && v.editorial_status === 'reviewed';
+}
+
+export interface ContextRules {
+  label: string;
+  /** Short disambiguator shown under the label when choosing a context. */
+  hint?: string;
+  /** Whether choosing this context asks the follow-up baseline question. */
+  needs_baseline?: boolean;
+  still_appropriate: Record<string, RuleValue>;
+  reconsider: Record<string, RuleValue>;
+  candidates: Candidate[];
+}
+
+export interface Heuristics {
+  domain: string;
+  editorial_status: 'ai_draft' | 'reviewed';
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  note: string;
+  contexts: Record<WorkContext, ContextRules>;
+  /** Options for the conditional follow-up, when a context asks for one. */
+  baselines?: Array<{ value: Baseline; label: string }>;
+}
+
+// ---------------------------------------------------------------------------
+// diagnosis
+// ---------------------------------------------------------------------------
+
+export interface Judged {
+  slug: string;
+  name: string;
+  reason: string;
+  rule_id: string;
+  reviewed: boolean;
+}
+
+export interface Suggestion {
+  slug: string;
+  name: string;
+  why: string;
+  unsuitable_if: string;
+  rule_id: string;
+  reviewed: boolean;
+}
+
+export interface Diagnosis {
+  status: 'needs_context' | 'ready';
+  /** What we still need before recommending anything. */
+  missing: Array<'work' | 'goal' | 'baseline'>;
+  contextLabel: string | null;
+  appropriate: Judged[];
+  reconsider: Judged[];
+  suggestions: Suggestion[];
+  /** True when rules used were unreviewed AI-authored judgements. */
+  rulesAreDraft: boolean;
+}
+
+export const MAX_SUGGESTIONS = 3;
+
+export function diagnose({
+  answers,
+  marked,
+  heuristics,
+  toolNames,
+  reviewedOnly = false,
+}: {
+  answers: AssessmentAnswers;
+  marked: Record<string, ProgressState>;
+  heuristics: Heuristics;
+  toolNames: Record<string, string>;
+  /**
+   * When true, only rules a human has reviewed may contribute. Set by the
+   * caller from the build mode; gating happens per rule, never per file.
+   */
+  reviewedOnly?: boolean;
+}): Diagnosis {
+  // "Draft" now means: at least one contributing rule is unreviewed. File-level
+  // status is advisory only.
+  const allRules = Object.values(heuristics.contexts).flatMap((r) => [
+    ...Object.values(r.still_appropriate ?? {}),
+    ...Object.values(r.reconsider ?? {}),
+    ...(r.candidates ?? []),
+  ]);
+  const rulesAreDraft = allRules.some((r) => !ruleReviewed(r));
+  const missing: Array<'work' | 'goal' | 'baseline'> = [];
+  if (!answers.work) missing.push('work');
+  if (!answers.goal) missing.push('goal');
+  // A learner with nothing marked and no stated starting point has given us no
+  // usable context, so we ask instead of guessing at their level.
+  const noToolsMarked = Object.keys(marked).length === 0;
+  if (needsBaseline(heuristics, answers.work) && noToolsMarked && !answers.baseline) missing.push('baseline');
+
+  // Without context we ask rather than produce something generic.
+  if (missing.length > 0 || !answers.work || !answers.goal) {
+    return {
+      status: 'needs_context',
+      missing,
+      contextLabel: null,
+      appropriate: [],
+      reconsider: [],
+      suggestions: [],
+      rulesAreDraft,
+    };
+  }
+
+  const rules = heuristics.contexts[answers.work];
+  if (!rules) {
+    return {
+      status: 'needs_context',
+      missing: ['work'],
+      contextLabel: null,
+      appropriate: [],
+      reconsider: [],
+      suggestions: [],
+      rulesAreDraft,
+    };
+  }
+
+  const name = (slug: string) => toolNames[slug] ?? slug;
+  const markedSlugs = Object.keys(marked).sort();
+
+  // What the user already has that still serves this kind of work.
+  const appropriate: Judged[] = markedSlugs
+    .filter((s) => rules.still_appropriate[s])
+    .filter((s) => !reviewedOnly || ruleReviewed(rules.still_appropriate[s]))
+    .map((s) => ({
+      slug: s,
+      name: name(s),
+      reason: ruleText(rules.still_appropriate[s]),
+      rule_id: ruleId(rules.still_appropriate[s], `${answers.work}.retain.${s}`),
+      reviewed: ruleReviewed(rules.still_appropriate[s]),
+    }));
+
+  // What they have that specifically does not serve this kind of work.
+  const reconsider: Judged[] = markedSlugs
+    .filter((s) => rules.reconsider[s])
+    .filter((s) => !reviewedOnly || ruleReviewed(rules.reconsider[s]))
+    .map((s) => ({
+      slug: s,
+      name: name(s),
+      reason: ruleText(rules.reconsider[s]),
+      rule_id: ruleId(rules.reconsider[s], `${answers.work}.reconsider.${s}`),
+      reviewed: ruleReviewed(rules.reconsider[s]),
+    }));
+
+  // Candidates must match the goal, must not already be marked, any
+  // `requires_any` precondition must hold, and — for learners — the candidate
+  // must suit the stated baseline.
+  const eligible = rules.candidates
+    .filter((c) => !(c.slug in marked))
+    .filter((c) => !c.goals || c.goals.includes(answers.goal as Goal))
+    .filter((c) => !c.requires_any || c.requires_any.some((r) => r in marked))
+    .filter((c) => !c.baselines || (answers.baseline ? c.baselines.includes(answers.baseline) : false))
+    .filter((c) => !reviewedOnly || ruleReviewed(c));
+
+  /**
+   * Suppress a candidate whose only role is already covered — by a
+   * higher-priority suggestion, or by something the user already marked.
+   *
+   * Recommending Astro and Vite side by side as separate learning priorities
+   * contradicts Vite's own "not for you if you are using a framework that
+   * brings its own build". A contradiction is worse than a shorter list.
+   */
+  const provided = new Set<string>();
+  for (const slug of markedSlugs) {
+    const c = rules.candidates.find((x) => x.slug === slug);
+    for (const r of c?.provides ?? []) provided.add(r);
+    if (c?.role) provided.add(c.role);
+  }
+
+  const suggestions: Suggestion[] = [];
+  for (const c of eligible) {
+    if (suggestions.length >= MAX_SUGGESTIONS) break;
+    if (c.role && provided.has(c.role)) continue;
+    for (const r of c.provides ?? []) provided.add(r);
+    if (c.role) provided.add(c.role);
+    suggestions.push({
+      slug: c.slug,
+      name: name(c.slug),
+      why: c.why,
+      unsuitable_if: c.unsuitable_if,
+      rule_id: c.rule_id ?? `${answers.work}.recommend.${c.slug}`,
+      reviewed: ruleReviewed(c),
+    });
+  }
+
+  return {
+    status: 'ready',
+    missing: [],
+    contextLabel: rules.label,
+    appropriate,
+    reconsider,
+    suggestions,
+    rulesAreDraft,
+  };
+}

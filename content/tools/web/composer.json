@@ -1,0 +1,25 @@
+{
+  "slug": "composer",
+  "domain": "web",
+  "name": "Composer",
+  "category": null,
+  "homepage": "https://getcomposer.org/",
+  "one_liner": null,
+  "what_it_is": "Composer is an application-level package manager for the PHP programming language. It provides a standard format for managing dependencies of PHP software and required libraries. It allows you to declare the libraries your project depends on and it will manage them for you. Like Yum or Apt, Composer is not a package manager. It deals with 'packages' or libraries, but manages them on a per-project basis, installing them in a directory inside your project.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

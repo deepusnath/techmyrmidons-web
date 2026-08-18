@@ -1,0 +1,140 @@
+{
+  "slug": "sass",
+  "domain": "frontend",
+  "name": "Sass",
+  "canonical_url": "https://sass-lang.com/",
+  "primary_source": "https://sass-lang.com/documentation/",
+  "proposed_lifecycle": "established",
+  "summary": "CSS preprocessor whose best ideas the platform has since absorbed.",
+  "what_it_is": "A CSS preprocessor adding variables, nesting, mixins, functions, partials and imports, compiled to plain CSS. The SCSS syntax is a superset of CSS, so any valid stylesheet is already valid SCSS.",
+  "why_it_matters": "Sass is still in wide production use and remains a perfectly reasonable choice — but the ground shifted underneath it. Native custom properties, native nesting and modern layout removed the reasons most people originally reached for it, and its own @import was deprecated in favour of @use. What still has no native equivalent is mixins and compile-time logic. If Sass is where your styling knowledge stopped, the useful question is not whether to abandon it, but which of its features you are still running a build step for when the browser now does them natively.",
+  "suitable_for": [
+    "Existing codebases with substantial Sass already written",
+    "Design systems that genuinely need mixins and compile-time logic",
+    "Teams wanting partials and file organisation without a bundler-driven approach"
+  ],
+  "not_suitable_for": [
+    "New projects wanting only variables and nesting, which CSS now provides natively",
+    "Projects trying to remove build steps from their styling pipeline",
+    "Teams who would be better served by a shared token scale than by a preprocessor"
+  ],
+  "alternatives": [
+    "Native CSS with custom properties",
+    "PostCSS",
+    "Tailwind CSS",
+    "CSS Modules"
+  ],
+  "verifiable_facts": [
+    "Actively maintained. The documentation records that @import is deprecated in favour of @use."
+  ],
+  "editorial_interpretation": [
+    "That native CSS has absorbed most of what people reached for it to do.",
+    "Classification as established rather than declining."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Existing codebases with substantial Sass already written",
+    "Suitable: Design systems that genuinely need mixins and compile-time logic",
+    "Suitable: Teams wanting partials and file organisation without a bundler-driven approach",
+    "Unsuitable: New projects wanting only variables and nesting, which CSS now provides natively",
+    "Unsuitable: Projects trying to remove build steps from their styling pipeline",
+    "Unsuitable: Teams who would be better served by a shared token scale than by a preprocessor"
+  ],
+  "evidence_gaps": [
+    "No evidence about how much Sass usage is legacy maintenance versus new authoring."
+  ],
+  "wrong_if": "A reviewer judges the deprecation of @import and the growth of native CSS nesting to make \"declining\" the more honest classification.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "content.retain.sass",
+      "context": "content",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "design_systems.retain.sass",
+      "context": "design_systems",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "learning.recommend.sass",
+      "context": "learning",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.retain.sass",
+      "context": "legacy",
+      "kind": "retain",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "gating",
+      "detail": "only offered in learning at learner baseline \"static_pages\""
+    }
+  ],
+  "journeys_affected": [
+    "content",
+    "design_systems",
+    "learning",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2019",
+      "source_url": null,
+      "observed_at": "2019-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "editorial",
+      "label": "Original TechMyrmidons curation, 2017",
+      "source_url": null,
+      "observed_at": "2017-01-01",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:content.retain.sass",
+    "rule:design_systems.retain.sass",
+    "rule:learning.recommend.sass",
+    "rule:legacy.retain.sass"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 4 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against sass-lang.com. The superset claim now carries the source’s own hedge (\"with a few small exceptions ... essentially all valid CSS\"), \"imports\" became \"modules\" since @import sits in the project’s Breaking Changes, and the interpretive \"best ideas absorbed by the platform\" line moved out of the descriptive field. Lifecycle NOT signed: the approval question misstated the drafted value as \"declining\" when the record says \"established\", so the field stays draft until the editor decides which it should be."
+    },
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "lifecycle",
+      "decision": "approve",
+      "reasoning": "Asked directly after the earlier misstatement was surfaced: the editor keeps \"established\". Recorded under the standing caveat that lifecycle values carry no adoption evidence."
+    }
+  ]
+}

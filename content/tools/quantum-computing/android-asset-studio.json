@@ -1,0 +1,27 @@
+{
+  "slug": "android-asset-studio",
+  "domain": "quantum-computing",
+  "name": "Android Asset Studio",
+  "category": null,
+  "homepage": "https://romannurik.github.io/AndroidAssetStudio/",
+  "one_liner": null,
+  "what_it_is": "The Android Asset Studio web app by Roman Nurik is a great resource for creating icons for your Android applications. Moreover it offers a growing list of utilities to help developers create good-looking widgets.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/quantum computing/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

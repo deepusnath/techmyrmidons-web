@@ -1,0 +1,92 @@
+{
+  "slug": "htmx",
+  "domain": "frontend",
+  "name": "htmx",
+  "canonical_url": "https://htmx.org/",
+  "primary_source": "https://htmx.org/docs/",
+  "proposed_lifecycle": "emerging",
+  "summary": "Hypermedia-driven interactivity via HTML attributes, with no client framework.",
+  "what_it_is": "A small library that lets HTML elements issue requests and swap response fragments into the page using attributes, so interactivity is expressed in markup and the server keeps returning HTML rather than JSON.",
+  "why_it_matters": "htmx is the clearest articulation of a counter-argument worth taking seriously: that a large share of applications adopted a client-side framework and an API layer to solve problems they did not actually have. For CRUD-shaped software with a server already rendering pages, it can remove an entire tier of complexity. Listed as emerging because its ecosystem and its applicability ceiling are both still being mapped.",
+  "suitable_for": [
+    "Server-rendered applications adding interactivity incrementally",
+    "Teams whose strength is backend, not frontend",
+    "CRUD software where a SPA was never justified"
+  ],
+  "not_suitable_for": [
+    "Highly interactive client state — editors, canvases, real-time collaboration",
+    "Offline-first applications",
+    "Teams needing a large component ecosystem"
+  ],
+  "alternatives": [
+    "Alpine.js",
+    "Turbo",
+    "Vue",
+    "plain server rendering"
+  ],
+  "verifiable_facts": [
+    "Official docs describe issuing requests and swapping HTML fragments via element attributes."
+  ],
+  "editorial_interpretation": [
+    "Classification as emerging.",
+    "That many teams adopted SPA architecture without needing it."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Server-rendered applications adding interactivity incrementally",
+    "Suitable: Teams whose strength is backend, not frontend",
+    "Suitable: CRUD software where a SPA was never justified",
+    "Unsuitable: Highly interactive client state — editors, canvases, real-time collaboration",
+    "Unsuitable: Offline-first applications",
+    "Unsuitable: Teams needing a large component ecosystem"
+  ],
+  "evidence_gaps": [
+    "The \"did not need it\" claim is a strong architectural opinion with no evidence base."
+  ],
+  "wrong_if": "A reviewer judges the architectural claim too editorialised for a tool card.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "legacy.recommend.htmx",
+      "context": "legacy",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [
+    {
+      "type": "prerequisite",
+      "detail": "only offered in legacy when the user marked jquery"
+    }
+  ],
+  "journeys_affected": [
+    "legacy"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:legacy.recommend.htmx"
+  ],
+  "proposed_decision": "Approve lifecycle \"emerging\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve",
+      "reasoning": "Descriptions verified against the project’s own site; drafted wording carried by the source. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

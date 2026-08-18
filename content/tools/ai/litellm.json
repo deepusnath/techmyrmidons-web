@@ -1,0 +1,38 @@
+{
+  "slug": "litellm",
+  "name": "LiteLLM",
+  "category": "model access",
+  "homepage": "https://github.com/BerriAI/litellm",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "One interface for calling many model providers.",
+  "what_it_is": "An open source AI gateway giving a single unified interface to call many LLM providers — its own README names OpenAI, Anthropic, Gemini, Bedrock and Azure among them — using the OpenAI request format. It can be used as a library or run as a proxy in front of the providers.",
+  "why_it_matters": "It makes the provider a configuration value rather than a rewrite, which matters when pricing, availability or policy changes decide where a request goes. What it cannot do is hide the differences that matter: providers vary in tool-calling, structured output and context handling, and code written against the shared shape can still break when it moves.",
+  "suitable_for": [
+    "Applications expected to change or mix providers",
+    "Routing requests by cost or availability",
+    "Central logging and spend limits across teams"
+  ],
+  "not_suitable_for": [
+    "A single provider used through features the shared format does not express",
+    "Latency-critical paths where a proxy hop is measurable",
+    "Teams who want to read the provider API directly with nothing between"
+  ],
+  "alternatives": [
+    "OpenAI Python SDK",
+    "Anthropic SDK"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

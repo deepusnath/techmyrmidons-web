@@ -1,0 +1,26 @@
+{
+  "slug": "avd-manager",
+  "domain": "android",
+  "name": "AVD Manager",
+  "category": null,
+  "homepage": "https://developer.android.com/studio/run/managing-avds",
+  "one_liner": null,
+  "what_it_is": "The AVD Manager tool is bundled with Android Studio. AVD stands for ‘Android Virtual Device’, so essentially this is an emulator for running Android applications on your PC. This is useful because it means that you can test your apps quickly without having to constantly install them on physical devices.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2019.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

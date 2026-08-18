@@ -1,0 +1,42 @@
+{
+  "slug": "tailwind",
+  "domain": "frontend",
+  "name": "Tailwind CSS",
+  "category": "styling",
+  "homepage": "https://tailwindcss.com/",
+  "one_liner": "Utility-first CSS framework: single-purpose classes composed directly in markup.",
+  "what_it_is": "A CSS framework packed with single-purpose utility classes — flex, padding, colour, typography — composed to build designs directly in your markup, in its own words. A build step scans your source files and generates only the CSS for the classes you actually use.",
+  "why_it_matters": "Tailwind is the clearest example of a shift many experienced CSS developers sat out. The standard objection — that utility classes in markup are inline styles with extra steps — is reasonable, and it lost on practical grounds rather than aesthetic ones. Constraining developers to a fixed token scale prevents the slow entropy that afflicts hand-written stylesheets, and colocating style with markup dissolves the naming problem that consumed a decade of CSS architecture argument (BEM, OOCSS, SMACSS). If your view of styling settled around Sass and BEM, this is the specific thing worth re-examining — not because it is popular, but because the problem it solves is one you probably still have.",
+  "lifecycle": "established",
+  "first_seen_year": 2017,
+  "archive_years": [],
+  "suitable_for": [
+    "Teams that want a shared design-token scale without having to author one",
+    "Component-based codebases where markup and style are edited together",
+    "Developers for whom naming CSS classes is the slow part of styling"
+  ],
+  "not_suitable_for": [
+    "Codebases that must emit semantic, framework-neutral HTML for third parties to consume or restyle",
+    "Teams with a mature existing design system in plain CSS, where migration cost usually exceeds the benefit",
+    "Projects where markup is authored by people who do not run the build — CMS templates edited by non-developers",
+    "HTML email, which cannot rely on the build step"
+  ],
+  "alternatives": [
+    "Plain CSS with custom properties",
+    "CSS Modules",
+    "Sass",
+    "vanilla-extract",
+    "StyleX"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-13",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

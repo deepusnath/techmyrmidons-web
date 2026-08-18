@@ -1,0 +1,38 @@
+{
+  "slug": "langgraph",
+  "name": "LangGraph",
+  "category": "orchestration",
+  "homepage": "https://langchain-ai.github.io/langgraph/",
+  "lifecycle": "established",
+  "first_seen_year": 2024,
+  "one_liner": "Low-level orchestration for long-running, stateful agents.",
+  "what_it_is": "A low-level orchestration framework for building, managing and deploying long-running, stateful agents, in its own words, taking inspiration from Pregel and Apache Beam. Control flow is expressed as an explicit graph of steps with state carried between them.",
+  "why_it_matters": "Making the graph explicit is what lets an agent be paused, resumed, inspected and retried at a step boundary — the difference between a demo and something you can operate. The cost is that a task genuinely served by one call now carries a graph, a state schema and a persistence decision.",
+  "suitable_for": [
+    "Agents that run long enough to need resuming",
+    "Flows requiring human approval partway through",
+    "Work where you must inspect why an agent took a branch"
+  ],
+  "not_suitable_for": [
+    "Single-turn calls, where the graph is ceremony around one request",
+    "Teams unwilling to own state persistence",
+    "Prototypes where the flow is still changing every hour"
+  ],
+  "alternatives": [
+    "LangChain",
+    "DSPy"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

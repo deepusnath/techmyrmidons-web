@@ -1,50 +1,40 @@
 {
-  "name": "foundation-zurb-template",
-  "version": "1.0.0",
-  "description": "Official ZURB Template for Foundation for Sites.",
-  "main": "gulpfile.js",
+  "name": "techmyrmidons-web",
+  "version": "2.0.0",
+  "private": true,
+  "description": "TechMyrmidons — follow a Domain Myrmidon and stay current in your field.",
   "scripts": {
-    "start": "gulp",
-    "build": "gulp build --production"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "validate": "node scripts/validate-content.ts",
+    "migrate": "node scripts/migrate-archive.ts",
+    "import:observed": "node scripts/import-observed.ts",
+    "serve": "node scripts/serve-static.ts",
+    "test": "playwright test",
+    "test:preview": "npm run build && playwright test",
+    "test:production": "npm run build:production && node scripts/check-production-artifacts.ts && DRAFTS_HIDDEN=1 playwright test",
+    "test:deployed": "BASE_URL=https://deepusnath.github.io BASE_PREFIX=/techmyrmidons-web playwright test",
+    "check:production": "node scripts/check-production-artifacts.ts",
+    "deploy": "./scripts/deploy-pages.sh",
+    "stamp": "node scripts/stamp-editorial-status.ts",
+    "build:production": "NEXT_PUBLIC_SHOW_DRAFTS=false next build",
+    "dossiers": "node scripts/build-dossiers.ts",
+    "test:rules": "node scripts/tests/rule-isolation.test.ts",
+    "test:completion": "node scripts/tests/completion.test.ts && node scripts/tests/profile-share.test.ts"
   },
-  "author": "ZURB <foundation@zurb.com>",
-  "license": "MIT",
+  "dependencies": {
+    "next": "^16.2.12",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
   "devDependencies": {
-    "babel-preset-es2015": "^6.3.13",
-    "babel-register": "^6.7.2",
-    "browser-sync": "^2.10.0",
-    "gulp": "4.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-cli": "^1.2.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-cssnano": "^2.1.0",
-    "gulp-extname": "^0.2.0",
-    "gulp-if": "^2.0.0",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-load-plugins": "^1.1.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.2.0",
-    "gulp-uncss": "^1.0.1",
-    "js-yaml": "^3.4.6",
-    "panini": "^1.3.0",
-    "rimraf": "^2.4.3",
-    "style-sherpa": "^1.0.0",
-    "yargs": "^3.8.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zurb/foundation-zurb-template.git"
-  },
-  "bugs": {
-    "url": "https://github.com/zurb/foundation-sites/issues",
-    "email": "foundation@zurb.com"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
-  "private": true
+    "@playwright/test": "^1.62.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  }
 }

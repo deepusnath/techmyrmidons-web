@@ -1,0 +1,43 @@
+{
+  "slug": "tensorflow",
+  "name": "TensorFlow",
+  "category": "model framework",
+  "homepage": "https://www.tensorflow.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2018,
+  "one_liner": "End-to-end platform for machine learning.",
+  "what_it_is": "An end-to-end platform for machine learning, per its own documentation, operating on multidimensional arrays called tensors. Beyond the library it covers the surrounding steps — export, serving and on-device runtimes — under one project.",
+  "why_it_matters": "Its reach past training is the reason to know it: the export and serving path is part of the project rather than something assembled afterwards, and mobile and browser runtimes are first-party. The trade-off is a larger surface to learn, much of which is irrelevant if you only ever train.",
+  "suitable_for": [
+    "Work where serving and on-device deployment are in scope from the start",
+    "Codebases already built on it, where the migration cost is real",
+    "Teams who want export and serving from one project"
+  ],
+  "not_suitable_for": [
+    "Reproducing research published against another framework",
+    "Small experiments, where the platform surface exceeds the problem",
+    "Teams who only train and never deploy, who pay for reach they do not use"
+  ],
+  "alternatives": [
+    "PyTorch",
+    "JAX",
+    "Keras"
+  ],
+  "domain": "ai",
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "published": true,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

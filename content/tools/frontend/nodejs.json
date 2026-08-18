@@ -1,0 +1,32 @@
+{
+  "slug": "nodejs",
+  "name": "Node.js",
+  "category": "runtime",
+  "homepage": "https://nodejs.org/",
+  "lifecycle": "established",
+  "first_seen_year": 2009,
+  "one_liner": "The JavaScript runtime essentially all frontend tooling runs on.",
+  "what_it_is": "A JavaScript runtime built on V8 with an event-driven, non-blocking I/O model. For frontend developers it matters less as a server platform than as the thing every build tool, linter and test runner executes inside.",
+  "why_it_matters": "Node is infrastructure you rarely choose but constantly depend on, and its version is a recurring source of \"works on my machine\". Knowing which release line is current LTS, and pinning it per project, prevents a category of build failure that is tedious to diagnose — as this repository demonstrates, its 2016-era build no longer installs on a current Node at all.",
+  "suitable_for": [
+    "Running frontend build tooling — effectively non-optional",
+    "Server-side JavaScript with mature operational support"
+  ],
+  "not_suitable_for": [
+    "CPU-bound workloads, which block its event loop",
+    "Situations where a single-binary toolchain would be simpler than a Node install plus dependencies"
+  ],
+  "alternatives": [
+    "Bun",
+    "Deno"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

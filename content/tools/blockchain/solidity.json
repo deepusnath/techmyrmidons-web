@@ -1,0 +1,25 @@
+{
+  "slug": "solidity",
+  "domain": "blockchain",
+  "name": "Solidity",
+  "category": null,
+  "homepage": "https://solidity.readthedocs.io/en/v0.4.23/",
+  "one_liner": null,
+  "what_it_is": "Solidity is a contract-oriented, high-level language for implementing smart contracts. It was influenced by C++, Python and JavaScript and is designed to target the Ethereum Virtual Machine (EVM).",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/blockchain/2019.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

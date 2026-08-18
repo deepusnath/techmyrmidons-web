@@ -1,0 +1,43 @@
+{
+  "slug": "webpack",
+  "domain": "frontend",
+  "name": "webpack",
+  "category": "build and bundling",
+  "homepage": "https://webpack.js.org/",
+  "one_liner": "Static module bundler building optimised bundles from a dependency graph.",
+  "what_it_is": "At its core a static module bundler for modern JavaScript applications, in its own words: from an entry point it builds an internal dependency graph and emits optimised bundles. Loaders and plugins let CSS, images and arbitrary assets be treated as modules in that graph.",
+  "why_it_matters": "webpack is declining as a default, not as a technology — a distinction worth holding onto. It remains the most configurable bundler available and still builds a very large amount of production code. What changed is that cold-start and rebuild time became the dominant daily cost of front-end work, and native-speed alternatives closed most of the capability gap. Knowing webpack is still valuable, because you will inherit it. Choosing it for a new project now needs a specific reason you can name.",
+  "lifecycle": "declining",
+  "first_seen_year": 2012,
+  "archive_years": [
+    2019
+  ],
+  "suitable_for": [
+    "Existing projects with substantial webpack configuration already working",
+    "Builds with unusual asset pipelines that need its loader ecosystem",
+    "Module federation across separately deployed applications"
+  ],
+  "not_suitable_for": [
+    "Greenfield projects where dev-server startup and rebuild time matter",
+    "Teams with nobody willing to own build configuration long term",
+    "Simple static sites, where it is far more machinery than the job needs"
+  ],
+  "alternatives": [
+    "Vite",
+    "esbuild",
+    "Rspack",
+    "Parcel",
+    "Turbopack"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-13",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "react",
+  "domain": "web",
+  "name": "React",
+  "category": null,
+  "homepage": "https://facebook.github.io/react/",
+  "one_liner": null,
+  "what_it_is": "React is an open-source JavaScript library providing a view for data rendered as HTML. React views are typically rendered using components that contain additional components specified as custom HTML tags. React promises programmers a model in which subcomponents cannot directly affect enclosing components, efficient updating of the HTML document when data changes and a clean separation between components on a modern single-page application.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

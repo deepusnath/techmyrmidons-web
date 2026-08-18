@@ -1,0 +1,38 @@
+{
+  "slug": "ollama",
+  "name": "Ollama",
+  "category": "serving and inference",
+  "homepage": "https://ollama.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "Runs open models locally, with a pull-and-run workflow.",
+  "what_it_is": "A runner for open models, described by its own site as a way to build with open models on your computer and in the cloud. Models are fetched by name and served behind a local HTTP API, so switching model is a pull rather than a rebuild.",
+  "why_it_matters": "It collapses local model setup to one command, which is why it tends to be where evaluation starts before anything is committed to. What it hides is also its limit: the settings it chooses for you — quantization, context length — are decisions you have not seen, and they matter as soon as you compare results between tools.",
+  "suitable_for": [
+    "Trying a model before committing to an architecture",
+    "Local development against a model API",
+    "Keeping data on the machine for privacy or policy reasons"
+  ],
+  "not_suitable_for": [
+    "Production serving under concurrency",
+    "Cases where you must control quantization and context settings exactly",
+    "Reproducibility work, where unseen settings undermine the comparison"
+  ],
+  "alternatives": [
+    "llama.cpp",
+    "vLLM"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

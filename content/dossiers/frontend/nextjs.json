@@ -1,0 +1,88 @@
+{
+  "slug": "nextjs",
+  "domain": "frontend",
+  "name": "Next.js",
+  "canonical_url": "https://nextjs.org/",
+  "primary_source": "https://nextjs.org/docs",
+  "proposed_lifecycle": "established",
+  "summary": "The dominant React application framework, and the main vehicle for server components.",
+  "what_it_is": "A React framework providing file-based routing, server rendering, static generation and API routes. Its App Router is built around React server components and streaming.",
+  "why_it_matters": "Next.js is where most React teams end up, and it is the place where the server-components shift is actually encountered. It also carries a real critique worth knowing: its rendering model is genuinely complicated, and its tightest deployment story points at one vendor. Both things are true at once.",
+  "suitable_for": [
+    "React applications needing server rendering and routing without assembling them",
+    "Teams that want one framework covering both marketing pages and app",
+    "Products already committed to React"
+  ],
+  "not_suitable_for": [
+    "Simple content sites, where it is more machinery than required",
+    "Teams unwilling to track a fast-moving rendering model",
+    "Deployments with hard constraints that its serverless-shaped defaults fight against"
+  ],
+  "alternatives": [
+    "Remix",
+    "Astro",
+    "Nuxt",
+    "SvelteKit",
+    "plain Vite + React"
+  ],
+  "verifiable_facts": [
+    "Official docs describe file-based routing, server rendering and the App Router built on React server components."
+  ],
+  "editorial_interpretation": [
+    "That its rendering model is \"genuinely complicated\".",
+    "That its deployment story favours one vendor."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: React applications needing server rendering and routing without assembling them",
+    "Suitable: Teams that want one framework covering both marketing pages and app",
+    "Suitable: Products already committed to React",
+    "Unsuitable: Simple content sites, where it is more machinery than required",
+    "Unsuitable: Teams unwilling to track a fast-moving rendering model",
+    "Unsuitable: Deployments with hard constraints that its serverless-shaped defaults fight against"
+  ],
+  "evidence_gaps": [
+    "The vendor claim is contested and unsourced here."
+  ],
+  "wrong_if": "A reviewer judges the vendor observation inappropriate without a citation.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "content.reconsider.nextjs",
+      "context": "content",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "content"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:content.reconsider.nextjs"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Removed \"The dominant React application framework\" and \"the main vehicle\" — §8 adoption claims. Definition now carries nextjs.org’s own words. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

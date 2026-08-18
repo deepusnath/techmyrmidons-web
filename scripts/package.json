@@ -1,0 +1,6 @@
+{
+  "name": "techmyrmidons-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Content migration and validation. No dependencies by design."
+}

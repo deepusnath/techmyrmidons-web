@@ -1,0 +1,27 @@
+{
+  "slug": "swift",
+  "domain": "ios",
+  "name": "Swift 2.0",
+  "category": null,
+  "homepage": "https://developer.apple.com/swift/",
+  "one_liner": null,
+  "what_it_is": "Swift is a powerful and intuitive programming language for iOS apps that builds on the best of C and Objective-C, without the constraints of C compatibility. Swift adopts safe programming patterns and adds modern features to make programming easier, more flexible, and more fun. A Swift 3.0 roadmap was announced on the Swift blog on December 3, 2015. Swift 3.0 is the first major release developed in the open at Swift.org, with source code, a bug tracker, mailing lists, and regular development builds available for everyone.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

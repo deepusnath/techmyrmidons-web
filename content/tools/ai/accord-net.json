@@ -1,0 +1,27 @@
+{
+  "slug": "accord-net",
+  "domain": "ai",
+  "name": "Accord.NET",
+  "category": null,
+  "homepage": "https://developer.yahoo.com/flurry/docs/analytics/gettingstarted/android/",
+  "one_liner": null,
+  "what_it_is": "Accord.NET is a .NET open source machine learning framework for scientific computing, and consists of multiple libraries for diverse applications like statistical data processing, pattern recognition, linear algebra, artificial neural networks, image and signal processing, etc. The framework is divided into libraries via the installer, compressed archives and NuGet packages, which include Accord.Math, Accord.Statistics, Accord.MachineLearning, Accord.Neuro, Accord.Imaging, Accord.Audio, Accord.Vision, Accord.Controls, Accord.Controls.Imaging, Accord.Controls.Audio, Accord.Controls.Vision, etc.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

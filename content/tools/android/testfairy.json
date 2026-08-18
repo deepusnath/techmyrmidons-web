@@ -1,0 +1,28 @@
+{
+  "slug": "testfairy",
+  "domain": "android",
+  "name": "Testfairy",
+  "category": null,
+  "homepage": "http://docs.testfairy.com/",
+  "one_liner": null,
+  "what_it_is": "TestFairy is an Android app Beta Testing and Deployment platform that lets the developer know when and how people are using the app, and provides with any metric needed to optimize for better user experience and better code.It paves way for better understanding of how the app performs on real devices. All you need to do is just upload your android build (.apk) file to your TestFairy account and invite the beta testers. Once the users start playing around with the app, you will get to see the reports real time.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

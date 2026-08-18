@@ -1,0 +1,40 @@
+{
+  "slug": "tanstack-query",
+  "name": "TanStack Query",
+  "category": "data fetching",
+  "homepage": "https://tanstack.com/query",
+  "lifecycle": "established",
+  "first_seen_year": 2019,
+  "one_liner": "Async server-state library: caching, deduplication and background refetching for fetched data.",
+  "what_it_is": "A library managing asynchronous server data with caching, deduplication, background refetching, stale-while-revalidate semantics and pagination, framework-agnostic with bindings for React, Vue and Svelte.",
+  "why_it_matters": "Its real contribution was conceptual: most of what teams were hand-rolling in Redux was not application state at all, it was a poorly implemented cache of server state. Naming that distinction let a large amount of boilerplate disappear. If your mental model of state management predates it, this is the specific idea worth catching up on.",
+  "suitable_for": [
+    "Applications with substantial server data fetching",
+    "Replacing hand-written loading, error and refetch logic",
+    "Teams whose global store is mostly cached API responses"
+  ],
+  "not_suitable_for": [
+    "Genuinely client-side state — form drafts, UI toggles, editor buffers",
+    "Applications with very little server interaction",
+    "Frameworks whose own data layer already covers this"
+  ],
+  "alternatives": [
+    "SWR",
+    "RTK Query",
+    "Apollo Client",
+    "framework-native data loading"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

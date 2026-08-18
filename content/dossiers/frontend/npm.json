@@ -1,0 +1,79 @@
+{
+  "slug": "npm",
+  "domain": "frontend",
+  "name": "npm",
+  "canonical_url": "https://www.npmjs.com/",
+  "primary_source": "https://docs.npmjs.com/",
+  "proposed_lifecycle": "established",
+  "summary": "The default JavaScript package manager and registry.",
+  "what_it_is": "The package manager bundled with Node.js, plus the registry that essentially all JavaScript packages publish to. Modern versions support workspaces for monorepos and lockfile-based reproducible installs.",
+  "why_it_matters": "npm is the substrate — even alternative package managers publish to and install from its registry. It is worth knowing what it does badly, which is disk usage and install speed on large monorepos, because that is the entire reason pnpm and Bun exist.",
+  "suitable_for": [
+    "Most projects, as the zero-configuration default",
+    "Anything where matching the widest set of tutorials and CI examples matters"
+  ],
+  "not_suitable_for": [
+    "Large monorepos where install time and disk duplication become a real cost"
+  ],
+  "alternatives": [
+    "pnpm",
+    "Yarn",
+    "Bun"
+  ],
+  "verifiable_facts": [
+    "Official docs describe the registry and CLI bundled with Node.js, including workspaces and lockfiles."
+  ],
+  "editorial_interpretation": [
+    "That install time and disk duplication are its notable weaknesses."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Most projects, as the zero-configuration default",
+    "Suitable: Anything where matching the widest set of tutorials and CI examples matters",
+    "Unsuitable: Large monorepos where install time and disk duplication become a real cost"
+  ],
+  "evidence_gaps": [
+    "No measurement of those weaknesses is provided."
+  ],
+  "wrong_if": "A reviewer wants the performance characterisation quantified or removed.",
+  "confidence": "high",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "legacy.retain.npm",
+      "context": "legacy",
+      "kind": "retain",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "legacy"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:legacy.retain.npm"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Removed \"essentially all JavaScript packages publish to\" — the registry-scale claim is now attributed to npm’s own description rather than asserted. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

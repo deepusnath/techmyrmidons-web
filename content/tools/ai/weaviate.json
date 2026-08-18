@@ -1,0 +1,38 @@
+{
+  "slug": "weaviate",
+  "name": "Weaviate",
+  "category": "vector store",
+  "homepage": "https://weaviate.io/",
+  "lifecycle": "established",
+  "first_seen_year": 2019,
+  "one_liner": "Vector database storing objects alongside their vectors.",
+  "what_it_is": "An open-source, cloud-native vector database that stores both objects and vectors, enabling semantic search at scale, in its own words. Keeping the object with its vector means a result carries its source record rather than an identifier to resolve elsewhere.",
+  "why_it_matters": "Holding objects and vectors together removes the lookup step that otherwise sits between a search result and something you can show a user, and its schema makes the shape of the corpus explicit rather than implied by whatever was indexed. The cost is another stateful system with its own schema to model and migrate.",
+  "suitable_for": [
+    "Corpora where results must carry their source objects",
+    "Teams who want the corpus shape declared as a schema",
+    "Deployments already running in a cluster"
+  ],
+  "not_suitable_for": [
+    "Small projects where a database extension is less to operate",
+    "Teams without capacity to model and migrate another schema",
+    "Cases where the source records must stay in the system of record"
+  ],
+  "alternatives": [
+    "Qdrant",
+    "pgvector"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

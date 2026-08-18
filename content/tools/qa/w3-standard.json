@@ -1,0 +1,25 @@
+{
+  "slug": "w3-standard",
+  "domain": "qa",
+  "name": "W3 STANDARD",
+  "category": null,
+  "homepage": "https://www.w3.org/developers/tools/",
+  "one_liner": null,
+  "what_it_is": "The W3C API is a read-only Web API based on the JSON format exposing only public data.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

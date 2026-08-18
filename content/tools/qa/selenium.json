@@ -1,0 +1,25 @@
+{
+  "slug": "selenium",
+  "domain": "qa",
+  "name": "Selenium",
+  "category": null,
+  "homepage": "https://engineering.aweber.com/getting-started-with-ui-automated-tests-using-selenium-python/",
+  "one_liner": null,
+  "what_it_is": "Selenium is a set of different software tools, each with a different approach to support test automation. The entire suite of tools results in a rich set of testing functions specifically geared to the needs of testing of web applications of all types. These operations are highly flexible, allowing many options for locating UI elements and comparing expected test results against actual application behavior..",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "angularjs",
+  "domain": "frontend",
+  "name": "AngularJS",
+  "category": "UI framework",
+  "homepage": "https://angularjs.org/",
+  "one_liner": "Google’s first-generation framework — support officially ended January 2022, per its own site — distinct from Angular.",
+  "what_it_is": "A framework built around two-way data binding, directives that extend HTML, dependency injection and scopes. It reached end of long-term support in January 2022 and receives no further patches, including security patches.",
+  "why_it_matters": "AngularJS is the sharpest illustration of why this archive needed rebuilding. It sat in the original 2021 frontend list presented as a current recommendation, years after it was superseded and shortly before support ended entirely — because the old data model was append-only and nothing could ever be removed. It is kept here, marked legacy, as the worked example of the failure being corrected. Its practical value now is diagnostic: recognising ng-* attributes dates a codebase precisely.",
+  "lifecycle": "legacy",
+  "first_seen_year": 2010,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [
+    "Maintaining or assessing existing AngularJS applications ahead of migration",
+    "Recognising the framework when you inherit it"
+  ],
+  "not_suitable_for": [
+    "Any new project",
+    "Any application handling sensitive data — it receives no security patches",
+    "Teams expecting the knowledge to transfer to modern Angular, which is a different framework"
+  ],
+  "alternatives": [
+    "Angular",
+    "React",
+    "Vue",
+    "Svelte"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

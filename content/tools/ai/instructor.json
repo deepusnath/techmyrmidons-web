@@ -1,0 +1,37 @@
+{
+  "slug": "instructor",
+  "name": "Instructor",
+  "category": "structured output",
+  "homepage": "https://python.useinstructor.com/",
+  "lifecycle": "established",
+  "first_seen_year": 2023,
+  "one_liner": "Structured extraction from models into typed objects.",
+  "what_it_is": "A library focused on one thing, structured extraction, in its own words, providing automatic validation, retries, streaming and nested object support. A response is parsed into a declared type and re-requested when it does not conform.",
+  "why_it_matters": "It turns \"the model usually returns valid JSON\" into a typed object or an error, which is the difference between a parsing bug and a caught failure. The retries are not free: a schema the model finds hard to satisfy becomes repeated calls, and the cost shows up as latency and spend rather than as an exception.",
+  "suitable_for": [
+    "Pulling fields out of unstructured text into a known shape",
+    "Pipelines where a malformed response must fail rather than propagate",
+    "Work where the output type is already declared in code"
+  ],
+  "not_suitable_for": [
+    "Free-form generation with no schema to hold it to",
+    "Cost-sensitive paths where retry loops are hard to bound",
+    "Cases where the provider’s own structured-output mode already suffices"
+  ],
+  "alternatives": [
+    "Outlines"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

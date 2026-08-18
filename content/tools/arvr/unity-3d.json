@@ -1,0 +1,25 @@
+{
+  "slug": "unity-3d",
+  "domain": "arvr",
+  "name": "Unity 3D",
+  "category": null,
+  "homepage": "https://unity3d.com",
+  "one_liner": null,
+  "what_it_is": "Over the last several years, Unity has grown from a plucky little startup to go toe to toe with the likes of the Unreal Engine. The upcoming release of the first major commercially available VR headsets has only helped level the playing field as Unity has been aggressively courting this community. You can download Unity and begin building VR environments immediately with no prior experience.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/arvr/2018.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

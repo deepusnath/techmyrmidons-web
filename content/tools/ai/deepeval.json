@@ -1,0 +1,37 @@
+{
+  "slug": "deepeval",
+  "name": "DeepEval",
+  "category": "evaluation",
+  "homepage": "https://github.com/confident-ai/deepeval",
+  "lifecycle": "emerging",
+  "first_seen_year": 2023,
+  "one_liner": "Open-source evaluation framework for LLM systems.",
+  "what_it_is": "A simple-to-use, open-source LLM evaluation framework for evaluating large-language model systems, in its own words, built to be modular so individual metrics can be used on their own. Evaluations are written as test cases, so they run the way unit tests do.",
+  "why_it_matters": "Expressing evaluations as tests puts model behaviour under the same gate as the rest of the code, which is what stops a prompt change shipping on the strength of one good example. What it cannot do is decide what \"good\" means for your task — the metrics are a mechanism, and the definition is still yours to write.",
+  "suitable_for": [
+    "Putting model behaviour under a test gate before release",
+    "Teams who already run tests and want these alongside",
+    "Checking specific failure modes rather than an overall score"
+  ],
+  "not_suitable_for": [
+    "Teams with no agreed definition of a good answer",
+    "Exploratory work where the behaviour is still changing daily",
+    "Cases where per-run model-call cost outweighs the signal"
+  ],
+  "alternatives": [
+    "Ragas"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

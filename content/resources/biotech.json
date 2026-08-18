@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "trends-in-biotechnology",
+    "domain": "biotech",
+    "title": "Trends In Biotechnology",
+    "url": "https://www.cell.com/trends/biotechnology/home",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/biotech/blog.json"
+  },
+  {
+    "slug": "bioengineer-org",
+    "domain": "biotech",
+    "title": "Bioengineer.org",
+    "url": "https://bioengineer.org/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/biotech/blog.json"
+  },
+  {
+    "slug": "rebecca-willumson",
+    "domain": "biotech",
+    "title": "Rebecca Willumson",
+    "url": "https://www.fiercebiotech.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/biotech/blog.json"
+  },
+  {
+    "slug": "biotech-asia",
+    "domain": "biotech",
+    "title": "Biotech Asia",
+    "url": "https://biotechin.asia/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/biotech/blog.json"
+  }
+]

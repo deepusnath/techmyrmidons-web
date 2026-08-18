@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "ministry-of-testing",
+    "domain": "qa",
+    "title": "Ministry of Testing",
+    "url": "https://www.ministryoftesting.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "integrating-quality",
+    "domain": "qa",
+    "title": "Integrating Quality+",
+    "url": "https://testlio.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "u-test",
+    "domain": "qa",
+    "title": "U Test",
+    "url": "https://www.utest.com/utest-blog",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "cigniti",
+    "domain": "qa",
+    "title": "Cigniti",
+    "url": "http://www.cigniti.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "software-testing-club",
+    "domain": "qa",
+    "title": "Software Testing Club",
+    "url": "https://club.ministryoftesting.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "software-testing-tricks",
+    "domain": "qa",
+    "title": "Software Testing Tricks",
+    "url": "http://www.softwaretestingtricks.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "sticky-minds",
+    "domain": "qa",
+    "title": "Sticky Minds",
+    "url": "https://www.stickyminds.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "testing-whiz",
+    "domain": "qa",
+    "title": "Testing Whiz",
+    "url": "https://www.testing-whiz.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "gallop",
+    "domain": "qa",
+    "title": "Gallop",
+    "url": "http://www.gallop.net/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "practitest",
+    "domain": "qa",
+    "title": "PractiTest",
+    "url": "http://qablog.practitest.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "testfort",
+    "domain": "qa",
+    "title": "Testfort",
+    "url": "https://blog.testfort.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "kualitee",
+    "domain": "qa",
+    "title": "Kualitee",
+    "url": "http://www.kualitee.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  },
+  {
+    "slug": "software-testing-blog",
+    "domain": "qa",
+    "title": "Software Testing Blog",
+    "url": "http://tuppad.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/blog.json"
+  }
+]

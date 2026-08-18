@@ -1,0 +1,26 @@
+{
+  "slug": "ethereum",
+  "domain": "blockchain",
+  "name": "Ethereum",
+  "category": null,
+  "homepage": "https://www.ethereum.org/",
+  "one_liner": null,
+  "what_it_is": "Ethereum is a decentralized platform for applications that run exactly as programmed without any chance of fraud, censorship or third-party interference.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/blockchain/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

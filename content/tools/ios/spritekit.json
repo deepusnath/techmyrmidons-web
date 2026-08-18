@@ -1,0 +1,27 @@
+{
+  "slug": "spritekit",
+  "domain": "ios",
+  "name": "SpriteKit",
+  "category": null,
+  "homepage": "https://developer.apple.com/SpriteKit_PG/Introduction/Introduction.html",
+  "one_liner": null,
+  "what_it_is": "SpriteKit provides a graphics rendering and animation infrastructure that can be used to animate arbitrary textured images, or sprites. SpriteKit is optimized so that the positions of sprites can be changed arbitrarily in each frame of animation. It also provides other functionality that is useful for games, including basic sound playback support and physics simulation. The combination of framework and tools makes SpriteKit a good choice for games and other apps that require similar kinds of animation.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

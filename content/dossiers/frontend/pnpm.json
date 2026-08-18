@@ -1,0 +1,83 @@
+{
+  "slug": "pnpm",
+  "domain": "frontend",
+  "name": "pnpm",
+  "canonical_url": "https://pnpm.io/",
+  "primary_source": "https://pnpm.io/motivation",
+  "proposed_lifecycle": "established",
+  "summary": "Content-addressed package manager that hard-links a global store instead of copying.",
+  "what_it_is": "A package manager storing every package version once in a global content-addressed store and hard-linking it into each project, with a strict node_modules layout that prevents access to undeclared dependencies.",
+  "why_it_matters": "The disk and speed win is the headline, but the strictness matters more: pnpm will not let you import a package you did not declare, which catches a class of bug that npm silently permits and that only surfaces later when a transitive dependency changes. Its workspace support is the usual reason monorepos adopt it.",
+  "suitable_for": [
+    "Monorepos and multi-package repositories",
+    "Machines running many JavaScript projects",
+    "Teams wanting undeclared-dependency errors caught at install time"
+  ],
+  "not_suitable_for": [
+    "Projects depending on packages that rely on a flat, permissive node_modules layout",
+    "Environments where the hard-link store causes trouble, such as some Docker layer setups"
+  ],
+  "alternatives": [
+    "npm",
+    "Yarn",
+    "Bun"
+  ],
+  "verifiable_facts": [
+    "Official docs describe a content-addressed store, hard-linking, and a strict non-flat node_modules layout."
+  ],
+  "editorial_interpretation": [
+    "That strictness matters more than the disk saving."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Monorepos and multi-package repositories",
+    "Suitable: Machines running many JavaScript projects",
+    "Suitable: Teams wanting undeclared-dependency errors caught at install time",
+    "Unsuitable: Projects depending on packages that rely on a flat, permissive node_modules layout",
+    "Unsuitable: Environments where the hard-link store causes trouble, such as some Docker layer setups"
+  ],
+  "evidence_gaps": [
+    "No evidence about how often the strictness actually catches a real bug."
+  ],
+  "wrong_if": "A reviewer judges the strictness emphasis to be personal preference rather than editorial guidance.",
+  "confidence": "high",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "legacy.recommend.pnpm",
+      "context": "legacy",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "legacy"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:legacy.recommend.pnpm"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve",
+      "reasoning": "Descriptions verified against the project’s own site; drafted wording carried by the source. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

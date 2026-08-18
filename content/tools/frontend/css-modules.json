@@ -1,0 +1,39 @@
+{
+  "slug": "css-modules",
+  "name": "CSS Modules",
+  "category": "styling",
+  "homepage": "https://github.com/css-modules/css-modules",
+  "lifecycle": "established",
+  "first_seen_year": 2015,
+  "one_liner": "Build-time class-name scoping that keeps you writing ordinary CSS.",
+  "what_it_is": "A convention where each CSS file is compiled so its class names become locally scoped and unique, imported into a component as an object. The CSS itself is entirely standard.",
+  "why_it_matters": "CSS Modules solve the single problem that motivated most CSS architecture methodology — global name collisions — without asking you to learn a new way of expressing style. For teams that reject Tailwind on principle but recognise the naming problem is real, this is the most direct answer, and it has aged unusually well.",
+  "suitable_for": [
+    "Teams that want to keep writing standard CSS with scoping handled by the build",
+    "Component-based codebases without a utility-class approach",
+    "Gradual migration away from global stylesheets"
+  ],
+  "not_suitable_for": [
+    "Projects with no build step",
+    "Teams wanting a design-token scale supplied for them, rather than authored"
+  ],
+  "alternatives": [
+    "Tailwind CSS",
+    "vanilla-extract",
+    "Sass",
+    "plain CSS with custom properties"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "testrail",
+  "domain": "qa",
+  "name": "TestRail",
+  "category": null,
+  "homepage": "http://www.gurock.com/testrail/",
+  "one_liner": null,
+  "what_it_is": "TestRail is a holistic web based Test Management tool helps to manage,track and organize Software Testing. It aims to manage test runs and coordinate the entire testing process. It tracks and follows the status of individual tests, milestones and projects with dashboards and activity reports.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/qa/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

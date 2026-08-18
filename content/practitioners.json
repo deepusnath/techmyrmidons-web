@@ -1,0 +1,1449 @@
+[
+  {
+    "slug": "adam-coates",
+    "name": "Adam Coates",
+    "links": {
+      "x": "https://twitter.com/adampaulcoates"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "adam-geitgey",
+    "name": "Adam Geitgey",
+    "links": {
+      "x": "https://twitter.com/ageitgey"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "addy-osmani",
+    "name": "Addy Osmani",
+    "links": {
+      "site": "https://addyosmani.com/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "adrian-cockcroft",
+    "name": "Adrian Cockcroft",
+    "links": {
+      "x": "https://twitter.com/adrianco"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "ajay-balamurugadas",
+    "name": "Ajay Balamurugadas",
+    "links": {
+      "x": "https://twitter.com/ajay184f"
+    },
+    "domains": [
+      "qa"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/follow.json"
+  },
+  {
+    "slug": "alec-radford",
+    "name": "Alec Radford",
+    "links": {
+      "x": "https://twitter.com/AlecRad"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "alex-j-champandard",
+    "name": "Alex J. Champandard",
+    "links": {
+      "x": "https://twitter.com/alexjc"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "alex-kipman",
+    "name": "Alex Kipman",
+    "links": {
+      "x": "https://twitter.com/akipman"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "alex-schwartz",
+    "name": "Alex Schwartz",
+    "links": {
+      "x": "https://twitter.com/gtjuggler"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "amrit-sanjeev",
+    "name": "Amrit Sanjeev",
+    "links": {
+      "x": "https://twitter.com/amsanjeev"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "andi-gutmans",
+    "name": "Andi Gutmans",
+    "links": {
+      "x": "https://twitter.com/andigutmans"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "andreas-m-antonopoulos",
+    "name": "Andreas M. Antonopoulos",
+    "links": {
+      "x": "https://twitter.com/aantonop"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "andrew-clay-shafer",
+    "name": "Andrew Clay Shafer",
+    "links": {
+      "x": "https://twitter.com/littleidea"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "andrew-hay",
+    "name": "Andrew Hay",
+    "links": {
+      "x": "https://twitter.com/andrewsmhay"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "andy-rubin",
+    "name": "Andy Rubin",
+    "links": {
+      "x": "https://twitter.com/Arubin"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "anthony",
+    "name": "Anthony",
+    "links": {
+      "x": "https://twitter.com/ircmaxell"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "anton-angelov",
+    "name": "Anton Angelov",
+    "links": {
+      "x": "https://twitter.com/angelovstanton"
+    },
+    "domains": [
+      "qa"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/follow.json"
+  },
+  {
+    "slug": "ash-furrow",
+    "name": "Ash Furrow",
+    "links": {
+      "x": "https://twitter.com/ashfurrow"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "brad-frost",
+    "name": "Brad Frost",
+    "links": {
+      "x": "https://twitter.com/brad_frost"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "chris-banes",
+    "name": "Chris Banes",
+    "links": {
+      "x": "https://twitter.com/chrisbanes"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "chris-eidhof",
+    "name": "Chris Eidhof",
+    "links": {
+      "x": "https://twitter.com/chriseidhof"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "chris-lacy",
+    "name": "Chris Lacy",
+    "links": {
+      "x": "https://twitter.com/chrismlacy"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "chris-lattner",
+    "name": "Chris Lattner",
+    "links": {
+      "x": "https://twitter.com/clattner_llvm"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "chris-milk",
+    "name": "Chris Milk",
+    "links": {
+      "x": "https://twitter.com/milk"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "christian-heilmann",
+    "name": "Christian Heilmann",
+    "links": {
+      "site": "http://christianheilmann.com/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "clay-bavor",
+    "name": "Clay Bavor",
+    "links": {
+      "x": "https://twitter.com/claybavor"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "corda",
+    "name": "Corda",
+    "links": {
+      "x": "https://twitter.com/cordablockchain"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "courtney-nash",
+    "name": "Courtney Nash",
+    "links": {
+      "x": "https://twitter.com/courtneynash"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "cybercode-twins",
+    "name": "CyberCode Twins",
+    "links": {
+      "x": "https://twitter.com/cybercodetwins"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "damon-edwards",
+    "name": "Damon Edwards",
+    "links": {
+      "x": "https://twitter.com/damonedwards"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "dave-verwer",
+    "name": "Dave Verwer",
+    "links": {
+      "x": "https://twitter.com/daveverwer"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "david-marcus",
+    "name": "David Marcus",
+    "links": {
+      "x": "https://twitter.com/davidmarcus"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "david-walsh",
+    "name": "David Walsh",
+    "links": {
+      "x": "https://twitter.com/davidwalshblog"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "derick-rethans",
+    "name": "Derick Rethans",
+    "links": {
+      "x": "https://twitter.com/derickr"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "dominica-degrandis",
+    "name": "Dominica DeGrandis",
+    "links": {
+      "site": "http://ddegrandis.com/"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "don-tapscott",
+    "name": "Don Tapscott",
+    "links": {
+      "x": "https://twitter.com/dtapscott"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "droidsmith",
+    "name": "DroidSmith",
+    "links": {
+      "x": "https://twitter.com/devunwired"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "elon-musk",
+    "name": "Elon Musk",
+    "links": {
+      "x": "https://twitter.com/elonmusk"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "estherderby",
+    "name": "Estherderby",
+    "links": {
+      "x": "https://twitter.com/estherderby"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "fei-fei-li",
+    "name": "Fei-Fei Li",
+    "links": {
+      "x": "https://twitter.com/drfeifei"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "gary-masnica",
+    "name": "Gary Masnica",
+    "links": {
+      "x": "https://twitter.com/gary_masnica"
+    },
+    "domains": [
+      "qa"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/follow.json"
+  },
+  {
+    "slug": "gene-kim",
+    "name": "Gene Kim",
+    "links": {
+      "x": "https://twitter.com/RealGeneKim"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "george-spafford",
+    "name": "George Spafford",
+    "links": {
+      "x": "https://twitter.com/gspaff"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "gina-trapani",
+    "name": "Gina Trapani",
+    "links": {
+      "x": "https://twitter.com/ginatrapani"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "ilya-grigorik",
+    "name": "Ilya Grigorik",
+    "links": {
+      "site": "https://www.igvita.com/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "j-j-kardwell",
+    "name": "J.J.Kardwell",
+    "links": {
+      "x": "https://twitter.com/jjkardwell"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "james-kendrick",
+    "name": "James Kendrick",
+    "links": {
+      "x": "https://twitter.com/jkendrick"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "jana-eggers",
+    "name": "Jana Eggers",
+    "links": {
+      "x": "https://twitter.com/jeggers"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "jens-christensen",
+    "name": "Jens Christensen",
+    "links": {
+      "x": "https://twitter.com/jensbch"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "jez-humble",
+    "name": "Jez Humble",
+    "links": {
+      "x": "https://twitter.com/jezhumble"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "joanna-j-bryson",
+    "name": "Joanna J Bryson",
+    "links": {
+      "x": "https://twitter.com/j2bryson"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "joaquim-verges",
+    "name": "Joaquim Vergès",
+    "links": {
+      "x": "https://twitter.com/joenrv"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "joe-mckendrick",
+    "name": "Joe McKendrick",
+    "links": {
+      "x": "https://twitter.com/joemckendrick"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "john-allspaw",
+    "name": "John Allspaw",
+    "links": {
+      "x": "https://twitter.com/allspaw"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "john-c-havens",
+    "name": "John C. Havens",
+    "links": {
+      "x": "https://twitter.com/johnchavens"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "john-carmack",
+    "name": "John Carmack",
+    "links": {
+      "x": "https://twitter.com/ID_AA_Carmack"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "john-resig",
+    "name": "John Resig",
+    "links": {
+      "site": "https://johnresig.com/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "jordi-boggiano",
+    "name": "Jordi Boggiano",
+    "links": {
+      "x": "https://twitter.com/seldaek"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "juan-treminio",
+    "name": "Juan Treminio",
+    "links": {
+      "x": "https://twitter.com/juantreminio"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "juhani-lehtimaki",
+    "name": "Juhani Lehtimäki",
+    "links": {
+      "x": "https://twitter.com/lehtimaeki"
+    },
+    "domains": [
+      "ai",
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "julian-simpson",
+    "name": "Julian Simpson",
+    "links": {
+      "x": "https://twitter.com/builddoctor"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "kent-bye",
+    "name": "Kent Bye",
+    "links": {
+      "x": "https://twitter.com/kentbye"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "kevin-behr",
+    "name": "Kevin Behr",
+    "links": {
+      "x": "https://twitter.com/KevinBehr"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "kyle-simpson",
+    "name": "Kyle Simpson",
+    "links": {
+      "site": "http://getify.me/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "lea-verou",
+    "name": "Lea Verou",
+    "links": {
+      "site": "http://lea.verou.me/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "lisa-crispin",
+    "name": "Lisa Crispin",
+    "links": {
+      "x": "https://twitter.com/lisacrispin"
+    },
+    "domains": [
+      "qa"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/follow.json"
+  },
+  {
+    "slug": "lukas-kahwesmith",
+    "name": "Lukas KahweSmith",
+    "links": {
+      "x": "https://twitter.com/lsmith"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "luke-wroblewski",
+    "name": "Luke Wroblewski",
+    "links": {
+      "x": "https://twitter.com/lukew"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "mark-r-hinkle",
+    "name": "Mark R. Hinkle",
+    "links": {
+      "x": "https://twitter.com/mrhinkle"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "marten-mickos",
+    "name": "Mårten Mickos",
+    "links": {
+      "x": "https://twitter.com/MartenMickos"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "martin-ford",
+    "name": "Martin Ford",
+    "links": {
+      "x": "https://twitter.com/MFordFuture"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "martin-fowler",
+    "name": "Martin Fowler",
+    "links": {
+      "x": "https://twitter.com/martinfowler"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "matias-duarte",
+    "name": "Matías Duarte",
+    "links": {
+      "x": "https://twitter.com/MatiasDuarte"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "matt-galloway",
+    "name": "Matt Galloway",
+    "links": {
+      "x": "https://twitter.com/mattjgalloway"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "matt-gemmell",
+    "name": "Matt Gemmell",
+    "links": {
+      "x": "https://twitter.com/mattgemmell"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "mattt",
+    "name": "Mattt",
+    "links": {
+      "x": "https://twitter.com/mattt"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "nathan-benaich",
+    "name": "Nathan Benaich",
+    "links": {
+      "x": "https://twitter.com/NathanBenaich"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "nicholas-c-zakas",
+    "name": "Nicholas C. Zakas",
+    "links": {
+      "x": "https://twitter.com/slicknet"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "nick-butcher",
+    "name": "Nick Butcher",
+    "links": {
+      "x": "https://twitter.com/crafty"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "nicole-sullivan",
+    "name": "Nicole Sullivan",
+    "links": {
+      "x": "https://twitter.com/sullivannicole"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "ole-begemann",
+    "name": "Ole Begemann",
+    "links": {
+      "x": "https://twitter.com/olebegemann"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "palmer-luckey",
+    "name": "Palmer Luckey",
+    "links": {
+      "x": "https://twitter.com/PalmerLuckey"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "paul-irish",
+    "name": "Paul Irish",
+    "links": {
+      "site": "https://www.paulirish.com/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "pete-walen",
+    "name": "Pete Walen",
+    "links": {
+      "x": "https://twitter.com/PeteWalen"
+    },
+    "domains": [
+      "qa"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/qa/follow.json"
+  },
+  {
+    "slug": "preethi-kasireddy",
+    "name": "Preethi Kasireddy",
+    "links": {
+      "x": "https://twitter.com/iam_preethi"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "ray-wenderlich",
+    "name": "Ray Wenderlich",
+    "links": {
+      "x": "https://twitter.com/rwenderlich"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "redstateblacksheep",
+    "name": "RedStateBlackSheep",
+    "links": {
+      "x": "https://twitter.com/lnxchk"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "rob-allen",
+    "name": "Rob Allen",
+    "links": {
+      "x": "https://twitter.com/akrabat"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "romain-guy",
+    "name": "Romain Guy",
+    "links": {
+      "x": "https://twitter.com/romainguy"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "sally-church",
+    "name": "Sally Church",
+    "links": {
+      "x": "https://twitter.com/MaverickNY"
+    },
+    "domains": [
+      "biotech"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/biotech/follow.json"
+  },
+  {
+    "slug": "sascha",
+    "name": "Sascha",
+    "links": {
+      "x": "https://twitter.com/sascha_d"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "sascha-segan",
+    "name": "Sascha Segan",
+    "links": {
+      "x": "https://twitter.com/saschasegan"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "sean-hull",
+    "name": "Sean Hull",
+    "links": {
+      "x": "https://twitter.com/hullsean"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "sebastian-bergmann",
+    "name": "Sebastian Bergmann",
+    "links": {
+      "x": "https://twitter.com/s_bergmann"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "simon-ng",
+    "name": "Simon Ng",
+    "links": {
+      "x": "https://twitter.com/simonng"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "soumith-chintala",
+    "name": "Soumith Chintala",
+    "links": {
+      "x": "https://twitter.com/soumithchintala"
+    },
+    "domains": [
+      "ai"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ai/follow.json"
+  },
+  {
+    "slug": "stephen-nelson-smith",
+    "name": "Stephen Nelson-Smith",
+    "links": {
+      "x": "https://twitter.com/Lordcope"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "steve-kondik",
+    "name": "Steve Kondik",
+    "links": {
+      "x": "https://twitter.com/cyanogen"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "steve-souders",
+    "name": "Steve Souders",
+    "links": {
+      "site": "http://stevesouders.com/"
+    },
+    "domains": [
+      "frontend"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/follow.json"
+  },
+  {
+    "slug": "sundarpichai",
+    "name": "Sundarpichai",
+    "links": {
+      "x": "https://twitter.com/sundarpichai"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  },
+  {
+    "slug": "taylor-otwell",
+    "name": "Taylor Otwell",
+    "links": {
+      "x": "https://twitter.com/taylorotwell"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "the-mystery-guru",
+    "name": "The mystery guru",
+    "links": {
+      "x": "https://twitter.com/andybiotech"
+    },
+    "domains": [
+      "biotech"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/biotech/follow.json"
+  },
+  {
+    "slug": "tim-cook",
+    "name": "Tim Cook",
+    "links": {
+      "x": "https://twitter.com/tim_cook"
+    },
+    "domains": [
+      "ios"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/ios/follow.json"
+  },
+  {
+    "slug": "tony-parisi",
+    "name": "Tony Parisi",
+    "links": {
+      "x": "https://twitter.com/auradeluxe"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "vitalik-buterin",
+    "name": "Vitalik Buterin",
+    "links": {
+      "x": "https://twitter.com/VitalikButerin"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "vrfocus",
+    "name": "VRFocus",
+    "links": {
+      "x": "https://twitter.com/VRFocus"
+    },
+    "domains": [
+      "arvr"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/arvr/follow.json"
+  },
+  {
+    "slug": "weierophinney",
+    "name": "weierophinney",
+    "links": {
+      "x": "https://twitter.com/mwop"
+    },
+    "domains": [
+      "web"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/web/follow.json"
+  },
+  {
+    "slug": "william-mougayar",
+    "name": "William Mougayar",
+    "links": {
+      "x": "https://twitter.com/wmougayar"
+    },
+    "domains": [
+      "blockchain"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/blockchain/follow.json"
+  },
+  {
+    "slug": "xavier-amatriain",
+    "name": "Xavier Amatriain",
+    "links": {
+      "x": "https://twitter.com/xamat"
+    },
+    "domains": [
+      "devops"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/follow.json"
+  },
+  {
+    "slug": "xavier-ducrohet",
+    "name": "Xavier Ducrohet",
+    "links": {
+      "x": "https://twitter.com/droidxav"
+    },
+    "domains": [
+      "android",
+      "quantum-computing"
+    ],
+    "bio": null,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/android/follow.json"
+  }
+]

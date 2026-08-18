@@ -1,0 +1,27 @@
+{
+  "slug": "jenkins",
+  "domain": "ios",
+  "name": "Jenkins",
+  "category": null,
+  "homepage": "https://jenkins.io/",
+  "one_liner": null,
+  "what_it_is": "The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project. There are several factors that supports Jenkins to root their base. Continuous Integration, Continuous Delivery, easy installation and easy configuration are few of its highlights. Jerkins can easily distribute work across different machines.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

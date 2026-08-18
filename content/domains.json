@@ -1,0 +1,203 @@
+[
+  {
+    "slug": "actions-on-google",
+    "name": "Actions on Google",
+    "status": "archived",
+    "archived_reason": "No tool content was ever published for this domain. No content was ever added to this domain.",
+    "last_curated_year": null,
+    "logo": "actions-on-google.png",
+    "legacy_folder": "actions-on-google",
+    "duplicate_years": [],
+    "tool_count": 0,
+    "practitioner_count": 0,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "ai",
+    "name": "Artificial Intelligence",
+    "status": "active",
+    "last_curated_year": 2021,
+    "logo": "ai-logo.png",
+    "legacy_folder": "ai",
+    "duplicate_years": [
+      2020
+    ],
+    "tool_count": 29,
+    "practitioner_count": 15,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "android",
+    "name": "Android",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2021.",
+    "last_curated_year": 2021,
+    "logo": "android-logo.png",
+    "legacy_folder": "android",
+    "duplicate_years": [
+      2020
+    ],
+    "tool_count": 15,
+    "practitioner_count": 16,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "arvr",
+    "name": "AR/VR",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2018. The 2020 and 2021 files are byte-identical copies of 2019; no new curation happened after 2019.",
+    "last_curated_year": 2018,
+    "logo": "arvr-logo.png",
+    "legacy_folder": "arvr",
+    "duplicate_years": [
+      2019,
+      2020,
+      2021
+    ],
+    "tool_count": 8,
+    "practitioner_count": 10,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "biotech",
+    "name": "Biotech",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2017. Only two practitioners were ever listed, one of them a placeholder (\"The mystery guru\"), and the 2021 file was empty.",
+    "last_curated_year": 2017,
+    "logo": null,
+    "legacy_folder": "biotech",
+    "duplicate_years": [
+      2018,
+      2019,
+      2020
+    ],
+    "tool_count": 4,
+    "practitioner_count": 2,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "blockchain",
+    "name": "Blockchain",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2019.",
+    "last_curated_year": 2019,
+    "logo": "blockchain-logo.png",
+    "legacy_folder": "blockchain",
+    "duplicate_years": [
+      2018,
+      2020,
+      2021
+    ],
+    "tool_count": 7,
+    "practitioner_count": 7,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "devops",
+    "name": "DevOps",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2017.",
+    "last_curated_year": 2017,
+    "logo": "security-logo.png",
+    "legacy_folder": "devops",
+    "duplicate_years": [
+      2018,
+      2019
+    ],
+    "tool_count": 6,
+    "practitioner_count": 22,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "frontend",
+    "name": "Frontend",
+    "status": "active",
+    "archived_reason": null,
+    "last_curated_year": 2019,
+    "logo": "frontend-logo.png",
+    "legacy_folder": "frontend",
+    "duplicate_years": [
+      2018,
+      2020,
+      2021
+    ],
+    "tool_count": 51,
+    "practitioner_count": 10,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "ios",
+    "name": "iOS",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2019.",
+    "last_curated_year": 2019,
+    "logo": "ios-logo.png",
+    "legacy_folder": "ios",
+    "duplicate_years": [],
+    "tool_count": 15,
+    "practitioner_count": 11,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "qa",
+    "name": "QA",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2017.",
+    "last_curated_year": 2017,
+    "logo": "qa-logo.png",
+    "legacy_folder": "qa",
+    "duplicate_years": [
+      2018,
+      2019,
+      2020,
+      2021
+    ],
+    "tool_count": 9,
+    "practitioner_count": 5,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "quantum-computing",
+    "name": "Quantum Computing",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2019. The practitioner list for this domain duplicates the Android list (Andy Rubin, Gina Trapani and others) and was never curated for quantum computing.",
+    "last_curated_year": 2019,
+    "logo": null,
+    "legacy_folder": "quantum computing",
+    "duplicate_years": [
+      2020,
+      2021
+    ],
+    "tool_count": 13,
+    "practitioner_count": 16,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  },
+  {
+    "slug": "web",
+    "name": "Web",
+    "status": "archived",
+    "archived_reason": "Not maintained since 2017.",
+    "last_curated_year": 2017,
+    "logo": "web-logo.png",
+    "legacy_folder": "web",
+    "duplicate_years": [
+      2018,
+      2019
+    ],
+    "tool_count": 21,
+    "practitioner_count": 13,
+    "is_seed": true,
+    "seed_source": "original curation, src/data/home.json"
+  }
+]

@@ -1,0 +1,113 @@
+{
+  "slug": "tailwind",
+  "domain": "frontend",
+  "name": "Tailwind CSS",
+  "canonical_url": "https://tailwindcss.com/",
+  "primary_source": "https://tailwindcss.com/docs",
+  "proposed_lifecycle": "established",
+  "summary": "Utility-class CSS framework that moves styling decisions into markup.",
+  "what_it_is": "A CSS framework that ships a large set of single-purpose utility classes — padding, colour, flex, typography — which you compose directly in markup, plus a build step that strips every class you did not use. It deliberately does not ship pre-built components like a button or a card; it gives you the scale, not the parts.",
+  "why_it_matters": "Tailwind is the clearest example of a shift many experienced CSS developers sat out. The standard objection — that utility classes in markup are inline styles with extra steps — is reasonable, and it lost on practical grounds rather than aesthetic ones. Constraining developers to a fixed token scale prevents the slow entropy that afflicts hand-written stylesheets, and colocating style with markup dissolves the naming problem that consumed a decade of CSS architecture argument (BEM, OOCSS, SMACSS). If your view of styling settled around Sass and BEM, this is the specific thing worth re-examining — not because it is popular, but because the problem it solves is one you probably still have.",
+  "suitable_for": [
+    "Teams that want a shared design-token scale without having to author one",
+    "Component-based codebases where markup and style are edited together",
+    "Developers for whom naming CSS classes is the slow part of styling"
+  ],
+  "not_suitable_for": [
+    "Codebases that must emit semantic, framework-neutral HTML for third parties to consume or restyle",
+    "Teams with a mature existing design system in plain CSS, where migration cost usually exceeds the benefit",
+    "Projects where markup is authored by people who do not run the build — CMS templates edited by non-developers",
+    "HTML email, which cannot rely on the build step"
+  ],
+  "alternatives": [
+    "Plain CSS with custom properties",
+    "CSS Modules",
+    "Sass",
+    "vanilla-extract",
+    "StyleX"
+  ],
+  "verifiable_facts": [
+    "Actively maintained utility-first CSS framework; requires a build step that removes unused classes."
+  ],
+  "editorial_interpretation": [
+    "That the objection to it \"lost on practical grounds\".",
+    "That it is the tool most often missed by developers who have drifted."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Teams that want a shared design-token scale without having to author one",
+    "Suitable: Component-based codebases where markup and style are edited together",
+    "Suitable: Developers for whom naming CSS classes is the slow part of styling",
+    "Unsuitable: Codebases that must emit semantic, framework-neutral HTML for third parties to consume or restyle",
+    "Unsuitable: Teams with a mature existing design system in plain CSS, where migration cost usually exceeds the benefit",
+    "Unsuitable: Projects where markup is authored by people who do not run the build — CMS templates edited by non-developers",
+    "Unsuitable: HTML email, which cannot rely on the build step"
+  ],
+  "evidence_gaps": [
+    "The \"most often missed\" framing has no supporting evidence of any kind and is pure assertion."
+  ],
+  "wrong_if": "A reviewer objects that \"lost\" presents a contested design argument as settled.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.retain.tailwind",
+      "context": "apps",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "content.recommend.tailwind",
+      "context": "content",
+      "kind": "recommend",
+      "reviewed": false
+    },
+    {
+      "rule_id": "content.retain.tailwind",
+      "context": "content",
+      "kind": "retain",
+      "reviewed": false
+    },
+    {
+      "rule_id": "design_systems.reconsider.tailwind",
+      "context": "design_systems",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "apps",
+    "content",
+    "design_systems"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.retain.tailwind",
+    "rule:content.recommend.tailwind",
+    "rule:content.retain.tailwind",
+    "rule:design_systems.reconsider.tailwind"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 4 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-13",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Descriptions verified against tailwindcss.com. Two amendments: the build-step clause reversed direction — the project scans source and generates the CSS for classes actually used, rather than stripping unused classes — and the unsourced \"gives you the scale, not the parts\" line was dropped. Lifecycle published under the same standing caveat as the 2026-08-07 AI batch: no adoption evidence, editor’s knowing exception."
+    }
+  ]
+}

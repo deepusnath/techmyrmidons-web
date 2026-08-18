@@ -1,0 +1,26 @@
+{
+  "slug": "ember-js",
+  "domain": "frontend",
+  "name": "Ember js",
+  "category": null,
+  "homepage": "https://emberjs.com/",
+  "one_liner": null,
+  "what_it_is": "Ember is the spiritual successor to SproutCore, a powerful JavaScript framework that attempted to port the Cocoa UI to the web Get started with Ember.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/frontend/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

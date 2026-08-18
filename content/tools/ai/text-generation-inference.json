@@ -1,0 +1,36 @@
+{
+  "slug": "text-generation-inference",
+  "name": "Text Generation Inference",
+  "category": "serving and inference",
+  "homepage": "https://huggingface.co/docs/text-generation-inference/index",
+  "lifecycle": "declining",
+  "first_seen_year": 2022,
+  "one_liner": "LLM serving toolkit, now in maintenance mode per its maintainers.",
+  "what_it_is": "A toolkit for deploying and serving Large Language Models, in its own words, providing tensor parallelism, token streaming and continuous batching behind a launcher. Its documentation states it is now in maintenance mode, accepting only minor bug fixes, documentation improvements and lightweight maintenance.",
+  "why_it_matters": "The maintenance notice is the reason to know where it sits: its maintainers point readers to other engines going forward, so choosing it for something new means choosing a project that has said it is no longer moving. Existing deployments are not broken by that, but they are on a fixed target.",
+  "suitable_for": [
+    "Existing deployments already running it",
+    "Reading its architecture, which several later engines drew on"
+  ],
+  "not_suitable_for": [
+    "New serving work, given the maintainers point elsewhere",
+    "Anything depending on new model architectures landing quickly"
+  ],
+  "alternatives": [
+    "vLLM",
+    "llama.cpp"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

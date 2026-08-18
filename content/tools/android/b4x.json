@@ -1,0 +1,26 @@
+{
+  "slug": "b4x",
+  "domain": "android",
+  "name": "B4X",
+  "category": null,
+  "homepage": "https://www.b4x.com/",
+  "one_liner": null,
+  "what_it_is": "B4A (or Basic for Android) is a lesser known Android development tool from Anywhere Software, focused on ‘rapid’ development. As the name suggests, this is an IDE and interpreter that allows developers to create apps using the BASIC programming language. For those that aren’t familiar with BASIC, it’s essentially a much simpler, procedural programming language that reads closer to regular English. Despite essentially being a one-man project, B4A manages to pack in a lot of useful advanced features, including wireless debugging over Bluetooth, a visual editor for adding and arranging views and more. It’s not free but it’s how I got started on Android and I highly recommend it.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2019,
+  "archive_years": [
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2019.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "cakephp",
+  "domain": "web",
+  "name": "CakePHP 3.3",
+  "category": null,
+  "homepage": "https://cakephp.org/",
+  "one_liner": null,
+  "what_it_is": "CakePHP is an open-source web framework written in PHP that follows the model–view–controller (MVC) approach and modeled after the concepts of Ruby on Rails, and distributed under the MIT License. It makes building web applications simpler and faster, while requiring less code. A modern PHP 5.5+ framework offering a flexible database access layer and a powerful scaffolding system that makes building both small and complex systems simpler and easier. It will run on a variety of web servers such as NGINX, LightHTTPD, or Microsoft IIS.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

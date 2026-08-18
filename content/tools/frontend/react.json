@@ -1,0 +1,41 @@
+{
+  "slug": "react",
+  "name": "React",
+  "category": "UI framework",
+  "homepage": "https://react.dev/",
+  "lifecycle": "established",
+  "first_seen_year": 2013,
+  "one_liner": "Component-based UI library for building interfaces from composable pieces.",
+  "what_it_is": "A library for building user interfaces out of individual pieces called components, designed so components written by independent people and teams combine seamlessly — its own framing. State changes drive re-rendering, and Server Components, in the project’s words, render ahead of time, before bundling, in an environment separate from the client app.",
+  "why_it_matters": "React is less a choice than a baseline: it shapes hiring, tutorials and the surrounding tool ecosystem, so understanding it is close to mandatory even if you never pick it. The genuinely current shift is server components, which move a meaningful share of work back to the server and invalidate a lot of client-side patterns people learned between 2018 and 2022.",
+  "suitable_for": [
+    "Applications where you need the largest available hiring pool and ecosystem",
+    "Teams already fluent in it",
+    "Products with complex, highly interactive client state"
+  ],
+  "not_suitable_for": [
+    "Content-heavy sites that ship far more JavaScript than they need",
+    "Small teams wanting a framework that makes decisions for them — React deliberately does not",
+    "Projects that cannot absorb the churn of its evolving server-rendering story"
+  ],
+  "alternatives": [
+    "Vue",
+    "Svelte",
+    "Solid",
+    "Astro",
+    "htmx"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-13",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

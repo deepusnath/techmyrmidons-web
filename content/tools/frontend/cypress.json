@@ -1,0 +1,35 @@
+{
+  "slug": "cypress",
+  "domain": "frontend",
+  "name": "Cypress",
+  "category": "testing",
+  "homepage": "https://www.cypress.io/",
+  "one_liner": "In-browser end-to-end testing with an excellent debugging experience, now pressured by Playwright.",
+  "what_it_is": "An end-to-end testing framework that runs tests inside the browser alongside the application, with a time-travelling test runner UI that lets you step back through each command and inspect the DOM at that moment.",
+  "why_it_matters": "Cypress made end-to-end testing approachable when the alternative was Selenium, and its debugging experience is still genuinely good. It is marked declining for specific reasons rather than fashion: running inside the browser constrains its handling of multiple tabs, multiple origins and true cross-browser coverage, and Playwright addressed those while matching the debugging story. An existing Cypress suite is not a problem to solve; choosing it for new work now needs a reason.",
+  "lifecycle": "declining",
+  "first_seen_year": 2015,
+  "archive_years": [],
+  "suitable_for": [
+    "Existing suites that are working and maintained",
+    "Teams that particularly value its interactive test runner",
+    "Single-origin applications where its architectural limits do not bite"
+  ],
+  "not_suitable_for": [
+    "Testing flows that cross origins or involve multiple tabs",
+    "Broad cross-browser coverage, especially WebKit",
+    "New end-to-end suites, where Playwright is the stronger default"
+  ],
+  "alternatives": [
+    "Playwright",
+    "WebdriverIO",
+    "Selenium"
+  ],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

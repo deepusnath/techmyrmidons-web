@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ai-2026-08",
+    "domain": "ai",
+    "tool_slug": null,
+    "author": null,
+    "published_at": "2026-08-07",
+    "body": "The archive for this domain stops in 2021, and what it recorded — TensorFlow, Torch, Spark MLlib, H2O — described a field where the work was mostly training your own model on your own data. That framing did not survive. For most people building with AI today the model is something you call rather than something you fit, and the difficulty moved with it: from architectures and training runs to retrieval, structured output, evaluation and cost per request. The catalogue has been rebuilt around that shift, which is why it now has layers the archive had no category for — model access, orchestration, vector stores, evaluation.",
+    "tradeoffs": "Rebuilding around today's shape risks understating the part of the field that did not change. Tabular problems are still best answered by a boosted tree, classical baselines still decide whether an expensive approach earned its cost, and training your own model is still the right answer when the data is yours and the task is narrow. A catalogue organised around calling hosted models can read as though that work stopped mattering. It did not, and the rules for the training context are written to say so.",
+    "draft": true,
+    "is_seed": false,
+    "seed_source": null
+  }
+]

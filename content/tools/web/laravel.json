@@ -1,0 +1,25 @@
+{
+  "slug": "laravel",
+  "domain": "web",
+  "name": "Laravel 5.3",
+  "category": null,
+  "homepage": "http://learninglaravel.net/laravel-52-is-released",
+  "one_liner": null,
+  "what_it_is": "Laravel is a free, open-source PHP web framework intended for the development of web applications following the model–view–controller (MVC) architectural pattern. Its modular packaging system with a dedicated dependency manager, different ways for accessing relational databases, utilities that aid in application deployment and maintenance has made it popular among the developers. Laravel 5.3 continues the improvements made in Laravel 5.2 by adding a driver based notification system, robust realtime support via Laravel Echo, painless OAuth2 servers via Laravel Passport, full-text model searching via Laravel Scout, explicit separation of web and api routes, single-action controllers, improved default frontend scaffolding, and many more.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

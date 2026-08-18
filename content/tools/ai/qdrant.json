@@ -1,0 +1,39 @@
+{
+  "slug": "qdrant",
+  "name": "Qdrant",
+  "category": "vector store",
+  "homepage": "https://qdrant.tech/",
+  "lifecycle": "established",
+  "first_seen_year": 2021,
+  "one_liner": "Vector similarity search engine and database, written in Rust.",
+  "what_it_is": "A vector similarity search engine and vector database, in its own words, written in Rust and tailored for extended filtering support — useful where matching is semantic but the result still has to satisfy structured conditions.",
+  "why_it_matters": "Filtering is where naive vector search usually fails in production: the nearest neighbours are right but half of them are for the wrong tenant, the wrong date or the wrong permission. Treating filters as part of the search rather than a post-processing step is the difference between correct results and plausible ones.",
+  "suitable_for": [
+    "Search where structured filters must apply alongside similarity",
+    "Multi-tenant retrieval where isolation is a correctness requirement",
+    "Workloads that outgrew similarity search inside the primary database"
+  ],
+  "not_suitable_for": [
+    "Small corpora where an extension to an existing database serves",
+    "Teams unwilling to operate another stateful service",
+    "Cases where filtering alone answers the question and no embedding is needed"
+  ],
+  "alternatives": [
+    "pgvector",
+    "Weaviate",
+    "Chroma"
+  ],
+  "domain": "ai",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-07",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

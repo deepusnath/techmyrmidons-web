@@ -1,0 +1,39 @@
+{
+  "slug": "styled-components",
+  "name": "styled-components",
+  "category": "styling",
+  "homepage": "https://styled-components.com/",
+  "lifecycle": "declining",
+  "first_seen_year": 2016,
+  "one_liner": "Runtime CSS-in-JS: styles in tagged template literals, injected as scoped stylesheets at render time.",
+  "what_it_is": "A library for writing CSS in tagged template literals attached to React components, generating and injecting real stylesheets at runtime with scoped class names.",
+  "why_it_matters": "styled-components made colocated, prop-driven styling mainstream, and its ideas outlived it. Its decline is specific and technical: generating styles at runtime costs render performance and interacts badly with server components, which pushed the ecosystem toward approaches that resolve styles at build time. A working styled-components codebase is not a problem; choosing it fresh now needs a reason.",
+  "suitable_for": [
+    "Existing codebases already invested in it",
+    "Client-rendered React applications where styles depend heavily on props"
+  ],
+  "not_suitable_for": [
+    "React server components, which its runtime model fits poorly",
+    "Performance-sensitive rendering paths",
+    "New projects, where zero-runtime alternatives cover most use cases"
+  ],
+  "alternatives": [
+    "vanilla-extract",
+    "CSS Modules",
+    "Tailwind CSS",
+    "Panda CSS"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

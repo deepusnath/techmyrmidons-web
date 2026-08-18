@@ -1,0 +1,36 @@
+{
+  "slug": "claude-code",
+  "name": "Claude Code",
+  "category": "AI assistance",
+  "homepage": "https://claude.com/claude-code",
+  "lifecycle": "emerging",
+  "first_seen_year": 2025,
+  "one_liner": "Agentic coding in the terminal — delegated tasks rather than inline completion.",
+  "what_it_is": "A terminal-based coding agent that reads and edits files, runs commands and tests, and works through multi-step tasks, alongside editor and desktop interfaces.",
+  "why_it_matters": "The distinction worth understanding is delegation versus completion: rather than suggesting the next line, an agent is given a task and works through it, running commands and reading results. That is a different working relationship with different failure modes, and it is genuinely unsettled which shape wins. Listed as emerging for that reason, and disclosed plainly: this entry was drafted with the tool it describes.",
+  "suitable_for": [
+    "Multi-step tasks spanning several files",
+    "Work where running tests and iterating is part of the loop",
+    "Developers comfortable working in a terminal"
+  ],
+  "not_suitable_for": [
+    "Developers who prefer inline suggestions inside the editor",
+    "Organisations that cannot send source to a third-party service",
+    "Tasks where writing the prompt costs more than writing the code"
+  ],
+  "alternatives": [
+    "Cursor",
+    "GitHub Copilot",
+    "Codex CLI",
+    "Aider"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

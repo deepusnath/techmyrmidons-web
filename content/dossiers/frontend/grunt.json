@@ -1,0 +1,121 @@
+{
+  "slug": "grunt",
+  "domain": "frontend",
+  "name": "Grunt",
+  "canonical_url": "https://gruntjs.com/",
+  "primary_source": "https://gruntjs.com/getting-started",
+  "proposed_lifecycle": "legacy",
+  "summary": "Configuration-driven task runner from the era before bundlers absorbed the build.",
+  "what_it_is": "A task runner configured through a large declarative object, orchestrating plugins for concatenation, minification, linting and file watching by writing intermediate files to disk between steps.",
+  "why_it_matters": "Grunt and Gulp defined a whole era of frontend work that has since been absorbed: bundlers took over the build graph, and framework tooling took over the rest. It is here because recognising a Gruntfile immediately dates a codebase, and because it is a concrete reminder that today's default build tool is also temporary.",
+  "suitable_for": [
+    "Reading and maintaining pre-2017 codebases"
+  ],
+  "not_suitable_for": [
+    "Any new project",
+    "Teams without existing Grunt expertise to maintain it"
+  ],
+  "alternatives": [
+    "Vite",
+    "npm scripts",
+    "esbuild"
+  ],
+  "verifiable_facts": [
+    "Documentation remains available; the project describes itself as a task runner."
+  ],
+  "editorial_interpretation": [
+    "Classification as legacy.",
+    "That bundlers absorbed the category."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Reading and maintaining pre-2017 codebases",
+    "Unsuitable: Any new project",
+    "Unsuitable: Teams without existing Grunt expertise to maintain it"
+  ],
+  "evidence_gaps": [
+    "No evidence of current maintenance cadence was gathered."
+  ],
+  "wrong_if": "A reviewer finds the project is still actively released, making \"legacy\" inaccurate.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "learning.reconsider.grunt",
+      "context": "learning",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "legacy.reconsider.grunt",
+      "context": "legacy",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "learning",
+    "legacy"
+  ],
+  "supporting_signals": [
+    {
+      "tier": "observed",
+      "label": "grunt was removed from package.json in addyosmani/basket.js",
+      "source_url": "https://github.com/addyosmani/basket.js/commit/ff4abae7f4b0552f0779df23fe447336ba181816",
+      "observed_at": "2025-03-02T06:13:33Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "observed",
+      "label": "grunt was added to package.json in addyosmani/essential-js-design-patterns",
+      "source_url": "https://github.com/addyosmani/essential-js-design-patterns/commit/0fc2d08189d287d79255f70db683ba3dcb7f24ba",
+      "observed_at": "2013-12-29T18:07:48Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "observed",
+      "label": "grunt was added to package.json in jeresig/pulley",
+      "source_url": "https://github.com/jeresig/pulley/commit/0f8aa03afa574ade4ef25be41a25dbbad5680370",
+      "observed_at": "2012-04-26T21:05:11Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    },
+    {
+      "tier": "observed",
+      "label": "grunt was added to package.json in addyosmani/basket.js",
+      "source_url": "https://github.com/addyosmani/basket.js/commit/b7d102f21a9c12311ef5e65a5fb21c69a35bffa8",
+      "observed_at": "2012-03-04T01:46:22Z",
+      "context_status": "unknown",
+      "eligible_for_trends": false
+    }
+  ],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:learning.reconsider.grunt",
+    "rule:legacy.reconsider.grunt"
+  ],
+  "proposed_decision": "Approve lifecycle \"legacy\" and the 2 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "One-liner drops the same era framing. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "nettuts",
+    "domain": "frontend",
+    "title": "Nettuts+",
+    "url": "https://code.tutsplus.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "html5-doctor",
+    "domain": "frontend",
+    "title": "HTML5 Doctor",
+    "url": "http://html5doctor.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "smashing-magazine",
+    "domain": "frontend",
+    "title": "Smashing Magazine",
+    "url": "https://www.smashingmagazine.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "david-walsh-blog",
+    "domain": "frontend",
+    "title": "David Walsh Blog",
+    "url": "https://davidwalsh.name/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "treehouse-blog",
+    "domain": "frontend",
+    "title": "Treehouse Blog",
+    "url": "http://blog.teamtreehouse.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "echojs",
+    "domain": "frontend",
+    "title": "EchoJS",
+    "url": "http://www.echojs.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "web-platform",
+    "domain": "frontend",
+    "title": "Web Platform",
+    "url": "https://webplatform.github.io/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "html5-rocks",
+    "domain": "frontend",
+    "title": "HTML5 ROCKS",
+    "url": "https://www.html5rocks.com/en/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "css-tricks",
+    "domain": "frontend",
+    "title": "CSS-TRICKS",
+    "url": "https://css-tricks.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  },
+  {
+    "slug": "dailyjs",
+    "domain": "frontend",
+    "title": "DailyJS",
+    "url": "https://twitter.com/dailyjs",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/frontend/blog.json"
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "slug": "apache-singa",
+  "domain": "ai",
+  "name": "Apache Singa",
+  "category": null,
+  "homepage": "https://singa.incubator.apache.org/en/index.html",
+  "one_liner": null,
+  "what_it_is": "The Singa Project was initiated by the DB System Group at the National University of Singapore in 2014, with a primary focus on distributed deep learning by partitioning the model and data onto nodes in a cluster and parallelising the training. Apache Singa provides a simple programming model and works across a cluster of machines. It is primarily used in natural language processing (NLP) and image recognition. A Singa prototype accepted by Apache Incubator in March 2015 provides a flexible architecture of scalable distributed training and is extendable to run over a wide range of hardware.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2018,
+  "archive_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ai/2018.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

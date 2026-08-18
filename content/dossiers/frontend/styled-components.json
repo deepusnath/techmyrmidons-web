@@ -1,0 +1,93 @@
+{
+  "slug": "styled-components",
+  "domain": "frontend",
+  "name": "styled-components",
+  "canonical_url": "https://styled-components.com/",
+  "primary_source": "https://styled-components.com/docs",
+  "proposed_lifecycle": "declining",
+  "summary": "Runtime CSS-in-JS, now pressured by the cost it imposes at render time.",
+  "what_it_is": "A library for writing CSS in tagged template literals attached to React components, generating and injecting real stylesheets at runtime with scoped class names.",
+  "why_it_matters": "styled-components made colocated, prop-driven styling mainstream, and its ideas outlived it. Its decline is specific and technical: generating styles at runtime costs render performance and interacts badly with server components, which pushed the ecosystem toward approaches that resolve styles at build time. A working styled-components codebase is not a problem; choosing it fresh now needs a reason.",
+  "suitable_for": [
+    "Existing codebases already invested in it",
+    "Client-rendered React applications where styles depend heavily on props"
+  ],
+  "not_suitable_for": [
+    "React server components, which its runtime model fits poorly",
+    "Performance-sensitive rendering paths",
+    "New projects, where zero-runtime alternatives cover most use cases"
+  ],
+  "alternatives": [
+    "vanilla-extract",
+    "CSS Modules",
+    "Tailwind CSS",
+    "Panda CSS"
+  ],
+  "verifiable_facts": [
+    "Official docs describe runtime generation and injection of styles via tagged template literals."
+  ],
+  "editorial_interpretation": [
+    "Classification as declining.",
+    "That it \"interacts badly\" with server components."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Existing codebases already invested in it",
+    "Suitable: Client-rendered React applications where styles depend heavily on props",
+    "Unsuitable: React server components, which its runtime model fits poorly",
+    "Unsuitable: Performance-sensitive rendering paths",
+    "Unsuitable: New projects, where zero-runtime alternatives cover most use cases"
+  ],
+  "evidence_gaps": [
+    "No sourced statement about its maintenance status or the server-component interaction."
+  ],
+  "wrong_if": "A reviewer judges the server-rendering claim needs a specific source, or that maintenance status contradicts \"declining\".",
+  "confidence": "low",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.reconsider.styled-components",
+      "context": "apps",
+      "kind": "reconsider",
+      "reviewed": false
+    },
+    {
+      "rule_id": "design_systems.reconsider.styled-components",
+      "context": "design_systems",
+      "kind": "reconsider",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "apps",
+    "design_systems"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.reconsider.styled-components",
+    "rule:design_systems.reconsider.styled-components"
+  ],
+  "proposed_decision": "Approve lifecycle \"declining\" and the 2 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Removed the editorial \"now pressured by the cost it imposes\" from the descriptive field. A reported maintenance-mode announcement could not be sourced this session, so declining remains a proposal. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

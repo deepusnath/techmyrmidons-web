@@ -1,0 +1,25 @@
+{
+  "slug": "php",
+  "domain": "web",
+  "name": "PHP 7.0.6",
+  "category": null,
+  "homepage": "http://php.net/downloads.php",
+  "one_liner": null,
+  "what_it_is": "PHP is a popular general purpose programming language. The concept is now polished to as server-side scripting language designed primarily for web development. During 2014 and 2015, a new major PHP version was developed, which was numbered PHP 7. The original, only complete and most widely used PHP implementation is powered by the Zend Engine and known simply as PHP.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

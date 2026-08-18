@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "techmyrmidons-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "techmyrmidons-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/serve-static.ts"],
+      "port": 3100,
+      "autoPort": true
+    }
+  ]
+}

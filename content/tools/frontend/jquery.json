@@ -1,0 +1,37 @@
+{
+  "slug": "jquery",
+  "name": "jQuery",
+  "category": "DOM library",
+  "homepage": "https://jquery.com/",
+  "lifecycle": "legacy",
+  "first_seen_year": 2006,
+  "one_liner": "DOM, event and AJAX library with a chainable API; much of what it provided is now native to the platform.",
+  "what_it_is": "A library providing concise DOM selection, traversal, manipulation, events and AJAX with a chainable API, originally papering over deep inconsistencies between browsers.",
+  "why_it_matters": "jQuery won so completely that the platform absorbed it: querySelectorAll, classList, fetch and addEventListener cover most of what people reached for it to do. It still runs on an enormous share of the web, so you will encounter it — but it belongs here as history and as a diagnostic. Code reaching for jQuery in a new project is usually reaching for habits rather than capability.",
+  "suitable_for": [
+    "Maintaining existing codebases that already depend on it",
+    "Legacy environments with genuinely old browser requirements"
+  ],
+  "not_suitable_for": [
+    "New projects of any kind",
+    "Anywhere bundle size matters — modern DOM APIs cover the same ground for free"
+  ],
+  "alternatives": [
+    "Native DOM APIs",
+    "Alpine.js",
+    "htmx"
+  ],
+  "domain": "frontend",
+  "archive_years": [],
+  "published": true,
+  "is_seed": false,
+  "seed_source": null,
+  "editorial_status": "ai_draft",
+  "reviewed_by": "Deepu S Nath",
+  "reviewed_at": "2026-08-14",
+  "reviewed_fields": [
+    "one_liner",
+    "what_it_is",
+    "lifecycle"
+  ]
+}

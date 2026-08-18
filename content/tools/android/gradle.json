@@ -1,0 +1,28 @@
+{
+  "slug": "gradle",
+  "domain": "android",
+  "name": "Gradle",
+  "category": null,
+  "homepage": "http://gradle.org/getting-started-android/",
+  "one_liner": null,
+  "what_it_is": "Gradle is an advanced build toolkit used to automate and manage the build process, while allowing the developer to define flexible custom build configurations. Each build configuration can define its own set of code and resources, while reusing the parts common to all versions of the app.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019,
+    2021
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/android/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

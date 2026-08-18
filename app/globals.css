@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+/*
+ * Identity carried forward from the original site: ember #d64a00 on near-black,
+ * Maitree for display type. The intent is an editorial guide, not a dashboard —
+ * generous measure, hairline rules, restrained surfaces.
+ */
+@theme {
+  --color-ink: #100f0e;
+  --color-ink-2: #171512;
+  --color-ink-3: #1f1c18;
+  --color-rule: #2c2823;
+  --color-paper: #f6f3ee;
+  --color-paper-2: #ece7de;
+
+  --color-ember: #d64a00;
+  --color-ember-soft: #d24a2c;
+  --color-ash: #a9a29a;
+  --color-ash-2: #6f6862;
+
+  /* Evidence tiers each get their own hue so they never read as interchangeable */
+  --color-tier-observed: #4a9db5;
+  --color-tier-declared: #c8913a;
+  --color-tier-community: #7a9b5c;
+  --color-tier-editorial: #d64a00;
+  --color-tier-archive: #7d7469;
+  --color-tier-demo: #a855a8;
+
+  --font-display: var(--font-maitree), Georgia, serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+:root {
+  --bg: var(--color-ink);
+  --bg-2: var(--color-ink-2);
+  --bg-3: var(--color-ink-3);
+  --fg: #ece7de;
+  --fg-dim: var(--color-ash);
+  --fg-faint: var(--color-ash-2);
+  --rule: var(--color-rule);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: var(--color-paper);
+    --bg-2: #fffdfa;
+    --bg-3: var(--color-paper-2);
+    --fg: #221f1c;
+    --fg-dim: #5d564f;
+    --fg-faint: #837b73;
+    --rule: #ddd5c9;
+    color-scheme: light;
+  }
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Visible, consistent focus for keyboard users across every interactive thing */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-ember);
+  color: #fff;
+  padding: 0.6rem 1rem;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Wide content must scroll inside its own box, never the page body */
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "lumen",
+  "domain": "web",
+  "name": "Lumen",
+  "category": null,
+  "homepage": "https://lumen.laravel.com/",
+  "one_liner": null,
+  "what_it_is": "Lumen is the perfect solution for building Laravel based micro-services and blazing fast APIs. The stunningly fast speed of Lumen, combined with the convenience of Laravel's features gives 'best of both worlds' micro-framework that is truly a joy to work with. Lumen strips away many of the configuration and customization options that Laravel provides. It lets to harness the full power of Laravel's features, such as routing, dependency injection, the Eloquent ORM, migrations, queued jobs, and even scheduled commands.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

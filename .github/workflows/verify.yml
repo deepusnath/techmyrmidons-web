@@ -1,0 +1,68 @@
+name: Verify
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Preview and production verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Both Playwright projects (desktop Chrome, mobile Pixel 7) are Chromium.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Validate content
+        run: npm run validate
+
+      - name: Rule isolation and publication-gate assertions
+        run: npm run test:rules
+
+      - name: Completion model assertions
+        run: npm run test:completion
+
+      - name: Preview build and full preview suite
+        run: npm run test:preview
+
+      - name: Production build, artifact guard and full drafts-hidden suite
+        run: npm run test:production
+
+      # A leak assertion names the file and phrase that leaked; the trace is
+      # what tells you which interaction produced it.
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

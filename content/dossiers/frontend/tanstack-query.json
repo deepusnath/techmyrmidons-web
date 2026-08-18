@@ -1,0 +1,86 @@
+{
+  "slug": "tanstack-query",
+  "domain": "frontend",
+  "name": "TanStack Query",
+  "canonical_url": "https://tanstack.com/query",
+  "primary_source": "https://tanstack.com/query/latest/docs/framework/react/overview",
+  "proposed_lifecycle": "established",
+  "summary": "Async server-state cache — the library that reframed most \"state management\" as caching.",
+  "what_it_is": "A library managing asynchronous server data with caching, deduplication, background refetching, stale-while-revalidate semantics and pagination, framework-agnostic with bindings for React, Vue and Svelte.",
+  "why_it_matters": "Its real contribution was conceptual: most of what teams were hand-rolling in Redux was not application state at all, it was a poorly implemented cache of server state. Naming that distinction let a large amount of boilerplate disappear. If your mental model of state management predates it, this is the specific idea worth catching up on.",
+  "suitable_for": [
+    "Applications with substantial server data fetching",
+    "Replacing hand-written loading, error and refetch logic",
+    "Teams whose global store is mostly cached API responses"
+  ],
+  "not_suitable_for": [
+    "Genuinely client-side state — form drafts, UI toggles, editor buffers",
+    "Applications with very little server interaction",
+    "Frameworks whose own data layer already covers this"
+  ],
+  "alternatives": [
+    "SWR",
+    "RTK Query",
+    "Apollo Client",
+    "framework-native data loading"
+  ],
+  "verifiable_facts": [
+    "Official docs describe caching, deduplication, background refetching and stale-while-revalidate for server state."
+  ],
+  "editorial_interpretation": [
+    "That most \"state management\" was really a poorly implemented cache."
+  ],
+  "context_dependent_guidance": [
+    "Suitable: Applications with substantial server data fetching",
+    "Suitable: Replacing hand-written loading, error and refetch logic",
+    "Suitable: Teams whose global store is mostly cached API responses",
+    "Unsuitable: Genuinely client-side state — form drafts, UI toggles, editor buffers",
+    "Unsuitable: Applications with very little server interaction",
+    "Unsuitable: Frameworks whose own data layer already covers this"
+  ],
+  "evidence_gaps": [
+    "The claim about what teams were doing is an assertion about industry practice with no evidence."
+  ],
+  "wrong_if": "A reviewer requires the industry-practice claim to be removed or attributed.",
+  "confidence": "medium",
+  "conflict_of_interest": null,
+  "diagnosis_rules": [
+    {
+      "rule_id": "apps.recommend.tanstack-query",
+      "context": "apps",
+      "kind": "recommend",
+      "reviewed": false
+    }
+  ],
+  "relationships": [],
+  "journeys_affected": [
+    "apps"
+  ],
+  "supporting_signals": [],
+  "signal_note": "Repository signals are recorded file changes. They are not evidence of popularity, personal usage or industry trends, and none is eligible to inform a trend conclusion.",
+  "fields_requiring_approval": [
+    "lifecycle",
+    "one_liner",
+    "what_it_is",
+    "why_it_matters",
+    "suitable_for",
+    "not_suitable_for",
+    "alternatives",
+    "rule:apps.recommend.tanstack-query"
+  ],
+  "proposed_decision": "Approve lifecycle \"established\" and the 1 dependent rule(s), or amend.",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "author": "AI-assisted draft — unattributed pending review",
+  "generated_at": "2026-07-31",
+  "decision_log": [
+    {
+      "date": "2026-08-14",
+      "decided_by": "Deepu S Nath",
+      "subject": "one_liner, what_it_is, lifecycle",
+      "decision": "approve_with_edits",
+      "reasoning": "Removed \"the library that reframed most state-management\" — unevidenced field claim. Lifecycle signed under the standing no-adoption-evidence caveat unless noted as sourced."
+    }
+  ]
+}

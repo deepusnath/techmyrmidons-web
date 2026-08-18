@@ -1,0 +1,146 @@
+[
+  {
+    "slug": "patrick-debois",
+    "domain": "devops",
+    "title": "Patrick Debois",
+    "url": "http://www.jedi.be/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "devopsguys",
+    "domain": "devops",
+    "title": "DevOpsGuys",
+    "url": "https://www.devopsguys.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "the-lone-sysadmin",
+    "domain": "devops",
+    "title": "The Lone Sysadmin",
+    "url": "https://lonesysadmin.net/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "kitchen-soap",
+    "domain": "devops",
+    "title": "Kitchen Soap",
+    "url": "http://www.kitchensoap.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "scalable-startups",
+    "domain": "devops",
+    "title": "Scalable Startups",
+    "url": "http://www.iheavy.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "socialized-software",
+    "domain": "devops",
+    "title": "Socialized Software",
+    "url": "http://www.iheavy.com/blog/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "andrew-hay",
+    "domain": "devops",
+    "title": "Andrew Hay",
+    "url": "http://www.andrewhay.ca/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "dev2ops",
+    "domain": "devops",
+    "title": "dev2ops",
+    "url": "http://dev2ops.org/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "bratty-redhead-blog",
+    "domain": "devops",
+    "title": "Bratty Redhead Blog",
+    "url": "http://blog.brattyredhead.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "agile-sysadmin",
+    "domain": "devops",
+    "title": "Agile Sysadmin",
+    "url": "http://www.agilesysadmin.net/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "netflix",
+    "domain": "devops",
+    "title": "Netflix",
+    "url": "https://medium.com/netflix-techblog",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "code-as-craft",
+    "domain": "devops",
+    "title": "Code as Craft",
+    "url": "https://codeascraft.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "airbnb",
+    "domain": "devops",
+    "title": "airbnb/",
+    "url": "https://medium.com/airbnb-engineering",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "backing-and-hacking",
+    "domain": "devops",
+    "title": "Backing and Hacking",
+    "url": "https://kickstarter.engineering/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "siliconangle",
+    "domain": "devops",
+    "title": "SiliconANGLE",
+    "url": "http://devopsangle.com/",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  },
+  {
+    "slug": "quora",
+    "domain": "devops",
+    "title": "Quora",
+    "url": "https://www.quora.com/What-are-the-best-DevOps-blogs",
+    "kind": "blog",
+    "is_seed": true,
+    "seed_source": "original curation, src/data/devops/blog.json"
+  }
+]

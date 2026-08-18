@@ -1,0 +1,25 @@
+{
+  "slug": "apigility",
+  "domain": "web",
+  "name": "Apigility 1.3.3",
+  "category": null,
+  "homepage": "https://apigility.org/documentation",
+  "one_liner": null,
+  "what_it_is": "Apigility supports you in building APIs that enable mobile apps, developer communities, and any other consumer controlled access to your applications. It is designed to simplify the creation and maintenance of useful, easy to consume, and well structured application programming interfaces (APIs). They use technologies like Zend Framework , Bootstrap , jQuery , AngularJS.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

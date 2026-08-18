@@ -1,0 +1,27 @@
+{
+  "slug": "cocoapods",
+  "domain": "ios",
+  "name": "CocoaPods",
+  "category": null,
+  "homepage": "https://cocoapods.org/",
+  "one_liner": null,
+  "what_it_is": "CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects. Cocoapods shares their credibility over 1.2 million apps and contains over 23 thousand libraries. It can help to scale projects elegantly. Instead of manually importing files via drop and drop when working on an app, Cocoapods automatically analyses all the required framework and aligns it accordingly.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/ios/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}

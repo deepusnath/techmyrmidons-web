@@ -1,0 +1,25 @@
+{
+  "slug": "swagger",
+  "domain": "web",
+  "name": "Swagger",
+  "category": null,
+  "homepage": "http://swagger.io/",
+  "one_liner": null,
+  "what_it_is": "Swagger is supported in almost every modern programming language and deployment environment. The idea behind swagger is to define a standard, language-agnostic interface to REST APIs .This allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. Provisions for consumer interactions are easier and convenient.In short, Swagger is a formal specification surrounded by a large ecosystem of tools, which includes everything from front-end user interfaces, low-level code libraries and commercial API management solutions.",
+  "why_it_matters": null,
+  "lifecycle": null,
+  "first_seen_year": 2017,
+  "archive_years": [
+    2017
+  ],
+  "suitable_for": [],
+  "not_suitable_for": [],
+  "alternatives": [],
+  "published": false,
+  "is_seed": true,
+  "seed_source": "original curation, src/data/web/2017.json",
+  "editorial_status": "ai_draft",
+  "reviewed_by": null,
+  "reviewed_at": null,
+  "reviewed_fields": []
+}
